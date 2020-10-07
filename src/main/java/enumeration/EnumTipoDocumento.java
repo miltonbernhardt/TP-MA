@@ -1,14 +1,14 @@
 package enumeration;
 
-public enum EnumGrupoSanguineo {
-    GRUPO_A("A"),
-    GRUPO_B("B"),
-    GRUPO_AB("AB"),
-    GRUPO_0("0");
+public enum EnumTipoDocumento {
+    LIBRETA_CIVIL("Libreta civil"),
+    LIBRETA_DE_ENROLAMIENTO("Libreta de enrolamiento"),
+    PASAPORTE("Pasaporte"),
+    DNI("DNI");
 
     private String value;
 
-    private EnumGrupoSanguineo(String value) {
+    private EnumTipoDocumento(String value) {
         this.value = value;
     }
 
@@ -21,14 +21,10 @@ public enum EnumGrupoSanguineo {
         return this.getValue();
     }
 
-    public static EnumGrupoSanguineo getEnum(String value) {
-        for(EnumGrupoSanguineo v : values()) {
+    public static EnumTipoDocumento getEnum(String value) {
+        for(EnumTipoDocumento v : values()) {
             if(v.getValue().equalsIgnoreCase(value)) return v;
         }
         return null;
     }
 }
-
-
-
-

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Licencia" table="licencia">
+
+        <!-- DEFINICIÓN DE ATRIBUTOS QUE SE VAN A MAPEAR -->
+
+        <id name="id">
+            <column name="id_licencia"/>
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+                <param name="sequence_name">id_licencia_seq</param>
+                <param name="optimizer">none</param>
+                <param name="increment_size">1</param>
+                <param name="initial_value">100</param>
+            </generator>
+        </id>
+
+        <property name="claseLicencia" not-null="true">
+            <column name="clase_licencia"/>
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">enumeration.EnumClaseLicencia</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="fechaEmision" type="date" not-null="true">
+            <column name="fecha_emision"/>
+        </property>
+
+        <property name="fechaVencimiento" type="date" not-null="true">
+            <column name="fecha_vencimiento"/>
+        </property>
+
+        <property name="observaciones"/>
+
+
+        <!-- RELACION MANY TO ONE: LICENCIA CON TITULAR -->
+
+        <many-to-one name="titular" class="model.Titular" fetch="select" >
+            <column name="id_titular" not-null="true"  />
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

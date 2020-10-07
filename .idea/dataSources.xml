@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="unSbaaacez@remotemysql.com" uuid="136a46fb-e718-40fa-9b09-db2de49f3024">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/unSbaaacez</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="sql10369046@sql10.freesqldatabase.com" uuid="ad567c86-8ea7-4d81-a19a-fbfe258789c9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sql10.freesqldatabase.com:3306/sql10369046</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="f90b44db-b30a-48d4-ad96-774c5beb7b37">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/milto/IdeaProjects/TP-MA/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sql10.freesqldatabase.com:3306/sql10369046</jdbc-url>
+    </data-source>
+  </component>
+</project>

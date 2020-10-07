@@ -3,18 +3,18 @@ package model;
 import enumeration.EnumFactorRH;
 import enumeration.EnumGrupoSanguineo;
 import enumeration.EnumSexo;
-import enumeration.EnumTipoDNI;
+import enumeration.EnumTipoDocumento;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Titular {
 
-    //Puede ser nulo
-    //TODO anotacion hibernate
-    private ArrayList<Licencia> licencia;
+    private List<Licencia> licencias;
 
-    private EnumTipoDNI tipoDNI;
+    private Integer id;
+    private EnumTipoDocumento tipoDNI;
     private String DNI;
     private String apellido;
     private String nombre;
@@ -26,11 +26,56 @@ public class Titular {
     private Boolean donanteOrganos;
     private EnumSexo sexo;
 
-    public EnumTipoDNI getTipoDNI() {
+    public Titular(){
+        if(licencias==null){
+            this.licencias = new ArrayList<Licencia>();
+        }
+    }
+
+    /**
+     * Constructor con campos OBLIGATORIOS para generar fuera de la interfaz, sin insercciones sql manuales
+     * @param tipoDNI
+     * @param DNI
+     * @param apellido
+     * @param nombre
+     * @param fechaNacimiento
+     * @param grupoSanguineo
+     * @param factorRH
+     * @param donanteOrganos
+     * @param sexo
+     */
+    public Titular(EnumTipoDocumento tipoDNI, String DNI, String apellido, String nombre, Date fechaNacimiento, EnumGrupoSanguineo grupoSanguineo, EnumFactorRH factorRH, Boolean donanteOrganos, EnumSexo sexo) {
+        if(licencias==null){
+            this.licencias = new ArrayList<Licencia>();
+        }
+        this.tipoDNI = tipoDNI;
+        this.DNI = DNI;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.grupoSanguineo = grupoSanguineo;
+        this.factorRH = factorRH;
+        this.donanteOrganos = donanteOrganos;
+        this.sexo = sexo;
+    }
+
+    public List<Licencia> getLicencias() {
+        return licencias;
+    }
+
+    public void setLicencias(List<Licencia> licencias) {
+        this.licencias = licencias;
+    }
+
+    public void setId(Integer id) { this.id = id; }
+
+    public Integer getId() { return id; }
+
+    public EnumTipoDocumento getTipoDNI() {
         return tipoDNI;
     }
 
-    public void setTipoDNI(EnumTipoDNI tipoDNI) {
+    public void setTipoDNI(EnumTipoDocumento tipoDNI) {
         this.tipoDNI = tipoDNI;
     }
 
