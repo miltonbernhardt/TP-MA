@@ -15,6 +15,6 @@ public class GestorLicencia {
         return instanciaGestor;
     }
     public double calcularCostoLicencia(){
-    return 0.0;
+    return 0;
     }
 }
