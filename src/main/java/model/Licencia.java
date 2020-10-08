@@ -1,6 +1,8 @@
 package model;
 
 import enumeration.EnumClaseLicencia;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Date;
 
@@ -10,8 +12,8 @@ public class Licencia {
 
     private Integer id;
     private EnumClaseLicencia claseLicencia;
-    private Date fechaEmision;
-    private Date fechaVencimiento;
+    private LocalDate fechaEmision;
+    private LocalDate fechaVencimiento;
     private String observaciones;
 
     public Licencia(){}
@@ -23,7 +25,7 @@ public class Licencia {
      * @param fechaEmision
      * @param fechaVencimiento
      */
-    public Licencia(Titular titular, EnumClaseLicencia claseLicencia, Date fechaEmision, Date fechaVencimiento) {
+    public Licencia(Titular titular, EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento) {
         this.titular = titular;
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
@@ -54,19 +56,19 @@ public class Licencia {
         this.claseLicencia = claseLicencia;
     }
 
-    public Date getFechaEmision() {
+    public LocalDate getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(LocalDate fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 

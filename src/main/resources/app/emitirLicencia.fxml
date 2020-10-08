@@ -18,7 +18,7 @@
             <Pane maxHeight="150.0" VBox.vgrow="SOMETIMES" />
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="btnBuscarTitular" mnemonicParsing="false" text="Buscar titular" />
+                  <Button mnemonicParsing="false" onAction="#buscarTitular" text="Buscar titular" />
                </children>
             </HBox>
             <Pane maxHeight="30.0" VBox.vgrow="SOMETIMES" />
@@ -45,12 +45,12 @@
             <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
                <children>
                   <Pane HBox.hgrow="SOMETIMES" />
-                  <Label text="Edad:">
+                  <Label text="Fecha nacimiento:">
                      <padding>
                         <Insets right="-10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="textEdad" disable="true" maxWidth="70.0" minHeight="20.0" minWidth="25.0" HBox.hgrow="SOMETIMES" />
+                  <TextField fx:id="textFechaNacimiento" disable="true" maxWidth="110.0" minHeight="20.0" minWidth="25.0" HBox.hgrow="SOMETIMES" />
                   <Pane maxWidth="50.0" HBox.hgrow="SOMETIMES" />
                   <Label text="Tipo documento:">
                      <padding>
@@ -64,7 +64,7 @@
                         <Insets right="-10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="tetxDocumento" disable="true" maxWidth="200.0" minHeight="20.0" minWidth="25.0" />
+                  <TextField fx:id="textDocumento" disable="true" maxWidth="200.0" minHeight="20.0" minWidth="25.0" />
                   <Pane HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
@@ -96,7 +96,7 @@
                   <Pane HBox.hgrow="SOMETIMES" />
                   <Button fx:id="btnEmitirLicencia" disable="true" mnemonicParsing="false" text="Emitir licencia" />
                   <Pane HBox.hgrow="SOMETIMES" />
-                  <Button fx:id="btnVolver" mnemonicParsing="false" text="Volver" />
+                  <Button mnemonicParsing="false" text="Volver" />
                   <Pane HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
