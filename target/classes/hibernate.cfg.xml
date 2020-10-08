@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://sql10.freesqldatabase.com:3306/sql10369046</property>
+        <property name="hibernate.connection.username">sql10369046</property>
+        <property name="hibernate.connection.password">DAXNkyrY41</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <!-- MAPEO CON ANOTACIONES
+        <mapping class="model.Licencia"/>
+        <mapping class="model.Titular"/>
+        -->
+        <!-- MAPEO CON XML -->
+        <mapping resource="Titular.hbm.xml" />
+        <mapping resource="Licencia.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

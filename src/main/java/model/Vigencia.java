@@ -1,17 +1,17 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Vigencia {
 
-    public Date fechaVencimiento;
+    public LocalDate fechaVencimiento;
     public int vigencia;
 
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 
