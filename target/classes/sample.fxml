@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import ?>
+<AnchorPane prefHeight="307.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sample">
+   <children>
+      <ImageView fitHeight="367.0" fitWidth="608.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/principal.jpg" />
+         </image>
+      </ImageView>
+      <Separator layoutX="171.0" layoutY="23.0" opacity="0.52" prefHeight="7.0" prefWidth="414.0" style="-fx-opacity: black;" />
+      <Text fill="#1e1717" layoutX="48.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
+         <font>
+            <Font name="SansSerif Regular" size="12.0" />
+         </font>
+      </Text>
+      <JFXTextField layoutX="81.0" layoutY="60.0" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: white;" />
+      <Text layoutX="26.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:" wrappingWidth="55.08398389816284" />
+      <Text layoutX="195.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO:" />
+      <JFXTextField layoutX="254.0" layoutY="60.0" style="-fx-background-color: white;" />
+      <Text layoutX="21.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO:" />
+      <JFXTextField layoutX="104.0" layoutY="108.0" style="-fx-background-color: white;" />
+      <JFXComboBox layoutX="250.0" layoutY="108.0" promptText="Tipo" style="-fx-background-color: white;" />
+      <Text layoutX="26.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NAC." />
+      <DatePicker layoutX="98.0" layoutY="153.0" promptText="DD/MM/AAAA" />
+      <Text layoutX="17.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="G. SANGUINEO:" />
+      <JFXComboBox layoutX="106.0" layoutY="195.0" promptText="Seleccione" style="-fx-background-color: WHITE;" />
+      <Text layoutX="228.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RH:" />
+      <JFXComboBox layoutX="255.0" layoutY="195.0" promptText="Seleccione" style="-fx-background-color: white;" />
+      <Text layoutX="21.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE:" />
+      <JFXTextField layoutX="67.0" layoutY="231.0" style="-fx-background-color: white;" />
+      <Text layoutX="217.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO:" />
+      <JFXTextField layoutX="272.0" layoutY="231.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: WHITE;" />
+      <RadioButton layoutX="24.0" layoutY="276.0" mnemonicParsing="false" text="DONANTE DE ORGANOS" />
+      <Text layoutX="206.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:" />
+      <JFXComboBox layoutX="244.0" layoutY="272.0" promptText="Seleccione" style="-fx-background-color: WHITE;" />
+   </children>
+</AnchorPane>
