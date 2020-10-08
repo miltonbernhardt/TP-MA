@@ -27,7 +27,7 @@ public class ControllerApp extends Application {
     public void start(Stage primaryStage) throws IOException, ParseException {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
-        scene = new Scene(loadFXML("app"));
+        scene = new Scene(loadFXML("emitirLicencia"));
         primaryStage.setTitle("Menú");
         primaryStage.setScene(scene);
         primaryStage.show();
