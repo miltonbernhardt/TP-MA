@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="367.0" fitWidth="608.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Imagenes/principal.jpg" />
+            <Image url="@../../../Imagenes/principal.jpg" />
          </image>
       </ImageView>
       <Separator layoutX="171.0" layoutY="23.0" opacity="0.52" prefHeight="7.0" prefWidth="414.0" style="-fx-opacity: black;" />
