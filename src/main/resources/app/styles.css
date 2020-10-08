@@ -1,0 +1,233 @@
+#button  {
+    -fx-background-color:
+            #090a0c,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 15px;
+    -fx-padding: 10 20 10 20;
+}
+
+.button  {
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-color:  rgb(223, 75, 44);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.button:hover{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+
+    -fx-background-radius: 5,4,3,5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.button:focused{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+
+    -fx-background-radius: 5,4,3,5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.root{
+    -fx-focus-color: transparent;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );
+    -fx-font-size: 15px;
+    -fx-font-family: "Abel Font";
+    -fx-base: rgb(223, 75, 44);
+    -fx-background: rgb(54, 51, 50);
+}
+
+
+.text-field{
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0;
+}
+
+.text-field:disabled{
+    -fx-opacity: 1.0;
+    -fx-background-color: RGB(171,95,77);
+    /* -fx-background-color:transparent;*/
+}
+
+.text-field:focused {
+    -fx-background-color:  RGB(228,198,111);
+}
+
+.scroll-pane{
+    -fx-border-color: rgb(54, 51, 50);
+}
+
+.scroll-pane:focused{
+    -fx-border-color: rgb(54, 51, 50);
+}
+
+
+/*-------------CHECK BOX-------------*/
+
+.check-box{
+    -fx-text-fill: white;
+}
+
+.check-box:selected .mark {
+
+}
+
+.check-box:selected .box {
+
+}
+
+/*--------------COMBO BOX---------------*/
+
+.combo-box-popup .list-view {
+
+}
+
+/*added this in an edit*/
+.combo-box-popup .list-view .list-cell {
+    /*-fx-padding: -1 -1 -1 -1;*/
+}
+
+
+.combo-box {
+    -fx-font-weight: bold;
+}
+
+/*
+.combo-box:focused {
+	-fx-text-fill: black;
+    -fx-background-color: RGB(228,198,111);
+}*/
+/*
+.table-cell {
+    -fx-alignment: CENTER;
+    -fx-padding: 0.166667em;
+    -fx-background-color: transparent;
+    -fx-cell-size: 2.0em;
+    -fx-text-fill: -fx-text-inner-color;
+}
+.table-view:row-selection .table-row-cell:filled:hover, .table-view:row-selection .table-row-cell:filled:selected:hover {
+    -fx-background-color: rgb(242, 137, 49);
+}
+.table-row-cell:empty, .table-cell:empty:hover {
+    -fx-background-color: transparent ;
+}
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+.table-view:row-selection .table-row-cell:filled:selected {
+    -fx-background-color: rgb(173,197,82);
+}
+.table-view, .table-view:focused {
+  -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+  -fx-background-insets: -1.4, 0, 1;
+  -fx-background-radius: 1.4, 0, 0;
+}*/
+
+/*--------------TABLAS DE DATOS---------------*/
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-border-color: red;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #262626;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: #0ed9e0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: #0ed9e0;
+    -fx-alignment: center;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #2b2a2a;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+    /*-fx-border-color: red;*/
+    -fx-table-cell-border-color:red;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #262626;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+
+/*--------------PANELES DE ALERTA---------------*/
+
+.dialog-pane{
+    -fx-border-color: rgb(54, 51, 50);;
+    -fx-border-width: 2.0px;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: rgb(54, 51, 50);
+}
+
+.dialog-pane > .content.label {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-background-color: rgb(54, 51, 50);
+    -fx-font-size: 15px;
+}
+
+/**Costumization of Buttons**/
+.dialog-pane .button{
+    -fx-background-color:  rgb(223, 75, 44);
+    -fx-text-fill: white;
+    -fx-background-radius: 5,4,3,5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button:hover{
+    -fx-background-color:white;
+    -fx-text-fill: black;
+}
