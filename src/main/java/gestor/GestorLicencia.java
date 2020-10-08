@@ -1,8 +1,10 @@
 package gestor;
-
 import hibernate.DAO;
+import model.Titular;
+import model.Vigencia;
 
 public class GestorLicencia {
+
 
     private static GestorLicencia instanciaGestor = null;
 
@@ -14,4 +16,16 @@ public class GestorLicencia {
         }
         return instanciaGestor;
     }
+
+
+
+    public static Vigencia calcularVigencia(Titular titular){
+
+        Vigencia vigencia = new Vigencia();
+
+
+
+        return vigencia;
+    }
+
 }
