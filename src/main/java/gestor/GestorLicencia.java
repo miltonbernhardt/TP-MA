@@ -118,4 +118,14 @@ public class GestorLicencia {
     public double calcularCostoLicencia(){
     return 0;
     }
+
+    public void emitirLicencia(Integer idTitular, EnumClaseLicencia claseLicenciaElegida) {
+        Licencia licencia = new Licencia();
+        licencia.setClaseLicencia(claseLicenciaElegida);
+        licencia.setFechaEmision(LocalDate.now());
+
+        Titular titular = (Titular) GestorTitular.get().getTitular(idTitular);
+        //TODO calcular bien la fecha de venc y asociar bien al titular
+
+    }
 }

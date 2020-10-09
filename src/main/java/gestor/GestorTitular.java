@@ -24,12 +24,11 @@ public class GestorTitular {
         return instanciaGestor;
     }
 
-
-    public DTOEmitirLicencia buscarTitular() {
+    public DTOEmitirLicencia buscarTitular(Integer idTitular) {
         DTOEmitirLicencia dto  = new DTOEmitirLicencia();
 
         //TODO implementar cuando se haga una interfaz de busqueda/alta de titular
-        Titular titular = (Titular) DAO.get().get(Titular.class, 102);
+        Titular titular = (Titular) DAO.get().get(Titular.class, idTitular);
 
         dto.setIdTitular(titular.getId());
         dto.setNombre(titular.getNombre());
@@ -49,5 +48,9 @@ public class GestorTitular {
         LocalDate today = LocalDate.now();
 
         return Period.between(fechaNacimiento, today).getYears();
+    }
+
+    public Titular getTitular(Integer idTitular) {
+        return (Titular) DAO.get().get(Titular.class, idTitular);
     }
 }

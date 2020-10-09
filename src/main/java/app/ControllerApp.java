@@ -1,6 +1,7 @@
 package app;
 
 import enumeration.*;
+import hibernate.DAO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,12 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Month;
 
 import hibernate.HibernateUtil;
+import model.Licencia;
+import model.Titular;
 
 public class ControllerApp extends Application {
     private static Scene scene;
@@ -42,25 +47,35 @@ public class ControllerApp extends Application {
         System.out.println(EnumTipoDocumento.PASAPORTE.equals(EnumTipoDocumento.getEnum("Pasaporte")));
         */
 
-        /*
-        //----------------------------------------- para probar la base de datos --------------------------------------
 
-        Titular t1 = new Titular(EnumTipoDNI.DNI, "40000000", "López", "Juan", new SimpleDateFormat("dd/MM/yyyy").parse("21/03/2000"),
+        //----------------------------------------- para probar la base de datos --------------------------------------
+/*
+        Titular t1 = new Titular(EnumTipoDocumento.DNI, "40000000", "López", "Juan", LocalDate.of(2000, Month.MARCH, 21),
                 EnumGrupoSanguineo.GRUPO_0, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.MASCULINO);
 
-        Titular t2 = new Titular(EnumTipoDNI.DNI, "30000000", "Martinez", "Giulana", new SimpleDateFormat("dd/MM/yyyy").parse("12/08/1989"),
+        Titular t2 = new Titular(EnumTipoDocumento.DNI, "30000000", "Martinez", "Giulana", LocalDate.of(1989, Month.AUGUST, 12),
                 EnumGrupoSanguineo.GRUPO_AB, EnumFactorRH.FACTOR_NEGATIVO, false, EnumSexo.FEMENINO);
+        Licencia l1 = new Licencia(t2, EnumClaseLicencia.CLASE_A,  LocalDate.of(2020, Month.FEBRUARY, 01),  LocalDate.of(2024, Month.AUGUST, 12));
+        t2.getLicencias().add(l1);
 
-        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_C,  new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2020"),  new SimpleDateFormat("dd/MM/yyyy").parse("21/03/2000"));
-        Licencia l2 = new Licencia(t2, EnumClaseLicencia.CLASE_A,  new SimpleDateFormat("dd/MM/yyyy").parse("12/05/2020"),  new SimpleDateFormat("dd/MM/yyyy").parse("12/08/2022"));
 
-        t1.getLicencias().add(l1);
-        t2.getLicencias().add(l2);
+        Titular t3 = new Titular(EnumTipoDocumento.DNI, "33333333", "Lucas", "Luciana", LocalDate.of(1995, Month.SEPTEMBER, 11),
+                EnumGrupoSanguineo.GRUPO_B, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
+        Licencia l2 = new Licencia(t3, EnumClaseLicencia.CLASE_B,  LocalDate.of(2019, Month.MAY, 12),  LocalDate.of(2023, Month.SEPTEMBER, 11));
+        t3.getLicencias().add(l2);
+
+        Titular t4 = new Titular(EnumTipoDocumento.DNI, "37812389", "Eros", "Franco", LocalDate.of(1996, Month.DECEMBER, 03),
+                EnumGrupoSanguineo.GRUPO_A, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.MASCULINO);
+        Licencia l3 = new Licencia(t4, EnumClaseLicencia.CLASE_C,  LocalDate.of(2019, Month.NOVEMBER, 19),  LocalDate.of(2023, Month.DECEMBER, 03));
+        t4.getLicencias().add(l3);
+
+
 
         DAO.get().save(t1);
         DAO.get().save(t2);
-        */
-
+        DAO.get().save(t3);
+        DAO.get().save(t4);
+*/
     }
 
     /**

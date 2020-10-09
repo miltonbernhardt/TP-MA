@@ -33,7 +33,7 @@
 
         <property name="nombre" not-null="true"/>
 
-        <property name="fechaNacimiento" type="date" not-null="true">
+        <property name="fechaNacimiento"  not-null="true">
             <column name="fecha_nacimiento"/>
         </property>
 

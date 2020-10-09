@@ -76,7 +76,7 @@
                         <Insets right="-10.0" />
                      </padding>
                   </Label>
-                  <ComboBox fx:id="comboLicencias" disable="true" prefWidth="150.0" />
+                  <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER">
@@ -94,7 +94,7 @@
             <HBox>
                <children>
                   <Pane HBox.hgrow="SOMETIMES" />
-                  <Button fx:id="btnEmitirLicencia" disable="true" mnemonicParsing="false" text="Emitir licencia" />
+                  <Button fx:id="btnEmitirLicencia" disable="true" mnemonicParsing="false" onAction="#emitirLicencia" text="Emitir licencia" />
                   <Pane HBox.hgrow="SOMETIMES" />
                   <Button mnemonicParsing="false" text="Volver" />
                   <Pane HBox.hgrow="SOMETIMES" />
