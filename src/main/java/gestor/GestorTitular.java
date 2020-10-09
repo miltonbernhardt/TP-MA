@@ -45,7 +45,7 @@ public class GestorTitular {
         return (ArrayList<Licencia>) DAO.get().getResultList("select * from licencia where id_titular="+idTitular, Licencia.class);
     }
 
-    public Integer getEdad(LocalDate fechaNacimiento){
+    public static Integer getEdad(LocalDate fechaNacimiento){
         LocalDate today = LocalDate.now();
 
         return Period.between(fechaNacimiento, today).getYears();

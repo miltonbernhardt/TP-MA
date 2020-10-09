@@ -25,9 +25,17 @@ public class GestorLicencia {
     }
 
     /*
+        Calcula el tiempo de vigencia de la licencia
+     */
+    public static Integer getTiempoEnVigencia(LocalDate date){
+        return 0;
+    }
+
+    /*
         Trae desde la Base de Datos, las clases de licencias que tiene permitido solicitar
         el titular actual en pantalla.
      */
+
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
 
         ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
@@ -60,15 +68,45 @@ public class GestorLicencia {
         for(int l = 0; l < historialLicencias.size(); l++) {
             licencia = historialLicencias.get(l);
             if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B) ||
-               licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C)){
+               licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C) ||
+               licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D)){
                 if(licencia.getFechaVencimiento().isAfter(LocalDate.now())){
                     claseLicencia = false;
                     break;
                 }
             }
         }
-        if(claseLicencia) Claseslicencias.add(EnumClaseLicencia.CLASE_A);
-        else claseLicencia = true;
+        if(claseLicencia)
+            Claseslicencias.add(EnumClaseLicencia.CLASE_B);
+        claseLicencia = false;
+
+        if(GestorTitular.getEdad(titular.getFechaNacimiento()) > 20){
+            Boolean primeraLicencia = true;
+            //Clase C --> se valida si esta en condiciones de solicitar una licencia clase C
+            for(int l = 0; l < historialLicencias.size(); l++) {
+                licencia = historialLicencias.get(l);
+                if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C) ||
+                   licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D)){
+                    primeraLicencia = false;
+                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now())){
+                        claseLicencia = false;
+                        break;
+                    }
+                    else claseLicencia = true;
+                }
+                else{
+                    if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
+                        if(GestorLicencia.getTiempoEnVigencia(licencia.getFechaEmision())>=1)
+                            claseLicencia = true;
+                    }
+                }
+                if(claseLicencia)
+                    if(!primeraLicencia || primeraLicencia && GestorTitular.getEdad(titular.getFechaNacimiento()) < 66)
+                        Claseslicencias.add(EnumClaseLicencia.CLASE_C);
+            }
+
+
+        }
 
 
 
