@@ -20,8 +20,6 @@ public class HibernateUtil {
                 MetadataSources sources = new MetadataSources(registry);
                 Metadata metadata = sources.getMetadataBuilder().build();
                 sessionFactory = metadata.getSessionFactoryBuilder().build();
-                sessionFactory.getCurrentSession().beginTransaction();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

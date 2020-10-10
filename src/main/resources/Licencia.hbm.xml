@@ -24,11 +24,11 @@
             </type>
         </property>
 
-        <property name="fechaEmision" type="date" not-null="true">
+        <property name="fechaEmision" not-null="true">
             <column name="fecha_emision"/>
         </property>
 
-        <property name="fechaVencimiento" type="date" not-null="true">
+        <property name="fechaVencimiento" not-null="true">
             <column name="fecha_vencimiento"/>
         </property>
 
