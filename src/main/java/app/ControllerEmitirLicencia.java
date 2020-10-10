@@ -22,8 +22,6 @@ public class ControllerEmitirLicencia {
     private static ControllerEmitirLicencia instance = null;
     private DTOEmitirLicencia dto = null;
 
-    private ControllerEmitirLicencia() { }
-
     public static ControllerEmitirLicencia get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
