@@ -8,8 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import hibernate.HibernateUtil;
 
 public class ControllerApp extends Application {
@@ -25,8 +29,14 @@ public class ControllerApp extends Application {
     public void start(Stage primaryStage)  {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
-        scene = new Scene(loadFXML("emitirLicencia"));
+        scene = new Scene(loadFXML("menu"));
+        primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
+        primaryStage.setMinHeight(700);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMaxHeight(1080);
+        primaryStage.setMaxWidth(1920);
+        //primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
         stage = primaryStage;
@@ -93,10 +103,9 @@ public class ControllerApp extends Application {
     }
 
     /**
-     * vistaFxml: indicar el nombre del archivo FXML de la vista.
-     * tituloVentana: indica el titulo que va a poseer la ventana de la vista.
-     * @param vistaFxml vista a setear en el root
-     * @param tituloVentana titulo de la vista a setear
+     * Permite establecer la scene en el root, desde otro controller.
+     * @param vistaFxml ndicar el nombre del archivo FXML de la vista.
+     * @param tituloVentana indica el titulo que va a poseer la ventana de la vista.
      */
     static Object setRoot(String vistaFxml, String tituloVentana) {
         scene.setRoot(loadFXML(vistaFxml));
@@ -105,8 +114,8 @@ public class ControllerApp extends Application {
         return fxmlLoader.getController();
     }
 
-    /*
-    -------------------------- PARA LA NAVEGACIÓN A FUTURO -------------------------------
+
+    //-------------------------- PARA LA NAVEGACIÓN A FUTURO -------------------------------
 
     private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
     private static List<String> titulosAnteriores = new ArrayList<String>();
@@ -138,7 +147,7 @@ public class ControllerApp extends Application {
     static Object getControllerActual() {
         return fxmlLoader.getController();
     }
-    */
+
 
     /**
      * Setea a un nodo con el style de error.

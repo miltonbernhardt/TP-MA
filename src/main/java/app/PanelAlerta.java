@@ -59,6 +59,7 @@ public class PanelAlerta {
 
         ControllerApp.setStyle(alert.getDialogPane());
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 stage.close();

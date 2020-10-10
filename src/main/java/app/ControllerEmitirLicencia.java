@@ -22,12 +22,12 @@ public class ControllerEmitirLicencia {
     private static ControllerEmitirLicencia instance = null;
     private DTOEmitirLicencia dto = null;
 
-    public ControllerEmitirLicencia() { }
+    private ControllerEmitirLicencia() { }
 
     public static ControllerEmitirLicencia get() {
         if (instance == null){
-            //ControllerApp.setViewAnterior();
-            //instance = (ControllerEmitirLicencia) ControllerApp.setRoot("", "VISTA ANTERIOR");
+            ControllerApp.setViewAnterior();
+            instance = (ControllerEmitirLicencia) ControllerApp.setRoot("emitirLicencia", "Emitir licencia");
         }
         return instance;
     }
@@ -72,6 +72,7 @@ public class ControllerEmitirLicencia {
 
     @FXML
     public void buscarTitular(){
+        //TODO cambiar al implementar buscar/alta titular
         dto = GestorTitular.get().buscarTitular(101);
 
         textNombre.setText(dto.getNombre());
@@ -87,11 +88,7 @@ public class ControllerEmitirLicencia {
     }
 
     private void cargarClasesLicencia(Integer idTitular){
-        //TODO cambiar cuando esté listo EmitirTitular
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(idTitular);
-        /*ArrayList<EnumClaseLicencia> listaLicencias = new ArrayList<>();
-        listaLicencias.add(EnumClaseLicencia.CLASE_E);
-        listaLicencias.add(EnumClaseLicencia.CLASE_B);*/
 
         int cantidadClasesLicencia = listaLicencias.size();
         if(cantidadClasesLicencia > 0){
@@ -125,6 +122,12 @@ public class ControllerEmitirLicencia {
                 PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", null, "No se ha podido emitir la licencia.", null);
             }
         }
+    }
+
+    @FXML
+    private void volver(){
+        ControllerApp.getViewAnterior();
+        instance = null;
     }
 
 }

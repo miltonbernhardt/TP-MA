@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerEmitirLicencia">
    <content>
       <AnchorPane>
@@ -105,7 +104,7 @@
                         <Pane HBox.hgrow="SOMETIMES" />
                         <Button fx:id="btnEmitirLicencia" disable="true" mnemonicParsing="false" onAction="#emitirLicencia" text="Emitir licencia" />
                         <Pane HBox.hgrow="SOMETIMES" />
-                        <Button mnemonicParsing="false" text="Volver" />
+                        <Button mnemonicParsing="false" onAction="#volver" text="Volver" />
                         <Pane HBox.hgrow="SOMETIMES" />
                      </children>
                   </HBox>
