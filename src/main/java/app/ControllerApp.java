@@ -82,7 +82,6 @@ public class ControllerApp extends Application {
      * Carga el archivo 'fxml' (la vista) en el parent principal.
      * Se le pasa solo el nombre, sin el '.fxml'.
      * @param fxml
-     * @return
      */
     private static Parent loadFXML(String fxml)  {
         fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml + ".fxml"));
@@ -107,7 +106,6 @@ public class ControllerApp extends Application {
      * tituloVentana: indica el titulo que va a poseer la ventana de la vista.
      * @param vistaFxml
      * @param tituloVentana
-     * @return
      */
     static Object setRoot(String vistaFxml, String tituloVentana) {
         scene.setRoot(loadFXML(vistaFxml));
