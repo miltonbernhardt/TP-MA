@@ -40,7 +40,7 @@ public class GestorTitular {
     }
 
     public static ArrayList<Licencia> getHistorialLicencias(Integer idTitular){
-        return (ArrayList<Licencia>) DAO.get().getResultList("select l from licencia l where l.id_titular="+idTitular, Licencia.class);
+        return (ArrayList<Licencia>) DAO.get().getResultList("select l from Licencia l where l.titular="+idTitular, Licencia.class);
     }
 
     public static Integer getEdad(LocalDate fechaNacimiento){

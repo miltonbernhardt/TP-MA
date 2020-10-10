@@ -88,10 +88,10 @@ public class ControllerEmitirLicencia {
 
     private void cargarClasesLicencia(Integer idTitular){
         //TODO cambiar cuando esté listo EmitirTitular
-        //ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(idTitular);
-        ArrayList<EnumClaseLicencia> listaLicencias = new ArrayList<>();
+        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(idTitular);
+        /*ArrayList<EnumClaseLicencia> listaLicencias = new ArrayList<>();
         listaLicencias.add(EnumClaseLicencia.CLASE_E);
-        listaLicencias.add(EnumClaseLicencia.CLASE_B);
+        listaLicencias.add(EnumClaseLicencia.CLASE_B);*/
 
         int cantidadClasesLicencia = listaLicencias.size();
         if(cantidadClasesLicencia > 0){

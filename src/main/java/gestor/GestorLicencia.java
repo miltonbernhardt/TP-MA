@@ -48,11 +48,12 @@ public class GestorLicencia {
         return 0;
     }
 
-    /*
+    /**
         - Trae desde la Base de Datos, las clases de licencias que tiene
         permitido solicitar el titular actual en pantalla.
         - Se asume que todos los titulares registrados tienen por lo
         menos 17 años, sino no se hubiese registrado como titular en el sistema
+        @param idTitular
      */
 
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
@@ -150,31 +151,14 @@ public class GestorLicencia {
     return 0;
     }
 
+    /**
+     *
+     * @param idTitular
+     * @param claseLicenciaElegida
+     * @param observaciones
+     */
     public Boolean emitirLicencia(Integer idTitular, EnumClaseLicencia claseLicenciaElegida, String observaciones) {
-
-/*
-
         Titular titular = (Titular) GestorTitular.get().getTitular(idTitular);
-
-        if(!DAO.get().save(licencia))
-            return false;
-
-        if(!DAO.get().update(titular))
-            return false;*/
-
-        Boolean valido = true;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Titular titular = null;
-
-        try {
-            session.beginTransaction();
-            titular = session.get(Titular.class, idTitular);
-        }
-        catch (HibernateException exception) {
-            valido = false;
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
-        }
-
 
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(claseLicenciaElegida);
@@ -183,39 +167,22 @@ public class GestorLicencia {
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(observaciones);
         licencia.setTitular(titular);
+
+        //TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
         titular.getLicencias().add(licencia);
-        DAO.get().update(titular);
 
-        DAO.get().save(licencia);/*
-        try {
-            session.save(licencia);
-            session.getTransaction().commit();
-        }
-        catch (HibernateException exception) {
-            valido = false;
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo guardar en la base de datos.", exception);
-            session.getTransaction().rollback();
-        }*/
-        session.close();
+        if(!DAO.get().update(titular))
+            return false;
 
-
-
-
- /*
-        ArrayList<Licencia> licencias = GestorTitular.get().getHistorialLicencias( idTitular);
-        if(licencias == null || licencias.size() == 0){
-            licencias = new ArrayList<>();
-        }
-        else{
-            licencias.add(licencia);
-        }
-        titular.setLicencias(licencias);
-*/
-        return valido;
+        return true;
     }
 
+    /**
+     * Calcula la vigencia de la licencia a partir de la fecha de nacimiento
+     * TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
+     * @param fechaNacimiento
+     */
     private LocalDate calcularVigenciaLicencia(LocalDate fechaNacimiento) {
-        //TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
         return fechaNacimiento.plusYears(30);
     }
 }
