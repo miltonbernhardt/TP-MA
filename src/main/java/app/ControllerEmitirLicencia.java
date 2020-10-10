@@ -2,6 +2,7 @@ package app;
 
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoAlerta;
 import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 
 public class ControllerEmitirLicencia {
@@ -70,7 +72,7 @@ public class ControllerEmitirLicencia {
 
     @FXML
     public void buscarTitular(){
-        dto = GestorTitular.get().buscarTitular();
+        dto = GestorTitular.get().buscarTitular(101);
 
         textNombre.setText(dto.getNombre());
         textApellido.setText(dto.getApellido());
@@ -85,19 +87,17 @@ public class ControllerEmitirLicencia {
     }
 
     private void cargarClasesLicencia(Integer idTitular){
-        //TODO cambiar cuando esté listo el método
+        //TODO cambiar cuando esté listo EmitirTitular
         //ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(idTitular);
-        ArrayList<EnumClaseLicencia> listaLicencias = new ArrayList<EnumClaseLicencia>();
+        ArrayList<EnumClaseLicencia> listaLicencias = new ArrayList<>();
         listaLicencias.add(EnumClaseLicencia.CLASE_E);
         listaLicencias.add(EnumClaseLicencia.CLASE_B);
 
-        Integer cantidadClasesLicencia = listaLicencias.size();
+        int cantidadClasesLicencia = listaLicencias.size();
         if(cantidadClasesLicencia > 0){
             comboLicencias.setDisable(false);
             textObservaciones.setDisable(false);
-            for(int i=0; i<cantidadClasesLicencia; i++){
-                comboLicencias.getItems().add(listaLicencias.get(i));
-            }
+            listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
         }
     }
 
@@ -112,7 +112,19 @@ public class ControllerEmitirLicencia {
 
     @FXML
     private void emitirLicencia(){
-        GestorLicencia.get().emitirLicencia(dto.getIdTitular(), comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
+        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,"Confirmar emisión", null, "¿Desea confirmar la emisión de la licencia?",null);
+        if (result.get() == ButtonType.OK){
+
+            EnumClaseLicencia claseLicenciaElegida = comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex());
+
+            if(GestorLicencia.get().emitirLicencia(dto.getIdTitular(), claseLicenciaElegida, textObservaciones.getText())) {
+                PanelAlerta.get(EnumTipoAlerta.INFORMACION,"Confirmación", null, "Se emitió la licencia de forma correcta.", null);
+                //TODO implementar el volver();
+            }
+            else{
+                PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", null, "No se ha podido emitir la licencia.", null);
+            }
+        }
     }
 
 }

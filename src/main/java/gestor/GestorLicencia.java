@@ -1,11 +1,22 @@
 package gestor;
 
+import app.PanelAlerta;
 import com.sun.javafx.runtime.SystemProperties;
 import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoAlerta;
 import hibernate.DAO;
+import hibernate.HibernateUtil;
 import javafx.util.converter.DateStringConverter;
 import model.Licencia;
 import model.Titular;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -119,13 +130,72 @@ public class GestorLicencia {
     return 0;
     }
 
-    public void emitirLicencia(Integer idTitular, EnumClaseLicencia claseLicenciaElegida) {
+    public Boolean emitirLicencia(Integer idTitular, EnumClaseLicencia claseLicenciaElegida, String observaciones) {
+
+/*
+
+        Titular titular = (Titular) GestorTitular.get().getTitular(idTitular);
+
+        if(!DAO.get().save(licencia))
+            return false;
+
+        if(!DAO.get().update(titular))
+            return false;*/
+
+        Boolean valido = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Titular titular = null;
+
+        try {
+            session.beginTransaction();
+            titular = session.get(Titular.class, idTitular);
+        }
+        catch (HibernateException exception) {
+            valido = false;
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
+        }
+
+
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(claseLicenciaElegida);
         licencia.setFechaEmision(LocalDate.now());
+        LocalDate vencimiento = calcularVigenciaLicencia(titular.getFechaNacimiento());
+        licencia.setFechaVencimiento(vencimiento);
+        licencia.setObservaciones(observaciones);
+        licencia.setTitular(titular);
+        titular.getLicencias().add(licencia);
+        DAO.get().update(titular);
 
-        Titular titular = (Titular) GestorTitular.get().getTitular(idTitular);
-        //TODO calcular bien la fecha de venc y asociar bien al titular
+        DAO.get().save(licencia);/*
+        try {
+            session.save(licencia);
+            session.getTransaction().commit();
+        }
+        catch (HibernateException exception) {
+            valido = false;
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo guardar en la base de datos.", exception);
+            session.getTransaction().rollback();
+        }*/
+        session.close();
 
+
+
+
+ /*
+        ArrayList<Licencia> licencias = GestorTitular.get().getHistorialLicencias( idTitular);
+        if(licencias == null || licencias.size() == 0){
+            licencias = new ArrayList<>();
+        }
+        else{
+            licencias.add(licencia);
+        }
+        titular.setLicencias(licencias);
+*/
+        return valido;
+    }
+
+    private LocalDate calcularVigenciaLicencia(LocalDate fechaNacimiento) {
+        //TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
+        return fechaNacimiento.plusYears(30);
     }
 }

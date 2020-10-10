@@ -1,8 +1,10 @@
 # Default ignored files
-/shelf/
-/workspace.xml
+/.idea/shelf/
+.idea/workspace.xml
 # Datasource local storage ignored files
 /../../../../../../:\Users\milto\IdeaProjects\TP-MA\.idea/dataSources/
-/dataSources.local.xml
+.idea/dataSources/
+.idea/dataSources.local.xml
 # Editor-based HTTP Client requests
-/httpRequests/
+.idea/httpRequests/
+target/

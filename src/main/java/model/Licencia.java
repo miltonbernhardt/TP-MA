@@ -30,6 +30,7 @@ public class Licencia {
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
+        this.observaciones= "";
     }
 
     public Titular getTitular() {

@@ -3,9 +3,13 @@ package hibernate;
 import java.util.List;
 
 import enumeration.EnumTipoAlerta;
+import model.Licencia;
+import model.Titular;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import app.PanelAlerta;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.hibernate.stat.SessionStatistics;
 
 public class DAO {
 
@@ -28,9 +32,11 @@ public class DAO {
      */
     public Boolean save(Object objetoAGuardar) {
         Boolean valido = true;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println(session);
         try {
-            session.beginTransaction();
+            if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                session.beginTransaction();
             session.save(objetoAGuardar);
             session.getTransaction().commit();
         }
@@ -40,7 +46,7 @@ public class DAO {
             exception.printStackTrace();
             session.getTransaction().rollback();
         }
-        session.close();
+        //session.close();
         return valido;
     }
 
@@ -52,9 +58,13 @@ public class DAO {
      */
     public Boolean update(Object objetoAActualizar) {
         Boolean valido = true;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println(session);
+
         try {
-            session.beginTransaction();
+            if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                session.beginTransaction();
             session.merge(objetoAActualizar);
             session.getTransaction().commit();
         }
@@ -63,7 +73,7 @@ public class DAO {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo actualizar en la base de datos.", exception);
             session.getTransaction().rollback();
         }
-        session.close();
+        //session.close();
         return valido;
     }
 
@@ -78,16 +88,18 @@ public class DAO {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object get(Class claseObjeto, Integer idObjeto) {
         Object tipo = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println(session);
         try {
-            session.beginTransaction();
+            if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                session.beginTransaction();
             tipo = session.get(claseObjeto, idObjeto);
         }
         catch (HibernateException exception) {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
-            session.getTransaction().rollback();
         }
-        session.close();
+        //session.close();
         return tipo;
     }
 
@@ -102,15 +114,18 @@ public class DAO {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object getSingleResult(String consultaSQL, Class claseObjeto) {
         Object objeto = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println(session);
         try {
-            session.beginTransaction();
+            if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                session.beginTransaction();
             objeto = session.createQuery(consultaSQL, claseObjeto).getSingleResult();
         }
         catch (HibernateException exception) {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
         }
-        session.close();
+        //session.close();
         return objeto;
     }
 
@@ -124,7 +139,9 @@ public class DAO {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<? extends Object> getResultList(String consultaSQL, Class claseObjetos) {
         List<? extends Object> lista = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println(session);
         try {
             session.beginTransaction();
             lista = session.createQuery(consultaSQL, claseObjetos).getResultList();
@@ -132,7 +149,7 @@ public class DAO {
         catch (HibernateException exception) {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener la lista de objetos desde la base de datos.", exception);
         }
-        session.close();
+        //session.close();
         return lista;
     }
 }
