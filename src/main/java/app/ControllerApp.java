@@ -1,7 +1,6 @@
 package app;
 
 import enumeration.*;
-import hibernate.DAO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +10,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.Month;
-
 import hibernate.HibernateUtil;
-import model.Licencia;
-import model.Titular;
 
 public class ControllerApp extends Application {
     private static Scene scene;
@@ -29,7 +22,7 @@ public class ControllerApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException, ParseException {
+    public void start(Stage primaryStage)  {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
         scene = new Scene(loadFXML("emitirLicencia"));
@@ -81,13 +74,11 @@ public class ControllerApp extends Application {
     /**
      * Carga el archivo 'fxml' (la vista) en el parent principal.
      * Se le pasa solo el nombre, sin el '.fxml'.
-     * @param fxml
      */
     private static Parent loadFXML(String fxml)  {
         fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml + ".fxml"));
         try {
-            Parent p = fxmlLoader.load();
-            return p;
+            return fxmlLoader.load();
         } catch (IOException | RuntimeException  e) {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null, null,"Ocurrió un error al cargar la view \""+fxml+"\".",e);
             e.printStackTrace();
@@ -104,8 +95,8 @@ public class ControllerApp extends Application {
     /**
      * vistaFxml: indicar el nombre del archivo FXML de la vista.
      * tituloVentana: indica el titulo que va a poseer la ventana de la vista.
-     * @param vistaFxml
-     * @param tituloVentana
+     * @param vistaFxml vista a setear en el root
+     * @param tituloVentana titulo de la vista a setear
      */
     static Object setRoot(String vistaFxml, String tituloVentana) {
         scene.setRoot(loadFXML(vistaFxml));
@@ -151,7 +142,7 @@ public class ControllerApp extends Application {
 
     /**
      * Setea a un nodo con el style de error.
-     * @param nodo
+     * @param nodo elemento de la interfaz a setearle el style de error
      */
     static void setError(Control nodo) {
         nodo.getStylesheets().clear();
@@ -160,7 +151,7 @@ public class ControllerApp extends Application {
 
     /**
      * Vuelve un nodo a el style que le corresponde.
-     * @param nodo
+     * @param nodo elemento de la interfaz a setearle el style
      */
     static void setValido(Control nodo) {
         nodo.getStylesheets().clear();
