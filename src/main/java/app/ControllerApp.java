@@ -1,6 +1,7 @@
 package app;
 
 import enumeration.*;
+import hibernate.DAO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,9 @@ public class ControllerApp extends Application {
     private static Scene scene;
     private static Stage stage;
     private static FXMLLoader fxmlLoader;
+
+    private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
+    private static List<String> titulosAnteriores = new ArrayList<String>();
 
     public static void main(String[] args) {
         launch();
@@ -52,7 +56,7 @@ public class ControllerApp extends Application {
 
 
         //----------------------------------------- para probar la base de datos --------------------------------------
-/*
+        /*
         Titular t1 = new Titular(EnumTipoDocumento.DNI, "40000000", "López", "Juan", LocalDate.of(2000, Month.MARCH, 21),
                 EnumGrupoSanguineo.GRUPO_0, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.MASCULINO);
 
@@ -78,7 +82,7 @@ public class ControllerApp extends Application {
         DAO.get().save(t2);
         DAO.get().save(t3);
         DAO.get().save(t4);
-*/
+        */
     }
 
     /**
@@ -117,9 +121,6 @@ public class ControllerApp extends Application {
 
     //-------------------------- PARA LA NAVEGACIÓN A FUTURO -------------------------------
 
-    private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
-    private static List<String> titulosAnteriores = new ArrayList<String>();
-
     static void setViewAnterior() {
         scenesAnteriores.add(stage.getScene().getRoot());
         titulosAnteriores.add(stage.getTitle());
@@ -155,7 +156,7 @@ public class ControllerApp extends Application {
      */
     static void setError(Control nodo) {
         nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("app/error.css");
+        nodo.getStylesheets().add("css/error.css");
     }
 
     /**
@@ -164,12 +165,12 @@ public class ControllerApp extends Application {
      */
     static void setValido(Control nodo) {
         nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("app/styles.css");
+        nodo.getStylesheets().add("css/styles.css");
     }
 
     public static void setStyle(@SuppressWarnings("exports") DialogPane dialogPane) {
         dialogPane.getStylesheets().clear();
-        dialogPane.getStylesheets().add("app/styles.css");
+        dialogPane.getStylesheets().add("css/styles.css");
     }
 }
 

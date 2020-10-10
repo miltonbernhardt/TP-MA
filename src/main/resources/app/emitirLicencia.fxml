@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerEmitirLicencia">
+<ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerEmitirLicencia">
    <content>
       <AnchorPane>
          <children>
@@ -41,7 +41,7 @@
                               <Insets right="-10.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="textApellido" disable="true" maxWidth="200.0" minHeight="20.0" minWidth="25.0" HBox.hgrow="SOMETIMES" />
+                        <TextField fx:id="textApellido" maxWidth="200.0" minHeight="20.0" minWidth="25.0" HBox.hgrow="SOMETIMES" />
                         <Pane HBox.hgrow="SOMETIMES" />
                      </children>
                   </HBox>

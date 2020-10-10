@@ -1,0 +1,124 @@
+* {
+    /*----- color fuentes ------*/
+    -color-fuente-oscura: black;
+    -color-fuente-clara: white;
+
+    /*--- colores del tema -----*/
+    -color-primario: rgb(223, 75, 44);
+    -color-primario-claro: rgb(226, 152, 136);
+    -color-primario-oscuro: rgb(171,95,77);
+
+    -color-sombra: rgb(0,0,0);
+
+    -color-fondo-oscuro: rgb(54, 51, 50); /* elegido para los pane que contienen a los elementos */
+}
+
+.root{
+    -fx-base: -color-primario;
+    -fx-background: -color-fondo-oscuro;
+    -fx-font-size: 15px;
+    -fx-font-family: "Abel Font";
+    -fx-focus-color: transparent;
+    -fx-effect: dropshadow( one-pass-box , -color-sombra , 10, 0.1 , 1 , 1 );
+}
+
+/*-------------- BUTTONS ----------------*/
+
+.button  {
+    -fx-background-color: -color-primario;
+    -fx-text-fill: -color-fuente-clara;
+    -fx-font-family: "Arial";
+    -fx-background-radius: 5,4,3,5;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.1 , 1 , 1 );
+}
+
+.button:hover{
+    -fx-opacity: 0.50;
+}
+
+.button:focused{
+    -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.2 , 3 , 3 );
+}
+
+/*------------ TEXT FIELDS ---------------*/
+
+.text-field{
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0;
+}
+
+.text-field:disabled{
+    -fx-opacity: 1.0;
+    -fx-background-color: -color-primario-oscuro;
+}
+
+.text-field:focused {
+    /*-fx-background-color: -color-primario-claro;*/
+    -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.2 , 3 , 3 );
+}
+
+.scroll-pane{
+    /* -fx-padding: 15 15 15 15; */
+    -fx-border-color: -color-fondo-oscuro;
+}
+
+.scroll-pane:focused{
+    -fx-border-color: -color-fondo-oscuro;
+}
+
+/*-------------CHECK BOX-------------*/
+
+.check-box{
+    -fx-text-fill: -color-fuente-clara;
+}
+
+.check-box:selected .mark {
+
+}
+
+.check-box:selected .box {
+
+}
+
+/*--------------COMBO BOX---------------*/
+.combo-box {
+    -fx-font-weight: bold;
+}
+
+.combo-box-popup .list-view {
+
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: -1 -1 -1 -1;
+}
+
+.combo-box:selected {
+	-fx-opacity: 0.50;
+    -fx-text-fill: -color-fuente-oscura;
+    -fx-background-color: -color-primario-claro;
+}
+
+.combo-box:focused {
+    -fx-text-fill: -color-fuente-oscura;
+    -fx-background-color: -color-primario-claro;
+}
+
+/*--------------PANELES DE ALERTA---------------*/
+
+.dialog-pane{
+    -fx-border-color: -color-fondo-oscuro;
+    -fx-border-width: 2px;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: -color-fondo-oscuro;
+}
+
+.dialog-pane > .content.label {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-background-color: -color-fondo-oscuro;
+    -fx-font-size: 15px;
+}

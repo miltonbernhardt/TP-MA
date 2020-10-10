@@ -22,8 +22,6 @@ public class ControllerEmitirLicencia {
     private static ControllerEmitirLicencia instance = null;
     private DTOEmitirLicencia dto = null;
 
-    private ControllerEmitirLicencia() { }
-
     public static ControllerEmitirLicencia get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
@@ -73,7 +71,7 @@ public class ControllerEmitirLicencia {
     @FXML
     public void buscarTitular(){
         //TODO cambiar al implementar buscar/alta titular
-        dto = GestorTitular.get().buscarTitular(101);
+        dto = GestorTitular.get().buscarTitular(100);
 
         textNombre.setText(dto.getNombre());
         textApellido.setText(dto.getApellido());
@@ -89,6 +87,9 @@ public class ControllerEmitirLicencia {
 
     private void cargarClasesLicencia(Integer idTitular){
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(idTitular);
+
+        comboLicencias.getSelectionModel().clearSelection();
+        comboLicencias.getItems().clear();
 
         int cantidadClasesLicencia = listaLicencias.size();
         if(cantidadClasesLicencia > 0){
@@ -116,7 +117,6 @@ public class ControllerEmitirLicencia {
 
             if(GestorLicencia.get().emitirLicencia(dto.getIdTitular(), claseLicenciaElegida, textObservaciones.getText())) {
                 PanelAlerta.get(EnumTipoAlerta.INFORMACION,"Confirmación", null, "Se emitió la licencia de forma correcta.", null);
-                //TODO implementar el volver();
             }
             else{
                 PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", null, "No se ha podido emitir la licencia.", null);
@@ -129,5 +129,4 @@ public class ControllerEmitirLicencia {
         ControllerApp.getViewAnterior();
         instance = null;
     }
-
 }
