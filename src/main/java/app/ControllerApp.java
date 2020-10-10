@@ -21,6 +21,9 @@ public class ControllerApp extends Application {
     private static Stage stage;
     private static FXMLLoader fxmlLoader;
 
+    private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
+    private static List<String> titulosAnteriores = new ArrayList<String>();
+
     public static void main(String[] args) {
         launch();
     }
@@ -116,9 +119,6 @@ public class ControllerApp extends Application {
 
 
     //-------------------------- PARA LA NAVEGACIÓN A FUTURO -------------------------------
-
-    private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
-    private static List<String> titulosAnteriores = new ArrayList<String>();
 
     static void setViewAnterior() {
         scenesAnteriores.add(stage.getScene().getRoot());
