@@ -20,9 +20,9 @@ public class inserTitularLicencia extends Application {
     public void start(Stage primaryStage) {
         //Creo un nuevo titular
         Titular t1 = new Titular(EnumTipoDocumento.DNI,
-                "40404004",
-                "López",
-                "Juan",
+                "40000001",
+                "Light2",
+                "Yagami",
                 LocalDate.of(2000, Month.MARCH, 21),
                 EnumGrupoSanguineo.GRUPO_0,
                 EnumFactorRH.FACTOR_POSITIVO,

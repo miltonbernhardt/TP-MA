@@ -44,44 +44,6 @@ public class ControllerApp extends Application {
         primaryStage.show();
         stage = primaryStage;
 
-        /*
-        //----------------------------------------- para probar los enums --------------------------------------
-
-        System.out.println(EnumTipoDocumento.DNI);
-        System.out.println(EnumSexo.values());
-        System.out.println(EnumTipoAlerta.values());
-        System.out.println(EnumTipoDocumento.PASAPORTE.equals(EnumTipoDocumento.getEnum("Pasaporte")));
-        */
-
-
-        //----------------------------------------- para probar la base de datos --------------------------------------
-/*
-        Titular t1 = new Titular(EnumTipoDocumento.DNI, "40000000", "López", "Juan", LocalDate.of(2000, Month.MARCH, 21),
-                EnumGrupoSanguineo.GRUPO_0, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.MASCULINO);
-
-        Titular t2 = new Titular(EnumTipoDocumento.DNI, "30000000", "Martinez", "Giulana", LocalDate.of(1989, Month.AUGUST, 12),
-                EnumGrupoSanguineo.GRUPO_AB, EnumFactorRH.FACTOR_NEGATIVO, false, EnumSexo.FEMENINO);
-        Licencia l1 = new Licencia(t2, EnumClaseLicencia.CLASE_A,  LocalDate.of(2020, Month.FEBRUARY, 01),  LocalDate.of(2024, Month.AUGUST, 12));
-        t2.getLicencias().add(l1);
-
-
-        Titular t3 = new Titular(EnumTipoDocumento.DNI, "33333333", "Lucas", "Luciana", LocalDate.of(1995, Month.SEPTEMBER, 11),
-                EnumGrupoSanguineo.GRUPO_B, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
-        Licencia l2 = new Licencia(t3, EnumClaseLicencia.CLASE_B,  LocalDate.of(2019, Month.MAY, 12),  LocalDate.of(2023, Month.SEPTEMBER, 11));
-        t3.getLicencias().add(l2);
-
-        Titular t4 = new Titular(EnumTipoDocumento.DNI, "37812389", "Eros", "Franco", LocalDate.of(1996, Month.DECEMBER, 03),
-                EnumGrupoSanguineo.GRUPO_A, EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.MASCULINO);
-        Licencia l3 = new Licencia(t4, EnumClaseLicencia.CLASE_C,  LocalDate.of(2019, Month.NOVEMBER, 19),  LocalDate.of(2023, Month.DECEMBER, 03));
-        t4.getLicencias().add(l3);
-
-
-
-        DAO.get().save(t1);
-        DAO.get().save(t2);
-        DAO.get().save(t3);
-        DAO.get().save(t4);
-*/
     }
 
     /**

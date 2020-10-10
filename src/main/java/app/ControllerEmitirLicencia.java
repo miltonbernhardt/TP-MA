@@ -71,7 +71,7 @@ public class ControllerEmitirLicencia {
     @FXML
     public void buscarTitular(){
         //TODO cambiar al implementar buscar/alta titular
-        dto = GestorTitular.get().buscarTitular(101);
+        dto = GestorTitular.get().buscarTitular(100);
 
         textNombre.setText(dto.getNombre());
         textApellido.setText(dto.getApellido());
