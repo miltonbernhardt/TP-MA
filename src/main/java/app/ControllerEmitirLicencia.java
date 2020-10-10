@@ -70,7 +70,8 @@ public class ControllerEmitirLicencia {
 
     @FXML
     public void buscarTitular(){
-        dto = GestorTitular.get().buscarTitular();
+        //TODO Se comenta, falta revisar para que funcione correctamente -> no me dejaba ejecutar el app, coli comenta
+        // dto = GestorTitular.get().buscarTitular();
 
         textNombre.setText(dto.getNombre());
         textApellido.setText(dto.getApellido());
