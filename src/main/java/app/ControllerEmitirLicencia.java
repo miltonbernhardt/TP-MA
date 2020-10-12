@@ -67,7 +67,7 @@ public class ControllerEmitirLicencia {
         /*
         TODO cambiar al implementar buscar/alta titular
          */
-        dto = GestorTitular.get().buscarTitular(102);
+        dto = GestorTitular.get().buscarTitular(101);
 
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
 

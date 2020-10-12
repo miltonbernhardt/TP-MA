@@ -43,7 +43,6 @@ public class ControllerApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         stage = primaryStage;
-
     }
 
     /**
@@ -117,7 +116,7 @@ public class ControllerApp extends Application {
      */
     static void setError(Control nodo) {
         nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("app/error.css");
+        nodo.getStylesheets().add("css/error.css");
     }
 
     /**
@@ -126,12 +125,12 @@ public class ControllerApp extends Application {
      */
     static void setValido(Control nodo) {
         nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("app/styles.css");
+        nodo.getStylesheets().add("css/styles.css");
     }
 
     public static void setStyle(@SuppressWarnings("exports") DialogPane dialogPane) {
         dialogPane.getStylesheets().clear();
-        dialogPane.getStylesheets().add("app/styles.css");
+        dialogPane.getStylesheets().add("css/styles.css");
     }
 }
 
