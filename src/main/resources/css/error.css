@@ -1,0 +1,21 @@
+* {
+    -color-error: rgb(207, 50, 50);
+}
+
+.text-field{
+    -fx-background-color: -color-error;
+    -fx-text-fill: black;
+}
+
+.combo-box{
+    -fx-background-color: -color-error;
+    -fx-text-fill: black;
+}
+
+.check-box{
+    -fx-text-fill: -color-error;
+}
+
+.check-box .box {
+    -fx-background-color: -color-error;
+}

@@ -4,13 +4,9 @@ import dto.DTOEmitirLicencia;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class GestorTitular {
     private static GestorTitular instanciaGestor = null;
@@ -39,6 +35,7 @@ public class GestorTitular {
         return  dto;
     }
 
+    @SuppressWarnings("unchecked")
     public static ArrayList<Licencia> getHistorialLicencias(Integer idTitular){
         return (ArrayList<Licencia>) DAO.get().getResultList("select l from Licencia l where l.titular="+idTitular, Licencia.class);
     }
