@@ -21,19 +21,25 @@ public class inserTitularLicencia extends Application {
         //Creo un nuevo titular
         Titular t1 = new Titular(EnumTipoDocumento.DNI,
                 "40000001",
-                "Light2",
-                "Yagami",
-                LocalDate.of(2000, Month.MARCH, 21),
+                "PruebaTipoD",
+                "caseD5",
+                LocalDate.of(1950, Month.MARCH, 21),
                 EnumGrupoSanguineo.GRUPO_0,
                 EnumFactorRH.FACTOR_POSITIVO,
                 true, EnumSexo.MASCULINO);
         Licencia l1 = new Licencia(t1,
-                                    EnumClaseLicencia.CLASE_A,
-                                    LocalDate.of(2020, Month.FEBRUARY, 01),
-                                    LocalDate.of(2024, Month.AUGUST, 12));
+                                    EnumClaseLicencia.CLASE_D,
+                                    LocalDate.of(2014, Month.FEBRUARY, 01),
+                                    LocalDate.of(2018, Month.AUGUST, 12));
+        Licencia l2 = new Licencia(t1,
+                EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2010, Month.FEBRUARY, 01),
+                LocalDate.of(2014, Month.AUGUST, 12));
         //Agrego licencia al titular
         t1.getLicencias().add(l1);
+        t1.getLicencias().add(l2);
         //Persisto en Base de Datos
         DAO.get().save(t1);
+        System.out.println("exit successful");
     }
 }
