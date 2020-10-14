@@ -6,6 +6,7 @@ import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class GestorLicencia {
@@ -22,10 +23,12 @@ public class GestorLicencia {
     }
 
     /*
-    TODO Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
+        Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
      */
-    public static Integer getTiempoEnVigencia(LocalDate date){
-        return 0;
+    public static Integer getTiempoEnVigencia(LocalDate fechaEmision,LocalDate fechaVencimiento){
+        if(fechaVencimiento.isBefore(LocalDate.now()))
+            return Period.between(fechaEmision,fechaVencimiento).getYears();
+        else return Period.between(fechaEmision,LocalDate.now()).getYears();
     }
 
     /**
@@ -105,7 +108,7 @@ public class GestorLicencia {
                 if(flagsClases.get(3))
                     if(!claseD && edadTitular > 65) flagsClases.set(3,false);
                 if(flagsClases.get(4))
-                    if(!claseC && edadTitular > 65) flagsClases.set(4,false);
+                    if(!claseE && edadTitular > 65) flagsClases.set(4,false);
             }
             else{
                 flagsClases.set(2,false);
