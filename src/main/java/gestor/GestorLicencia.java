@@ -101,7 +101,7 @@ public class GestorLicencia {
             }
             //Conductores profesionales, licencias C, D, E
             Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
-            Integer vigenciaB = getTiempoEnVigencia(licenciaB);
+            Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
             if(edadTitular > 21 && vigenciaB > 0){
                 if(flagsClases.get(2))
                     if(!claseC && edadTitular > 65) flagsClases.set(2,false);
