@@ -57,65 +57,67 @@ public class GestorLicencia {
         Boolean claseC = false, claseD = false, claseE = false;
 
         for(int l = 0; l < historialLicencias.size(); l++) {
-                licencia = historialLicencias.get(l);
-            switch(licencia.getClaseLicencia())
-            {
+            licencia = historialLicencias.get(l);
+            switch (licencia.getClaseLicencia()) {
                 case CLASE_A:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(0,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(0, false);
                     break;
                 case CLASE_B:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(1,false);
-                    if(licencia.getFechaEmision().isBefore(licenciaB))
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(1, false);
+                    if (licencia.getFechaEmision().isBefore(licenciaB))
                         licenciaB = licencia.getFechaEmision();
                     break;
                 case CLASE_C:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1,false);
-                        flagsClases.set(2,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
+                        flagsClases.set(1, false);
+                        flagsClases.set(2, false);
                     }
                     claseC = true;
                     break;
                 case CLASE_D:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1,false);
-                        flagsClases.set(2,false);
-                        flagsClases.set(3,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
+                        flagsClases.set(1, false);
+                        flagsClases.set(2, false);
+                        flagsClases.set(3, false);
                     }
                     claseD = true;
                     break;
                 case CLASE_E:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(4,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(4, false);
                     claseE = true;
-                        break;
+                    break;
                 case CLASE_F:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(5,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(5, false);
                     break;
                 case CLASE_G:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(6,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(6, false);
                     break;
             }
-            //Conductores profesionales, licencias C, D, E
-            Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
-            Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
-            if(edadTitular > 21 && vigenciaB > 0){
-                if(flagsClases.get(2))
-                    if(!claseC && edadTitular > 65) flagsClases.set(2,false);
-                if(flagsClases.get(3))
-                    if(!claseD && edadTitular > 65) flagsClases.set(3,false);
-                if(flagsClases.get(4))
-                    if(!claseE && edadTitular > 65) flagsClases.set(4,false);
-            }
-            else{
-                flagsClases.set(2,false);
-                flagsClases.set(3,false);
-                flagsClases.set(4,false);
-            }
         }
+
+        //Conductores profesionales, licencias C, D, E
+        Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
+        Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
+
+        if(edadTitular >= 21 && vigenciaB > 0){
+            if(flagsClases.get(2))
+                if(!claseC && edadTitular > 65) flagsClases.set(2,false);
+            if(flagsClases.get(3))
+                if(!claseD && edadTitular > 65) flagsClases.set(3,false);
+            if(flagsClases.get(4))
+                if(!claseE && edadTitular > 65) flagsClases.set(4,false);
+        }
+        else{
+            flagsClases.set(2,false);
+            flagsClases.set(3,false);
+            flagsClases.set(4,false);
+        }
+
         //licencias que es posible solicitar por el titular en cuestion
         ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
         if(flagsClases.get(0)) Claseslicencias.add(EnumClaseLicencia.CLASE_A);

@@ -67,7 +67,7 @@ public class ControllerEmitirLicencia {
         /*
         TODO cambiar al implementar buscar/alta titular
          */
-        dto = GestorTitular.get().buscarTitular(101);
+        dto = GestorTitular.get().buscarTitular(121);
 
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
 
@@ -132,7 +132,8 @@ public class ControllerEmitirLicencia {
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
             if(GestorLicencia.get().emitirLicencia(dto)) {
-                PanelAlerta.get(EnumTipoAlerta.INFORMACION,"Confirmación",
+                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
+                            "Confirmación",
                             "",
                             "Se emitió la licencia de forma correcta.",
                             null);
