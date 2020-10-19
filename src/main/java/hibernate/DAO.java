@@ -97,7 +97,7 @@ public class DAO {
     /**
      * Función que retorna un objeto, resultado de la consultaSQL que se le
      * pasó como párametro.
-     * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular"
+     * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular" - usar los nombre de atributos de las clases JAVA
      * @param claseObjeto sirve para obtener el objeto correcto, basta con pasar "nombre de la clase".class
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -120,7 +120,7 @@ public class DAO {
     /**
      * NO FUNCA, CREAR UNO QUE EN VEZ DE OBJETO USE LA ENTIDAD QUE QUIERAN
      * Retorna un List que es el resultado de la consultaSQL pasada como párametro.
-     * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular"
+     * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular"  - usar los nombre de atributos de las clases JAVA
      * @param claseObjetos sirve para obtener los objetos correctos, basta con pasar "nombre de la clase".class
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -140,7 +140,11 @@ public class DAO {
         return lista;
     }
 
-    public Integer getCantidad(String cadena) {
+    /**
+     * Ej de uso - select count(distinct id_licencia) from licencia WHERE id_titular = id_titular;
+     * Usar los nombre de atributos de las clases SQL
+     */
+    public Integer getCantidad(String consultaSQL) {
         Integer i = 0;
         Object o = null;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -148,7 +152,7 @@ public class DAO {
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
-            o = session.createSQLQuery(cadena).getSingleResult();
+            o = session.createSQLQuery(consultaSQL).getSingleResult();
         }catch (javax.persistence.NoResultException exception) {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", exception);
             o = null;
