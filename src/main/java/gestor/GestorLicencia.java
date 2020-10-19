@@ -3,10 +3,12 @@ import exceptions.MenorDeEdadException;
 import hibernate.DAO;
 import model.Titular;
 import model.Vigencia;
+import model.Licencia;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
+import java.util.List;
 
 public class GestorLicencia {
 
@@ -23,15 +25,30 @@ public class GestorLicencia {
     }
 
 
-
-    public static Vigencia calcularVigencia(LocalDate nacimiento)throws MenorDeEdadException {
+/*
+Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
+un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
+ */
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular)throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
         int years = obtenerEdad(nacimiento);
         if(years<17){
             throw new MenorDeEdadException();
         }else{
             if(years < 21){
-                //hacer una cosa
+                String sql = "select licencia.id from Licencia licencia WHERE licencia.titular = " + Integer.toString(id_titular) ;
+
+                DAO dao = DAO.get();
+                List<Licencia> lista = (List<Licencia>) dao.getResultList(sql, Licencia.class);
+
+                if(lista.isEmpty() || lista == null){
+                    vigencia.setVigencia(1);
+                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
+                } else {
+                    vigencia.setVigencia(3);
+                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+3));
+                }
+
             } else if( years < 46){
                 vigencia.setVigencia(5);
                 vigencia.setFechaVencimiento(nacimiento.plusYears(years+5));
@@ -56,6 +73,6 @@ public class GestorLicencia {
         return diff.getYears();
     }
     public double calcularCostoLicencia(){
-    return 0,0;
+    return 0.0;
     }
 }
