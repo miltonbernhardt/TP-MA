@@ -190,11 +190,11 @@ public class GestorLicencia {
     return 0;
     }
 
-    public Boolean emitirLicencia(DTOEmitirLicencia dto) {
+    public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(dto.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());
-        LocalDate vencimiento = calcularVigenciaLicencia(dto.getFechaNacimiento());
+        LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
 
@@ -209,14 +209,5 @@ public class GestorLicencia {
             return false;
 
         return true;
-    }
-
-    /**
-     * Calcula la vigencia de la licencia a partir de la fecha de nacimiento
-     * TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
-     * @param fechaNacimiento
-     */
-    private LocalDate calcularVigenciaLicencia(LocalDate fechaNacimiento) {
-        return fechaNacimiento.plusYears(30);
     }
 }
