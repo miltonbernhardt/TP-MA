@@ -54,7 +54,10 @@ public class ControllerApp extends Application {
         try {
             return fxmlLoader.load();
         } catch (IOException | RuntimeException  e) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null, null,"Ocurrió un error al cargar la view \""+fxml+"\".",e);
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,
+                            null,
+                            null,
+                            "Ocurrió un error al cargar la view \""+fxml+"\".",e);
             e.printStackTrace();
             return null;
         }

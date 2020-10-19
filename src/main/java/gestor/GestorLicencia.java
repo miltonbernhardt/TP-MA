@@ -1,14 +1,12 @@
 package gestor;
 
-import exceptions.MenorDeEdadException;
-import hibernate.DAO;
-import model.Titular;
-import model.Vigencia;
-import model.Licencia;
-import java.time.LocalDate;
-import java.time.Period;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
+import hibernate.DAO;
+import model.Licencia;
+import model.Titular;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class GestorLicencia {
@@ -25,58 +23,12 @@ public class GestorLicencia {
     }
 
     /*
-    Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
-    un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
+        Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
      */
-    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
-        Vigencia vigencia = new Vigencia();
-        int years = obtenerEdad(nacimiento);
-        if(years<17){
-            throw new MenorDeEdadException();
-
-        }else{
-            if(years < 21){
-                String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
-
-                Integer cantidadLicencias = DAO.get().getCantidad(sql);
-
-                if(cantidadLicencias == 0){
-                    vigencia.setVigencia(1);
-                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
-                } else {
-                    vigencia.setVigencia(3);
-                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+3));
-                }
-
-            } else if( years < 46){
-                vigencia.setVigencia(5);
-                vigencia.setFechaVencimiento(nacimiento.plusYears(years+5));
-            } else if( years < 60){
-                vigencia.setVigencia(4);
-                vigencia.setFechaVencimiento(nacimiento.plusYears(years+4));
-            }  else if( years < 70){
-                vigencia.setVigencia(3);
-                vigencia.setFechaVencimiento(nacimiento.plusYears(years+3));
-            } else if( years > 70){
-                vigencia.setVigencia(1);
-                vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
-            }
-        }
-
-        return vigencia;
-    }
-
-    private static int obtenerEdad(LocalDate nacimiento){
-        LocalDate now = LocalDate.now();
-        Period diff = Period.between(nacimiento,now);
-        return diff.getYears();
-    }
-  
-    /*
-    TODO Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
-     */
-    public static Integer getTiempoEnVigencia(LocalDate date){
-        return 0;
+    public static Integer getTiempoEnVigencia(LocalDate fechaEmision,LocalDate fechaVencimiento){
+        if(fechaVencimiento.isBefore(LocalDate.now()))
+            return Period.between(fechaEmision,fechaVencimiento).getYears();
+        else return Period.between(fechaEmision,LocalDate.now()).getYears();
     }
 
     /**
@@ -105,65 +57,67 @@ public class GestorLicencia {
         Boolean claseC = false, claseD = false, claseE = false;
 
         for(int l = 0; l < historialLicencias.size(); l++) {
-                licencia = historialLicencias.get(l);
-            switch(licencia.getClaseLicencia())
-            {
+            licencia = historialLicencias.get(l);
+            switch (licencia.getClaseLicencia()) {
                 case CLASE_A:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(0,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(0, false);
                     break;
                 case CLASE_B:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(1,false);
-                    if(licencia.getFechaEmision().isBefore(licenciaB))
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(1, false);
+                    if (licencia.getFechaEmision().isBefore(licenciaB))
                         licenciaB = licencia.getFechaEmision();
                     break;
                 case CLASE_C:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1,false);
-                        flagsClases.set(2,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
+                        flagsClases.set(1, false);
+                        flagsClases.set(2, false);
                     }
                     claseC = true;
                     break;
                 case CLASE_D:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1,false);
-                        flagsClases.set(2,false);
-                        flagsClases.set(3,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
+                        flagsClases.set(1, false);
+                        flagsClases.set(2, false);
+                        flagsClases.set(3, false);
                     }
                     claseD = true;
                     break;
                 case CLASE_E:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(4,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(4, false);
                     claseE = true;
-                        break;
+                    break;
                 case CLASE_F:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(5,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(5, false);
                     break;
                 case CLASE_G:
-                    if(licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(6,false);
+                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                        flagsClases.set(6, false);
                     break;
             }
-            //Conductores profesionales, licencias C, D, E
-            Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
-            Integer vigenciaB = getTiempoEnVigencia(licenciaB);
-            if(edadTitular > 21 && vigenciaB > 0){
-                if(flagsClases.get(2))
-                    if(!claseC && edadTitular > 65) flagsClases.set(2,false);
-                if(flagsClases.get(3))
-                    if(!claseD && edadTitular > 65) flagsClases.set(3,false);
-                if(flagsClases.get(4))
-                    if(!claseC && edadTitular > 65) flagsClases.set(4,false);
-            }
-            else{
-                flagsClases.set(2,false);
-                flagsClases.set(3,false);
-                flagsClases.set(4,false);
-            }
         }
+
+        //Conductores profesionales, licencias C, D, E
+        Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
+        Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
+
+        if(edadTitular >= 21 && vigenciaB > 0){
+            if(flagsClases.get(2))
+                if(!claseC && edadTitular > 65) flagsClases.set(2,false);
+            if(flagsClases.get(3))
+                if(!claseD && edadTitular > 65) flagsClases.set(3,false);
+            if(flagsClases.get(4))
+                if(!claseE && edadTitular > 65) flagsClases.set(4,false);
+        }
+        else{
+            flagsClases.set(2,false);
+            flagsClases.set(3,false);
+            flagsClases.set(4,false);
+        }
+
         //licencias que es posible solicitar por el titular en cuestion
         ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
         if(flagsClases.get(0)) Claseslicencias.add(EnumClaseLicencia.CLASE_A);
@@ -184,11 +138,11 @@ public class GestorLicencia {
     return 0;
     }
 
-    public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+    public Boolean emitirLicencia(DTOEmitirLicencia dto) {
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(dto.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());
-        LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
+        LocalDate vencimiento = calcularVigenciaLicencia(dto.getFechaNacimiento());
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
 
@@ -203,5 +157,14 @@ public class GestorLicencia {
             return false;
 
         return true;
+    }
+
+    /**
+     * Calcula la vigencia de la licencia a partir de la fecha de nacimiento
+     * TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
+     * @param fechaNacimiento
+     */
+    private LocalDate calcularVigenciaLicencia(LocalDate fechaNacimiento) {
+        return fechaNacimiento.plusYears(30);
     }
 }

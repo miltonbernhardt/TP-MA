@@ -1,0 +1,316 @@
+Casos de prueba:
+
+NO A:
+
+-> Tiene una licencia A x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoA",
+                "caseA1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_A,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+
+NO B:
+
+-> Tiene una licencia B x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoB",
+                "caseB1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> Tiene una licencia C x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoB",
+                "caseB2",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_C,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+
+NO C:
+
+-> Tiene una licencia C x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoC",
+                "caseC1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_C,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No tiene una licencia B con al menos un año x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoC",
+                "caseC2",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No tiene por lo menos 21 años x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoC",
+                "caseC3",
+                LocalDate.of(2002, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2018, Month.FEBRUARY, 01),
+                                    LocalDate.of(2022, Month.AUGUST, 12));
+
+-> Nunca tuvo una tipo C y es mayor de 65 años de edad x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoC",
+                "caseC4",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2018, Month.FEBRUARY, 01),
+                                    LocalDate.of(2022, Month.AUGUST, 12));
+SI C:
+-> Tuvo alguna vez una tipo C, y es mayor de 65 x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoC",
+                "caseC5",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_C,
+                                    LocalDate.of(2010, Month.FEBRUARY, 01),
+                                    LocalDate.of(2014, Month.AUGUST, 12));
+
+NO D:
+
+-> Tiene una licencia D x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoD",
+                "caseD1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_D,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No tiene una licencia B con al menos un año x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoD",
+                "caseD2",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No es tiene por lo menos 21 años x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoD",
+                "caseD3",
+                LocalDate.of(2002, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2018, Month.FEBRUARY, 01),
+                                    LocalDate.of(2022, Month.AUGUST, 12));
+-> Nunca tuvo una tipo D y es mayor de 65 años de edad x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoD",
+                "caseD4",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2014, Month.FEBRUARY, 01),
+                                    LocalDate.of(2018, Month.AUGUST, 12));
+SI D:
+-> Tuvo alguna vez una tipo D, y es mayor de 65 x
+//Creo un nuevo titular
+Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoD",
+                "caseD5",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_D,
+                                    LocalDate.of(2014, Month.FEBRUARY, 01),
+                                    LocalDate.of(2018, Month.AUGUST, 12));
+        Licencia l2 = new Licencia(t1,
+                EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2010, Month.FEBRUARY, 01),
+                LocalDate.of(2014, Month.AUGUST, 12));
+
+NO E:
+
+-> Tiene una licencia E x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoE",
+                "caseE1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_E,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No tiene una licencia B con al menos un año x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoE",
+                "caseE2",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+-> No es tiene por lo menos 21 años x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoE",
+                "caseE3",
+                LocalDate.of(2002, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2018, Month.FEBRUARY, 01),
+                                    LocalDate.of(2022, Month.AUGUST, 12));
+-> Nunca tuvo una tipo E y es mayor de 65 años de edad x
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoE",
+                "caseE4",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_B,
+                                    LocalDate.of(2014, Month.FEBRUARY, 01),
+                                    LocalDate.of(2018, Month.AUGUST, 12));
+SI E:
+-> Tuvo alguna vez una tipo E, y es mayor de 65 x
+//Creo un nuevo titular
+Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoE",
+                "caseE5",
+                LocalDate.of(1950, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_E,
+                                    LocalDate.of(2014, Month.FEBRUARY, 01),
+                                    LocalDate.of(2018, Month.AUGUST, 12));
+        Licencia l2 = new Licencia(t1,
+                EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2010, Month.FEBRUARY, 01),
+                LocalDate.of(2014, Month.AUGUST, 12));
+
+NO F:
+
+-> Tiene una licencia F x
+
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoF",
+                "caseF1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_F,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
+
+NO G:
+
+-> Tiene una licencia G x
+
+//Creo un nuevo titular
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40000001",
+                "PruebaTipoG",
+                "caseG1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                                    EnumClaseLicencia.CLASE_G,
+                                    LocalDate.of(2020, Month.FEBRUARY, 01),
+                                    LocalDate.of(2024, Month.AUGUST, 12));
