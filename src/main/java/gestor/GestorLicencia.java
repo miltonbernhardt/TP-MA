@@ -2,9 +2,12 @@ package gestor;
 
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
+import exceptions.MenorDeEdadException;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
+import model.Vigencia;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -20,6 +23,55 @@ public class GestorLicencia {
             instanciaGestor = new GestorLicencia();
         }
         return instanciaGestor;
+    }
+
+
+    /*
+    Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
+    un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
+     */
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
+        Vigencia vigencia = new Vigencia();
+        int years = obtenerEdad(nacimiento);
+        if(years<17){
+            throw new MenorDeEdadException();
+
+        }else{
+            if(years < 21){
+                String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
+
+                Integer cantidadLicencias = DAO.get().getCantidad(sql);
+
+                if(cantidadLicencias == 0){
+                    vigencia.setVigencia(1);
+                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
+                } else {
+                    vigencia.setVigencia(3);
+                    vigencia.setFechaVencimiento(nacimiento.plusYears(years+3));
+                }
+
+            } else if( years < 46){
+                vigencia.setVigencia(5);
+                vigencia.setFechaVencimiento(nacimiento.plusYears(years+5));
+            } else if( years < 60){
+                vigencia.setVigencia(4);
+                vigencia.setFechaVencimiento(nacimiento.plusYears(years+4));
+            }  else if( years < 70){
+                vigencia.setVigencia(3);
+                vigencia.setFechaVencimiento(nacimiento.plusYears(years+3));
+            } else if( years > 70){
+                vigencia.setVigencia(1);
+                vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
+            }
+        }
+
+        return vigencia;
+    }
+
+    private static int obtenerEdad(LocalDate nacimiento){
+        LocalDate now = LocalDate.now();
+        Period diff = Period.between(nacimiento,now);
+        return diff.getYears();
     }
 
     /*
