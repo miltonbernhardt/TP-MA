@@ -1,4 +1,5 @@
 package gestor;
+
 import exceptions.MenorDeEdadException;
 import hibernate.DAO;
 import model.Titular;
@@ -6,18 +7,11 @@ import model.Vigencia;
 import model.Licencia;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
-import java.util.List;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
-import hibernate.DAO;
-import model.Licencia;
-import model.Titular;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class GestorLicencia {
-
 
     private static GestorLicencia instanciaGestor = null;
 
@@ -30,23 +24,23 @@ public class GestorLicencia {
         return instanciaGestor;
     }
 
-/*
-Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
-un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
- */
-    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular)throws MenorDeEdadException {
+    /*
+    Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
+    un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
+     */
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
         int years = obtenerEdad(nacimiento);
         if(years<17){
             throw new MenorDeEdadException();
+
         }else{
             if(years < 21){
-                String sql = "select licencia.id from Licencia licencia WHERE licencia.titular = " + Integer.toString(id_titular) ;
+                String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
 
-                DAO dao = DAO.get();
-                List<Licencia> lista = (List<Licencia>) dao.getResultList(sql, Licencia.class);
+                Integer cantidadLicencias = DAO.get().getCantidad(sql);
 
-                if(lista.isEmpty() || lista == null){
+                if(cantidadLicencias == 0){
                     vigencia.setVigencia(1);
                     vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
                 } else {
@@ -190,11 +184,11 @@ un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimi
     return 0;
     }
 
-    public Boolean emitirLicencia(DTOEmitirLicencia dto) {
+    public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(dto.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());
-        LocalDate vencimiento = calcularVigenciaLicencia(dto.getFechaNacimiento());
+        LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
 
@@ -209,15 +203,5 @@ un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimi
             return false;
 
         return true;
-    }
-
-    /**
-     * Calcula la vigencia de la licencia a partir de la fecha de nacimiento
-     * TODO corregir cuando se implemente "Calcular Vigencia de Licencia"
-     * @param fechaNacimiento
-     */
-    private LocalDate calcularVigenciaLicencia(LocalDate fechaNacimiento) {
-      //TODO BORRAR
-        return fechaNacimiento.plusYears(30);
     }
 }

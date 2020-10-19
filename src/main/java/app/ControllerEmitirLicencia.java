@@ -3,6 +3,7 @@ package app;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
+import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
@@ -119,7 +120,7 @@ public class ControllerEmitirLicencia {
     }
 
     @FXML
-    private void emitirLicencia(){
+    private void emitirLicencia() throws MenorDeEdadException {
         Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar emisión",
                     "",
