@@ -55,4 +55,7 @@ public class GestorLicencia {
         Period diff = Period.between(nacimiento,now);
         return diff.getYears();
     }
+    public double calcularCostoLicencia(){
+    return 0,0;
+    }
 }
