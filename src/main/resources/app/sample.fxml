@@ -11,12 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="307.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sample">
+<AnchorPane prefHeight="307.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerApp">
    <children>
       <ImageView fitHeight="367.0" fitWidth="608.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Imagenes/principal.jpg" />
+            <Image url="@../Imagenes/principal.jpg" />
          </image>
       </ImageView>
       <Separator layoutX="171.0" layoutY="23.0" opacity="0.52" prefHeight="7.0" prefWidth="414.0" style="-fx-opacity: black;" />
@@ -31,7 +30,7 @@
       <JFXTextField layoutX="254.0" layoutY="60.0" style="-fx-background-color: white;" />
       <Text layoutX="21.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO:" />
       <JFXTextField layoutX="104.0" layoutY="108.0" style="-fx-background-color: white;" />
-      <JFXComboBox layoutX="250.0" layoutY="108.0" promptText="Tipo" style="-fx-background-color: white;" />
+      <JFXComboBox fx:id="CBTipoDNI" layoutX="250.0" layoutY="108.0" promptText="Tipo" style="-fx-background-color: white;" />
       <Text layoutX="26.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NAC." />
       <DatePicker layoutX="98.0" layoutY="153.0" promptText="DD/MM/AAAA" />
       <Text layoutX="17.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="G. SANGUINEO:" />

@@ -5,6 +5,7 @@ import enumeration.EnumGrupoSanguineo;
 import enumeration.EnumSexo;
 import enumeration.EnumTipoDocumento;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Titular {
 
     private List<Licencia> licencias;
 
-    private Integer id;
+    public Integer id;
     private EnumTipoDocumento tipoDNI;
     private String DNI;
     private String apellido;
@@ -44,7 +45,8 @@ public class Titular {
      * @param donanteOrganos
      * @param sexo
      */
-    public Titular(EnumTipoDocumento tipoDNI, String DNI, String apellido, String nombre, LocalDate fechaNacimiento, EnumGrupoSanguineo grupoSanguineo, EnumFactorRH factorRH, Boolean donanteOrganos, EnumSexo sexo) {
+    public Titular(EnumTipoDocumento tipoDNI, String DNI, String apellido, String nombre, LocalDate fechaNacimiento, EnumGrupoSanguineo grupoSanguineo,
+                   EnumFactorRH factorRH, Boolean donanteOrganos, EnumSexo sexo) {
         if(licencias==null){
             this.licencias = new ArrayList<Licencia>();
         }
