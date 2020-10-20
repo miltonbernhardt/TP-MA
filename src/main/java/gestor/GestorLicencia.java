@@ -25,14 +25,13 @@ public class GestorLicencia {
         return instanciaGestor;
     }
 
-
     /*
     Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
     un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
      */
     public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
-        int years = obtenerEdad(nacimiento);
+        int years = GestorTitular.getEdad(nacimiento);
         if(years<17){
             throw new MenorDeEdadException();
 
@@ -66,12 +65,6 @@ public class GestorLicencia {
         }
 
         return vigencia;
-    }
-
-    private static int obtenerEdad(LocalDate nacimiento){
-        LocalDate now = LocalDate.now();
-        Period diff = Period.between(nacimiento,now);
-        return diff.getYears();
     }
 
     /*
