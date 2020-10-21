@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import dto.DTOAltaTitular;
 import enumeration.EnumFactorRH;
 import enumeration.EnumGrupoSanguineo;
 import enumeration.EnumSexo;
@@ -27,6 +28,7 @@ import gestor.GestorTitular;
 import sun.awt.SubRegionShowable;
 
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -47,7 +49,7 @@ public class ControllerAltaTitular implements Initializable{
 
 
     private static ControllerAltaTitular instance = null;
-   //private DTOAltaTitular dto = null;
+    private DTOAltaTitular dto = new DTOAltaTitular();
 
 
   /*  public static ControllerAltaTitular get() {
@@ -74,7 +76,7 @@ public class ControllerAltaTitular implements Initializable{
         CBSex.setItems(FXCollections.observableArrayList(EnumSexo.values()));
         campoFechaNac.addEventHandler(KeyEvent.ANY,handdate);
         Bregistro.setDisable(true);
-        //holis
+
 
 
 
@@ -152,17 +154,22 @@ public class ControllerAltaTitular implements Initializable{
     public void onRegisterTitular(MouseEvent event){
 
 
-        System.out.println("valor del RD es:"+RBdonante.isSelected());
-        System.out.println("valor del nombre  es:"+campoNombre.getText());
-        System.out.println("valor del apellido  es:"+campoApe.getText());
+       dto.setNombre(campoNombre.getText());
+       dto.setApellido(campoApe.getText());
+       dto.setCalle(campoCalle.getText());
+       dto.setDNI(campoDoc.getText());
+       dto.setDonanteOrganos(RBdonante.isSelected());
+       dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
+       dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
+       dto.setSexo(CBSex.getSelectionModel().getSelectedItem());
+       dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
+       dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
+       dto.setFechaNacimiento(campoFechaNac.getValue());
 
 
-       /* dto.setNombre(campoNombre.getText());
-        dto.setApellido(campoApe.getText());
-        dto.setCalle(campoCalle.getText());
-        dto.setDNI(campoDoc.getText());
-        dto.setDonanteOrganos(RBdonante.isSelected());
-*/
+        GestorTitular.get().registrarTitular(dto);
+
+        System.out.println("dto: "+ dto.getApellido());
     }
 
 
