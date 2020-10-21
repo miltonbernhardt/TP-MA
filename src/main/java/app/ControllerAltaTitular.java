@@ -74,6 +74,7 @@ public class ControllerAltaTitular implements Initializable{
         CBSex.setItems(FXCollections.observableArrayList(EnumSexo.values()));
         campoFechaNac.addEventHandler(KeyEvent.ANY,handdate);
         Bregistro.setDisable(true);
+        //holis
 
 
 
