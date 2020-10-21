@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,38 +13,51 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="307.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerApp">
+<AnchorPane prefHeight="401.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerAltaTitular">
    <children>
-      <ImageView fitHeight="367.0" fitWidth="608.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="421.0" fitWidth="711.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <Separator layoutX="171.0" layoutY="23.0" opacity="0.52" prefHeight="7.0" prefWidth="414.0" style="-fx-opacity: black;" />
-      <Text fill="#1e1717" layoutX="48.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
+      <Separator layoutX="187.0" layoutY="27.0" opacity="0.72" prefHeight="6.0" prefWidth="509.0" />
+      <Text fill="#eee2e2" layoutX="20.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
          <font>
-            <Font name="SansSerif Regular" size="12.0" />
+            <Font name="SansSerif Regular" size="16.0" />
          </font>
       </Text>
-      <JFXTextField layoutX="81.0" layoutY="60.0" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: white;" />
+      <JFXTextField id="campo_nombre_titular" fx:id="campoNombre" layoutX="81.0" layoutY="60.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 4;" />
       <Text layoutX="26.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:" wrappingWidth="55.08398389816284" />
       <Text layoutX="195.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO:" />
-      <JFXTextField layoutX="254.0" layoutY="60.0" style="-fx-background-color: white;" />
+      <JFXTextField id="campo_apellido_titular" fx:id="campoApe" layoutX="254.0" layoutY="60.0" onKeyReleased="#keyReleasedProperty" style="-fx-background-color: white; -fx-background-radius: 4;" />
       <Text layoutX="21.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO:" />
-      <JFXTextField layoutX="104.0" layoutY="108.0" style="-fx-background-color: white;" />
-      <JFXComboBox fx:id="CBTipoDNI" layoutX="250.0" layoutY="108.0" promptText="Tipo" style="-fx-background-color: white;" />
+      <JFXTextField id="campo_documento_titular" fx:id="campoDoc" layoutX="104.0" layoutY="108.0" onKeyReleased="#keyReleasedProperty" style="-fx-background-color: white; -fx-background-radius: 4;" />
+      <JFXComboBox fx:id="CBTipoDNI" layoutX="250.0" layoutY="108.0" onAction="#keyReleasedProperty" promptText="Tipo" style="-fx-background-color: white;" />
       <Text layoutX="26.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NAC." />
-      <DatePicker layoutX="98.0" layoutY="153.0" promptText="DD/MM/AAAA" />
+      <DatePicker fx:id="campoFechaNac" layoutX="98.0" layoutY="153.0" onAction="#keyReleasedProperty" onContextMenuRequested="#keyReleasedProperty" onInputMethodTextChanged="#keyReleasedProperty" onKeyReleased="#keyReleasedProperty" onMouseClicked="#keyReleasedProperty" onMouseReleased="#keyReleasedProperty" promptText="DD/MM/AAAA" />
       <Text layoutX="17.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="G. SANGUINEO:" />
-      <JFXComboBox layoutX="106.0" layoutY="195.0" promptText="Seleccione" style="-fx-background-color: WHITE;" />
+      <JFXComboBox fx:id="CBGsang" layoutX="106.0" layoutY="195.0" onAction="#keyReleasedProperty" onInputMethodTextChanged="#keyReleasedProperty" onKeyReleased="#keyReleasedProperty" promptText="Seleccione" style="-fx-background-color: WHITE;" />
       <Text layoutX="228.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RH:" />
-      <JFXComboBox layoutX="255.0" layoutY="195.0" promptText="Seleccione" style="-fx-background-color: white;" />
+      <JFXComboBox fx:id="CBRH" layoutX="255.0" layoutY="195.0" onAction="#keyReleasedProperty" promptText="Seleccione" style="-fx-background-color: white;" />
       <Text layoutX="21.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE:" />
-      <JFXTextField layoutX="67.0" layoutY="231.0" style="-fx-background-color: white;" />
+      <JFXTextField fx:id="campoCalle" layoutX="67.0" layoutY="231.0" onKeyReleased="#keyReleasedProperty" style="-fx-background-color: white; -fx-background-radius: 4;" />
       <Text layoutX="217.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO:" />
-      <JFXTextField layoutX="272.0" layoutY="231.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: WHITE;" />
-      <RadioButton layoutX="24.0" layoutY="276.0" mnemonicParsing="false" text="DONANTE DE ORGANOS" />
+      <JFXTextField fx:id="campoNumCall" layoutX="272.0" layoutY="231.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: WHITE; -fx-background-radius: 4;" />
       <Text layoutX="206.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:" />
-      <JFXComboBox layoutX="244.0" layoutY="272.0" promptText="Seleccione" style="-fx-background-color: WHITE;" />
+      <JFXComboBox fx:id="CBSex" layoutX="244.0" layoutY="272.0" onAction="#keyReleasedProperty" onKeyReleased="#keyReleasedProperty" promptText="Seleccione" style="-fx-background-color: WHITE;" />
+      <ImageView fitHeight="46.0" fitWidth="53.0" layoutX="25.0" layoutY="343.0" onMouseClicked="#onExitButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/icons8_undo_52px_3.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <JFXButton fx:id="Bregistro" cache="true" layoutX="322.0" layoutY="318.0" onMouseClicked="#onRegisterTitular" style="-fx-background-color: #eee2e2; -fx-background-radius: 4;" text="Registrarse" textFill="#403535">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXRadioButton fx:id="RBdonante" layoutX="26.0" layoutY="276.0" style="-jfx-selected-color: #eee2e2;" text="DONANTE DE ORGANOS" textFill="#141313" />
    </children>
 </AnchorPane>

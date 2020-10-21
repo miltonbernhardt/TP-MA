@@ -32,7 +32,7 @@ public class ControllerApp extends Application {
     public void start(Stage primaryStage)  {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
-        scene = new Scene(loadFXML("menu"));
+        scene = new Scene(loadFXML("sample"));
         primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
         primaryStage.setMinHeight(700);
