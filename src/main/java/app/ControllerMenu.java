@@ -1,12 +1,23 @@
 package app;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
-public class ControllerMenu {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ControllerMenu implements Initializable {
+
+    @FXML private Button BRegTitular;
+    @FXML private Button BEmitirLicencia;
+
 
     @FXML
     private void darAltaTitular() {
-        //ControllerAltaTitular.get();
+        ControllerAltaTitular.get();
     }
 
     @FXML
@@ -17,5 +28,17 @@ public class ControllerMenu {
     @FXML
     private void salir() {
         ControllerApp.salir();
+    }
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+    public void onExitButtonClicked(MouseEvent event){
+
+        Platform.exit();
+        System.exit(0);
     }
 }

@@ -16,9 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
@@ -33,34 +31,31 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ControllerAltaTitular implements Initializable{
-
-    @FXML private JFXComboBox<EnumTipoDocumento> CBTipoDNI;
-    @FXML private JFXTextField campoNombre;
-    @FXML private JFXTextField campoApe;
-    @FXML private JFXTextField campoDoc;
-    @FXML private JFXTextField campoCalle;
-    @FXML private JFXTextField campoNumCall;
-    @FXML private JFXComboBox<EnumGrupoSanguineo> CBGsang;
-    @FXML private JFXComboBox<EnumFactorRH> CBRH;
-    @FXML private JFXComboBox<EnumSexo> CBSex;
-    @FXML private DatePicker campoFechaNac;
-    @FXML private JFXRadioButton RBdonante;
-    @FXML private JFXButton Bregistro;
-
-
     private static ControllerAltaTitular instance = null;
     private DTOAltaTitular dto = new DTOAltaTitular();
 
 
-  /*  public static ControllerAltaTitular get() {
+    public static ControllerAltaTitular get() {
 
         if (instance == null){
             ControllerApp.setViewAnterior();
-            instance = (ControllerAltaTitular) ControllerApp.setRoot("sample", "Alta titular");
+            instance = (ControllerAltaTitular) ControllerApp.setRoot("altaTitular", "Alta titular");
         }
         return instance;
     }
-*/
+    @FXML private ComboBox<EnumTipoDocumento> CBTipoDNI;
+    @FXML private TextField campoNombre;
+    @FXML private TextField campoApe;
+    @FXML private TextField campoDoc;
+    @FXML private TextField campoCalle;
+    @FXML private TextField campoNumCall;
+    @FXML private ComboBox<EnumGrupoSanguineo> CBGsang;
+    @FXML private ComboBox<EnumFactorRH> CBRH;
+    @FXML private ComboBox<EnumSexo> CBSexo;
+    @FXML private DatePicker campoFechaNac;
+    @FXML private RadioButton RBdonante;
+    @FXML private Button Bregistro;
+
 
 
     @Override
@@ -73,7 +68,7 @@ public class ControllerAltaTitular implements Initializable{
         CBTipoDNI.setItems(FXCollections.observableArrayList(EnumTipoDocumento.values()));
         CBGsang.setItems(FXCollections.observableArrayList(EnumGrupoSanguineo.values()));
         CBRH.setItems(FXCollections.observableArrayList(EnumFactorRH.values()));
-        CBSex.setItems(FXCollections.observableArrayList(EnumSexo.values()));
+        CBSexo.setItems(FXCollections.observableArrayList(EnumSexo.values()));
         campoFechaNac.addEventHandler(KeyEvent.ANY,handdate);
         Bregistro.setDisable(true);
 
@@ -86,7 +81,7 @@ public class ControllerAltaTitular implements Initializable{
 
         Boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
                 || campoNumCall.getText().trim().isEmpty() || CBTipoDNI.getSelectionModel().isEmpty() || CBGsang.getSelectionModel().isEmpty() || CBRH.getSelectionModel().isEmpty()
-                || CBSex.getSelectionModel().isEmpty() || campoFechaNac.getValue() == null);
+                || CBSexo.getSelectionModel().isEmpty() || campoFechaNac.getValue() == null);
         Bregistro.setDisable(isDisable);
     }
 
@@ -127,7 +122,7 @@ public class ControllerAltaTitular implements Initializable{
 
         @Override
         public void handle(KeyEvent event) {
-            JFXTextField temp = (JFXTextField) event.getSource();
+            TextField temp = (TextField) event.getSource();
             if (willConsume) {
                 event.consume();
 
@@ -161,7 +156,7 @@ public class ControllerAltaTitular implements Initializable{
        dto.setDonanteOrganos(RBdonante.isSelected());
        dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
        dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
-       dto.setSexo(CBSex.getSelectionModel().getSelectedItem());
+       dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
        dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
        dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
        dto.setFechaNacimiento(campoFechaNac.getValue());
@@ -173,7 +168,11 @@ public class ControllerAltaTitular implements Initializable{
     }
 
 
-
+    @FXML
+    private void volver(){
+        ControllerApp.getViewAnterior();
+        instance = null;
+    }
 
     public void onExitButtonClicked(MouseEvent event){
 

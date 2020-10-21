@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerAltaTitular">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1000.0" layoutX="-1.0" layoutY="-1.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/principal.jpg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="38.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Text>
+      <Separator layoutX="295.0" layoutY="82.0" prefHeight="9.0" prefWidth="571.0">
+         <effect>
+            <Lighting diffuseConstant="0.19" light="$null" specularConstant="2.0" specularExponent="0.0">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect></Separator>
+      <TextField fx:id="campoNombre" layoutX="187.0" layoutY="122.0" />
+      <TextField fx:id="campoDoc" layoutX="211.0" layoutY="181.0" />
+      <TextField fx:id="campoApe" layoutX="513.0" layoutY="122.0" />
+      <TextField fx:id="campoCalle" layoutX="161.0" layoutY="437.0" />
+      <TextField fx:id="campoNumCall" layoutX="459.0" layoutY="437.0" />
+      <Text fill="WHITE" layoutX="71.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="398.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" prefWidth="150.0" promptText="Tipo..." />
+      <DatePicker fx:id="campoFechaNac" layoutX="289.0" layoutY="236.0" prefHeight="25.0" prefWidth="163.0" />
+      <Text fill="WHITE" layoutX="71.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="72.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUINEO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="CBGsang" layoutX="285.0" layoutY="291.0" prefWidth="150.0" promptText="Seleccione..." />
+      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" prefWidth="150.0" promptText="Seleccione..." />
+      <Text fill="WHITE" layoutX="465.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="54.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOMICILIO">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Separator layoutX="162.0" layoutY="405.0" prefHeight="1.0" prefWidth="466.0">
+         <effect>
+            <Lighting light="$null" specularConstant="2.0" specularExponent="4.19">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect></Separator>
+      <Text fill="WHITE" layoutX="54.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS DEL SOLICITANTE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="RBdonante" layoutX="77.0" layoutY="345.0" mnemonicParsing="false" text="DONANTE DE ORGANOS" textFill="WHITE" textOverrun="CLIP">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </RadioButton>
+      <Text fill="WHITE" layoutX="353.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="346.0" prefWidth="150.0" promptText="Seleccione..." />
+      <Text fill="WHITE" layoutX="77.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="360.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO: *">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="Bregistro" layoutX="682.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" text="Registrar" />
+      <ImageView fx:id="volver" fitHeight="57.0" fitWidth="59.0" layoutX="34.0" layoutY="491.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+         </image>
+         <effect>
+            <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />
+         </effect>
+      </ImageView>
+   </children>
+</AnchorPane>
