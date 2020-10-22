@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -13,7 +14,8 @@ public class ControllerMenu implements Initializable {
 
     @FXML private Button BRegTitular;
     @FXML private Button BEmitirLicencia;
-
+    @FXML private ImageView logoini;
+    @FXML private ImageView imagenmenu;
 
     @FXML
     private void darAltaTitular() {
