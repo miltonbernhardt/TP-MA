@@ -1,20 +1,25 @@
 package app;
 
 import enumeration.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import hibernate.HibernateUtil;
+import javafx.util.Duration;
 
 public class ControllerApp extends Application {
     private static Scene scene;
@@ -32,16 +37,20 @@ public class ControllerApp extends Application {
     public void start(Stage primaryStage)  {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
-        scene = new Scene(loadFXML("menu"));
+        scene = new Scene(loadFXML("menuI"));
         primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
-        primaryStage.setMinHeight(700);
+        primaryStage.setMinHeight(600);
+        primaryStage.setMaxHeight(600);
+
         primaryStage.setMinWidth(1000);
-        primaryStage.setMaxHeight(1080);
-        primaryStage.setMaxWidth(1920);
+
+        primaryStage.setMaxWidth(900);
         //primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
+
         primaryStage.show();
+
         stage = primaryStage;
     }
 

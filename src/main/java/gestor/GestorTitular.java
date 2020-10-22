@@ -1,5 +1,6 @@
 package gestor;
 
+import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
 import hibernate.DAO;
 import model.Licencia;
@@ -7,6 +8,7 @@ import model.Titular;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorTitular {
     private static GestorTitular instanciaGestor = null;
@@ -19,6 +21,38 @@ public class GestorTitular {
         }
         return instanciaGestor;
     }
+
+    public boolean verificarTitular (DTOAltaTitular dto){
+        //TODO buscar en base de datos los titulares para comparar DNI
+
+        return true;
+
+    }
+
+    public void registrarTitular(DTOAltaTitular dto){
+        Titular titular = new Titular(dto.getTipoDNI(),dto.getDNI(), dto.getApellido(), dto.getNombre(),
+                dto.getFechaNacimiento(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(),dto.getSexo());
+    DAO.get().save(titular);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public DTOEmitirLicencia buscarTitular(Integer idTitular) {
         DTOEmitirLicencia dto  = new DTOEmitirLicencia();

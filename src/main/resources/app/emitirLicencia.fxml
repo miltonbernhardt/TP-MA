@@ -88,7 +88,7 @@
                         <Insets bottom="-10.0" />
                      </padding>
                   </Label>
-                  <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="235.0" prefWidth="904.0" VBox.vgrow="SOMETIMES" />
+                  <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="193.0" prefWidth="915.0" VBox.vgrow="SOMETIMES" />
                   <Pane maxHeight="150.0" VBox.vgrow="SOMETIMES" />
                   <HBox>
                      <children>
