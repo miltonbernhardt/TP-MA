@@ -24,12 +24,13 @@
 
 /*-------------- BUTTONS ----------------*/
 
-#imageVolver:hover{
+#imageButton{
     -fx-cursor: hand;
     -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.1 , 1 , 1 );
+    -fx-background-radius: 5,4,3,5;
 }
 
-#imageVolver:hover{
+#imageButton:hover{
     -fx-opacity: 0.50;
 }
 

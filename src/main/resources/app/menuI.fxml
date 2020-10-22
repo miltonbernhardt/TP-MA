@@ -29,7 +29,7 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Text>
-      <ImageView fx:id="imageVolver" fitHeight="91.0" fitWidth="57.0" layoutX="913.0" layoutY="477.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageButton" fitHeight="91.0" fitWidth="57.0" layoutX="913.0" layoutY="477.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/icons8_exit_64px.png" />
          </image>

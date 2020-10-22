@@ -114,7 +114,7 @@
          </font>
       </Text>
       <Button fx:id="Bregistro" layoutX="682.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" text="Registrar" />
-      <ImageView fx:id="volver" fitHeight="57.0" fitWidth="59.0" layoutX="34.0" layoutY="491.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageButton" fitHeight="57.0" fitWidth="59.0" layoutX="34.0" layoutY="491.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/icons8_undo_52px_4.png" />
          </image>
