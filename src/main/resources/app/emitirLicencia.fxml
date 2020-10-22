@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -84,9 +85,9 @@
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2">
                      <children>
+                        <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="150.0" />
                         <Label fx:id="labelDescripcionLicencia" text="-" />
                      </children>
                   </HBox>
@@ -98,22 +99,18 @@
                </padding>
             </Label>
             <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="193.0" prefWidth="915.0" VBox.vgrow="SOMETIMES" />
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
                <children>
                   <Button fx:id="btnEmitirLicencia" disable="true" mnemonicParsing="false" onAction="#emitirLicencia" text="Emitir licencia" />
                   <Pane HBox.hgrow="SOMETIMES" />
-                  <Button cancelButton="true" mnemonicParsing="false" onAction="#volver">
-                     <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="30.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Imagenes/icons8_undo_52px_4.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Button>
+                  <ImageView fx:id="imageVolver" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

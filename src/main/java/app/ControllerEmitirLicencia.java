@@ -8,6 +8,8 @@ import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -62,6 +64,7 @@ public class ControllerEmitirLicencia {
      */
     @FXML
     private Label labelDescripcionLicencia;
+
 
     @FXML
     public void buscarTitular(){

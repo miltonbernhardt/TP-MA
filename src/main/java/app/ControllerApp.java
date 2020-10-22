@@ -44,6 +44,7 @@ public class ControllerApp extends Application {
         primaryStage.setMinHeight(600);
         primaryStage.setMaxWidth(1000);
         primaryStage.setMaxHeight(600);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
         stage = primaryStage;
