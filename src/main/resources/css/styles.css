@@ -77,9 +77,15 @@
     -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.2 , 3 , 3 );
 }
 
+
+
 .scroll-pane{
     /* -fx-padding: 15 15 15 15; */
     -fx-border-color: -color-fondo-oscuro;
+    -fx-background: empty;
+    -fx-background-insets: 0;
+
+    -fx-padding: 0;
 }
 
 .scroll-pane:focused{

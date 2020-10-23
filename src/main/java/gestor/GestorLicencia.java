@@ -178,10 +178,44 @@ public class GestorLicencia {
 
     /*
     TODO calcularCostoLicencia
-     */
-    public double calcularCostoLicencia(){
-    return 0;
-    }
+    CLASE G A B TIENEN LOS MISMOS VALORES, D E F Y LUEGO C.
+    VER TABLA.
+    SE LE SUMA AL TOTAL 8
+    ver sintaxis de suma (creo q este es el de python)
+    public double calcularCostoLicencia(Vigencia vigencia, EnumClaseLicencia.){
+        float costoTotal = 0;
+        if (G || A ||B ){
+               if (VIGENCIA= 5 años){
+                costoTotal= + 40;
+                }
+                if (VIGENCIA= 4 años)){
+                costoTotal= +30;
+                }
+                if (VIGENCIA= 3 años)){
+                costoTotal= +25;
+                }
+                if (VIGENCIA= 1 años)){
+                costoTotal= +20;
+                }
+        }else  if (D || E ||F ){
+               if (VIGENCIA= 5 años){
+                costoTotal= + 59;
+                }
+                if (VIGENCIA= 4 años)){
+                costoTotal= +29;
+                }
+                if (VIGENCIA= 3 años)){
+                costoTotal= +39;
+                }
+                if (VIGENCIA= 1 años)){
+                costoTotal= +29;
+                }
+} else FALTA VALORES DE C
+
+    costoTotal= +8;
+
+        return costoTotal;
+    }*/
 
     public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         Licencia licencia = new Licencia();
