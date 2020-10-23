@@ -152,7 +152,7 @@ public class ControllerAltaTitular implements Initializable{
        dto.setNombre(campoNombre.getText());
 
        dto.setApellido(campoApe.getText());
-      dto.setCalle(campoCalle.getText())
+      dto.setCalle(campoCalle.getText());
 
        dto.setDNI(campoDoc.getText());
        dto.setDonanteOrganos(RBdonante.isSelected());
