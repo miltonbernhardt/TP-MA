@@ -76,7 +76,6 @@ public class GestorTitular {
 
     public static Integer getEdad(LocalDate fechaNacimiento){
         LocalDate today = LocalDate.now();
-
         return Period.between(fechaNacimiento, today).getYears();
     }
 

@@ -8,6 +8,8 @@ import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -63,6 +65,7 @@ public class ControllerEmitirLicencia {
     @FXML
     private Label labelDescripcionLicencia;
 
+
     @FXML
     public void buscarTitular(){
         /*
@@ -115,7 +118,7 @@ public class ControllerEmitirLicencia {
         int indexSeleccionad = comboLicencias.getSelectionModel().getSelectedIndex();
         if(indexSeleccionad > -1){
             btnEmitirLicencia.setDisable(false);
-            labelDescripcionLicencia.setText(comboLicencias.getItems().get(indexSeleccionad).getDescripcion());
+            labelDescripcionLicencia.setText("- "+comboLicencias.getItems().get(indexSeleccionad).getDescripcion());
         }
     }
 
