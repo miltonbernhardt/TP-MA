@@ -4,7 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,56 +48,50 @@
       </Text>
       <AnchorPane fx:id="panVigen" layoutX="453.0" layoutY="193.0" prefHeight="244.0" prefWidth="455.0" style="-fx-background-: white;" visible="false" AnchorPane.leftAnchor="453.0" AnchorPane.rightAnchor="92.0">
          <children>
-            <Text fill="WHITE" layoutX="43.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• También puede ser disminuida por la autoridad responsable según cada caso en particular y conforme con la normativa vigente." wrappingWidth="390.21509140729904" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Hasta 46 años: 5 años.        • Hasta 60 años: 4 años.        • Hasta 70 años: 3 años.       " wrappingWidth="173.56120236217976" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Menores de 21 años: 1 año la primera vez y 3 años las veces siguientes." wrappingWidth="376.3241786509752" />
-            <Text fill="WHITE" layoutX="25.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vigencia" underline="true" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Mayores de 70 años: 1 año" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="43.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• También puede ser disminuida por la autoridad responsable según cada caso en particular y conforme con la normativa vigente." wrappingWidth="390.21509140729904" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Hasta 46 años: 5 años. " wrappingWidth="173.56120236217976" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Menores de 21 años: 1 año la primera vez y 3 años las veces siguientes." wrappingWidth="376.3241786509752" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="25.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vigencia" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Mayores de 70 años: 1 año" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="43.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Hasta 70 años: 3 años." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Hasta 60 años: 4 años.." />
          </children>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="100.94" radius="88.485" spread="0.74" width="255.0" />
-         </effect>
       </AnchorPane>
       <AnchorPane fx:id="panValor" layoutX="470.0" layoutY="205.0" prefHeight="261.0" prefWidth="403.0" visible="false">
          <children>
-            <Text fill="WHITE" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el costo del trámite?" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el costo del trámite?" underline="true" />
           <AnchorPane layoutX="18.0" layoutY="24.0" minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="340.0" style="-fx-background-color: transparent;">
                <children>
                   <Text fill="WHITE" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clases A, B y G = " wrappingWidth="125.85286106681451" />
                   <Text layoutX="54.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text fill="WHITE" layoutX="57.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $40.   4 años: $30.   3 años: $25.    1 año: $20." wrappingWidth="164.52734375" />
+                  <Text fill="WHITE" layoutX="57.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $40.   4 años: $30.   " wrappingWidth="174.00000989437103" />
                   <Text fill="#f8f6f6" layoutX="14.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clases D, E y F =" />
-                  <Text fill="WHITE" layoutX="57.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $59.   4 años: $44.   3 años: $39.    1 año: $29." wrappingWidth="164.63800048828125" />
+                  <Text fill="WHITE" layoutX="57.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $59.   4 años: $44.   " wrappingWidth="164.63800048828125" />
                   <Text fill="WHITE" layoutX="15.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clase C =" />
-                  <Text fill="WHITE" layoutX="58.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $47.   4 años: $35.   3 años: $30.    1 año: $23." wrappingWidth="164.56120373588055" />
+                  <Text fill="WHITE" layoutX="58.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 años: $47.   4 años: $35.   " wrappingWidth="164.56120373588055" />
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="60.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 años: $25.    1 año: $20." />
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="60.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 años: $39.    1 año: $29." />
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="60.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 años: $30.    1 año: $23." />
                </children>
             </AnchorPane>
          </children>
-         <effect>
-            <DropShadow height="216.49" radius="117.3725" width="255.0" />
-         </effect>
       </AnchorPane>
       <AnchorPane fx:id="panReq" layoutX="459.0" layoutY="193.0" prefHeight="215.0" prefWidth="444.0" visible="false">
          <children>
-            <Text fill="WHITE" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Qué se necesita del solicitante?" underline="true" />
-            <Text fill="WHITE" layoutX="46.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Tener la edad correspondiente para la clase de licencia que solicitás.Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
-            <Text fill="WHITE" layoutX="45.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Saber leer." />
-            <Text fill="WHITE" layoutX="45.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Si sacás la licencia profesional (clase C, D y E), saber escribir." />
-            <Text fill="WHITE" layoutX="46.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• DNI original y copia." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Qué se necesita del solicitante?" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Tener la edad correspondiente para la clase de licencia que solicitás.Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="45.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Saber leer." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="45.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Si sacás la licencia profesional (clase C, D y E), saber escribir." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• DNI original y copia." />
          </children>
-         <effect>
-            <DropShadow height="177.97" radius="107.7425" spread="0.74" width="255.0" />
-         </effect>
       </AnchorPane>
       <AnchorPane fx:id="panUsuarios" layoutX="459.0" layoutY="207.0" prefHeight="215.0" prefWidth="444.0" stylesheets="@../css/styles.css" visible="false">
          <children>
-            <Text fill="WHITE" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿A quién está dirigido?" underline="true" wrappingWidth="153.00000989437103" />
-            <Text fill="WHITE" layoutX="26.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• A toda persona que quiera conducir un vehículo o moto en la Provincia de Santa Fe" wrappingWidth="376.3241882324219" />
-            <Text fill="WHITE" layoutX="26.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Clases C, D y E: Deben tener una edad de 21 años como mínimo.                                                                                               • Clases A, B, F, G: Deben tener una edad de 17 años como mínimo." wrappingWidth="360.21509376727045" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿A quién está dirigido?" underline="true" wrappingWidth="153.00000989437103" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• A toda persona que quiera conducir un vehículo o moto en la Provincia de Santa Fe" wrappingWidth="376.3241882324219" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Clases C, D y E: Deben tener una edad de 21 años como mínimo.                                                                                               " wrappingWidth="360.21509376727045" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Clases A, B, F, G: Deben tener una edad de 17 años como mínimo." />
          </children>
-         <effect>
-            <DropShadow height="177.97" radius="107.7425" spread="0.74" width="255.0" />
-         </effect>
       </AnchorPane>
       <VBox layoutX="915.0" layoutY="181.0" prefHeight="227.0" prefWidth="37.0" stylesheets="@../css/styles.css">
          <children>
@@ -115,7 +108,7 @@
                   <Image url="@../Imagenes/icons8_us_dollar_52px.png" />
                </image>
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="8.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
             <ImageView fx:id="vigen" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onVigButtonClicked" pickOnBounds="true" preserveRatio="true">
@@ -169,10 +162,10 @@
       </ImageView>
       <AnchorPane fx:id="panRecuerda" layoutX="454.0" layoutY="193.0" prefHeight="215.0" prefWidth="376.0" visible="false">
          <children>
-            <Text fill="WHITE" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recuerda:" underline="true" />
-            <Text fill="WHITE" layoutX="44.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Por cada ilcencia debe generarse una nueva solicitud." />
-            <Text fill="WHITE" layoutX="44.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La fecha de vencimiento siempre será igual a su fecha de nacimiento." wrappingWidth="390.21508768200874" />
-            <Text fill="WHITE" layoutX="44.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entregar el comprobante de pago al finalizar los tramites. " />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recuerda:" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="44.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Por cada ilcencia debe generarse una nueva solicitud." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="47.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• La fecha de vencimiento siempre será igual a su fecha de nacimiento." wrappingWidth="390.21508768200874" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="44.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Entregar el comprobante de pago al finalizar los tramites. " />
          </children>
       </AnchorPane>
       <ImageView fx:id="arrowRecuerda" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true" visible="false">
