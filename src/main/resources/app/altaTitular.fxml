@@ -35,11 +35,16 @@
                </bumpInput>
             </Lighting>
          </effect></Separator>
-      <TextField fx:id="campoNombre" layoutX="187.0" layoutY="122.0" />
-      <TextField fx:id="campoDoc" layoutX="211.0" layoutY="181.0" />
-      <TextField fx:id="campoApe" layoutX="513.0" layoutY="122.0" />
-      <TextField fx:id="campoCalle" layoutX="161.0" layoutY="437.0" />
-      <TextField fx:id="campoNumCall" layoutX="459.0" layoutY="437.0" />
+      <TextField fx:id="campoNombre" layoutX="187.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
+      <TextField fx:id="campoApe" layoutX="513.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
+      <TextField fx:id="campoDoc" layoutX="211.0" layoutY="181.0" onKeyReleased="#keyReleasedProperty" />
+      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Tipo..." />
+      <DatePicker fx:id="campoFechaNac" layoutX="289.0" layoutY="236.0" onAction="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
+      <ComboBox fx:id="CBGsang" layoutX="285.0" layoutY="291.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="346.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+      <TextField fx:id="campoCalle" layoutX="161.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
+      <TextField fx:id="campoNumCall" layoutX="459.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
       <Text fill="WHITE" layoutX="71.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *">
          <font>
             <Font size="18.0" />
@@ -55,8 +60,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" prefWidth="150.0" promptText="Tipo..." />
-      <DatePicker fx:id="campoFechaNac" layoutX="289.0" layoutY="236.0" prefHeight="25.0" prefWidth="163.0" />
       <Text fill="WHITE" layoutX="71.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *">
          <font>
             <Font size="18.0" />
@@ -67,8 +70,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <ComboBox fx:id="CBGsang" layoutX="285.0" layoutY="291.0" prefWidth="150.0" promptText="Seleccione..." />
-      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" prefWidth="150.0" promptText="Seleccione..." />
       <Text fill="WHITE" layoutX="465.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *">
          <font>
             <Font size="18.0" />
@@ -102,7 +103,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="346.0" prefWidth="150.0" promptText="Seleccione..." />
       <Text fill="WHITE" layoutX="77.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *">
          <font>
             <Font size="18.0" />

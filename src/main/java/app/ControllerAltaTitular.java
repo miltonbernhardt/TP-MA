@@ -150,8 +150,10 @@ public class ControllerAltaTitular implements Initializable{
 
 
        dto.setNombre(campoNombre.getText());
+
        dto.setApellido(campoApe.getText());
-       dto.setCalle(campoCalle.getText());
+      dto.setCalle(campoCalle.getText())
+
        dto.setDNI(campoDoc.getText());
        dto.setDonanteOrganos(RBdonante.isSelected());
        dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
@@ -159,6 +161,7 @@ public class ControllerAltaTitular implements Initializable{
        dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
        dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
        dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
+
        dto.setFechaNacimiento(campoFechaNac.getValue());
 
 
