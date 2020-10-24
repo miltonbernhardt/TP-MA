@@ -26,7 +26,7 @@
       </SubScene>
       <Button fx:id="BEmitirLicencia" layoutX="123.0" layoutY="317.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="58.0" prefWidth="174.0" stylesheets="@../css/styles.css" text="Emitir Licencia" />
       <Button fx:id="BRegTitular" layoutX="120.0" layoutY="135.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="58.0" prefWidth="180.0" stylesheets="@../css/styles.css" text="Registrar Titular" textAlignment="CENTER" />
-      <Text fill="WHITE" layoutX="470.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Licencia de Conducir" textAlignment="CENTER" wrappingWidth="476.68115234375">
+      <Text fill="WHITE" layoutX="455.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Licencia de Conducir" textAlignment="CENTER" wrappingWidth="476.68115234375">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
