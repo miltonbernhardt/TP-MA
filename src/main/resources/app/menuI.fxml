@@ -49,17 +49,17 @@
       <AnchorPane fx:id="panVigen" layoutX="426.0" layoutY="169.0" prefHeight="301.0" prefWidth="465.0" style="-fx-background-: white;" visible="false" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="109.0">
          <children>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="43.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• También puede ser disminuida por la autoridad responsable según cada caso en particular y conforme con la normativa vigente." wrappingWidth="390.21509140729904" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 46 años: 5 años. " wrappingWidth="234.30762439966202" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Menores de 21 años: 1 año la primera vez y 3 años las veces siguientes." wrappingWidth="376.3241786509752" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="47.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 46 años: 5 años. " wrappingWidth="234.30762439966202" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="49.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Menores de 21 años: 1 año la primera vez y 3 años las veces siguientes." wrappingWidth="376.3241786509752" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="25.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="Vigencia" underline="true" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Mayores de 70 años: 1 año" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="43.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 70 años: 3 años." />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="45.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 60 años: 4 años.." wrappingWidth="203.0000165104866" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="45.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Mayores de 70 años: 1 año" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 70 años: 3 años." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 60 años: 4 años.." wrappingWidth="203.0000165104866" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panValor" layoutX="417.0" layoutY="173.0" prefHeight="261.0" prefWidth="465.0" visible="false">
          <children>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="-4.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="¿Cuál es el costo del trámite?" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="Costo del trámite" underline="true" />
 
             <AnchorPane layoutX="18.0" layoutY="24.0" minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="340.0" style="-fx-background-color: transparent;">
                <children>
@@ -79,7 +79,7 @@
       </AnchorPane>
       <AnchorPane fx:id="panReq" layoutX="405.0" layoutY="179.0" prefHeight="283.0" prefWidth="465.0" visible="false">
          <children>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="¿Qué se necesita del solicitante?" underline="true" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="Requerimientos del solicitante" underline="true" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Tener la edad correspondiente para la clase de licencia que solicitás.Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Saber leer." />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Si sacás la licencia profesional (clase C, D y E), saber escribir." wrappingWidth="390.21508395671844" />
@@ -88,10 +88,9 @@
       </AnchorPane>
       <AnchorPane fx:id="panUsuarios" layoutX="405.0" layoutY="187.0" prefHeight="215.0" prefWidth="465.0" stylesheets="@../css/styles.css" visible="false">
          <children>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="¿A quién está dirigido?" underline="true" wrappingWidth="203.00000989437103" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• A toda persona que quiera conducir un vehículo o moto en la Provincia de Santa Fe." wrappingWidth="376.3241882324219" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Clases C, D y E: Deben tener una edad de 21 años como mínimo." wrappingWidth="360.21509376727045" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="23.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Clases A, B, F, G: Deben tener una edad de 17 años como mínimo." wrappingWidth="464.9999961256981" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="Clases de Licencia" underline="true" wrappingWidth="203.00000989437103" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="32.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Clases C, D y E: Deben tener una edad de 21 años como mínimo." wrappingWidth="360.21509376727045" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="32.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Clases A, B, F, G: Deben tener una edad de 17 años como mínimo." wrappingWidth="464.9999961256981" />
          </children>
       </AnchorPane>
       <VBox layoutX="909.0" layoutY="174.0" prefHeight="227.0" prefWidth="37.0" stylesheets="@../css/styles.css">
@@ -164,7 +163,7 @@
       <AnchorPane fx:id="panRecuerda" layoutX="417.0" layoutY="179.0" prefHeight="215.0" prefWidth="376.0" stylesheets="@../css/styles.css" visible="false">
          <children>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="Recuerda:" underline="true" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Por cada ilcencia debe generarse una nueva solicitud." />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Por cada licencia debe generarse una nueva solicitud." />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="47.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• La fecha de vencimiento siempre será igual a su fecha de nacimiento." wrappingWidth="390.21508768200874" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="44.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Entregar el comprobante de pago al finalizar los tramites. " />
          </children>
