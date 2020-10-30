@@ -1,5 +1,3 @@
-package test;
-
 import enumeration.*;
 import hibernate.DAO;
 import javafx.application.Application;

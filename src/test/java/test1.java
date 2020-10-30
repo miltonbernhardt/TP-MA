@@ -1,5 +1,3 @@
-package test;
-
 import enumeration.EnumClaseLicencia;
 import gestor.GestorLicencia;
 import gestor.GestorTitular;

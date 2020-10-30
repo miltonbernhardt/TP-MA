@@ -1,5 +1,3 @@
-package test;
-
 import enumeration.EnumClaseLicencia;
 import javafx.application.Application;
 import javafx.stage.Stage;

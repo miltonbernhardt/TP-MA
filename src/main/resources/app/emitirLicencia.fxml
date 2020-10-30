@@ -26,9 +26,10 @@
       </ImageView>
       <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
          <children>
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#buscarTitular" text="Buscar titular" />
+                  <ComboBox fx:id="comboTitulares" disable="true" onAction="#seleccionarTitular" prefWidth="400.0" HBox.hgrow="SOMETIMES" />
                </children>
                <padding>
                   <Insets bottom="5.0" />
@@ -86,8 +87,8 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2">
                      <children>
-                        <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="150.0" />
-                        <Label fx:id="labelDescripcionLicencia" text="-" />
+                        <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="250.0" HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="labelDescripcionLicencia" text="-" HBox.hgrow="SOMETIMES" />
                      </children>
                   </HBox>
                </children>
