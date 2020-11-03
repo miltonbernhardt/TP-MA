@@ -20,6 +20,15 @@ public class DTOEmitirLicencia {
 
     public DTOEmitirLicencia() {}
 
+    public DTOEmitirLicencia(Integer idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
+        this.idTitular = idTitular;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
+    }
+
     public Integer getIdTitular() {
         return idTitular;
     }
@@ -82,5 +91,10 @@ public class DTOEmitirLicencia {
 
     public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
         this.claseLicencia = claseLicencia;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " - " +  tipoDocumento + ": " + documento;
     }
 }

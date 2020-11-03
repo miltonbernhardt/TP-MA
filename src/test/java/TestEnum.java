@@ -1,19 +1,10 @@
-package test;
-
 import enumeration.EnumClaseLicencia;
-import gestor.GestorLicencia;
-import gestor.GestorTitular;
-import javafx.application.Application;
-import javafx.stage.Stage;
+import org.junit.Test;
 
-public class test1 extends Application {
+public class TestEnum {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
+    @Test
+    public void start() {
 
         EnumClaseLicencia c = EnumClaseLicencia.CLASE_F;
             switch(c)

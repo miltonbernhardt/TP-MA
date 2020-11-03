@@ -1,23 +1,18 @@
-package test;
-
 import enumeration.*;
 import hibernate.DAO;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Licencia;
 import model.Titular;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-public class inserTitularLicencia extends Application {
+public class TestGestorTitular {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
+    @Test
+    public void InsertarTitularLicencia(){
         Titular t1 = new Titular(EnumTipoDocumento.DNI,
                 "40000001",
                 "PruebaTipoG",
@@ -35,7 +30,5 @@ public class inserTitularLicencia extends Application {
         //t1.getLicencias().add(l2);
         //Persisto en Base de Datos
         DAO.get().save(t1);
-        System.out.println("exit successful");
-        System.exit(0);
     }
 }

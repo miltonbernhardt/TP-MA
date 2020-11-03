@@ -7,7 +7,7 @@ import org.junit.Assert;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class GestorLicenciaTest {
+public class TestGestorLicencia {
 
     @Test
     public void calcularVigencia() throws MenorDeEdadException {

@@ -41,7 +41,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 18px;
     -fx-background-radius: 5,4,3,5;
-    -fx-padding: 8 15 8 15;
+    -fx-padding: 5 12 5 12;
     -fx-cursor: hand;
     -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.1 , 1 , 1 );
 }
@@ -84,9 +84,7 @@
 .scroll-pane{
     /* -fx-padding: 15 15 15 15; */
     -fx-border-color: -color-fondo-oscuro;
-    -fx-background: empty;
     -fx-background-insets: 0;
-
     -fx-padding: 0;
 }
 

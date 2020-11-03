@@ -2,12 +2,14 @@ package gestor;
 
 import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
+import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GestorTitular {
@@ -29,44 +31,19 @@ public class GestorTitular {
 
     }
 
-    public void registrarTitular(DTOAltaTitular dto){
+    public Boolean registrarTitular(DTOAltaTitular dto){
         Titular titular = new Titular(dto.getTipoDNI(),dto.getDNI(), dto.getApellido(), dto.getNombre(),
                 dto.getFechaNacimiento(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(),dto.getSexo());
-    DAO.get().save(titular);
-
-
-
+        return DAO.get().save(titular);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public DTOEmitirLicencia buscarTitular(Integer idTitular) {
-        DTOEmitirLicencia dto  = new DTOEmitirLicencia();
-
-        Titular titular = (Titular) DAO.get().get(Titular.class, idTitular);
-
-        dto.setIdTitular(titular.getId());
-        dto.setNombre(titular.getNombre());
-        dto.setApellido(titular.getApellido());
-        dto.setFechaNacimiento(titular.getFechaNacimiento());
-        dto.setTipoDocumento(titular.getTipoDNI());
-        dto.setDocumento(titular.getDNI());
-
-        return  dto;
+    public List<DTOEmitirLicencia> buscarTitulares() {
+          /*
+            TODO cambiar al implementar buscar/alta titular
+         */
+        String consulta = "SELECT new dto.DTOEmitirLicencia(t.id, t.fechaNacimiento, t.nombre, t.apellido, t.tipoDNI, t.DNI) "
+                + "FROM Titular t ORDER BY t.id";
+        return (List<DTOEmitirLicencia>) DAO.get().getResultList(consulta, DTOEmitirLicencia.class);
     }
 
     @SuppressWarnings("unchecked")
