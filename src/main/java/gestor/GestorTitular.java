@@ -2,13 +2,14 @@ package gestor;
 
 import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
-import enumeration.EnumTipoDocumento;
+import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GestorTitular {
@@ -68,7 +69,7 @@ public class GestorTitular {
 
 
     public DTOEmitirLicencia buscarTitular(Integer idTitular) {
-        DTOEmitirLicencia dto  = new DTOEmitirLicencia();
+        DTOEmitirLicencia dto = new DTOEmitirLicencia();
 
         Titular titular = (Titular) DAO.get().get(Titular.class, idTitular);
 
@@ -79,7 +80,15 @@ public class GestorTitular {
         dto.setTipoDocumento(titular.getTipoDNI());
         dto.setDocumento(titular.getDNI());
 
-        return  dto;
+        return dto;
+    }
+    public List<DTOEmitirLicencia> buscarTitulares() {
+          /*
+            TODO cambiar al implementar buscar/alta titular
+         */
+        String consulta = "SELECT new dto.DTOEmitirLicencia(t.id, t.fechaNacimiento, t.nombre, t.apellido, t.tipoDNI, t.DNI) "
+                + "FROM Titular t ORDER BY t.id";
+        return (List<DTOEmitirLicencia>) DAO.get().getResultList(consulta, DTOEmitirLicencia.class);
     }
 
     @SuppressWarnings("unchecked")

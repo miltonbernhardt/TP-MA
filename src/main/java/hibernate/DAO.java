@@ -140,6 +140,9 @@ public class DAO {
         return lista;
     }
 
+
+
+
     /**
      * Ej de uso - select count(distinct id_licencia) from licencia WHERE id_titular = id_titular;
      * Usar los nombre de atributos de las clases SQL
