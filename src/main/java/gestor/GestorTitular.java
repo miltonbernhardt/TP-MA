@@ -2,6 +2,7 @@ package gestor;
 
 import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
+import enumeration.EnumTipoDocumento;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
@@ -30,14 +31,26 @@ public class GestorTitular {
     }
 
     public void registrarTitular(DTOAltaTitular dto){
-        Titular titular = new Titular(dto.getTipoDNI(),dto.getDNI(), dto.getApellido(), dto.getNombre(),
-                dto.getFechaNacimiento(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(),dto.getSexo());
-    DAO.get().save(titular);
+
+        if (titularExistente(dto.getDNI(), dto.getTipoDNI())) {
 
 
+            Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
+                    dto.getFechaNacimiento(), dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
+            DAO.get().save(titular);
+        }
 
+        //TODO HACER EXCEPTION
     }
 
+    public boolean titularExistente(String dni, EnumTipoDocumento tipo){
+        String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni + "t.DNI_tipo = " + tipo;
+        Integer existenciaTitular= DAO.get().getCantidad(consulta);
+        if (existenciaTitular != 0){
+            return true;
+        }
+        return false;
+    };
 
 
 

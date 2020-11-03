@@ -149,6 +149,7 @@ public class ControllerAltaTitular implements Initializable{
     public void onRegisterTitular(MouseEvent event){
 
 
+
        dto.setNombre(campoNombre.getText());
 
        dto.setApellido(campoApe.getText());
