@@ -161,7 +161,7 @@ public class ControllerAltaTitular{
                 PanelAlerta.get(EnumTipoAlerta.ERROR,
                         "Error",
                         "",
-                        "No se ha podido emitir la licencia.",
+                        "No se ha podido dar de alta Titular.",
                         null);
             }
 

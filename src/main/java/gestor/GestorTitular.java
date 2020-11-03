@@ -31,15 +31,15 @@ public class GestorTitular {
 
     }
 
-    public void registrarTitular(DTOAltaTitular dto){
+    public boolean registrarTitular(DTOAltaTitular dto){
 
         if (titularExistente(dto.getDNI(), dto.getTipoDNI())) {
 
 
             Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
                     dto.getFechaNacimiento(), dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
-            DAO.get().save(titular);
-        }
+            return DAO.get().save(titular);
+        } else { return false; }
 
         //TODO HACER EXCEPTION
     }
