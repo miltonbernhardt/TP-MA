@@ -15,6 +15,7 @@ public class Licencia {
     private LocalDate fechaEmision;
     private LocalDate fechaVencimiento;
     private String observaciones;
+    private float costo;
 
     public Licencia(){}
 
@@ -79,5 +80,13 @@ public class Licencia {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
 }

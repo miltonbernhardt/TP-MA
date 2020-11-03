@@ -39,8 +39,8 @@ public class ControllerMenu implements Initializable {
         panRecuerda.setVisible(true);
         arrowRecuerda.setVisible(true);
 
-        panRecuerda.setVisible(true);
-        arrowRecuerda.setVisible(true);
+
+
         santaFe.setVisible(false);
         arrowUser.setVisible(false);
         arrowVal.setVisible(false);
@@ -48,6 +48,8 @@ public class ControllerMenu implements Initializable {
         panUsuarios.setVisible(false);
         panReq.setVisible(false);
         panValor.setVisible(false);
+        panVigen.setVisible(false);
+        arrowVig.setVisible(false);
         //AcademPanel.setVisible(false);
     }
 

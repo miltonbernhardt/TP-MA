@@ -16,6 +16,7 @@ public class GestorLicencia {
 
     private static GestorLicencia instanciaGestor = null;
 
+
     private GestorLicencia() {}
 
     public static GestorLicencia get() {
@@ -176,46 +177,60 @@ public class GestorLicencia {
         return Claseslicencias;
     }
 
-    /*
-    TODO calcularCostoLicencia
-    CLASE G A B TIENEN LOS MISMOS VALORES, D E F Y LUEGO C.
-    VER TABLA.
-    SE LE SUMA AL TOTAL 8
-    ver sintaxis de suma (creo q este es el de python)
-    public double calcularCostoLicencia(Vigencia vigencia, EnumClaseLicencia.){
+
+    public double calcularCostoLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+        LocalDate fechaV = dto.getFechaNacimiento();
+        int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
+        String clase = dto.getClaseLicencia().getValue();
+
         float costoTotal = 0;
-        if (G || A ||B ){
-               if (VIGENCIA= 5 años){
+        if (clase == "G" || clase == "A" ||clase == "B" ){
+               if (vig==5 ){
                 costoTotal= + 40;
                 }
-                if (VIGENCIA= 4 años)){
+                if (vig==4){
                 costoTotal= +30;
                 }
-                if (VIGENCIA= 3 años)){
+                if (vig==3){
                 costoTotal= +25;
                 }
-                if (VIGENCIA= 1 años)){
+                if (vig==1){
                 costoTotal= +20;
                 }
-        }else  if (D || E ||F ){
-               if (VIGENCIA= 5 años){
-                costoTotal= + 59;
+        }else {
+            if (clase == "D" || clase == "E" || clase == "F") {
+                if (vig == 5) {
+                    costoTotal += 59;
                 }
-                if (VIGENCIA= 4 años)){
-                costoTotal= +29;
+                if (vig == 4) {
+                    costoTotal += 29;
                 }
-                if (VIGENCIA= 3 años)){
-                costoTotal= +39;
+                if (vig == 3) {
+                    costoTotal += 39;
                 }
-                if (VIGENCIA= 1 años)){
-                costoTotal= +29;
+                if (vig == 1) {
+                    costoTotal += 29;
                 }
-} else FALTA VALORES DE C
-
-    costoTotal= +8;
+            } else { if(clase == "C") {
+                if (vig == 5) {
+                    costoTotal += 47;
+                }
+                if (vig == 4) {
+                    costoTotal += 35;
+                }
+                if (vig == 3) {
+                    costoTotal += 30;
+                }
+                if (vig == 1) {
+                    costoTotal += 23;
+                }
+            }
+            }
+        }
+    costoTotal+=8;
 
         return costoTotal;
-    }*/
+    }
 
     public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         Licencia licencia = new Licencia();
@@ -224,7 +239,7 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
-
+        licencia.setCosto((float) calcularCostoLicencia(dto));
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
         /*
