@@ -31,10 +31,10 @@ public class GestorTitular {
 
     }
 
-    public void registrarTitular(DTOAltaTitular dto){
+    public Boolean registrarTitular(DTOAltaTitular dto){
         Titular titular = new Titular(dto.getTipoDNI(),dto.getDNI(), dto.getApellido(), dto.getNombre(),
                 dto.getFechaNacimiento(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(),dto.getSexo());
-        DAO.get().save(titular);
+        return DAO.get().save(titular);
     }
 
     public List<DTOEmitirLicencia> buscarTitulares() {

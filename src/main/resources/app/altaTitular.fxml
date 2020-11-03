@@ -38,34 +38,34 @@
       <TextField fx:id="campoNombre" layoutX="187.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
       <TextField fx:id="campoApe" layoutX="513.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
       <TextField fx:id="campoDoc" layoutX="211.0" layoutY="181.0" onKeyReleased="#keyReleasedProperty" />
-      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Tipo..." />
-      <DatePicker fx:id="campoFechaNac" layoutX="289.0" layoutY="236.0" onAction="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
-      <ComboBox fx:id="CBGsang" layoutX="285.0" layoutY="291.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
-      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
-      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="346.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" onAction="#keyReleasedProperty" prefHeight="31.0" prefWidth="225.0" promptText="Seleccione tipo doc." />
+      <DatePicker fx:id="campoFechaNac" layoutX="255.0" layoutY="233.0" onAction="#keyReleasedProperty" prefHeight="31.0" prefWidth="181.0" />
+      <ComboBox fx:id="CBGsang" layoutX="255.0" layoutY="287.0" onAction="#keyReleasedProperty" prefHeight="31.0" prefWidth="181.0" promptText="Seleccione" />
+      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" onAction="#keyReleasedProperty" prefHeight="31.0" prefWidth="163.0" promptText="Seleccione RH" />
+      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="343.0" onAction="#keyReleasedProperty" prefHeight="31.0" prefWidth="173.0" promptText="Seleccione sexo" />
       <TextField fx:id="campoCalle" layoutX="161.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
       <TextField fx:id="campoNumCall" layoutX="459.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
-      <Text fill="WHITE" layoutX="71.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *">
+      <Text fill="WHITE" layoutX="71.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="398.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *">
+      <Text fill="WHITE" layoutX="398.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *">
+      <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Documento: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="71.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *">
+      <Text fill="WHITE" layoutX="71.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="72.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUINEO: *">
+      <Text fill="WHITE" layoutX="72.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grupo sanguíneo: *">
          <font>
             <Font size="18.0" />
          </font>
@@ -93,27 +93,27 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <RadioButton fx:id="RBdonante" layoutX="77.0" layoutY="345.0" mnemonicParsing="false" text="DONANTE DE ORGANOS" textFill="WHITE" textOverrun="CLIP">
+      <RadioButton fx:id="RBdonante" layoutX="77.0" layoutY="345.0" mnemonicParsing="false" text="Donante de órganos" textFill="WHITE" textOverrun="CLIP">
          <font>
             <Font size="17.0" />
          </font>
       </RadioButton>
-      <Text fill="WHITE" layoutX="353.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *">
+      <Text fill="WHITE" layoutX="353.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="77.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *">
+      <Text fill="WHITE" layoutX="77.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calle: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="360.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO: *">
+      <Text fill="WHITE" layoutX="360.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número: *">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="Bregistro" layoutX="45.0" layoutY="490.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="16.0" prefWidth="120.0" text="Registrar" />
+      <Button fx:id="Bregistro" layoutX="45.0" layoutY="490.0" mnemonicParsing="false" onAction="#onRegisterTitular" prefHeight="16.0" prefWidth="120.0" text="Registrar" />
       <ImageView fx:id="imageButton" fitHeight="57.0" fitWidth="59.0" layoutX="901.0" layoutY="483.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/icons8_undo_52px_4.png" />

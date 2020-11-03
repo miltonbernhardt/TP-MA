@@ -41,8 +41,9 @@
                 <ColumnConstraints />
                   <ColumnConstraints halignment="RIGHT" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="RIGHT" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" />
+                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints vgrow="SOMETIMES" />
@@ -80,15 +81,15 @@
                      </padding>
                   </Label>
                   <TextField fx:id="textDocumento" disable="true" maxWidth="200.0" minHeight="20.0" minWidth="25.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <Label text="Clase de licencia:" GridPane.rowIndex="2">
+                  <Label text="Clase de licencia:" GridPane.hgrow="NEVER" GridPane.rowIndex="2">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2">
                      <children>
                         <ComboBox fx:id="comboLicencias" disable="true" onAction="#listenerCombo" prefWidth="250.0" HBox.hgrow="SOMETIMES" />
-                        <Label fx:id="labelDescripcionLicencia" text="-" HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="labelDescripcionLicencia" text="- Automotores especialmente adaptados para discapacitados." HBox.hgrow="NEVER" />
                      </children>
                   </HBox>
                </children>
