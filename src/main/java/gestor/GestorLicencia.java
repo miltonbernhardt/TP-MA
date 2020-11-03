@@ -186,49 +186,48 @@ public class GestorLicencia {
         float costoTotal = 0;
         if (clase == "G" || clase == "A" ||clase == "B" ){
                if (vig==5 ){
-                costoTotal= + 40;
+                costoTotal= costoTotal+ 40;
                 }
                 if (vig==4){
-                costoTotal= +30;
+                costoTotal=costoTotal +30;
                 }
                 if (vig==3){
-                costoTotal= +25;
+                costoTotal= costoTotal+25;
                 }
                 if (vig==1){
-                costoTotal= +20;
+                costoTotal= costoTotal+20;
                 }
         }else {
             if (clase == "D" || clase == "E" || clase == "F") {
                 if (vig == 5) {
-                    costoTotal += 59;
+                    costoTotal =costoTotal+ 59;
                 }
                 if (vig == 4) {
-                    costoTotal += 29;
+                    costoTotal =costoTotal+ 29;
                 }
                 if (vig == 3) {
-                    costoTotal += 39;
+                    costoTotal = costoTotal + 39;
                 }
                 if (vig == 1) {
-                    costoTotal += 29;
+                    costoTotal =costoTotal+ 29;
                 }
             } else { if(clase == "C") {
                 if (vig == 5) {
-                    costoTotal += 47;
+                    costoTotal =costoTotal+ 47;
                 }
                 if (vig == 4) {
-                    costoTotal += 35;
+                    costoTotal =costoTotal+ 35;
                 }
                 if (vig == 3) {
-                    costoTotal += 30;
+                    costoTotal = costoTotal+ 30;
                 }
                 if (vig == 1) {
-                    costoTotal += 23;
+                    costoTotal = costoTotal+ 23;
                 }
             }
             }
         }
     costoTotal+=8;
-
         return costoTotal;
     }
 
