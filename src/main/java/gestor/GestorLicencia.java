@@ -183,8 +183,9 @@ public class GestorLicencia {
         int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
         String clase = dto.getClaseLicencia().getValue();
 
-        float costoTotal = 0;
-        if (clase == "G" || clase == "A" ||clase == "B" ){
+        double costoTotal = 0;
+        if (clase == "Clase A" || clase == "Clase B" || clase == "Clase G" ){
+
                if (vig==5 ){
                 costoTotal= costoTotal+ 40;
                 }
@@ -198,7 +199,8 @@ public class GestorLicencia {
                 costoTotal= costoTotal+20;
                 }
         }else {
-            if (clase == "D" || clase == "E" || clase == "F") {
+            if (clase == "Clase F" || clase == "Clase D" || clase == "Clase E" ) {
+                System.out.println("entra a if" + vig);
                 if (vig == 5) {
                     costoTotal =costoTotal+ 59;
                 }
@@ -211,7 +213,7 @@ public class GestorLicencia {
                 if (vig == 1) {
                     costoTotal =costoTotal+ 29;
                 }
-            } else { if(clase == "C") {
+            } else { if(clase == "Clase C") {
                 if (vig == 5) {
                     costoTotal =costoTotal+ 47;
                 }
@@ -227,7 +229,10 @@ public class GestorLicencia {
             }
             }
         }
-    costoTotal+=8;
+
+
+        costoTotal+=8;
+        System.out.println("costotal" + costoTotal);
         return costoTotal;
     }
 
@@ -238,9 +243,13 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
+
         licencia.setCosto((float) calcularCostoLicencia(dto));
+
+
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
+
         /*
         TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
          */
@@ -251,4 +260,12 @@ public class GestorLicencia {
 
         return true;
     }
+
+    void imprimirLicencia (){
+
+
+    }
+
 }
+
+

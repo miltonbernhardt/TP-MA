@@ -150,6 +150,8 @@ public class ControllerMenu implements Initializable {
         ControllerEmitirLicencia.get();
     }
 
+
+
     @FXML
     private void salir() {
         ControllerApp.salir();
