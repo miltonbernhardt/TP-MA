@@ -15,6 +15,8 @@ public class DTOEmitirLicencia {
     private EnumTipoDocumento tipoDocumento;
     private String documento;
 
+
+    private double costo;
     private String observaciones;
     private EnumClaseLicencia claseLicencia;
 
@@ -27,6 +29,7 @@ public class DTOEmitirLicencia {
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
         this.documento = documento;
+
     }
 
     public Integer getIdTitular() {
@@ -91,6 +94,14 @@ public class DTOEmitirLicencia {
 
     public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
         this.claseLicencia = claseLicencia;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
     }
 
     @Override

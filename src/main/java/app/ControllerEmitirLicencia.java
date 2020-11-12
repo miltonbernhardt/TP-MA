@@ -172,6 +172,7 @@ public class ControllerEmitirLicencia {
                             "",
                             "Se emitió la licencia de forma correcta.",
                             null);
+                            ImprimirLicencia();
             }
             else{
                 PanelAlerta.get(EnumTipoAlerta.ERROR,
@@ -190,4 +191,10 @@ public class ControllerEmitirLicencia {
         ControllerApp.getViewAnterior();
         instance = null;
     }
+
+    /*
+    @FXML
+    private void ImprimirLicencia() {
+        ControllerImprimirLicencia.get();
+    }*/
 }
