@@ -83,7 +83,7 @@ public class ControllerAltaTitular{
             //TODO esto es una sugerencia de algo similar que hice, capaz es más facil que ante un evento de keyUp se obtenga el string de los campos, y a ese string validarle los caracteres
             //  y si los caracteres no son válidos sacarlos de la cadena
             String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches("[a-zA-Z]") && ( event.getCode() != KeyCode.BACK_SPACE )
+            if (!event.getCode().toString().matches("[a-zA-Z]") /*&& ( event.getCode() != KeyCode.BACK_SPACE )*/
                     && ( event.getCode() != KeyCode.SHIFT )) {
                 //TODO agregar que acepte acentos y apostrofes
                 if (event.getEventType() == KeyEvent.KEY_PRESSED){
@@ -161,7 +161,7 @@ public class ControllerAltaTitular{
                 PanelAlerta.get(EnumTipoAlerta.ERROR,
                         "Error",
                         "",
-                        "No se ha podido dar de alta Titular.",
+                        "No se ha podido dar de alta Titular. El mismo ya esta registrado en la base de datos.",  //Todo agregar /n
                         null);
             }
 
