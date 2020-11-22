@@ -30,6 +30,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#buscarTitular" text="Buscar titular" />
                   <ComboBox fx:id="comboTitulares" disable="true" onAction="#seleccionarTitular" prefWidth="400.0" HBox.hgrow="SOMETIMES" />
+                  <Button mnemonicParsing="false" onAction="#probarBuscarTitular" text="Porbar buscar titular" />
                </children>
                <padding>
                   <Insets bottom="5.0" />

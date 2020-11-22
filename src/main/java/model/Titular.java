@@ -4,10 +4,8 @@ import enumeration.EnumFactorRH;
 import enumeration.EnumGrupoSanguineo;
 import enumeration.EnumSexo;
 import enumeration.EnumTipoDocumento;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Titular {
@@ -29,27 +27,16 @@ public class Titular {
 
     public Titular(){
         if(licencias==null){
-            this.licencias = new ArrayList<Licencia>();
+            this.licencias = new ArrayList<>();
         }
     }
 
     /**
      * Constructor con campos OBLIGATORIOS para generar fuera de la interfaz, sin insercciones sql manuales
-     * @param tipoDNI
-     * @param DNI
-     * @param apellido
-     * @param nombre
-     * @param fechaNacimiento
-     * @param grupoSanguineo
-     * @param factorRH
-     * @param donanteOrganos
-     * @param sexo
      */
     public Titular(EnumTipoDocumento tipoDNI, String DNI, String apellido, String nombre, LocalDate fechaNacimiento, EnumGrupoSanguineo grupoSanguineo,
                    EnumFactorRH factorRH, Boolean donanteOrganos, EnumSexo sexo) {
-        if(licencias==null){
-            this.licencias = new ArrayList<Licencia>();
-        }
+        this.licencias = new ArrayList<>();
         this.tipoDNI = tipoDNI;
         this.DNI = DNI;
         this.apellido = apellido;

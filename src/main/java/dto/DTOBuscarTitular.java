@@ -1,24 +1,16 @@
 package dto;
 
-import enumeration.EnumClaseLicencia;
-import enumeration.EnumTipoDocumento;
+import enumeration.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class DTOEmitirLicencia {
-
+public class DTOBuscarTitular {
     private Integer idTitular;
     private LocalDate fechaNacimiento;
     private String nombre;
     private String apellido;
     private EnumTipoDocumento tipoDocumento;
     private String documento;
-
-    private String observaciones;
-    private EnumClaseLicencia claseLicencia;
-
-    public DTOEmitirLicencia() {}
 
     public Integer getIdTitular() {
         return idTitular;
@@ -66,26 +58,5 @@ public class DTOEmitirLicencia {
 
     public void setDocumento(String documento) {
         this.documento = documento;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public EnumClaseLicencia getClaseLicencia() {
-        return claseLicencia;
-    }
-
-    public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
-        this.claseLicencia = claseLicencia;
-    }
-
-    @Override
-    public String toString() {
-        return nombre + " " + apellido + " - " +  tipoDocumento + ": " + documento;
     }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerEmitirLicencia">
+   <children>
+      <ImageView fitHeight="562.0" fitWidth="1000.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../Imagenes/principal.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
+         <StackPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </StackPane.margin>
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="150.0" minWidth="-Infinity">
+               <content>
+                  <TableView fx:id="tabla" focusTraversable="false" onMouseClicked="#seleccionarTitular">
+                     <columns>
+                        <TableColumn fx:id="columnaNombre" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Nombre" />
+                        <TableColumn fx:id="columnaApellido" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Apellido" />
+                        <TableColumn fx:id="columnaFechaNacimiento" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="Fecha nac." />
+                        <TableColumn fx:id="columnaTipoDocumento" editable="false" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="Tipo documento" />
+                        <TableColumn fx:id="columnaDocumento" editable="false" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Documento" />
+                        <TableColumn fx:id="columnaLicencias" maxWidth="200.0" minWidth="100.0" prefWidth="-1.0" text="Nº licencias" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Pane HBox.hgrow="SOMETIMES" />
+                  <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
