@@ -19,19 +19,23 @@
             <Image url="@../Imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <SubScene fill="WHITE" height="448.0" layoutX="48.0" layoutY="48.0" opacity="0.35" width="324.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="48.0">
+      <SubScene fill="WHITE" height="448.0" layoutX="48.0" layoutY="57.0" opacity="0.35" width="324.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="57.0">
         <root>
           <Region />
         </root>
       </SubScene>
-      <Button fx:id="BEmitirLicencia" layoutX="123.0" layoutY="317.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="58.0" prefWidth="174.0" stylesheets="@../css/styles.css" text="Emitir Licencia" />
-      <Button fx:id="BRegTitular" layoutX="120.0" layoutY="135.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="58.0" prefWidth="180.0" stylesheets="@../css/styles.css" text="Registrar Titular" textAlignment="CENTER" />
+      <VBox alignment="CENTER" layoutX="48.0" layoutY="56.0" prefHeight="448.0" prefWidth="324.0" spacing="125.0">
+         <children>
+            <Button fx:id="BEmitirLicencia" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="58.0" prefWidth="174.0" stylesheets="@../css/styles.css" text="Emitir Licencia" />
+            <Button fx:id="BRegTitular" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="58.0" prefWidth="180.0" stylesheets="@../css/styles.css" text="Registrar Titular" textAlignment="CENTER" />
+         </children>
+      </VBox>
       <Text fill="WHITE" layoutX="455.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Licencia de Conducir" textAlignment="CENTER" wrappingWidth="476.68115234375">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
       </Text>
-      <ImageView fx:id="EXITmenu" fitHeight="91.0" fitWidth="57.0" layoutX="913.0" layoutY="477.0" onMouseClicked="#onExitButtonClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="EXITmenu" fitHeight="91.0" fitWidth="57.0" layoutX="913.0" layoutY="477.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/icons8_exit_64px.png" />
          </image>
@@ -46,7 +50,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="panVigen" layoutX="426.0" layoutY="169.0" prefHeight="301.0" prefWidth="465.0" style="-fx-background-: white;" visible="false" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="109.0">
+      <AnchorPane fx:id="panVigencia" layoutX="426.0" layoutY="169.0" prefHeight="301.0" prefWidth="465.0" style="-fx-background-: white;" visible="false" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="109.0">
          <children>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="43.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• También puede ser disminuida por la autoridad responsable según cada caso en particular y conforme con la normativa vigente." wrappingWidth="390.21509140729904" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Hasta 46 años: 5 años. " wrappingWidth="234.30762439966202" />
@@ -77,7 +81,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="panReq" layoutX="405.0" layoutY="179.0" prefHeight="283.0" prefWidth="465.0" visible="false">
+      <AnchorPane fx:id="panRequerimientos" layoutX="405.0" layoutY="179.0" prefHeight="283.0" prefWidth="465.0" visible="false">
          <children>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="¿Qué se necesita del solicitante?" underline="true" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Tener la edad correspondiente para la clase de licencia que solicitás.Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
@@ -94,33 +98,42 @@
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="23.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Clases A, B, F, G: Deben tener una edad de 17 años como mínimo." wrappingWidth="464.9999961256981" />
          </children>
       </AnchorPane>
-      <VBox layoutX="909.0" layoutY="174.0" prefHeight="227.0" prefWidth="37.0" stylesheets="@../css/styles.css">
+      <VBox alignment="TOP_CENTER" layoutX="909.0" layoutY="174.0" prefHeight="227.0" prefWidth="37.0" stylesheets="@../css/styles.css">
          <children>
-            <ImageView fx:id="usuarios" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onUserButtonClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onUsuarioButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/icons8_customer_52px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="valor" fitHeight="40.0" fitWidth="58.0" onMouseClicked="#onValorButtonClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="58.0" onMouseClicked="#onValorButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/icons8_us_dollar_52px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="8.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="vigen" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onVigButtonClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onVigenciaButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/icons8_calendar_48px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="requerim" accessibleText="holi" fitHeight="32.0" fitWidth="33.0" onMouseClicked="#onReqButtonClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView accessibleText="holi" fitHeight="32.0" fitWidth="33.0" onMouseClicked="#onRequerimientoButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/icons8_bulleted_list_60px.png" />
                </image>
@@ -131,32 +144,35 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
-            <ImageView fx:id="recuerda" fitHeight="33.0" fitWidth="36.0" onMouseClicked="#onRecuerdaButtonClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="33.0" fitWidth="36.0" onMouseClicked="#onRecuerdaButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/icons8_checkmark_64px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
       </VBox>
-      <ImageView fx:id="arrowUser" fitHeight="104.0" fitWidth="32.0" layoutX="891.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="arrowUsuario" fitHeight="104.0" fitWidth="32.0" layoutX="891.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="arrowVal" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="arrowValor" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="arrowVig" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="arrowVigencia" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="arrowReq" fitHeight="104.0" fitWidth="32.0" layoutX="895.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="arrowRequerimiento" fitHeight="104.0" fitWidth="32.0" layoutX="895.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Imagenes/icons8_forward_48px.png" />
          </image>
