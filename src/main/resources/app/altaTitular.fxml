@@ -12,6 +12,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -35,52 +37,12 @@
                </bumpInput>
             </Lighting>
          </effect></Separator>
-      <TextField fx:id="campoNombre" layoutX="187.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
-      <TextField fx:id="campoApe" layoutX="513.0" layoutY="122.0" onKeyReleased="#keyReleasedProperty" />
-      <TextField fx:id="campoDoc" layoutX="211.0" layoutY="181.0" onKeyReleased="#keyReleasedProperty" />
-      <ComboBox fx:id="CBTipoDNI" layoutX="412.0" layoutY="181.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Tipo..." />
-      <DatePicker fx:id="campoFechaNac" layoutX="289.0" layoutY="236.0" onAction="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
-      <ComboBox fx:id="CBGsang" layoutX="285.0" layoutY="291.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
-      <ComboBox fx:id="CBRH" layoutX="532.0" layoutY="287.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
-      <ComboBox fx:id="CBSexo" layoutX="430.0" layoutY="346.0" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
-      <TextField fx:id="campoCalle" layoutX="161.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
-      <TextField fx:id="campoNumCall" layoutX="459.0" layoutY="437.0" onKeyReleased="#keyReleasedProperty" />
-      <Text fill="WHITE" layoutX="71.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *">
+      <Text fill="WHITE" layoutX="54.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOMICILIO">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="398.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="71.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="72.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUINEO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="465.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="54.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOMICILIO">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Separator layoutX="162.0" layoutY="405.0" prefHeight="1.0" prefWidth="466.0">
+      <Separator layoutX="164.0" layoutY="384.0" prefHeight="24.0" prefWidth="731.0">
          <effect>
             <Lighting light="$null" specularConstant="2.0" specularExponent="4.19">
                <bumpInput>
@@ -93,26 +55,6 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <RadioButton fx:id="RBdonante" layoutX="77.0" layoutY="345.0" mnemonicParsing="false" text="DONANTE DE ORGANOS" textFill="WHITE" textOverrun="CLIP">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </RadioButton>
-      <Text fill="WHITE" layoutX="353.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="77.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="360.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO: *">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
       <Button fx:id="Bregistro" layoutX="43.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
       <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="497.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -122,5 +64,104 @@
             <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />
          </effect>
       </ImageView>
+      <VBox layoutX="64.0" layoutY="113.0" prefHeight="401.0" prefWidth="748.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="10.0" visible="false" />
+            <HBox prefHeight="39.0" prefWidth="703.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *" wrappingWidth="95.99999129772186">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoNombre" onKeyReleased="#keyReleasedProperty" />
+                  <Separator prefHeight="1.0" prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *" wrappingWidth="107.0625">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoApe" onKeyReleased="#keyReleasedProperty" />
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
+            <HBox prefHeight="31.0" prefWidth="703.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *" wrappingWidth="138.775390625">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoDoc" onKeyReleased="#keyReleasedProperty" />
+                  <Separator prefHeight="0.0" prefWidth="21.0" visible="false" />
+                  <ComboBox fx:id="CBTipoDNI" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Tipo..." />
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
+            <HBox prefHeight="39.0" prefWidth="681.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *" wrappingWidth="192.232421875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="campoFechaNac" onAction="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
+            <HBox prefHeight="37.0" prefWidth="617.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUINEO: *" wrappingWidth="193.685546875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="CBGsang" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+                  <Separator prefHeight="1.0" prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *" wrappingWidth="56.884765625">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="CBRH" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
+            <HBox prefHeight="42.0" prefWidth="748.0">
+               <children>
+                  <RadioButton fx:id="RBdonante" mnemonicParsing="false" text="DONANTE DE ORGANOS" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </RadioButton>
+                  <Separator prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *" wrappingWidth="73.1943359375">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="CBSexo" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="70.0" visible="false" />
+            <HBox prefHeight="99.0" prefWidth="748.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *" wrappingWidth="84.14453125">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoCalle" onKeyReleased="#keyReleasedProperty" />
+                  <Separator prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO: *" wrappingWidth="104.775390625">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoNumCall" onKeyReleased="#keyReleasedProperty" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

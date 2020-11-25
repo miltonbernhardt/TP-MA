@@ -42,12 +42,12 @@ public class GestorTitular {
 
     }
 
+    //Metodo para verificar que exista en la base de datos un titular con el mismo dni y tipo de dni
     public boolean titularExistente(String dni, EnumTipoDocumento tipo){
-        String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni + " AND t.tipo_dni = " + tipo;
+
+        String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni  + " AND t.tipo_dni = " + "'" +tipo+"'";
         Integer existenciaTitular= DAO.get().getCantidad(consulta);
 
-        System.out.println("CANTIDAD DE USUARIOS CON DNI: "+ existenciaTitular);
-        System.out.println("select count(distinct id_titular) from titular t WHERE t.DNI = " + dni + " AND t.tipo_dni = " + tipo);
         if (existenciaTitular != 0){
             return true;
         }

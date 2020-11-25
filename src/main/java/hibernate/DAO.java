@@ -162,8 +162,9 @@ public class DAO {
         }
 
         if(o != null) {
-            i=1;
-            //i = ((BigInteger) o).intValue();
+
+            i = ((BigInteger) o).intValue();
+
         }
 
         return i;
