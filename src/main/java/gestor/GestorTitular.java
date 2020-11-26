@@ -9,6 +9,7 @@ import model.Titular;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,5 +59,30 @@ public class GestorTitular {
 
     public Titular getTitular(Integer idTitular) {
         return (Titular) DAO.get().get(Titular.class, idTitular);
+    }
+
+    public void searchTitular(HashMap<String, String> argumentos) {
+        List<String> paramentros = new ArrayList<>();
+        if(!argumentos.get("nombre").equals(""))  paramentros.add(" nombre='"+argumentos.get("nombre")+"' ");
+        if(!argumentos.get("apellido").equals(""))  paramentros.add(" apellido='"+argumentos.get("apellido")+"' ");
+        if(!argumentos.get("nacimiento").equals(""))  paramentros.add(" fechaNacimiento='"+argumentos.get("nacimiento")+"' ");
+        if(!argumentos.get("tipoDocumento").equals(""))  paramentros.add(" tipoDdni='"+argumentos.get("tipoDocumento")+"' ");
+        if(!argumentos.get("documento").equals(""))  paramentros.add(" dni='"+argumentos.get("documento")+"' ");
+
+        //ToDo crear el dto con la consulta
+        String consulta = "Select * From titular ";
+
+        if(paramentros.size()>0){
+            boolean primer = true;
+            consulta += " where ";
+            for(String p:paramentros){
+                if(primer){
+                    consulta += paramentros;
+                    primer = false;
+                }
+                else consulta += " AND "+paramentros;
+
+            }
+        }
     }
 }

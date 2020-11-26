@@ -18,8 +18,6 @@ public class DTOEmitirLicencia {
     private String observaciones;
     private EnumClaseLicencia claseLicencia;
 
-    public DTOEmitirLicencia() {}
-
     public Integer getIdTitular() {
         return idTitular;
     }
