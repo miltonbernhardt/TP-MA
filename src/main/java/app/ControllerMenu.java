@@ -140,15 +140,15 @@ public class ControllerMenu implements Initializable {
     }
 
 
-    @FXML
-    private void darAltaTitular() {
-        ControllerAltaTitular.get();
-    }
 
     @FXML
-    private void emitirLicencia() {
-        ControllerEmitirLicencia.get();
-    }
+    private void MenuLicencia(){ ControllerMenuLicencia.get();}
+
+    @FXML
+    private void MenuTitular(){ ControllerMenuTitular.get();}
+    @FXML
+    private void MenuUsuario(){ ControllerMenuUsuario.get();}
+
 
 
 

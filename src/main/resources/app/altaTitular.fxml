@@ -56,7 +56,7 @@
          </font>
       </Text>
       <Button fx:id="Bregistro" layoutX="43.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
-      <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="497.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="925.0" layoutY="488.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/icons8_undo_52px_4.png" />
          </image>
