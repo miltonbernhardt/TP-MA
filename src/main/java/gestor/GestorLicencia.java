@@ -1,6 +1,7 @@
 package gestor;
 
 import dto.DTOEmitirLicencia;
+import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import exceptions.MenorDeEdadException;
 import hibernate.DAO;
@@ -265,6 +266,51 @@ public class GestorLicencia {
 
 
     }
+
+    public ArrayList<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
+
+        ArrayList<DTOLicenciaExpirada> resultado = new ArrayList<DTOLicenciaExpirada>();
+
+        //IR AL DAO Y OBTENER LAS LICENCIAS
+
+
+
+        return resultado;
+    }
+
+    private String armarConsultaLicenciasExpiradas (DTOLicenciaExpirada filtro )
+    {
+       String consulta = "SELECT * FROM LICENCIA WHERE ";
+        int contador = 0;
+        if (filtro.getFechaInicial() != null && filtro.getFechaFinal() != null ){
+            //parsear fecha - fijarse como se guardan
+            //consulta += "DATE(fecha_venc) between" +  fecha_incion " and " + fecha_fin ";
+                contador++;
+        }
+        else if (filtro.getFechaInicial() != null ){
+
+            contador++;
+        }
+
+        if (contador != 0){
+
+            if (filtro.getNroLicencia() != 0){
+
+            }
+            if (filtro.getDNI() != null || !filtro.getDNI().isEmpty()){
+
+            }
+
+            if (filtro.getDNI() != null || !filtro.getDNI().isEmpty()){
+
+            }
+        }
+
+       return consulta;
+    }
+
+
+
 
 }
 

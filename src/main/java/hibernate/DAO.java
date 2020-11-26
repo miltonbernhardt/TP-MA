@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import enumeration.EnumTipoAlerta;
+import model.Licencia;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import app.PanelAlerta;
@@ -167,5 +168,7 @@ public class DAO {
 
         return i;
     }
+
+
 
 }
