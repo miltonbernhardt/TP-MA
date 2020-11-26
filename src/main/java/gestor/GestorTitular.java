@@ -34,36 +34,25 @@ public class GestorTitular {
     public boolean registrarTitular(DTOAltaTitular dto){
 
         if (titularExistente(dto.getDNI(), dto.getTipoDNI())) {
-
-
+            return false;
+        } else {
             Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
                     dto.getFechaNacimiento(), dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
-            return DAO.get().save(titular);
-        } else { return false; }
+            return DAO.get().save(titular);}
 
-        //TODO HACER EXCEPTION
     }
 
+    //Metodo para verificar que exista en la base de datos un titular con el mismo dni y tipo de dni
     public boolean titularExistente(String dni, EnumTipoDocumento tipo){
-        String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni + "t.DNI_tipo = " + tipo;
+
+        String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni  + " AND t.tipo_dni = " + "'" +tipo+"'";
         Integer existenciaTitular= DAO.get().getCantidad(consulta);
+
         if (existenciaTitular != 0){
             return true;
         }
         return false;
     };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
