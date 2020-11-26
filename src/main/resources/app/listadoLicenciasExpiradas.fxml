@@ -40,7 +40,7 @@
       <Label layoutX="287.0" layoutY="207.0" text="N° Documento" />
       <Label layoutX="568.0" layoutY="210.0" text="Clase Licencia" />
       <CheckBox fx:id="ordenarDesc" layoutX="926.0" layoutY="228.0" mnemonicParsing="false" text="Z-A" />
-      <Button layoutX="864.0" layoutY="150.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
+      <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
        <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="505.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
            <image>
                <Image url="@../Imagenes/icons8_undo_52px_4.png" />
@@ -50,14 +50,14 @@
            </effect>
        </ImageView>
       <DatePicker fx:id="campoFechaInicial" layoutX="391.0" layoutY="91.0" prefHeight="31.0" prefWidth="158.0" />
-      <DatePicker fx:id="campoFechaFimal" disable="true" layoutX="675.0" layoutY="90.0" prefHeight="31.0" prefWidth="158.0" />
+      <DatePicker fx:id="campoFechaFinal" disable="true" layoutX="675.0" layoutY="90.0" prefHeight="31.0" prefWidth="158.0" />
       <TextField id="text_apellido" fx:id="campoApe" layoutX="111.0" layoutY="150.0" prefHeight="13.0" prefWidth="158.0" />
       <TextField fx:id="campoNombre" layoutX="391.0" layoutY="150.0" prefHeight="21.0" prefWidth="158.0" />
       <TextField fx:id="campoNroLicencia" layoutX="675.0" layoutY="150.0" prefHeight="31.0" prefWidth="158.0" />
       <TextField fx:id="campoDoc" layoutX="391.0" layoutY="205.0" prefHeight="21.0" prefWidth="158.0" />
       <ComboBox fx:id="CBTipoDNI" layoutX="111.0" layoutY="205.0" prefHeight="31.0" prefWidth="158.0" />
       <ComboBox fx:id="CBClaseLicencia" layoutX="675.0" layoutY="205.0" prefHeight="31.0" prefWidth="158.0" />
-      <CheckBox fx:id="filtrarPorRangoFecha" layoutX="44.0" layoutY="96.0" mnemonicParsing="false" text="Filtrar por rango de fechas" onMouseClicked="#onCheckRangoClick" />
-      <Label layoutX="395.0" layoutY="35.0" text="LISTDO LICENCIAS EXPIRADAS" textAlignment="CENTER" />
+      <CheckBox fx:id="filtrarPorRangoFecha" layoutX="44.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#onCheckRangoClick" text="Filtrar por rango de fechas" />
+      <Label layoutX="395.0" layoutY="35.0" text="LISTADO LICENCIAS EXPIRADAS" textAlignment="CENTER" />
    </children>
 </AnchorPane>
