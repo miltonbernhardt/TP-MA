@@ -1,11 +1,15 @@
 package gestor;
 
+import database.TitularDAO;
+import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
+import org.hibernate.HibernateException;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -15,12 +19,14 @@ import java.util.List;
 
 public class GestorTitular {
     private static GestorTitular instanciaGestor = null;
+    private static TitularDAO daoTitular = null;
 
     private GestorTitular() {}
 
     public static GestorTitular get() {
         if (instanciaGestor == null){
             instanciaGestor = new GestorTitular();
+            daoTitular = new TitularDAOImpl();
         }
         return instanciaGestor;
     }
@@ -57,8 +63,8 @@ public class GestorTitular {
         return Period.between(fechaNacimiento, today).getYears();
     }
 
-    public Titular getTitular(Integer idTitular) {
-        return (Titular) DAO.get().get(Titular.class, idTitular);
+    public Titular getTitular(Integer idTitular)  {
+        return daoTitular.findById(idTitular);
     }
 
     public void searchTitular(HashMap<String, String> argumentos) {

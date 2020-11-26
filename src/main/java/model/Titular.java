@@ -4,6 +4,7 @@ import enumeration.EnumFactorRH;
 import enumeration.EnumGrupoSanguineo;
 import enumeration.EnumSexo;
 import enumeration.EnumTipoDocumento;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,5 +147,15 @@ public class Titular {
 
     public void setSexo(EnumSexo sexo) {
         this.sexo = sexo;
+    }
+
+    @Override
+    public String toString() {
+        return "Titular{" +
+                "tipoDNI=" + tipoDNI +
+                ", DNI='" + DNI + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }
