@@ -1,25 +1,32 @@
 package gestor;
 
+import database.TitularDAO;
+import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
+import org.hibernate.HibernateException;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 public class GestorTitular {
     private static GestorTitular instanciaGestor = null;
+    private static TitularDAO daoTitular = null;
 
     private GestorTitular() {}
 
     public static GestorTitular get() {
         if (instanciaGestor == null){
             instanciaGestor = new GestorTitular();
+            daoTitular = new TitularDAOImpl();
         }
         return instanciaGestor;
     }
@@ -90,7 +97,32 @@ public class GestorTitular {
         return Period.between(fechaNacimiento, today).getYears();
     }
 
-    public Titular getTitular(Integer idTitular) {
-        return (Titular) DAO.get().get(Titular.class, idTitular);
+    public Titular getTitular(Integer idTitular)  {
+        return daoTitular.findById(idTitular);
+    }
+
+    public void searchTitular(HashMap<String, String> argumentos) {
+        List<String> paramentros = new ArrayList<>();
+        if(!argumentos.get("nombre").equals(""))  paramentros.add(" nombre='"+argumentos.get("nombre")+"' ");
+        if(!argumentos.get("apellido").equals(""))  paramentros.add(" apellido='"+argumentos.get("apellido")+"' ");
+        if(!argumentos.get("nacimiento").equals(""))  paramentros.add(" fechaNacimiento='"+argumentos.get("nacimiento")+"' ");
+        if(!argumentos.get("tipoDocumento").equals(""))  paramentros.add(" tipoDdni='"+argumentos.get("tipoDocumento")+"' ");
+        if(!argumentos.get("documento").equals(""))  paramentros.add(" dni='"+argumentos.get("documento")+"' ");
+
+        //ToDo crear el dto con la consulta
+        String consulta = "Select * From titular ";
+
+        if(paramentros.size()>0){
+            boolean primer = true;
+            consulta += " where ";
+            for(String p:paramentros){
+                if(primer){
+                    consulta += paramentros;
+                    primer = false;
+                }
+                else consulta += " AND "+paramentros;
+
+            }
+        }
     }
 }

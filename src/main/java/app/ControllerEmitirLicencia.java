@@ -172,7 +172,6 @@ public class ControllerEmitirLicencia {
                             "",
                             "Se emitió la licencia de forma correcta.",
                             null);
-                            //ImprimirLicencia();
             }
             else{
                 PanelAlerta.get(EnumTipoAlerta.ERROR,
