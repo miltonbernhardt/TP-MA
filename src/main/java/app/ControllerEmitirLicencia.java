@@ -1,20 +1,19 @@
 package app;
 
+import database.TitularDAO;
+import database.TitularDAOImpl;
+import dto.DTOBuscarTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
 import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
-import gestor.GestorTitular;
-import hibernate.DAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import model.Titular;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class ControllerEmitirLicencia {
@@ -30,9 +29,7 @@ public class ControllerEmitirLicencia {
         return instance;
     }
 
-    /*
-        TextFields
-     */
+    /* TextFields */
     @FXML
     private TextField textNombre;
     @FXML
@@ -44,62 +41,48 @@ public class ControllerEmitirLicencia {
     @FXML
     private TextField textDocumento;
 
-    /*
-        TextArea
-     */
+    /* TextArea */
     @FXML
     private TextArea textObservaciones;
 
-    /*
-        ComboBox
-     */
+    /* ComboBox */
     @FXML
     private ComboBox<EnumClaseLicencia> comboLicencias;
-    @FXML
-    private ComboBox<DTOEmitirLicencia> comboTitulares;
 
-
-    /*
-        Button
-     */
+    /* Button */
     @FXML
     private Button btnEmitirLicencia;
 
-    /*
-        Label
-     */
+    /* Label */
     @FXML
     private Label labelDescripcionLicencia;
 
-
     @FXML
     public void buscarTitular(){
-        /*
-        TODO cambiar al implementar buscar/alta titular
-         */
-        comboTitulares.getItems().clear();
-        try {
-            comboTitulares.getItems().addAll(GestorTitular.get().buscarTitulares());
+        //Hasta que se implemente bien el buscar titular
+        TitularDAO  dao = new TitularDAOImpl();
+        Titular t = dao.findById(100);
+        DTOBuscarTitular dto = new DTOBuscarTitular();
+        dto.setApellido(t.getApellido());
+        dto.setDocumento(t.getDNI());
+        dto.setNombre(t.getNombre());
+        dto.setFechaNacimiento(t.getFechaNacimiento());
+        dto.setTipoDocumento(t.getTipoDNI());
+        dto.setIdTitular(t.getId());
+        seleccionarTitular(dto);
 
-        }catch(Exception e) {e.printStackTrace();}
 
-        if(comboTitulares.getItems().size()==0) {
-            comboTitulares.setDisable(true);
-        }
-        else{
-            comboTitulares.setDisable(false);
-            comboTitulares.setPromptText("Seleccionar titular");
-        }
+        //ControllerBuscarTitular.get().setControllerEmitirLicencia(this);
     }
 
-    @FXML
-    private void seleccionarTitular(){
-
-        /*
-            TODO cambiar al implementar buscar/alta titular
-         */
-
-        dto = comboTitulares.getSelectionModel().getSelectedItem();
+    public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){
+        this.dto = new DTOEmitirLicencia();
+        dto.setIdTitular(dtoBuscarTitular.getIdTitular());
+        dto.setFechaNacimiento(dtoBuscarTitular.getFechaNacimiento());
+        dto.setNombre(dtoBuscarTitular.getNombre());
+        dto.setApellido(dtoBuscarTitular.getApellido());
+        dto.setTipoDocumento(dtoBuscarTitular.getTipoDocumento());
+        dto.setDocumento(dtoBuscarTitular.getDocumento());
 
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
 
@@ -135,14 +118,9 @@ public class ControllerEmitirLicencia {
             /*
             TODO ver que pasa si es 0, ¿se renueva o se avisa que no se puede emitir licencia?
              */
-            PanelAlerta.get(EnumTipoAlerta.ERROR,
-                    "Operación no válida",
-                    "",
-                    "No se le puede dar de alta una licencia a id:"+dto.getIdTitular()+" - '"+dto.getNombre()+" "+dto.getApellido()+"'",
-                    null);
+            PanelAlerta.get(EnumTipoAlerta.ERROR,"Operación no válida","","No se le puede dar de alta una licencia a id:"+dto.getIdTitular()+" - '"+dto.getNombre()+" "+dto.getApellido()+"'",null);
         }
     }
-
 
     @FXML
     private void listenerCombo(){
@@ -154,32 +132,20 @@ public class ControllerEmitirLicencia {
     }
 
     @FXML
-    private void emitirLicencia() throws MenorDeEdadException {
-        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
-                    "Confirmar emisión",
-                    "",
-                    "¿Desea confirmar la emisión de la licencia?",
-                    null);
+    private void emitirLicencia() {
+        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,"Confirmar emisión","","¿Desea confirmar la emisión de la licencia?",null);
 
         if (result.get() == ButtonType.OK){
-
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
-            if(GestorLicencia.get().emitirLicencia(dto)) {
-                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
-                            "Confirmación",
-                            "",
-                            "Se emitió la licencia de forma correcta.",
-                            null);
+            try {
+                if (GestorLicencia.get().emitirLicencia(dto))
+                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", "Se emitió la licencia de forma correcta.", null);
+                else
+                    PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", "", "No se ha podido emitir la licencia.", null);
             }
-            else{
-                PanelAlerta.get(EnumTipoAlerta.ERROR,
-                            "Error",
-                            "",
-                            "No se ha podido emitir la licencia.",
-                            null);
-            }
+            catch (MenorDeEdadException e){e.printStackTrace();}
 
             volver();
         }
@@ -190,10 +156,4 @@ public class ControllerEmitirLicencia {
         ControllerApp.getViewAnterior();
         instance = null;
     }
-
-    /*
-    @FXML
-    private void ImprimirLicencia() {
-        ControllerImprimirLicencia.get();
-    }*/
 }

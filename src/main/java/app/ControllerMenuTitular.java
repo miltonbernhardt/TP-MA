@@ -1,6 +1,5 @@
 package app;
 
-import dto.DTOAltaTitular;
 import javafx.fxml.FXML;
 
 public class ControllerMenuTitular {
@@ -19,6 +18,11 @@ public class ControllerMenuTitular {
     @FXML
     private void darAltaTitular() {
         ControllerAltaTitular.get();
+    }
+
+    @FXML
+    private void buscarTitular() {
+        ControllerBuscarTitular.get();
     }
 
     @FXML

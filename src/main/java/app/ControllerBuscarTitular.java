@@ -91,6 +91,7 @@ public class ControllerBuscarTitular {
                     null);
 
             if (result.get() == ButtonType.OK) {
+                //ToDO fijarse a donde vuelve si al menu o al altalicencia
                 controllerEmitirLicencia.seleccionarTitular(titularSeleccionado);
                 volver();
             }

@@ -2,9 +2,7 @@ package dto;
 
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoDocumento;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 public class DTOEmitirLicencia {
 
@@ -15,22 +13,11 @@ public class DTOEmitirLicencia {
     private EnumTipoDocumento tipoDocumento;
     private String documento;
 
-
     private double costo;
     private String observaciones;
     private EnumClaseLicencia claseLicencia;
 
     public DTOEmitirLicencia() {}
-
-    public DTOEmitirLicencia(Integer idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
-        this.idTitular = idTitular;
-        this.fechaNacimiento = fechaNacimiento;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.tipoDocumento = tipoDocumento;
-        this.documento = documento;
-
-    }
 
     public Integer getIdTitular() {
         return idTitular;
