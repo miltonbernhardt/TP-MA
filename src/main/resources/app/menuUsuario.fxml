@@ -81,9 +81,9 @@
                 <Image url="@../Imagenes/santafe.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="60.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
             <image>
-                <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+                <Image url="@../Imagenes/icons8_undo_52px.png" />
             </image>
         </ImageView>
         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Usuario" underline="true" wrappingWidth="335.53662109375">

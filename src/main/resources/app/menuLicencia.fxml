@@ -91,17 +91,12 @@
             <Image url="@../Imagenes/santafe.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="886.0" layoutY="455.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Imagenes/icons8_undo_52px_4.png" />
-         </image>
-      </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Licencia" underline="true" wrappingWidth="335.53662109375">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
       </Text>
-      <ImageView fitHeight="62.0" fitWidth="70.0" layoutX="799.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="62.0" fitWidth="70.0" layoutX="901.0" layoutY="453.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
          <image>
             <Image url="@../Imagenes/icons8_undo_52px.png" />
          </image>

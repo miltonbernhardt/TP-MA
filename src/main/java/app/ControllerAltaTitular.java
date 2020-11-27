@@ -68,29 +68,27 @@ public class ControllerAltaTitular{
     };
      */
 
-    //verificar campos solo letras
+    //verificar campos solo letras, consume las entradas no validas
     EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
         private boolean willConsume =false;
         @Override
         public void handle(KeyEvent event){
-            Object tempO= event.getSource();
+            Object temp0= event.getSource();
+            //una vez que se consume se debe volver a poner en falso, sino seguira consumiendo hasta que
+            //se ingrese un caracter no valido
             if (willConsume){
                 event.consume();
-
+                willConsume = false;
             }
-            //TODO hay un problema cuando introducis un caracter no permitido, y despues queres introducir uno valido, no te deja
-            //si apreto un numero, por ejemplo, me deja volver a escribir
-            //TODO esto es una sugerencia de algo similar que hice, capaz es más facil que ante un evento de keyUp se obtenga el string de los campos, y a ese string validarle los caracteres
-            //  y si los caracteres no son válidos sacarlos de la cadena
             String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches("[a-zA-Z]") /*&& ( event.getCode() != KeyCode.BACK_SPACE )*/
-                    && ( event.getCode() != KeyCode.SHIFT )) {
-                //TODO agregar que acepte acentos y apostrofes
+            if (!event.getCode().toString().matches("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]")&&(event.getCode()!= KeyCode.SPACE)
+                    && ( event.getCode() != KeyCode.SHIFT)) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED){
                     willConsume = true;
-                } else if (event.getEventType() == KeyEvent.KEY_RELEASED)  {
+                }  else if (event.getEventType() == KeyEvent.KEY_RELEASED)  {
                     willConsume = false;
                 }
+
             }
         }
     };
@@ -136,10 +134,10 @@ public class ControllerAltaTitular{
 
             //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
 
-            dto.setNombre(campoNombre.getText());
-
-            dto.setApellido(campoApe.getText());
-            dto.setCalle(campoCalle.getText());
+            dto.setNombre(campoNombre.getText().toUpperCase());
+            System.out.println("nombre todo en mayus " + campoNombre.getText().toLowerCase());
+            dto.setApellido(campoApe.getText().toUpperCase());
+            dto.setCalle(campoCalle.getText().toUpperCase());
 
             dto.setDNI(campoDoc.getText());
             dto.setDonanteOrganos(RBdonante.isSelected());
