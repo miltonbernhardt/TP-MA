@@ -1,29 +1,36 @@
 package dto;
 
-import enumeration.EnumClaseLicencia;
-import enumeration.EnumTipoDocumento;
+import enumeration.*;
+
 import java.time.LocalDate;
 
-public class DTOEmitirLicencia {
-
-    private Integer idTitular;
+public class DTOBuscarTitular {
+    private int idTitular;
     private LocalDate fechaNacimiento;
     private String nombre;
     private String apellido;
     private EnumTipoDocumento tipoDocumento;
     private String documento;
 
-    private double costo;
-    private String observaciones;
-    private EnumClaseLicencia claseLicencia;
+    private LocalDate fechaNacimientoInicial;
+    private LocalDate fechaNacimientoFinal;
 
-    public DTOEmitirLicencia() {}
+    public DTOBuscarTitular(){}
 
-    public Integer getIdTitular() {
+    public DTOBuscarTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
+        this.idTitular = idTitular;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
+    }
+
+    public int getIdTitular() {
         return idTitular;
     }
 
-    public void setIdTitular(Integer idTitular) {
+    public void setIdTitular(int idTitular) {
         this.idTitular = idTitular;
     }
 
@@ -67,32 +74,19 @@ public class DTOEmitirLicencia {
         this.documento = documento;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public LocalDate getFechaNacimientoInicial() {
+        return fechaNacimientoInicial;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public void setFechaNacimientoInicial(LocalDate fechaNacimientoInicial) {
+        this.fechaNacimientoInicial = fechaNacimientoInicial;
     }
 
-    public EnumClaseLicencia getClaseLicencia() {
-        return claseLicencia;
+    public LocalDate getFechaNacimientoFinal() {
+        return fechaNacimientoFinal;
     }
 
-    public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
-        this.claseLicencia = claseLicencia;
-    }
-
-    public double getCosto() {
-        return costo;
-    }
-
-    public void setCosto(double costo) {
-        this.costo = costo;
-    }
-
-    @Override
-    public String toString() {
-        return nombre + " " + apellido + " - " +  tipoDocumento + ": " + documento;
+    public void setFechaNacimientoFinal(LocalDate fechaNacimientoFinal) {
+        this.fechaNacimientoFinal = fechaNacimientoFinal;
     }
 }

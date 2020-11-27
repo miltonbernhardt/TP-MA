@@ -1,5 +1,7 @@
 package gestor;
 
+import database.LicenciaDAO;
+import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import exceptions.MenorDeEdadException;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class GestorLicencia {
 
     private static GestorLicencia instanciaGestor = null;
+    private static LicenciaDAO daoLicencia = null;
 
 
     private GestorLicencia() {}
@@ -22,6 +25,7 @@ public class GestorLicencia {
     public static GestorLicencia get() {
         if (instanciaGestor == null){
             instanciaGestor = new GestorLicencia();
+            daoLicencia = new LicenciaDAOImpl();
         }
         return instanciaGestor;
     }

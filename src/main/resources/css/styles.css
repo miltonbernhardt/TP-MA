@@ -11,6 +11,8 @@
     -color-sombra: rgb(0,0,0);
 
     -color-fondo-oscuro: rgb(54, 51, 50); /* elegido para los pane que contienen a los elementos */
+
+    -color-celdas: rgb(3, 27, 103);
 }
 
 .root{
@@ -147,4 +149,53 @@
     -fx-padding: 0.5em 0.5em 0.5em 0.5em;
     -fx-background-color: -color-fondo-oscuro;
     -fx-font-size: 15px;
+}
+
+/*--------------TABLAS DE DATOS---------------*/
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-border-color: -color-fondo-oscuro;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header{
+    -fx-background-color: -color-fondo-oscuro;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-fuente-clara;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: -color-fuente-clara;
+    -fx-alignment: center;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, -color-fondo-oscuro;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+    /*-fx-border-color: red;*/
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, -color-celdas;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -color-primario-oscuro;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
 }
