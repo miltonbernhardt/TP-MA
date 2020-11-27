@@ -8,7 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+//ToDo ver que hacer en caso de excepcion, porque cierra las query
 public class HibernateUtil {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;

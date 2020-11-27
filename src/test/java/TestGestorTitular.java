@@ -32,6 +32,10 @@ public class TestGestorTitular {
         t1.getLicencias().add(l1);
         //t1.getLicencias().add(l2);
         //Persisto en Base de Datos
-        dao.save(t1);
+        try {
+            dao.save(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

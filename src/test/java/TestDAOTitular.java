@@ -28,16 +28,24 @@ public class TestDAOTitular {
         try{
             dao.save(t1);
         }
-        catch (HibernateError e){
+        catch (Exception e){
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", e);
         }
 
         t1.setApellido("TestDAO updatee");
-        dao.update(t1);
+        try {
+            dao.update(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Assert.assertEquals(t1.getApellido(), "TestDAO updatee");
 
-        dao.delete(t1);
+        try {
+            dao.delete(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(t1);
     }
 }

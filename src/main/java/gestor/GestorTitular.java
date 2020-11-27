@@ -1,8 +1,10 @@
 package gestor;
 
+import app.PanelAlerta;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
+import dto.DTOBuscarTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.*;
 import hibernate.DAO;
@@ -14,7 +16,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class GestorTitular {
@@ -29,13 +30,6 @@ public class GestorTitular {
             daoTitular = new TitularDAOImpl();
         }
         return instanciaGestor;
-    }
-
-    public boolean verificarTitular (DTOAltaTitular dto){
-        //TODO buscar en base de datos los titulares para comparar DNI
-
-        return true;
-
     }
 
     public boolean registrarTitular(DTOAltaTitular dto){
@@ -55,36 +49,7 @@ public class GestorTitular {
         String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni  + " AND t.tipo_dni = " + "'" +tipo+"'";
         Integer existenciaTitular= DAO.get().getCantidad(consulta);
 
-        if (existenciaTitular != 0){
-            return true;
-        }
-        return false;
-    };
-
-
-
-
-    public DTOEmitirLicencia buscarTitular(Integer idTitular) {
-        DTOEmitirLicencia dto = new DTOEmitirLicencia();
-
-        Titular titular = (Titular) DAO.get().get(Titular.class, idTitular);
-
-        dto.setIdTitular(titular.getId());
-        dto.setNombre(titular.getNombre());
-        dto.setApellido(titular.getApellido());
-        dto.setFechaNacimiento(titular.getFechaNacimiento());
-        dto.setTipoDocumento(titular.getTipoDNI());
-        dto.setDocumento(titular.getDNI());
-
-        return dto;
-    }
-    public List<DTOEmitirLicencia> buscarTitulares() {
-          /*
-            TODO cambiar al implementar buscar/alta titular
-         */
-        String consulta = "SELECT new dto.DTOEmitirLicencia(t.id, t.fechaNacimiento, t.nombre, t.apellido, t.tipoDNI, t.DNI) "
-                + "FROM Titular t ORDER BY t.id";
-        return (List<DTOEmitirLicencia>) DAO.get().getResultList(consulta, DTOEmitirLicencia.class);
+        return existenciaTitular != 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -98,31 +63,86 @@ public class GestorTitular {
     }
 
     public Titular getTitular(Integer idTitular)  {
-        return daoTitular.findById(idTitular);
+        try {
+            return daoTitular.findById(idTitular);
+        } catch (Exception e) {
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el titular.", e);
+            return null;
+        }
     }
 
-    public void searchTitular(HashMap<String, String> argumentos) {
-        List<String> paramentros = new ArrayList<>();
-        if(!argumentos.get("nombre").equals(""))  paramentros.add(" nombre='"+argumentos.get("nombre")+"' ");
-        if(!argumentos.get("apellido").equals(""))  paramentros.add(" apellido='"+argumentos.get("apellido")+"' ");
-        if(!argumentos.get("nacimiento").equals(""))  paramentros.add(" fechaNacimiento='"+argumentos.get("nacimiento")+"' ");
-        if(!argumentos.get("tipoDocumento").equals(""))  paramentros.add(" tipoDdni='"+argumentos.get("tipoDocumento")+"' ");
-        if(!argumentos.get("documento").equals(""))  paramentros.add(" dni='"+argumentos.get("documento")+"' ");
+    public List<DTOBuscarTitular> searchTitular(DTOBuscarTitular argumentosBuscar) {
+        String argumentos = "";
 
-        //ToDo crear el dto con la consulta
-        String consulta = "Select * From titular ";
+        boolean first = true;
 
-        if(paramentros.size()>0){
-            boolean primer = true;
-            consulta += " where ";
-            for(String p:paramentros){
-                if(primer){
-                    consulta += paramentros;
-                    primer = false;
+        if(!argumentosBuscar.getNombre().equals("")) {
+            argumentos += " t.nombre LIKE '%"+argumentosBuscar.getNombre()+"%' ";
+            first = false;
+        }
+
+        if(!argumentosBuscar.getApellido().equals("")) {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " t.apellido LIKE '%"+argumentosBuscar.getApellido()+"%' ";
+        }
+
+        //ToDo hacer un between dates
+        LocalDate fechaMenor = argumentosBuscar.getFechaNacimientoInicial();
+        LocalDate fechaMayor = argumentosBuscar.getFechaNacimientoFinal();
+        if(fechaMenor != null && fechaMayor != null) {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            if(fechaMenor.isAfter(fechaMayor)){
+                LocalDate comodin = fechaMenor;
+                fechaMenor = fechaMayor;
+                fechaMayor = comodin;
+            }
+
+            argumentos += " t.fechaNacimiento BETWEEN '"+fechaMenor+"' AND '"+fechaMayor+"' ";
+        }
+        else{
+            if(fechaMenor != null) {
+                if(first) first = false;
+                else argumentos += " AND ";
+
+                argumentos += " t.fechaNacimiento>='"+fechaMenor+"' ";
+            }
+            else{
+                if(fechaMayor != null) {
+                    if(first) first = false;
+                    else argumentos += " AND ";
+
+                    argumentos += " t.fechaNacimiento <= '"+fechaMayor+"' ";
                 }
-                else consulta += " AND "+paramentros;
-
             }
         }
+
+        if(argumentosBuscar.getTipoDocumento() != null) {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " t.tipoDNI='"+argumentosBuscar.getTipoDocumento()+"' ";
+        }
+
+        if(!argumentosBuscar.getDocumento().equals(""))  {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " t.DNI LIKE '%"+argumentosBuscar.getDocumento()+"%' ";
+        }
+
+        try {
+            if(!first) return daoTitular.createListDTOBuscarTitular(" WHERE " + argumentos);
+            else return daoTitular.createListDTOBuscarTitular("");
+
+        }
+        catch (Exception e){
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
+
     }
 }

@@ -1,7 +1,5 @@
 package app;
 
-import database.TitularDAO;
-import database.TitularDAOImpl;
 import dto.DTOBuscarTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
@@ -10,7 +8,6 @@ import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.Titular;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -59,20 +56,7 @@ public class ControllerEmitirLicencia {
 
     @FXML
     public void buscarTitular(){
-        //Hasta que se implemente bien el buscar titular
-        TitularDAO  dao = new TitularDAOImpl();
-        Titular t = dao.findById(100);
-        DTOBuscarTitular dto = new DTOBuscarTitular();
-        dto.setApellido(t.getApellido());
-        dto.setDocumento(t.getDNI());
-        dto.setNombre(t.getNombre());
-        dto.setFechaNacimiento(t.getFechaNacimiento());
-        dto.setTipoDocumento(t.getTipoDNI());
-        dto.setIdTitular(t.getId());
-        seleccionarTitular(dto);
-
-
-        //ControllerBuscarTitular.get().setControllerEmitirLicencia(this);
+        ControllerBuscarTitular.get().setControllerEmitirLicencia(this);
     }
 
     public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){

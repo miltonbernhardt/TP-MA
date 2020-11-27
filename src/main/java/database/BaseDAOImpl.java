@@ -1,11 +1,11 @@
 package database;
 
-import app.PanelAlerta;
-import enumeration.EnumTipoAlerta;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+
+import javax.persistence.NoResultException;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigInteger;
@@ -28,7 +28,6 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             session.getTransaction().commit();
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo persistir la entidad en la base de datos.", exception);
             session.getTransaction().rollback();
             exception.printStackTrace();
             throw exception;
@@ -45,7 +44,6 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             session.getTransaction().commit();
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo actualizar la entidad en la base de datos.", exception);
             session.getTransaction().rollback();
             exception.printStackTrace();
             throw exception;
@@ -63,7 +61,6 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             session.getTransaction().commit();
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo borrar la entidad de la base de datos.", exception);
             session.getTransaction().rollback();
             exception.printStackTrace();
             throw exception;
@@ -78,8 +75,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
                 session.beginTransaction();
             return session.get(getEntityClass(), id);
         }
-        catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo encontrar la entidad en la base de datos.", exception);
+        catch (Exception exception) {
             session.getTransaction().rollback();
             exception.printStackTrace();
             throw exception;
@@ -94,9 +90,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
             return session.createQuery(consultaSql, getEntityClass()).getSingleResult();
-        }
-        catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener la entidad desde la base de datos.", exception);
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
@@ -111,8 +105,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             Query<T> query = session.createQuery("SELECT e FROM " + getEntityClass().getName() + " e");
             return query.list();
         }
-        catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo encontrar las entidades en la base de datos.", exception);
+        catch (Exception exception) {
             session.getTransaction().rollback();
             exception.printStackTrace();
             throw exception;
@@ -127,15 +120,14 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
                 session.beginTransaction();
             return session.createQuery(consultaSql, getEntityClass()).getResultList();
         }
-        catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener la lista de entidades desde la base de datos.", exception);
+        catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
     }
 
     @Override
-    public Integer getCantidad(String consultaSql) throws HibernateException {
+    public Integer getCantidad(String consultaSql) throws NoResultException {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             int i = 0;
@@ -148,8 +140,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             }
             return i;
         }
-        catch (javax.persistence.NoResultException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", exception);
+        catch (NoResultException exception) {
             exception.printStackTrace();
             throw exception;
         }

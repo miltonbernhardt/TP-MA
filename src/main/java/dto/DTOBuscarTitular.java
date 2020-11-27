@@ -5,18 +5,32 @@ import enumeration.*;
 import java.time.LocalDate;
 
 public class DTOBuscarTitular {
-    private Integer idTitular;
+    private int idTitular;
     private LocalDate fechaNacimiento;
     private String nombre;
     private String apellido;
     private EnumTipoDocumento tipoDocumento;
     private String documento;
 
-    public Integer getIdTitular() {
+    private LocalDate fechaNacimientoInicial;
+    private LocalDate fechaNacimientoFinal;
+
+    public DTOBuscarTitular(){}
+
+    public DTOBuscarTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
+        this.idTitular = idTitular;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
+    }
+
+    public int getIdTitular() {
         return idTitular;
     }
 
-    public void setIdTitular(Integer idTitular) {
+    public void setIdTitular(int idTitular) {
         this.idTitular = idTitular;
     }
 
@@ -58,5 +72,21 @@ public class DTOBuscarTitular {
 
     public void setDocumento(String documento) {
         this.documento = documento;
+    }
+
+    public LocalDate getFechaNacimientoInicial() {
+        return fechaNacimientoInicial;
+    }
+
+    public void setFechaNacimientoInicial(LocalDate fechaNacimientoInicial) {
+        this.fechaNacimientoInicial = fechaNacimientoInicial;
+    }
+
+    public LocalDate getFechaNacimientoFinal() {
+        return fechaNacimientoFinal;
+    }
+
+    public void setFechaNacimientoFinal(LocalDate fechaNacimientoFinal) {
+        this.fechaNacimientoFinal = fechaNacimientoFinal;
     }
 }
