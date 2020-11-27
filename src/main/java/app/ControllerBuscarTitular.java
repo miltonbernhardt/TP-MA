@@ -11,7 +11,6 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +59,7 @@ public class ControllerBuscarTitular {
     private void iniciarDatePicker(DatePicker dateNacimientoInicial) {
         dateNacimientoInicial.setConverter(new StringConverter<LocalDate>()
         {
-            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            private final DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             @Override
             public String toString(LocalDate localDate)
@@ -90,6 +89,7 @@ public class ControllerBuscarTitular {
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay usuarios que mostrar."));
+        tabla.setTooltip(new Tooltip("Doble click para seleccionar un titular"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         columnaFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
