@@ -5,9 +5,15 @@ import java.time.LocalDate;
 
 public class Licencia {
 
+
+
     private Titular titular;
 
-    private Integer id;
+
+
+    private Integer id_titular;
+
+    private int id;
     private EnumClaseLicencia claseLicencia;
     private LocalDate fechaEmision;
     private LocalDate fechaVencimiento;
@@ -25,12 +31,28 @@ public class Licencia {
      */
     public Licencia(Titular titular, EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento) {
         this.titular = titular;
+
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.observaciones= "";
     }
 
+    public Licencia(Integer id_titular, int id, EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
+        this.id_titular = id_titular;
+        this.id = id;
+        this.claseLicencia = claseLicencia;
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
+        this.observaciones = observaciones;
+    }
+    public Integer getId_titular() {
+        return id_titular;
+    }
+
+    public void setId_titular(Integer id_titular) {
+        this.id_titular = id_titular;
+    }
     public Titular getTitular() {
         return titular;
     }
@@ -39,11 +61,11 @@ public class Licencia {
         this.titular = titular;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

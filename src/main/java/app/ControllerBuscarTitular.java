@@ -18,6 +18,7 @@ import java.util.Optional;
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
     private ControllerEmitirLicencia controllerEmitirLicencia = null;
+    private ControllerImprimirLicencia controllerImprimirLicencia = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -144,6 +145,9 @@ public class ControllerBuscarTitular {
                 if(controllerEmitirLicencia != null){
                     controllerEmitirLicencia.seleccionarTitular(dtoTitular);
                 }
+                if(controllerImprimirLicencia != null){
+                    controllerImprimirLicencia.seleccionarTitular(dtoTitular);
+                }
                 volver();
             }
         }
@@ -157,6 +161,10 @@ public class ControllerBuscarTitular {
 
     public void setControllerEmitirLicencia(ControllerEmitirLicencia controllerEmitirLicencia) {
         this.controllerEmitirLicencia = controllerEmitirLicencia;
+    }
+
+    public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
+        this.controllerImprimirLicencia = controllerImprimirLicencia;
     }
 
 }

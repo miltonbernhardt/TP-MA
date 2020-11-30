@@ -6,25 +6,44 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import com.pdfjet.*;
+import dto.DTOBuscarTitular;
+import dto.DTOEmitirLicencia;
+import dto.DTOImprimirLicencia;
+import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoAlerta;
+import enumeration.EnumTipoDocumento;
+import gestor.GestorLicencia;
+import gestor.GestorTitular;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
+import model.Licencia;
 
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerImprimirLicencia {
 
     @FXML private AnchorPane panel;
 
     private static ControllerImprimirLicencia instance = null;
+    private DTOImprimirLicencia dto;
 
 
     public static ControllerImprimirLicencia get() {
@@ -34,6 +53,126 @@ public class ControllerImprimirLicencia {
         }
         return instance;
     }
+    @FXML private TextField campoTitular;
+    @FXML private TextField campoId;
+    @FXML private DatePicker campoFecha;
+    @FXML private ComboBox<EnumClaseLicencia> CBclase;
+    @FXML private TableView<DTOImprimirLicencia> tabla;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaTitular;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaId;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaClase;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaFecha;
+    private DTOImprimirLicencia licenciaSeleccionada = null;
+    @FXML
+
+    private void initialize(){
+        CBclase.setItems(FXCollections.observableArrayList(EnumClaseLicencia.values()));
+        iniciarTabla();
+        iniciarDatePicker(campoFecha);
+    }
+    @FXML
+    public void buscarTitular(){
+        ControllerBuscarTitular.get().setControllerImprimirLicencia(this);
+    }
+
+    public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){
+        System.out.println("numero id " + dtoBuscarTitular.getIdTitular());
+        this.dto = new DTOImprimirLicencia();
+        dto.setIdTitular(dtoBuscarTitular.getIdTitular());
+        dto.setFechaNacimiento(dtoBuscarTitular.getFechaNacimiento());
+        dto.setNombre(dtoBuscarTitular.getNombre());
+        dto.setApellido(dtoBuscarTitular.getApellido());
+        dto.setTipoDocumento(dtoBuscarTitular.getTipoDocumento());
+        dto.setDocumento(dtoBuscarTitular.getDocumento());
+        System.out.println("numero id " + dto.getIdTitular());
+        System.out.println("nombre"  + dto.getTitular());
+        campoTitular.setText(dto.getIdTitular().toString());
+       ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dto.getIdTitular());
+
+        //Se resetea el estado del comboBox, la descricpción de la clases de licencia, el estado del boton emitir licencia y la selección de la clase de licencaia
+      CBclase.getSelectionModel().clearSelection();
+      CBclase.getItems().clear();
+      CBclase.setPromptText("Seleccionar clase de licencia");
+      CBclase.setItems(FXCollections.observableArrayList(listaLicencias));
+
+       // int cantidadClasesLicencia = listaLicencias.size();
+
+
+    }
+    private void iniciarDatePicker(DatePicker campoFecha) {
+        campoFecha.setConverter(new StringConverter<LocalDate>()
+        {
+            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate localDate)
+            {
+                if(localDate==null)
+                    return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString)
+            {
+                if(dateString==null || dateString.trim().isEmpty())
+                {
+                    return null;
+                }
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
+    }
+
+    private void iniciarTabla() {
+        tabla.setPlaceholder(new Label("No hay licencia que mostrar."));
+        columnaTitular.setCellValueFactory(new PropertyValueFactory<>("titular"));
+        columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnaClase.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
+        columnaFecha.setCellValueFactory(new PropertyValueFactory<>("tipoDocumento"));
+
+
+        tabla.setRowFactory( tv -> {
+            TableRow<DTOImprimirLicencia> fila = new TableRow<>();
+            fila.setOnMouseClicked(event -> {
+                licenciaSeleccionada = tabla.getSelectionModel().getSelectedItem();
+                if (event.getClickCount() == 2 && (! fila.isEmpty()) && licenciaSeleccionada != null ) {
+                    licenciaSeleccionada = fila.getItem();
+                    selectionLicencia(licenciaSeleccionada);
+                }
+            });
+            return fila ;
+        });
+    }
+
+    private void cargarTabla(List<DTOImprimirLicencia> lista) {
+        tabla.getItems().clear();
+        for(DTOImprimirLicencia dto:lista){
+            tabla.getItems().add(dto);
+        }
+    }
+
+    @FXML
+    private void buscarLicencia(){
+
+        DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
+        argumentos.setTitular(campoTitular.getText());
+       // System.out.println("campo id " + campoId.getText());
+        argumentos.setId(Integer.parseInt(campoId.getText()));
+
+        argumentos.setFechaEmision(campoFecha.getValue());
+        argumentos.setClaseLicencia(CBclase.getValue());
+
+
+
+        cargarTabla(GestorLicencia.get().searchLic(argumentos));
+    }
+
+    private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){};
+
+
+
+
     public void imprimirLicencia() throws FileNotFoundException, DocumentException {
         FileChooser fc= new FileChooser();
         try{

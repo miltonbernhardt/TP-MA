@@ -21,7 +21,7 @@ public class TitularDAOImpl extends BaseDAOImpl<Titular,Integer> implements Titu
 
         String consulta = "SELECT new dto.DTOBuscarTitular(t.id, t.fechaNacimiento, t.nombre, t.apellido,t.tipoDNI, t.DNI) FROM Titular t "
                 + argumentos + " ORDER BY t.nombre, t.apellido ASC ";
-
+        System.out.println("consulta buscar" + consulta);
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();

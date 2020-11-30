@@ -57,13 +57,7 @@
           <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba titular correspondiente" GridPane.columnIndex="1" />
-            <TextField maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" GridPane.columnIndex="3" />
-            <Label style="-fx-font-size: 16;" text="Titular:" textAlignment="CENTER">
-               <padding>
-                  <Insets left="5.0" right="5.0" />
-               </padding>
-            </Label>
+            <TextField fx:id="campoId" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" GridPane.columnIndex="3" />
             <Label text="Id Licencia:" textAlignment="CENTER" GridPane.columnIndex="2">
                <padding>
                   <Insets left="5.0" right="5.0" />
@@ -74,24 +68,26 @@
                   <Insets left="5.0" right="5.0" />
                </padding>
             </Label>
-            <ComboBox maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="CBclase" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Seleccione Licencia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Fecha Emisión:" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
             </Label>
-            <DatePicker maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <DatePicker fx:id="campoFecha" maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button maxWidth="200.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#buscarTitular" prefHeight="30.0" prefWidth="87.0" style="-fx-font-size: 14;" text="Buscar Titular" />
+            <TextField fx:id="campoTitular" editable="false" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular..." GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" text="Buscar" />
+      <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscarLicencia" text="Buscar" />
       <ScrollPane layoutX="48.0" layoutY="154.0" prefHeight="204.0" prefWidth="933.0">
          <content>
-            <TableView prefHeight="186.0" prefWidth="965.0">
+            <TableView fx:id="tabla" prefHeight="186.0" prefWidth="965.0">
               <columns>
-                <TableColumn prefWidth="63.0" text="Id" />
-                <TableColumn prefWidth="152.3333282470703" text="Titular" />
-                  <TableColumn prefWidth="89.33334350585938" text="Clase" />
-                  <TableColumn prefWidth="189.66665649414062" text="Fecha Emisión" />
+                <TableColumn fx:id="columnaId" prefWidth="63.0" text="Id" />
+                <TableColumn fx:id="columnaTitular" prefWidth="152.3333282470703" text="Titular" />
+                  <TableColumn fx:id="columnaClase" prefWidth="89.33334350585938" text="Clase" />
+                  <TableColumn fx:id="columnaFecha" prefWidth="189.66665649414062" text="Fecha Emisión" />
                   <TableColumn prefWidth="218.99996948242188" text="Fecha Vencimiento" />
                   <TableColumn prefWidth="248.0" text="Observaciones" />
               </columns>

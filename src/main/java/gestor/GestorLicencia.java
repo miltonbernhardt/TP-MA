@@ -1,9 +1,12 @@
 package gestor;
 
+import app.PanelAlerta;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
+import dto.DTOImprimirLicencia;
 import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoAlerta;
 import exceptions.MenorDeEdadException;
 import hibernate.DAO;
 import model.Licencia;
@@ -13,6 +16,7 @@ import model.Vigencia;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorLicencia {
 
@@ -34,6 +38,20 @@ public class GestorLicencia {
     Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
     un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
      */
+    public ArrayList<EnumClaseLicencia> obtenerLicencias(int id_titular){
+        ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
+        //instancia de titular actual
+        Titular titular = (Titular)DAO.get().get(Titular.class, id_titular);
+        Licencia licencia = new Licencia();
+        //historial de licencias del titular
+        ArrayList<Licencia> historialLicencias = GestorTitular.getHistorialLicencias(id_titular);
+        for(int l = 0; l < historialLicencias.size(); l++) {
+            licencia = historialLicencias.get(l);
+            Claseslicencias.add(licencia.getClaseLicencia());
+        }
+        return Claseslicencias;
+    }
+
     public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
         int years = GestorTitular.getEdad(nacimiento);
@@ -265,10 +283,56 @@ public class GestorLicencia {
         return true;
     }
 
-    void imprimirLicencia (){
+    public List<DTOImprimirLicencia> searchLic(DTOImprimirLicencia argumentosBuscar) {
 
+        String argumentos = "";
+
+        boolean first = true;
+
+        if(!argumentosBuscar.getId().equals("")) {
+
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " l.id= "+argumentosBuscar.getId()+" ";
+        }
+        if(!argumentosBuscar.getTitular().equals("")) {
+            System.out.println("titular " +argumentosBuscar.getTitular());
+            if(first){ first = false; argumentos+=" l.id_titular = t.id AND ";}
+            else argumentos += " AND ";
+            argumentos += " t.id= "+argumentosBuscar.getTitular()+" ";
+
+        }
+
+        if(argumentosBuscar.getClaseLicencia() != null) {
+            if(first) first = false;
+            else argumentos += " AND ";
+            argumentos += " l.clase_licencia LIKE '%"+argumentosBuscar.getClaseLicencia()+"%' ";
+        }
+     LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
+
+        if(fechaEmision !=null) {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " l.fecha_emision = '%" + fechaEmision+ "%'";
+        }
+
+        System.out.println(argumentos);
+        try {
+            if(!first) return daoLicencia.createListDTOimprimirLic(" WHERE " + argumentos);
+            else return daoLicencia.createListDTOimprimirLic("");
+
+        }
+        catch (Exception e){
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
 
     }
+
+
+
 
 }
 
