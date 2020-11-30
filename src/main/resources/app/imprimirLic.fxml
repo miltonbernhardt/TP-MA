@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.ImprimirLic"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerImprimirLicencia">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1000.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/principal.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="862.0" layoutY="454.0" mnemonicParsing="false" onAction="#imprimirLicencia" text="Imprimir" />
+      <AnchorPane prefHeight="563.0" prefWidth="1000.0" visible="false">
+         <children>
+            <ImageView fitHeight="704.0" fitWidth="1000.0" layoutX="-1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/principal.jpg" />
+               </image>
+            </ImageView>
+            <AnchorPane fx:id="panel" layoutX="25.0" layoutY="239.0" prefHeight="283.0" prefWidth="966.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Camila Weidmann" />
+                  <TextField layoutX="139.0" layoutY="19.0" promptText="escrbir algo aqui" />
+                  <Text layoutX="40.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Camila weidmann" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="233.0" layoutY="94.0" mnemonicParsing="false" text="I" />
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Buscar Licencia a Imprimir" />
+      <Separator layoutX="386.0" layoutY="30.0" prefHeight="4.0" prefWidth="493.0" style="-fx-background: white;" />
+      <GridPane alignment="CENTER_RIGHT" layoutX="48.0" layoutY="54.0" prefHeight="87.0" prefWidth="696.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" maxWidth="150.0" minWidth="78.33333587646484" prefWidth="132.33334350585938" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="224.33334350585938" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="117.33331298828125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba titular correspondiente" GridPane.columnIndex="1" />
+            <TextField maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" GridPane.columnIndex="3" />
+            <Label style="-fx-font-size: 16;" text="Titular:" textAlignment="CENTER">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <Label text="Id Licencia:" textAlignment="CENTER" GridPane.columnIndex="2">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <Label text="Clase Licencia:" textAlignment="CENTER" GridPane.rowIndex="1">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <ComboBox maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Fecha Emisión:" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <DatePicker maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" text="Buscar" />
+      <ScrollPane layoutX="48.0" layoutY="154.0" prefHeight="204.0" prefWidth="933.0">
+         <content>
+            <TableView prefHeight="186.0" prefWidth="965.0">
+              <columns>
+                <TableColumn prefWidth="63.0" text="Id" />
+                <TableColumn prefWidth="152.3333282470703" text="Titular" />
+                  <TableColumn prefWidth="89.33334350585938" text="Clase" />
+                  <TableColumn prefWidth="189.66665649414062" text="Fecha Emisión" />
+                  <TableColumn prefWidth="218.99996948242188" text="Fecha Vencimiento" />
+                  <TableColumn prefWidth="248.0" text="Observaciones" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </children>
 </AnchorPane>
