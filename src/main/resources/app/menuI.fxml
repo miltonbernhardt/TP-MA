@@ -80,7 +80,7 @@
       <AnchorPane fx:id="panRequerimientos" layoutX="405.0" layoutY="179.0" prefHeight="283.0" prefWidth="465.0" visible="false">
          <children>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="26.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18;" text="Requerimientos del solicitante" underline="true" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Tener la edad correspondiente para la clase de licencia que solicitás.Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Tener la edad correspondiente para la clase de licencia que solicitás. Consultá las clases y su vigencia." wrappingWidth="370.8854280412197" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Saber leer." />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Si sacás la licencia profesional (clase C, D y E), saber escribir." wrappingWidth="390.21508395671844" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="46.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• DNI original y copia." />
@@ -165,7 +165,7 @@
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="Recuerda:" underline="true" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="• Por cada licencia debe generarse una nueva solicitud." />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="47.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• La fecha de vencimiento siempre será igual a su fecha de nacimiento." wrappingWidth="390.21508768200874" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="44.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Entregar el comprobante de pago al finalizar los tramites. " />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="44.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="• Entregar el comprobante de pago al finalizar los trámites. " />
          </children>
       </AnchorPane>
       <ImageView fx:id="arrowRecuerda" fitHeight="104.0" fitWidth="32.0" layoutX="894.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" visible="false">

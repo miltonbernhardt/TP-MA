@@ -1,5 +1,9 @@
+import dto.DTOEmitirLicencia;
+import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoDocumento;
 import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
+import gestor.GestorTitular;
 import model.Vigencia;
 import org.junit.Test;
 import org.junit.Assert;
@@ -41,4 +45,23 @@ public class TestGestorLicencia {
         System.out.println(vigencia.getFechaVencimiento());
         Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
     }
+
+    @Test
+    public void emitirLicencia() throws MenorDeEdadException {
+        DTOEmitirLicencia dto = new DTOEmitirLicencia();
+        dto.setIdTitular(122);
+        dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
+        dto.setNombre("INDIANA");
+        dto.setApellido("LOZANO");
+        dto.setTipoDocumento(EnumTipoDocumento.DNI);
+        dto.setDocumento("40266367");
+        dto.setCosto(48.0);
+        dto.setObservaciones(null);
+        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
+
+        GestorLicencia gestorLicencia = GestorLicencia.get();
+        boolean resultado = GestorLicencia.get().emitirLicencia(dto);
+        Assert.assertTrue(resultado);
+    }
+
 }

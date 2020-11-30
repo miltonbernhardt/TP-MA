@@ -247,13 +247,10 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
-
         licencia.setCosto((float) calcularCostoLicencia(dto));
-
 
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
-
         /*
         TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
          */
@@ -261,15 +258,15 @@ public class GestorLicencia {
 
         if(!DAO.get().update(titular))
             return false;
-
         return true;
     }
 
-    void imprimirLicencia (){
-
+    void imprimirLicencia() {
 
     }
-
 }
+
+
+
 
 
