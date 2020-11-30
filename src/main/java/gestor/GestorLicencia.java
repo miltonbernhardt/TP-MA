@@ -267,7 +267,7 @@ public class GestorLicencia {
 
     }
 
-    public ArrayList<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
+    public static ArrayList<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
 
         ArrayList<DTOLicenciaExpirada> resultado = new ArrayList<DTOLicenciaExpirada>();
 
@@ -280,31 +280,23 @@ public class GestorLicencia {
 
     private String armarConsultaLicenciasExpiradas (DTOLicenciaExpirada filtro )
     {
-       String consulta = "SELECT * FROM LICENCIA WHERE ";
-        int contador = 0;
-        if (filtro.getFechaInicial() != null && filtro.getFechaFinal() != null ){
-            //parsear fecha - fijarse como se guardan
-            //consulta += "DATE(fecha_venc) between" +  fecha_incion " and " + fecha_fin ";
-                contador++;
-        }
-        else if (filtro.getFechaInicial() != null ){
+       String consulta = "select * from licencia ";
 
-            contador++;
+
+        if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
+            consulta = consulta + " apellido = " + auxap ;
         }
 
-        if (contador != 0){
-
-            if (filtro.getNroLicencia() != 0){
-
-            }
-            if (filtro.getDNI() != null || !filtro.getDNI().isEmpty()){
-
-            }
-
-            if (filtro.getDNI() != null || !filtro.getDNI().isEmpty()){
-
-            }
+        if(filtro.isRangofechas()){
+            consulta = consulta + "where DATE(fecha_vencimiento) between "+ filtro.getFechaInicial() + " " + filtro.getFechaFinal();
+        } else if(!filtro.getFechaInicial().isEmpty()){
+            consulta = consulta + "where DATE(fecha_vencimiento) = "+ filtro.getFechaInicial();
+        } else{
+            consulta = consulta + "where DATE(fecha_vencimiento) = "+ LocalDate.now().toString();
         }
+
+
+
 
        return consulta;
     }

@@ -5,6 +5,7 @@ import dto.DTOLicenciaExpirada;
 
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoDocumento;
+import gestor.GestorLicencia;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,6 +16,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import java.net.URL;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerListadoLicenciasExpiradas implements Initializable {
@@ -49,6 +52,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     public void onCheckRangoClick(){
         if (filtrarPorRangoFecha.isSelected()){
            campoFechaFinal.setDisable(false);
+            campoFechaFinal.setValue(campoFechaInicial.getValue().plusDays(1));
         }
         else {
             campoFechaFinal.setDisable(true);
@@ -61,6 +65,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         campoFechaFinal.getEditor().setDisable(true);
         campoFechaInicial.getEditor().setDisable(true);
+        campoFechaInicial.setValue(LocalDate.now());
 
         campoDoc.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -114,19 +119,21 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     }
 
     public void buscarLicencias(){
-//        private EnumTipoDocumento tipoDNI;
-//        private String DNI;
-
-//        private Integer nroLicencia;
-//        private EnumClaseLicencia claseLicencia;
-//        private LocalDate fechaInicial;
-//        private LocalDate fechaFinal;
-//        private boolean ordenamientoDescendente;
 
         DTOLicenciaExpirada DTOLE = new DTOLicenciaExpirada();
+        DTOLE.setRangofechas(filtrarPorRangoFecha.isSelected());
         DTOLE.setApellido(campoApe.getText());
         DTOLE.setNombre(campoNombre.getText());
-       // DTOLE.
+        DTOLE.setClaseLicencia(CBClaseLicencia.getValue().getValue());
+        DTOLE.setTipoDNI(CBTipoDNI.getValue().getValue());
+        DTOLE.setDNI(campoDoc.getText());
+        DTOLE.setNroLicencia(campoNroLicencia.getText());
+        DTOLE.setFechaInicial(campoFechaInicial.getValue().toString());
+        DTOLE.setFechaFinal(campoFechaFinal.getValue().toString());
+        DTOLE.setOrdenamientoDescendente(ordenarDesc.isSelected());
+
+        ArrayList<DTOLicenciaExpirada> resultado = GestorLicencia.obtenerListadoLicenciasExpiradas(DTOLE);
+
 
 
     }

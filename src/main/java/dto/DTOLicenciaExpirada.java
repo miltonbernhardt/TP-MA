@@ -6,22 +6,30 @@ import enumeration.EnumTipoDocumento;
 import java.time.LocalDate;
 
 public class DTOLicenciaExpirada {
-
-    private EnumTipoDocumento tipoDNI;
+    private boolean rangofechas;
+    private String tipoDNI;
     private String DNI;
     private String apellido;
     private String nombre;
-    private Integer nroLicencia;
-    private EnumClaseLicencia claseLicencia;
-    private LocalDate fechaInicial;
-    private LocalDate fechaFinal;
+    private String nroLicencia;
+    private String claseLicencia;
+    private String fechaInicial;
+    private String fechaFinal;
     private boolean ordenamientoDescendente;
 
-    public EnumTipoDocumento getTipoDNI() {
+    public boolean isRangofechas() {
+        return rangofechas;
+    }
+
+    public void setRangofechas(boolean rangofechas) {
+        this.rangofechas = rangofechas;
+    }
+
+    public String getTipoDNI() {
         return tipoDNI;
     }
 
-    public void setTipoDNI(EnumTipoDocumento tipoDNI) {
+    public void setTipoDNI(String tipoDNI) {
         this.tipoDNI = tipoDNI;
     }
 
@@ -49,35 +57,35 @@ public class DTOLicenciaExpirada {
         this.nombre = nombre;
     }
 
-    public Integer getNroLicencia() {
+    public String getNroLicencia() {
         return nroLicencia;
     }
 
-    public void setNroLicencia(Integer nroLicencia) {
+    public void setNroLicencia(String nroLicencia) {
         this.nroLicencia = nroLicencia;
     }
 
-    public EnumClaseLicencia getClaseLicencia() {
+    public String getClaseLicencia() {
         return claseLicencia;
     }
 
-    public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
+    public void setClaseLicencia(String claseLicencia) {
         this.claseLicencia = claseLicencia;
     }
 
-    public LocalDate getFechaInicial() {
+    public String getFechaInicial() {
         return fechaInicial;
     }
 
-    public void setFechaInicial(LocalDate fechaInicial) {
+    public void setFechaInicial(String fechaInicial) {
         this.fechaInicial = fechaInicial;
     }
 
-    public LocalDate getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(LocalDate fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
