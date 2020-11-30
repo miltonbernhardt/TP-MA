@@ -56,9 +56,9 @@
          </font>
       </Text>
       <Button fx:id="Bregistro" layoutX="43.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
-      <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="925.0" layoutY="488.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageButton" fitHeight="60.0" fitWidth="70.0" layoutX="925.0" layoutY="488.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="470.0">
          <image>
-            <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+            <Image url="@../Imagenes/icons8_undo_52px.png" />
          </image>
          <effect>
             <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />

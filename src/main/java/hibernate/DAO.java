@@ -3,6 +3,7 @@ package hibernate;
 import java.math.BigInteger;
 import java.util.List;
 
+import database.HibernateUtil;
 import enumeration.EnumTipoAlerta;
 import model.Licencia;
 import org.hibernate.HibernateException;

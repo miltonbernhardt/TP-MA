@@ -1,7 +1,8 @@
 package gestor;
 
+import database.LicenciaDAO;
+import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
-import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import exceptions.MenorDeEdadException;
 import hibernate.DAO;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class GestorLicencia {
 
     private static GestorLicencia instanciaGestor = null;
+    private static LicenciaDAO daoLicencia = null;
 
 
     private GestorLicencia() {}
@@ -23,6 +25,7 @@ public class GestorLicencia {
     public static GestorLicencia get() {
         if (instanciaGestor == null){
             instanciaGestor = new GestorLicencia();
+            daoLicencia = new LicenciaDAOImpl();
         }
         return instanciaGestor;
     }
@@ -244,13 +247,10 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
-
         licencia.setCosto((float) calcularCostoLicencia(dto));
-
 
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
-
         /*
         TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
          */
@@ -258,52 +258,15 @@ public class GestorLicencia {
 
         if(!DAO.get().update(titular))
             return false;
-
         return true;
     }
 
-    void imprimirLicencia (){
-
+    void imprimirLicencia() {
 
     }
-
-    public static ArrayList<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
-
-        ArrayList<DTOLicenciaExpirada> resultado = new ArrayList<DTOLicenciaExpirada>();
-
-        //IR AL DAO Y OBTENER LAS LICENCIAS
-
-
-
-        return resultado;
-    }
-
-    private String armarConsultaLicenciasExpiradas (DTOLicenciaExpirada filtro )
-    {
-       String consulta = "select * from licencia ";
-
-
-        if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
-            consulta = consulta + " apellido = " + auxap ;
-        }
-
-        if(filtro.isRangofechas()){
-            consulta = consulta + "where DATE(fecha_vencimiento) between "+ filtro.getFechaInicial() + " " + filtro.getFechaFinal();
-        } else if(!filtro.getFechaInicial().isEmpty()){
-            consulta = consulta + "where DATE(fecha_vencimiento) = "+ filtro.getFechaInicial();
-        } else{
-            consulta = consulta + "where DATE(fecha_vencimiento) = "+ LocalDate.now().toString();
-        }
-
-
-
-
-       return consulta;
-    }
-
-
-
-
 }
+
+
+
 
 
