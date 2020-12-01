@@ -81,7 +81,7 @@
                     <Image url="@../Imagenes/santafe.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageButton" fitHeight="70.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Imagenes/icons8_undo_52px_4.png" />
                 </image>

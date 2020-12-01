@@ -2,6 +2,7 @@ package app;
 
 import dto.DTOBuscarTitular;
 import enumeration.EnumTipoAlerta;
+import enumeration.EnumTipoCampo;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
@@ -53,10 +55,26 @@ public class ControllerBuscarTitular {
     }
 
     private void listenerTextField(){
-        //ToDo validarKeyUp and unblur
+        textNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textNombre.setText(oldValue);
+        });
+
+        textApellido.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textApellido.setText(oldValue);
+        });
+
+        textDocumento.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textDocumento.setText(oldValue);
+        });
+
+        //ToDo validar las fechas en los day picker
     }
 
     private void iniciarDatePicker(DatePicker dateNacimientoInicial) {
+        //ToDo poner fechas limites
         dateNacimientoInicial.setConverter(new StringConverter<LocalDate>()
         {
             private final DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
