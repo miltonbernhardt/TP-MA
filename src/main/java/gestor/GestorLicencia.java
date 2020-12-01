@@ -240,7 +240,7 @@ public class GestorLicencia {
         return costoTotal;
     }
 
-    public Boolean emitirLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+    public Boolean generarLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(dto.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());

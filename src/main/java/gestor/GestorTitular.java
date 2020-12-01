@@ -4,18 +4,15 @@ import app.PanelAlerta;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
-import dto.DTOBuscarTitular;
-import dto.DTOEmitirLicencia;
+import dto.DTOGestionTitular;
 import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
-import org.hibernate.HibernateException;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class GestorTitular {
@@ -71,7 +68,7 @@ public class GestorTitular {
         }
     }
 
-    public List<DTOBuscarTitular> searchTitular(DTOBuscarTitular argumentosBuscar) {
+    public List<DTOGestionTitular> searchTitular(DTOGestionTitular argumentosBuscar) {
         String argumentos = "";
 
         boolean first = true;
@@ -88,7 +85,6 @@ public class GestorTitular {
             argumentos += " t.apellido LIKE '%"+argumentosBuscar.getApellido()+"%' ";
         }
 
-        //ToDo hacer un between dates
         LocalDate fechaMenor = argumentosBuscar.getFechaNacimientoInicial();
         LocalDate fechaMayor = argumentosBuscar.getFechaNacimientoFinal();
         if(fechaMenor != null && fechaMayor != null) {

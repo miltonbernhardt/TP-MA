@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
       <SubScene height="353.0" layoutX="32.0" layoutY="55.0" opacity="0.3" width="918.0">
@@ -38,7 +38,7 @@
                         <Rectangle2D />
                      </viewport>
                      <image>
-                        <Image url="@../Imagenes/icons8_search_property_64px.png" />
+                        <Image url="@../imagenes/icons8_search_property_64px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -48,7 +48,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_delete_document_64px.png" />
+                        <Image url="@../imagenes/icons8_delete_document_64px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -58,7 +58,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_edit_property_64px.png" />
+                        <Image url="@../imagenes/icons8_edit_property_64px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -68,17 +68,17 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_add_property_64px.png" />
+                        <Image url="@../imagenes/icons8_add_property_64px.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Separator prefWidth="45.0" visible="false" />
-            <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
+            <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#renovarLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
                <graphic>
                   <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_renew_48px.png" />
+                        <Image url="@../imagenes/icons8_renew_48px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -88,12 +88,12 @@
       </HBox>
       <ImageView fitHeight="133.0" fitWidth="89.0" layoutX="40.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/santafe.png" />
+            <Image url="@../imagenes/santafe.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="886.0" layoutY="455.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageButton" fitHeight="70.0" fitWidth="70.0" layoutX="886.0" layoutY="455.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+            <Image url="@../imagenes/icons8_undo_52px_4.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Licencia" underline="true" wrappingWidth="335.53662109375">
@@ -101,10 +101,5 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </Text>
-      <ImageView fitHeight="62.0" fitWidth="70.0" layoutX="799.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Imagenes/icons8_undo_52px.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

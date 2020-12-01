@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class TestControllerEmitirLicencia {
+public class TestControllerGestionLicencia {
 
     @Test
     public void start() {

@@ -17,7 +17,7 @@
         <children>
             <ImageView fitHeight="700.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../Imagenes/principal.jpg" />
+                    <Image url="@../imagenes/principal.jpg" />
                 </image>
             </ImageView>
       <SubScene height="344.0" layoutX="60.0" layoutY="61.0" opacity="0.3" width="877.0">
@@ -38,7 +38,7 @@
                                     <Rectangle2D />
                                 </viewport>
                      <image>
-                        <Image url="@../Imagenes/zoom-128.png" />
+                        <Image url="@../imagenes/zoom-128.png" />
                      </image>
                             </ImageView>
                         </graphic>
@@ -48,7 +48,7 @@
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../Imagenes/icons8_remove_user_group_man_man_100px.png" />
+                                    <Image url="@../imagenes/icons8_remove_user_group_man_man_100px.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -58,7 +58,7 @@
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_registration_60px.png" />
+                        <Image url="@../imagenes/icons8_registration_60px.png" />
                      </image>
                             </ImageView>
                         </graphic>
@@ -68,7 +68,7 @@
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../Imagenes/business_add.png" />
+                                    <Image url="@../imagenes/business_add.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -78,12 +78,12 @@
             </HBox>
             <ImageView fitHeight="133.0" fitWidth="89.0" layoutX="40.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../Imagenes/santafe.png" />
+                    <Image url="@../imagenes/santafe.png" />
                 </image>
             </ImageView>
             <ImageView fx:id="imageButton" fitHeight="70.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+                    <Image url="@../imagenes/icons8_undo_52px_4.png" />
                 </image>
             </ImageView>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Titular" underline="true" wrappingWidth="335.53662109375">
