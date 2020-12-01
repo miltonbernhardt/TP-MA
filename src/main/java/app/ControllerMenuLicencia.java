@@ -21,6 +21,11 @@ public class ControllerMenuLicencia {
     }
 
     @FXML
+    private void imprimirLicencia() {
+        ControllerImprimirLicencia.get();
+    }
+
+    @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
         instance = null;
