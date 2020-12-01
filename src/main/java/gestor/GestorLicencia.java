@@ -5,6 +5,7 @@ import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
+import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
 import exceptions.MenorDeEdadException;
@@ -342,6 +343,61 @@ public class GestorLicencia {
             Claseslicencias.add(licencia.getClaseLicencia());
         }
         return Claseslicencias;
+    }
+
+    public static List<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
+
+        String consulta = armarConsultaLicenciasExpiradas(filtros);
+        try {
+                return daoLicencia.createListDTOLicenciaExpirada(consulta);
+        }
+        catch (Exception e){
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
+
+    }
+
+    private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
+    {
+        String consulta = "SELECT l.id_licencia, t.apellido, t.nombre, t.tipo_dni, t.dni, l.clase_licencia, l.fecha_vencimiento " +
+                "FROM licencia l " +
+                "JOIN titular t ON (l.id_titular = t.id_titular)";
+
+
+        if(filtro.isRangofechas()){
+            consulta = consulta + "WHERE DATE(fecha_vencimiento) BETWEEN "+ filtro.getFechaInicial() + " AND " + filtro.getFechaFinal();
+        } else if(!filtro.getFechaInicial().isEmpty()){
+            consulta = consulta + "WHERE DATE(fecha_vencimiento) = "+ filtro.getFechaInicial();
+        } else{
+            consulta = consulta + "WHERE DATE(fecha_vencimiento) = "+ LocalDate.now().toString();
+        }
+
+        if(filtro.getNroLicencia()!=null || !filtro.getNroLicencia().isEmpty()){
+            consulta += " AND l.id_licencia = " + filtro.getNroLicencia();
+        }
+        if (filtro.getClaseLicencia() !=null || !filtro.getClaseLicencia().isEmpty()){
+            consulta += " AND l.clase_licencia = '" + filtro.getClaseLicencia() + "'";
+        }
+        if (filtro.getApellido() != null || !filtro.getApellido().isEmpty()){
+            consulta += " AND t.apellido LIKE '% " + filtro.getApellido() + " %'";
+        }
+        if (filtro.getNombre() != null || !filtro.getNombre().isEmpty()){
+            consulta += " AND t.apellido LIKE '% " + filtro.getNombre() + " %'";
+        }
+        if (filtro.getTipoDNI() !=null || !filtro.getTipoDNI().isEmpty()){
+            consulta += " AND t.tipo_dni = '" + filtro.getTipoDNI() + "'";
+        }
+        if (filtro.getDNI() != null || !filtro.getDNI().isEmpty()){
+            consulta += " AND t.dni = '" + filtro.getDNI() + "'";
+        }
+        consulta += " ORDER BY t.id_titular";
+
+        //if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
+        //  consulta = consulta + " apellido = " + auxap ;
+        //}
+
+        return consulta;
     }
 
 

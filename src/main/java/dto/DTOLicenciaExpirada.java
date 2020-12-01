@@ -6,16 +6,34 @@ import enumeration.EnumTipoDocumento;
 import java.time.LocalDate;
 
 public class DTOLicenciaExpirada {
-    private boolean rangofechas;
-    private String tipoDNI;
-    private String DNI;
+
+    private String nroLicencia;
     private String apellido;
     private String nombre;
-    private String nroLicencia;
+    private String tipoDNI;
+    private String DNI;
     private String claseLicencia;
+    private String fechaVencimientoLicencia;
+    private boolean rangofechas;
     private String fechaInicial;
     private String fechaFinal;
     private boolean ordenamientoDescendente;
+
+
+    public DTOLicenciaExpirada() {
+
+        this.nroLicencia = null;
+        this.apellido = null;
+        this.nombre = null;
+        this.tipoDNI = null ;
+        this.DNI = null;
+        this.fechaVencimientoLicencia = null;
+        this.claseLicencia = null;
+        this.rangofechas = false;
+        this.fechaInicial = null;
+        this.fechaFinal = null;
+        this.ordenamientoDescendente = false;
+    }
 
     public boolean isRangofechas() {
         return rangofechas;

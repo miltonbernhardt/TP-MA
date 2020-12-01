@@ -18,6 +18,7 @@ import java.net.URL;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerListadoLicenciasExpiradas implements Initializable {
@@ -122,17 +123,21 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
 
         DTOLicenciaExpirada DTOLE = new DTOLicenciaExpirada();
         DTOLE.setRangofechas(filtrarPorRangoFecha.isSelected());
+
         DTOLE.setApellido(campoApe.getText());
         DTOLE.setNombre(campoNombre.getText());
-        DTOLE.setClaseLicencia(CBClaseLicencia.getValue().getValue());
-        DTOLE.setTipoDNI(CBTipoDNI.getValue().getValue());
+        if(CBClaseLicencia.getValue() != null) DTOLE.setClaseLicencia(CBClaseLicencia.getValue().getValue());
+        else DTOLE.setClaseLicencia(null);
+        if (CBTipoDNI.getValue() != null) DTOLE.setTipoDNI(CBTipoDNI.getValue().getValue());
+        else DTOLE.setTipoDNI(null);
+
         DTOLE.setDNI(campoDoc.getText());
         DTOLE.setNroLicencia(campoNroLicencia.getText());
         DTOLE.setFechaInicial(campoFechaInicial.getValue().toString());
         DTOLE.setFechaFinal(campoFechaFinal.getValue().toString());
-        DTOLE.setOrdenamientoDescendente(ordenarDesc.isSelected());
+        //DTOLE.setOrdenamientoDescendente(ordenarDesc.isSelected());
 
-        ArrayList<DTOLicenciaExpirada> resultado = GestorLicencia.obtenerListadoLicenciasExpiradas(DTOLE);
+        List<DTOLicenciaExpirada> resultado = GestorLicencia.obtenerListadoLicenciasExpiradas(DTOLE);
 
 
 

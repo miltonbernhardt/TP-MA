@@ -2,6 +2,7 @@ package database;
 
 
 import dto.DTOImprimirLicencia;
+import dto.DTOLicenciaExpirada;
 import model.Licencia;
 
 import org.hibernate.Session;
@@ -53,4 +54,21 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
                 throw exception;
             }
         }
+
+    public List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        System.out.println("ultima consulta es"  + consulta);
+        try {
+            if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                session.beginTransaction();
+            return session.createQuery(consulta, DTOLicenciaExpirada.class).getResultList();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw exception;
+        }
+    }
+
+
 }

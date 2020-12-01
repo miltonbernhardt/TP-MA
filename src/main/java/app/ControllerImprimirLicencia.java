@@ -5,7 +5,7 @@ import com.itextpdf.*;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import com.pdfjet.*;
+
 import dto.DTOBuscarTitular;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;

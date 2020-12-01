@@ -2,6 +2,7 @@ package database;
 
 import dto.DTOBuscarTitular;
 import dto.DTOImprimirLicencia;
+import dto.DTOLicenciaExpirada;
 import model.Licencia;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface LicenciaDAO extends BaseDAO<Licencia,Integer> {
 
 
     List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s);
+
+    List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta);
 }
