@@ -55,10 +55,12 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
             }
         }
 
-    public List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta) {
+    public static List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
+        String consulta = "SELECT new dto.DTOLicenciaExpirada(l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento) FROM Licencia l JOIN  Titular t ON (l.id = t.id)"
+                + argumentos;
         System.out.println("ultima consulta es"  + consulta);
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))

@@ -127,9 +127,9 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         DTOLE.setApellido(campoApe.getText());
         DTOLE.setNombre(campoNombre.getText());
         if(CBClaseLicencia.getValue() != null) DTOLE.setClaseLicencia(CBClaseLicencia.getValue().getValue());
-        else DTOLE.setClaseLicencia(null);
+        else DTOLE.setClaseLicencia("");
         if (CBTipoDNI.getValue() != null) DTOLE.setTipoDNI(CBTipoDNI.getValue().getValue());
-        else DTOLE.setTipoDNI(null);
+        else DTOLE.setTipoDNI("");
 
         DTOLE.setDNI(campoDoc.getText());
         DTOLE.setNroLicencia(campoNroLicencia.getText());
