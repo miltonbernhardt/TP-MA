@@ -28,7 +28,7 @@
          </image>
       </ImageView>
       <Button layoutX="600.0" layoutY="348.0" mnemonicParsing="false" onAction="#imprimirLicencia" text="Imprimir Licencia" />
-      <AnchorPane fx:id="paneLicencia" layoutX="27.0" layoutY="332.0" prefHeight="190.0" prefWidth="453.0">
+      <AnchorPane fx:id="paneLicencia" layoutX="27.0" layoutY="332.0" prefHeight="190.0" prefWidth="453.0" visible="false">
          <children>
             <AnchorPane fx:id="paneFrente" prefHeight="223.0" prefWidth="424.0">
                <children>

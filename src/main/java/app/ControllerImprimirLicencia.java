@@ -236,7 +236,7 @@ public class ControllerImprimirLicencia {
                 textA.setText(licenciaSeleccionada.getTitular().getApellido());
                 textN.setText(licenciaSeleccionada.getTitular().getNombre());
                 textC.setText(licenciaSeleccionada.getTitular().getCalle());
-                textNC.setText(licenciaSeleccionada.getTitular().getCalle());
+                //textNC.setText(licenciaSeleccionada.getTitular().getCalle());
                 textFN.setText(licenciaSeleccionada.getTitular().getFechaNacimiento().toString());
 
             }

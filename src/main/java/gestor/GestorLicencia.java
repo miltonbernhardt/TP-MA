@@ -1,5 +1,6 @@
 package gestor;
 
+import app.PanelAlerta;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
