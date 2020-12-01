@@ -74,6 +74,14 @@ public class ControllerBuscarTitular {
 
     private void iniciarDatePicker(DatePicker dateNacimiento) {
         //ToDo poner fechas limites
+        LocalDate minDate = LocalDate.of(1940, 1, 1);
+        LocalDate maxDate = LocalDate.now();
+        dateNacimiento.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+                    }});
         dateNacimiento.setConverter(new SecureLocalDateStringConverter());
         dateNacimiento.setTooltip(new Tooltip("dd/mm/aaaa"));
     }

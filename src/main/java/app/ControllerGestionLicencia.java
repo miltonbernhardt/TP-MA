@@ -25,14 +25,14 @@ public class ControllerGestionLicencia {
         if(emitir){
             if (instanceEmitir == null){
                 ControllerApp.setViewAnterior();
-                instanceEmitir = (ControllerGestionLicencia) ControllerApp.setRoot("emitirLicencia", "Emitir licencia");
+                instanceEmitir = (ControllerGestionLicencia) ControllerApp.setRoot("gestionarLicencia", "Emitir licencia");
             }
             return instanceEmitir;
         }
         else{
             if (instanceRenovar == null){
                 ControllerApp.setViewAnterior();
-                instanceRenovar = (ControllerGestionLicencia) ControllerApp.setRoot("renovarLicencia", "Renovar licencia");
+                instanceRenovar = (ControllerGestionLicencia) ControllerApp.setRoot("gestionarLicencia", "Renovar licencia");
             }
             return instanceRenovar;
         }
@@ -65,6 +65,11 @@ public class ControllerGestionLicencia {
     /* Label */
     @FXML
     private Label labelDescripcionLicencia;
+
+    @FXML
+    private void initialize(){
+        if(!emitirLicencia) btnGenerarLicencia.setText("Renovar licencia");
+    }
 
     @FXML
     public void buscarTitular(){
