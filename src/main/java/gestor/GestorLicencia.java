@@ -1,9 +1,12 @@
 package gestor;
 
+import app.PanelAlerta;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
+import dto.DTOImprimirLicencia;
 import enumeration.EnumClaseLicencia;
+import enumeration.EnumTipoAlerta;
 import exceptions.MenorDeEdadException;
 import hibernate.DAO;
 import model.Licencia;
@@ -13,6 +16,7 @@ import model.Vigencia;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorLicencia {
 
@@ -34,6 +38,7 @@ public class GestorLicencia {
     Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
     un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
      */
+
     public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
         int years = GestorTitular.getEdad(nacimiento);
@@ -247,10 +252,13 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dto.getObservaciones());
+
         licencia.setCosto((float) calcularCostoLicencia(dto));
+
 
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
+
         /*
         TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
          */
@@ -258,15 +266,85 @@ public class GestorLicencia {
 
         if(!DAO.get().update(titular))
             return false;
+
         return true;
     }
 
-    void imprimirLicencia() {
+
+
+
+
+    public List<DTOImprimirLicencia> searchLic(DTOImprimirLicencia argumentosBuscar) {
+
+        String argumentos = "";
+
+        boolean first = true;
+        boolean sinTitular = true;
+        if(!argumentosBuscar.getId().equals(0)) {
+
+            if(first) first = false;
+            else argumentos += " AND ";
+            System.out.println("licencia id " +argumentosBuscar.getId());
+            argumentos += " l.id= "+argumentosBuscar.getId()+" ";
+        }
+
+        if(!argumentosBuscar.getIdTitular().equals(0)) {
+            sinTitular = false;
+            System.out.println("titular " +argumentosBuscar.getIdTitular());
+            if(first){ first = false; argumentos+=" l.titular = t.id AND ";}
+            else argumentos += " AND l.titular = t.id AND ";
+            argumentos += " t.id= "+argumentosBuscar.getIdTitular()+" ";
+
+        }
+        if(argumentosBuscar.getClaseLicencia() != null) {
+            String campo;
+            campo = argumentosBuscar.getClaseLicencia().getValue().toString();
+            campo = campo.replaceAll(" ", "_");
+            System.out.println("campo clase" + campo);
+            if(first) first = false;
+            else argumentos += " AND ";
+            argumentos += " l.claseLicencia='"+campo+"' ";
+        }
+     LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
+
+        if(fechaEmision !=null) {
+            if(first) first = false;
+            else argumentos += " AND ";
+
+            argumentos += " l.fechaEmision='" + fechaEmision+ "'";
+        }
+
+        System.out.println(argumentos);
+        try {
+            if(sinTitular){ argumentos += " AND l.titular = t.id ";
+                System.out.println(argumentos);
+            return daoLicencia.createListDTOimprimirLicsinTitular(" WHERE " + argumentos);}
+            if(!first && !sinTitular) return daoLicencia.createListDTOimprimirLic(" WHERE " + argumentos);
+            else return daoLicencia.createListDTOimprimirLic("");
+
+        }
+        catch (Exception e){
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
 
     }
+
+    public ArrayList<EnumClaseLicencia> obtenerLicencias(int id_titular){
+        ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
+        //instancia de titular actual
+        Titular titular = (Titular)DAO.get().get(Titular.class, id_titular);
+        Licencia licencia = new Licencia();
+        //historial de licencias del titular
+        ArrayList<Licencia> historialLicencias = GestorTitular.getHistorialLicencias(id_titular);
+        for(int l = 0; l < historialLicencias.size(); l++) {
+            licencia = historialLicencias.get(l);
+            Claseslicencias.add(licencia.getClaseLicencia());
+        }
+        return Claseslicencias;
+    }
+
+
 }
-
-
-
 
 

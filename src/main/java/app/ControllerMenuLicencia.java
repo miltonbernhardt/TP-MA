@@ -21,11 +21,9 @@ public class ControllerMenuLicencia {
     }
 
     @FXML
-    private void listadoLicenciasExpitradas() {
-        ControllerListadoLicenciasExpiradas.get();
+    private void imprimirLicencia() {
+        ControllerImprimirLicencia.get();
     }
-
-
 
     @FXML
     private void volver(){
