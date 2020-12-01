@@ -31,7 +31,7 @@
             <HBox alignment="CENTER" focusTraversable="true" prefHeight="327.0" prefWidth="1055.0">
                <children>
                   <Separator prefWidth="20.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25; -fx-focus-traversable: false;" text="Buscar Licencia" textAlignment="CENTER" wrapText="true">
+                  <Button contentDisplay="TOP" graphicTextGap="30.0"  onAction="#buscarLicenciasExpiradas"  mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25; -fx-focus-traversable: false;" text="Buscar Licencia" textAlignment="CENTER" wrapText="true">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

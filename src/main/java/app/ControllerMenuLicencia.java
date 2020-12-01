@@ -26,6 +26,11 @@ public class ControllerMenuLicencia {
     }
 
     @FXML
+    private void buscarLicenciasExpiradas() {
+        ControllerListadoLicenciasExpiradas.get();
+    }
+
+    @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
         instance = null;
