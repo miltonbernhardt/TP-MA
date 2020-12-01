@@ -22,11 +22,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import model.Licencia;
+import model.Titular;
 
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
@@ -37,10 +40,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ControllerImprimirLicencia {
 
-    @FXML private AnchorPane panel;
 
     private static ControllerImprimirLicencia instance = null;
     private DTOImprimirLicencia dto;
@@ -62,7 +65,24 @@ public class ControllerImprimirLicencia {
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaId;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaClase;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaFecha;
+    @FXML private TableColumn<DTOImprimirLicencia, String>  columnaObser;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaVenc;
+    @FXML private Text textL;
+    @FXML private Text textA;
+    @FXML private Text textN;
+    @FXML private Text textFN;
+    @FXML private Text textC;
+    @FXML private Text textNC;
+    @FXML private Text textClase;
+    @FXML private Text textFV;
+    @FXML private AnchorPane paneLicencia;
+    @FXML private AnchorPane paneDorso;
+    @FXML private AnchorPane paneFrente;
     private DTOImprimirLicencia licenciaSeleccionada = null;
+    @FXML private ImageView imagenLic;
+    @FXML private Text dorso;
+    @FXML private Text frente;
+
     @FXML
 
     private void initialize(){
@@ -89,12 +109,12 @@ public class ControllerImprimirLicencia {
         campoTitular.setText(dto.getIdTitular().toString());
        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dto.getIdTitular());
 
-        //Se resetea el estado del comboBox, la descricpción de la clases de licencia, el estado del boton emitir licencia y la selección de la clase de licencaia
+        //Se resetea el estado del comboBox y se muestra las clases que tiene como licencia
       CBclase.getSelectionModel().clearSelection();
       CBclase.getItems().clear();
       CBclase.setPromptText("Seleccionar clase de licencia");
-      CBclase.setItems(FXCollections.observableArrayList(listaLicencias));
 
+        listaLicencias.forEach(listaLicencia -> CBclase.getItems().add(listaLicencia));
        // int cantidadClasesLicencia = listaLicencias.size();
 
 
@@ -126,10 +146,12 @@ public class ControllerImprimirLicencia {
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay licencia que mostrar."));
-        columnaTitular.setCellValueFactory(new PropertyValueFactory<>("titular"));
+        columnaTitular.setCellValueFactory(new PropertyValueFactory<>("idTitular"));
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnaClase.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
-        columnaFecha.setCellValueFactory(new PropertyValueFactory<>("tipoDocumento"));
+        columnaClase.setCellValueFactory(new PropertyValueFactory<>("claseLicencia"));
+        columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechaEmision"));
+        columnaObser.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+        columnaVenc.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
 
 
         tabla.setRowFactory( tv -> {
@@ -146,19 +168,44 @@ public class ControllerImprimirLicencia {
     }
 
     private void cargarTabla(List<DTOImprimirLicencia> lista) {
+
+
         tabla.getItems().clear();
+
+
+
         for(DTOImprimirLicencia dto:lista){
             tabla.getItems().add(dto);
+            if(dto.getIdTitular().equals(0)){
+                dto.setIdTitular(dto.getTitular().getId());
+
+            }
+
+
         }
+
     }
 
     @FXML
     private void buscarLicencia(){
-
         DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
-        argumentos.setTitular(campoTitular.getText());
-       // System.out.println("campo id " + campoId.getText());
-        argumentos.setId(Integer.parseInt(campoId.getText()));
+
+        if(campoId.getText().equals("")){
+            System.out.println("entra al if vacio ");
+            argumentos.setId(0);
+        } else {
+            System.out.println("entra para colocar valor"+ Integer.parseInt(campoId.getText()));
+            argumentos.setId(Integer.parseInt(campoId.getText()));}
+
+
+        if(campoTitular.getText().equals("")){
+            System.out.println("entra al if vacio de titular ");
+            argumentos.setIdTitular(0);
+        } else {
+            System.out.println("entra para colocar valor al titular "+ Integer.parseInt(campoTitular.getText()));
+            argumentos.setIdTitular(Integer.parseInt(campoTitular.getText()));}
+
+       //System.out.println("campo id " + campoId.getText());
 
         argumentos.setFechaEmision(campoFecha.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
@@ -168,10 +215,50 @@ public class ControllerImprimirLicencia {
         cargarTabla(GestorLicencia.get().searchLic(argumentos));
     }
 
-    private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){};
+    private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){
+        paneLicencia.setVisible(true);
+        paneFrente.setVisible(true);
+        dorso.setVisible(true);
 
 
+        if(licenciaSeleccionada != null) {
+            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+                    "Confirmar selección del titular",
+                    "",
+                    "¿Desea seleccionar a " + licenciaSeleccionada.getNombre() + " " + licenciaSeleccionada.getApellido() + "?",
+                    null);
+            if (result.get() == ButtonType.OK) {
+                textL.setText(licenciaSeleccionada.getId().toString());
 
+                textClase.setText(licenciaSeleccionada.getClaseLicencia().getValue());
+
+
+                textA.setText(licenciaSeleccionada.getTitular().getApellido());
+                textN.setText(licenciaSeleccionada.getTitular().getNombre());
+                textC.setText(licenciaSeleccionada.getTitular().getCalle());
+                textNC.setText(licenciaSeleccionada.getTitular().getCalle());
+                textFN.setText(licenciaSeleccionada.getTitular().getFechaNacimiento().toString());
+
+            }
+        }
+    };
+
+    public void ondorsoButtonClicked(){
+        boolean isPresent = paneDorso.isVisible();
+
+        paneDorso.setVisible(isPresent);
+        frente.setVisible(isPresent);
+        paneFrente.setVisible(!isPresent);
+        dorso.setVisible(!isPresent);
+    }
+    public void onfrenteButtonClicked(){
+        boolean isPresent = paneDorso.isVisible();
+
+        paneDorso.setVisible(!isPresent);
+        frente.setVisible(!isPresent);
+        paneFrente.setVisible(isPresent);
+        dorso.setVisible(isPresent);
+    }
 
     public void imprimirLicencia() throws FileNotFoundException, DocumentException {
         FileChooser fc= new FileChooser();
@@ -193,7 +280,7 @@ public class ControllerImprimirLicencia {
             fileJ.getParentFile().mkdirs();//crete temp directory if not available
             final SnapshotParameters spa = new SnapshotParameters();
             spa.setTransform(javafx.scene.transform.Transform.scale(0.71, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
-            WritableImage image = panel.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
+            WritableImage image = paneLicencia.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
             BufferedImage buffImage = SwingFXUtils.fromFXImage(image, null);
             ImageIO.write(buffImage, "png", fileJ);//Writes the snapshot to file
 
@@ -316,4 +403,10 @@ public class ControllerImprimirLicencia {
             e.printStackTrace();
         }
     }*/
+
+    @FXML
+    private void volver(){
+        ControllerApp.getViewAnterior();
+        instance = null;
+    }
 }

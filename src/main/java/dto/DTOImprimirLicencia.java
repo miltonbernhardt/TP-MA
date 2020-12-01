@@ -2,6 +2,7 @@ package dto;
 
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoDocumento;
+import model.Titular;
 
 import java.time.LocalDate;
 
@@ -11,8 +12,7 @@ public class DTOImprimirLicencia {
     private String nombre;
    private String apellido;
 
-
-
+    private Titular titular;
     private LocalDate fechaNacimiento;
     private int id_titular;
     private int id;
@@ -26,33 +26,40 @@ public class DTOImprimirLicencia {
     private String documento;
 
 
-    public DTOImprimirLicencia(){};
+    public DTOImprimirLicencia(){}
 
-    public DTOImprimirLicencia(String nombre, String apellido, LocalDate fechaNacimiento, int id_titular, int id, EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones, float costo, EnumTipoDocumento tipoDocumento, String documento) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
+    public DTOImprimirLicencia(int id, int id_titular,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
         this.id_titular = id_titular;
         this.id = id;
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.observaciones = observaciones;
-        this.costo = costo;
-        this.tipoDocumento = tipoDocumento;
-        this.documento = documento;
+    }
+
+    public DTOImprimirLicencia(int id, Titular titular ,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
+        this.titular = titular;
+        this.id = id;
+        this.claseLicencia = claseLicencia;
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
+        this.observaciones = observaciones;
     }
 
 
+    public Titular getTitular() {
+        return titular;
+    }
 
+    public void setTitular(Titular titular) {
+        this.titular = titular;
+    }
 
-
-
-    public String getTitular() {
+    public String getnombreTitular() {
         return nombre;
     }
 
-    public void setTitular(String nombre) {
+    public void setnombreTitular(String nombre) {
         this.nombre = nombre;
     }
 
@@ -147,12 +154,13 @@ public class DTOImprimirLicencia {
         return documento;
     }
 
+
     public void setDocumento(String documento) {
         this.documento = documento;
     }
-    @Override
+    /*@Override
     public String toString() {
-        return id + " " + claseLicencia + " - " +  id_titular + " " + observaciones;
-    }
+        return id +  + claseLicencia.toString() + fechaEmision + observaciones;
+    }*/
 
 }

@@ -123,6 +123,7 @@ public class ControllerEmitirLicencia {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
+
             try {
                 if (GestorLicencia.get().emitirLicencia(dto))
                     PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", "Se emitió la licencia de forma correcta.", null);
