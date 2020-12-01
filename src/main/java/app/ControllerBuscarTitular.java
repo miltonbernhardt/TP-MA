@@ -12,6 +12,7 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -73,30 +74,10 @@ public class ControllerBuscarTitular {
         //ToDo validar las fechas en los day picker
     }
 
-    private void iniciarDatePicker(DatePicker dateNacimientoInicial) {
+    private void iniciarDatePicker(DatePicker dateNacimiento) {
         //ToDo poner fechas limites
-        dateNacimientoInicial.setConverter(new StringConverter<LocalDate>()
-        {
-            private final DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            @Override
-            public String toString(LocalDate localDate)
-            {
-                if(localDate==null)
-                    return "";
-                return dateTimeFormatter.format(localDate);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString)
-            {
-                if(dateString==null || dateString.trim().isEmpty())
-                {
-                    return null;
-                }
-                return LocalDate.parse(dateString,dateTimeFormatter);
-            }
-        });
+        dateNacimiento.setConverter(new SecureLocalDateStringConverter());
+        dateNacimiento.setTooltip(new Tooltip("dd/mm/aaaa"));
     }
 
     private void iniciarCombo(){
@@ -177,4 +158,36 @@ public class ControllerBuscarTitular {
         this.controllerEmitirLicencia = controllerEmitirLicencia;
     }
 
+}
+
+class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
+    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+
+    private boolean hasParseError = false;
+
+    public boolean hasParseError(){
+        return hasParseError;
+    }
+
+    @Override
+    public String toString(LocalDate localDate) {
+        if(localDate==null)
+            return "";
+        return DATE_FORMATTER.format(localDate);
+    }
+
+    @Override
+    public LocalDate fromString(String formattedString) {
+
+        try {
+            LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
+            hasParseError=false;
+            return date;
+        } catch (DateTimeParseException parseExc){
+            hasParseError=true;
+            System.out.println("entro");
+            return null;
+        }
+    }
 }
