@@ -188,6 +188,7 @@ public class ControllerImprimirLicencia {
 
     @FXML
     private void buscarLicencia(){
+        tabla.getItems().clear();
         DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
 
         if(campoId.getText().equals("")){
@@ -219,7 +220,8 @@ public class ControllerImprimirLicencia {
         paneLicencia.setVisible(true);
         paneFrente.setVisible(true);
         dorso.setVisible(true);
-
+        Titular titular2 = new Titular();
+        titular2 = GestorTitular.get().getTitular(licenciaSeleccionada.getIdTitular());
 
         if(licenciaSeleccionada != null) {
             Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
@@ -236,7 +238,8 @@ public class ControllerImprimirLicencia {
                 textA.setText(licenciaSeleccionada.getTitular().getApellido());
                 textN.setText(licenciaSeleccionada.getTitular().getNombre());
                 textC.setText(licenciaSeleccionada.getTitular().getCalle());
-                //textNC.setText(licenciaSeleccionada.getTitular().getCalle());
+                System.out.println("imprime " + licenciaSeleccionada.getTitular().getNumeroCalle().toString());
+                textNC.setText(licenciaSeleccionada.getTitular().getNumeroCalle().toString());
                 textFN.setText(licenciaSeleccionada.getTitular().getFechaNacimiento().toString());
 
             }

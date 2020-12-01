@@ -35,7 +35,7 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
             throw exception;
         }
     }
-
+    @Override
         public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
 
             session = HibernateUtil.getSessionFactory().getCurrentSession();
