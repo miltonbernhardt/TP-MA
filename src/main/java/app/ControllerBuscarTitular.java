@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
     private ControllerGestionLicencia controllerGestionLicencia = null;
+    private ControllerImprimirLicencia controllerImprimirLicencia = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -145,6 +146,7 @@ public class ControllerBuscarTitular {
 
             if (result.get() == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -158,6 +160,10 @@ public class ControllerBuscarTitular {
 
     public void setControllerGestionLicencia(ControllerGestionLicencia controllerGestionLicencia) {
         this.controllerGestionLicencia = controllerGestionLicencia;
+    }
+
+    public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
+        this.controllerImprimirLicencia = controllerImprimirLicencia;
     }
 }
 
@@ -182,7 +188,7 @@ class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
     public LocalDate fromString(String formattedString) {
         try {
             //ToDo poner fechas limites
-            LocalDate min = LocalDate.of(1940,01,01);
+            LocalDate min = LocalDate.of(1940,1,1);
             LocalDate max = LocalDate.of(2012,1,1);
             LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
             if(date.isAfter(max) || date.isBefore(min)){
