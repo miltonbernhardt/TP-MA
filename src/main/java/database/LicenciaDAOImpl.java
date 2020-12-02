@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements LicenciaDAO{
 
-    private Session session;
+    private static Session session;
 
     public LicenciaDAOImpl() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();

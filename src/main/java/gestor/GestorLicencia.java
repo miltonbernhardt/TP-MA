@@ -363,7 +363,7 @@ public class GestorLicencia {
     private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
     {
         //l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento
-        String consulta = " ";
+        String consulta = "";
 
 
         if(filtro.isRangofechas()){

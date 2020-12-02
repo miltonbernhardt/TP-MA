@@ -71,6 +71,8 @@ public class GestorTitular {
         }
     }
 
+
+
     public List<DTOBuscarTitular> searchTitular(DTOBuscarTitular argumentosBuscar) {
         String argumentos = "";
 

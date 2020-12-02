@@ -14,5 +14,7 @@ public interface LicenciaDAO extends BaseDAO<Licencia,Integer> {
 
     List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s);
 
-    List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta);
+    static List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta) {
+        return null;
+    }
 }
