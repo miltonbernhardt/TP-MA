@@ -134,10 +134,10 @@ public class ControllerAltaTitular{
 
             //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
 
-            dto.setNombre(campoNombre.getText().toUpperCase());
+            dto.setNombre(campoNombre.getText().toLowerCase());
             System.out.println("nombre todo en mayus " + campoNombre.getText().toLowerCase());
-            dto.setApellido(campoApe.getText().toUpperCase());
-            dto.setCalle(campoCalle.getText().toUpperCase());
+            dto.setApellido(campoApe.getText().toLowerCase());
+            dto.setCalle(campoCalle.getText().toLowerCase());
 
             dto.setDNI(campoDoc.getText());
             dto.setDonanteOrganos(RBdonante.isSelected());
