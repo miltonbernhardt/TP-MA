@@ -13,12 +13,12 @@ import model.Vigencia;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorLicencia {
 
     private static GestorLicencia instanciaGestor = null;
     private static LicenciaDAO daoLicencia = null;
-
 
     private GestorLicencia() {}
 
@@ -30,9 +30,9 @@ public class GestorLicencia {
         return instanciaGestor;
     }
 
-    /*
-    Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
-    un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
+    /**
+     * Calcular vigencia recibe como parametro la fecha de nacimiento del Titular y su id, retorna
+     * un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento.
      */
     public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
         Vigencia vigencia = new Vigencia();
@@ -72,9 +72,9 @@ public class GestorLicencia {
         return vigencia;
     }
 
-    /*
-        Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
-     */
+    /**
+     * Calcula el tiempo de vigencia de la licencia desde que se hizo la emision hasta la fecha actual
+     * */
     public static Integer getTiempoEnVigencia(LocalDate fechaEmision,LocalDate fechaVencimiento){
         if(fechaVencimiento.isBefore(LocalDate.now()))
             return Period.between(fechaEmision,fechaVencimiento).getYears();
@@ -88,26 +88,28 @@ public class GestorLicencia {
         menos 17 años, sino no se hubiese registrado como titular en el sistema
         @param idTitular id del titular en la base de datos
      */
-
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
 
         //instancia de titular actual
         Titular titular = (Titular)DAO.get().get(Titular.class, idTitular);
         //historial de licencias del titular
-        ArrayList<Licencia> historialLicencias = GestorTitular.getHistorialLicencias(idTitular);
+        List<Licencia> historialLicencias = new ArrayList<>();
+        try {
+            historialLicencias = GestorLicencia.getHistorialLicencias(idTitular);
+        } catch (Exception ignored) { }
         //Instancia auxiliar de licencia
-        Licencia licencia = new Licencia();
+        Licencia licencia;
         //Banderas index 0:A, 1:B, 2:C, 3:D, 4:E, 5:F, 6:G / que puede tener o no el titular
-        ArrayList<Boolean> flagsClases = new ArrayList<Boolean>();
+        ArrayList<Boolean> flagsClases = new ArrayList<>();
         //inicializacion de las banderas
         for(int i = 0; i < 7; i++) flagsClases.add(true);
         //Variable que guarda la fecha de emision de la licencia B, si el titular tuvo/tiene
         LocalDate licenciaB = LocalDate.now();
         //Banderas licencias del tipo profesional, clase C, D, E
-        Boolean claseC = false, claseD = false, claseE = false;
+        boolean claseC = false, claseD = false, claseE = false;
 
-        for(int l = 0; l < historialLicencias.size(); l++) {
-            licencia = historialLicencias.get(l);
+        for (Licencia historialLicencia : historialLicencias) {
+            licencia = historialLicencia;
             switch (licencia.getClaseLicencia()) {
                 case CLASE_A:
                     if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
@@ -151,7 +153,7 @@ public class GestorLicencia {
         }
 
         //Conductores profesionales, licencias C, D, E
-        Integer edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
+        int edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
         Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
 
         if(edadTitular >= 21 && vigenciaB > 0){
@@ -169,7 +171,7 @@ public class GestorLicencia {
         }
 
         //licencias que es posible solicitar por el titular en cuestion
-        ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<EnumClaseLicencia>();
+        ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<>();
         if(flagsClases.get(0)) Claseslicencias.add(EnumClaseLicencia.CLASE_A);
         if(flagsClases.get(1)) Claseslicencias.add(EnumClaseLicencia.CLASE_B);
         if(flagsClases.get(2)) Claseslicencias.add(EnumClaseLicencia.CLASE_C);
@@ -181,14 +183,13 @@ public class GestorLicencia {
         return Claseslicencias;
     }
 
-
     public double calcularCostoLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
         LocalDate fechaV = dto.getFechaNacimiento();
         int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
         String clase = dto.getClaseLicencia().getValue();
 
         double costoTotal = 0;
-        if (clase == "Clase A" || clase == "Clase B" || clase == "Clase G" ){
+        if (clase.equals("Clase A") || clase.equals("Clase B") || clase.equals("Clase G")){
 
                if (vig==5 ){
                 costoTotal= costoTotal+ 40;
@@ -203,7 +204,7 @@ public class GestorLicencia {
                 costoTotal= costoTotal+20;
                 }
         }else {
-            if (clase == "Clase F" || clase == "Clase D" || clase == "Clase E" ) {
+            if (clase.equals("Clase F") || clase.equals("Clase D") || clase.equals("Clase E")) {
                 System.out.println("entra a if" + vig);
                 if (vig == 5) {
                     costoTotal =costoTotal+ 59;
@@ -217,7 +218,7 @@ public class GestorLicencia {
                 if (vig == 1) {
                     costoTotal =costoTotal+ 29;
                 }
-            } else { if(clase == "Clase C") {
+            } else { if(clase.equals("Clase C")) {
                 if (vig == 5) {
                     costoTotal =costoTotal+ 47;
                 }
@@ -250,7 +251,6 @@ public class GestorLicencia {
 
         licencia.setCosto((float) calcularCostoLicencia(dto));
 
-
         Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
         licencia.setTitular(titular);
 
@@ -259,15 +259,11 @@ public class GestorLicencia {
          */
         titular.getLicencias().add(licencia);
 
-        if(!DAO.get().update(titular))
-            return false;
-
-        return true;
+        return DAO.get().update(titular);
     }
 
-    void imprimirLicencia (){
-
-
+    public static List<Licencia> getHistorialLicencias(Integer idTitular) throws Exception {
+        return daoLicencia.findAllByQuery("select l from Licencia l where l.titular="+idTitular);
     }
 
 }

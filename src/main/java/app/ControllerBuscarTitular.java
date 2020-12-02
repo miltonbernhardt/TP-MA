@@ -73,7 +73,6 @@ public class ControllerBuscarTitular {
     }
 
     private void iniciarDatePicker(DatePicker dateNacimiento) {
-        //ToDo poner fechas limites
         LocalDate minDate = LocalDate.of(1940, 1, 1);
         LocalDate maxDate = LocalDate.now();
         dateNacimiento.setDayCellFactory(d ->
@@ -123,7 +122,6 @@ public class ControllerBuscarTitular {
 
     @FXML
     private void buscarTitular(){
-        //ToDo validar la correctitud de todo
         DTOGestionTitular argumentos = new DTOGestionTitular();
         argumentos.setNombre(textNombre.getText());
         argumentos.setApellido(textApellido.getText());
@@ -182,14 +180,19 @@ class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
 
     @Override
     public LocalDate fromString(String formattedString) {
-
         try {
+            //ToDo poner fechas limites
+            LocalDate min = LocalDate.of(1940,01,01);
+            LocalDate max = LocalDate.of(2012,1,1);
             LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
+            if(date.isAfter(max) || date.isBefore(min)){
+                hasParseError=true;
+                return  null;
+            }
             hasParseError=false;
             return date;
         } catch (DateTimeParseException parseExc){
             hasParseError=true;
-            System.out.println("entro");
             return null;
         }
     }
