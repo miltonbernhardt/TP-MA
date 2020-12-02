@@ -6,11 +6,8 @@ import com.itextpdf.text.*;
 import com.itextpdf.*;
 
 import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.Barcode;
-import com.itextpdf.text.pdf.BarcodeEAN;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.*;
 
 import dto.DTOBuscarTitular;
 import dto.DTOEmitirLicencia;
@@ -25,6 +22,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -99,7 +97,8 @@ public class ControllerImprimirLicencia {
     @FXML private AnchorPane paneFrente;
     private DTOImprimirLicencia licenciaSeleccionada = null;
     @FXML private ImageView iPhoto;
-    @FXML private Text dorso;
+    @FXML private Button imprimirComprobante;
+    @FXML private Button imprimirLic;
     @FXML private Text frente;
     @FXML private Text textDescripC;
     @FXML private Text textObser;
@@ -185,6 +184,7 @@ public class ControllerImprimirLicencia {
                 if (event.getClickCount() == 2 && (! fila.isEmpty()) && licenciaSeleccionada != null ) {
                     licenciaSeleccionada = fila.getItem();
                     selectionLicencia(licenciaSeleccionada);
+
                 }
             });
             return fila ;
@@ -241,13 +241,21 @@ public class ControllerImprimirLicencia {
     }
 
     private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){
-        paneLicencia.setVisible(true);
-        paneFrente.setVisible(true);
-        paneDorso.setVisible(true);
-        Titular titular2 = new Titular();
-        titular2 = GestorTitular.get().getTitular(licenciaSeleccionada.getIdTitular());
 
         if(licenciaSeleccionada != null) {
+            paneLicencia.setVisible(true);
+            Titular titular2 = GestorTitular.get().getTitular(licenciaSeleccionada.getIdTitular());
+            imprimirComprobante.setOnAction(event -> {
+                try {
+                    ButtonComprobante(licenciaSeleccionada , titular2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+            });
+
+
             Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar selección del titular",
                     "",
@@ -320,8 +328,10 @@ public class ControllerImprimirLicencia {
         File file = fc.showSaveDialog(null);
         String str = file.getAbsolutePath();
         FileOutputStream fos = new FileOutputStream(str);
-        Document pdf = new Document();
-        PdfWriter.getInstance(pdf, fos);
+            Rectangle pagesize = new Rectangle(105 ,148);
+            Document pdf = new Document(pagesize);
+
+            PdfWriter.getInstance(pdf, fos);
         pdf.open();
         final SnapshotParameters spa = new SnapshotParameters();
         spa.setTransform(Transform.scale(1.1, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
@@ -342,7 +352,7 @@ public class ControllerImprimirLicencia {
 
            // pdf.add(iTextImage2);
 
-        // Page page = new Page(pdf, Letter.LANDSCAPE);
+        //Page page = new Page(pdf, Letter.LANDSCAPE);
           File fileJ = new File("..TP-MA/temp/foto.png");
 
 
@@ -360,7 +370,8 @@ public class ControllerImprimirLicencia {
 
             pdf.close();
             fos.flush();
-            Desktop.getDesktop().open(file);
+            Desktop.getDesktop().open(fileJ2);
+
 
        /* PdfWriter.getInstance(document, file);
 
@@ -395,12 +406,10 @@ public class ControllerImprimirLicencia {
         }*/
     }
 
-
-    @FXML
-    private void ButtonComprobante()throws IOException, DocumentException {
+    private void ButtonComprobante(DTOImprimirLicencia licenciaSeleccionada, Titular titular)throws IOException, DocumentException {
 
         FileChooser fc= new FileChooser();
-        try {
+
             fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
             fc.setTitle("Save to pdf");
             fc.setInitialFileName("untitled.pdf");
@@ -411,48 +420,74 @@ public class ControllerImprimirLicencia {
             String str = file.getAbsolutePath();
             FileOutputStream fos = new FileOutputStream(str);
 
+            Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+            try {
+                PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
-            Document document = new Document();
+                document.open();
+                float[] columnWidths = {10f};
+                // create PDF table with the given widths
+                PdfPTable table = new PdfPTable(4);
+                // set table width a percentage of the page width
+                table.setWidthPercentage(90f);
+                Paragraph p = new Paragraph("Comprobante Licencia\n\n", FontFactory.getFont("Arial", 18, Font.BOLD, BaseColor.BLACK));
+
+                p.setAlignment(Element.ALIGN_LEFT);
+                document.add(p);
+                Paragraph p2 = new Paragraph(titular.getId().toString(), FontFactory.getFont("Arial", 18, Font.BOLD, BaseColor.BLACK));
+
+                p2.setAlignment(Element.ALIGN_RIGHT);
+                document.add(p2);
+
+                document.add(new Paragraph(""));
+                table.addCell(getHeaderCell("Datos del titular"));
+
+                PdfPTable childTable2 = new PdfPTable(4);
+                childTable2.addCell(getFirstRowFormatted("Nombre de Titular"));
+                childTable2.addCell(getFirstRowFormatted(titular.getNombre()));
+                childTable2.addCell(getFirstRowFormatted("Apellido"));
+                childTable2.addCell(getFirstRowFormatted(titular.getApellido()));
+                childTable2.addCell(getSecondRowFormatted("Dni"));
+                childTable2.addCell(getSecondRowFormatted(titular.getDNI()));
+                childTable2.addCell(getSecondRowFormatted("25"));
+                childTable2.addCell(childTable2);
+                document.add(new Paragraph(""));
+                PdfPTable table2 = new PdfPTable(4);
+                table2.addCell(getLastRowFormatted("Datos de la licencia"));
+// Add header details
+                float fl= licenciaSeleccionada.getCosto();
+                System.out.println("costo " + fl);
+                PdfPTable childTable1 = new PdfPTable(4);
+                childTable1.addCell(getFirstRowFormatted("Fecha Emision"));
+                childTable1.addCell(getFirstRowFormatted(licenciaSeleccionada.getFechaEmision().toString()));
+                childTable1.addCell(getFirstRowFormatted("Fecha de Vencimiento"));
+                childTable1.addCell(getFirstRowFormatted(licenciaSeleccionada.getFechaVencimiento().toString()));
+                childTable1.addCell(getSecondRowFormatted("Costo"));
+             //   childTable1.addCell(getSecondRowFormatted(licenciaSeleccionada.getCosto().toString()));
+                childTable1.addCell(getSecondRowFormatted("Clase"));
+                childTable1.addCell(getSecondRowFormatted(licenciaSeleccionada.getClaseLicencia().toString()));
+                table2.addCell(childTable2);
+                
 
 
-            PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
-            document.open();
-            PdfPTable tabla = new PdfPTable(6);
-            Paragraph p = new Paragraph("Comprobante Licencia\n\n", FontFactory.getFont("Arial", 16, Font.ITALIC, BaseColor.BLUE));
+                //Es el tipo de clase
+                BarcodeEAN codeEAN = new BarcodeEAN();
+                //Seteo el tipo de codigo
+                codeEAN.setCodeType(Barcode.EAN13);
+                //Setep el codigo
+                codeEAN.setCode("9781935182610");
+                //Paso el codigo a imagen
+                com.itextpdf.text.Image img = codeEAN.createImageWithBarcode(pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
 
-            p.setAlignment(Element.ALIGN_CENTER);
-            document.add(p);
+                document.add(table);
+                document.add(img);
+                document.close();
+                Desktop.getDesktop().open(file);
 
-            document.add(new Paragraph(""));
-
-
-            float[] mediaCeldas = {3.30f, 3.50f, 3.50f, 3.70f, 3.70f, 3.50f};
-
-            tabla.setWidths(mediaCeldas);
-            tabla.addCell(new Paragraph("Nombre de Titular", FontFactory.getFont("Arial", 12)));
-            tabla.addCell(new Paragraph("Apellido", FontFactory.getFont("Arial", 12)));
-            tabla.addCell(new Paragraph("Cedula", FontFactory.getFont("Arial", 12)));
-            tabla.addCell(new Paragraph("Fecha Nac", FontFactory.getFont("Arial", 12)));
-            tabla.addCell(new Paragraph("Domicilio", FontFactory.getFont("Arial", 12)));
-            tabla.addCell(new Paragraph("Nacionalidad", FontFactory.getFont("Arial", 12)));
-            com.itextpdf.text.Image img;
-            //Es el tipo de clase
-            BarcodeEAN codeEAN = new BarcodeEAN();
-            //Seteo el tipo de codigo
-            codeEAN.setCodeType(Barcode.EAN13);
-            //Setep el codigo
-            codeEAN.setCode("9781935182610");
-            //Paso el codigo a imagen
-            img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
-
-            document.add(tabla);
-            document.close();
-            Desktop.getDesktop().open(file);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
 
         /*try{
             File file = new File("C://impresiones//usuario.pdf");
@@ -461,11 +496,49 @@ public class ControllerImprimirLicencia {
         catch (Exception e){
             e.printStackTrace();
         }*/
+
+        }
+
+
+
+    private PdfPCell getHeaderCell(String text) {
+        PdfPCell headerCell = new PdfPHeaderCell();
+        headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        headerCell.addElement(new Paragraph(text));
+        return headerCell;
+
+    }
+
+    private PdfPCell getFirstRowFormatted(String text) {
+        PdfPCell pdfpCell = new PdfPCell();
+        pdfpCell.addElement(new Paragraph(text));
+
+        return pdfpCell;
+    }
+
+    private PdfPCell getSecondRowFormatted(String text) {
+        PdfPCell pdfpCell = new PdfPCell();
+        pdfpCell.addElement(new Paragraph(text));
+        pdfpCell.setRotation(90);
+        return pdfpCell;
+    }
+    private PdfPCell getLastRowFormatted(String text) {
+        PdfPCell pdfpCell = new PdfPCell();
+        pdfpCell.addElement(new Paragraph(text));
+        pdfpCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        pdfpCell.setRotation(90);
+        return pdfpCell;
     }
 
     @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
         instance = null;
+    }
+
+    @FXML
+    private void cerrar(){
+
+        paneLicencia.setVisible(false);
     }
 }
