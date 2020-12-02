@@ -21,7 +21,7 @@
    <children>
       <ImageView fitHeight="562.0" fitWidth="1000.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
       <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
@@ -103,7 +103,7 @@
                   <Pane HBox.hgrow="SOMETIMES" />
                   <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+                        <Image url="@../imagenes/icons8_undo_52px_4.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

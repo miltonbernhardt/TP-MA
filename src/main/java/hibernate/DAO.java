@@ -10,6 +10,10 @@ import org.hibernate.Session;
 import app.PanelAlerta;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+/**
+ * @deprecated  Se crearon mejores DAOs para Licencia y Titular {@link database}
+ */
+@Deprecated
 public class DAO {
 
     private static DAO instanciaDAO = null;

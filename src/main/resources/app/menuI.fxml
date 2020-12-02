@@ -18,7 +18,7 @@
    <children>
       <ImageView fx:id="imagenmenu" fitHeight="700.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
       <SubScene fill="WHITE" height="448.0" layoutX="58.0" layoutY="48.0" opacity="0.35" width="324.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="48.0">
@@ -33,12 +33,12 @@
       </Text>
       <ImageView fx:id="imageButton" fitHeight="91.0" fitWidth="57.0" layoutX="913.0" layoutY="477.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/icons8_exit_64px.png" />
+            <Image url="@../imagenes/icons8_exit_64px.png" />
          </image>
       </ImageView>
       <ImageView fx:id="santaFe" fitHeight="227.0" fitWidth="252.0" layoutX="544.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/santafe.png" />
+            <Image url="@../imagenes/santafe.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="447.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ministerio de Transporte - Agencia Nacional de Seguridad Vial">
@@ -97,7 +97,7 @@
          <children>
             <ImageView fx:id="imageButton" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onUsuarioButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Imagenes/icons8_customer_52px.png" />
+                  <Image url="@../imagenes/icons8_customer_52px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -105,7 +105,7 @@
             </ImageView>
             <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="58.0" onMouseClicked="#onValorButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Imagenes/icons8_us_dollar_52px.png" />
+                  <Image url="@../imagenes/icons8_us_dollar_52px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="8.0" right="10.0" top="10.0" />
@@ -113,7 +113,7 @@
             </ImageView>
             <ImageView fx:id="imageButton" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onVigenciaButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Imagenes/icons8_calendar_48px.png" />
+                  <Image url="@../imagenes/icons8_calendar_48px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -121,7 +121,7 @@
             </ImageView>
             <ImageView fx:id="imageButton" accessibleText="holi" fitHeight="32.0" fitWidth="33.0" onMouseClicked="#onRequerimientoButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Imagenes/icons8_bulleted_list_60px.png" />
+                  <Image url="@../imagenes/icons8_bulleted_list_60px.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -132,7 +132,7 @@
             </ImageView>
             <ImageView fx:id="imageButton" fitHeight="33.0" fitWidth="36.0" onMouseClicked="#onRecuerdaButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Imagenes/icons8_checkmark_64px.png" />
+                  <Image url="@../imagenes/icons8_checkmark_64px.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -142,22 +142,22 @@
       </VBox>
       <ImageView fx:id="arrowUsuario" fitHeight="104.0" fitWidth="32.0" layoutX="891.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Imagenes/icons8_forward_48px.png" />
+            <Image url="@../imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
       <ImageView fx:id="arrowValor" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Imagenes/icons8_forward_48px.png" />
+            <Image url="@../imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
       <ImageView fx:id="arrowVigencia" fitHeight="104.0" fitWidth="32.0" layoutX="892.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Imagenes/icons8_forward_48px.png" />
+            <Image url="@../imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
       <ImageView fx:id="arrowRequerimiento" fitHeight="104.0" fitWidth="32.0" layoutX="895.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Imagenes/icons8_forward_48px.png" />
+            <Image url="@../imagenes/icons8_forward_48px.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="panRecuerda" layoutX="417.0" layoutY="179.0" prefHeight="215.0" prefWidth="376.0" stylesheets="@../css/styles.css" visible="false">
@@ -170,7 +170,7 @@
       </AnchorPane>
       <ImageView fx:id="arrowRecuerda" fitHeight="104.0" fitWidth="32.0" layoutX="894.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Imagenes/icons8_forward_48px.png" />
+            <Image url="@../imagenes/icons8_forward_48px.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -186,7 +186,7 @@
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_male_user_52px.png" />
+                        <Image url="@../imagenes/icons8_male_user_52px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -196,7 +196,7 @@
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_driver_license_48px.png" />
+                        <Image url="@../imagenes/icons8_driver_license_48px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -206,7 +206,7 @@
                <graphic>
                   <ImageView fitHeight="77.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/icons8_user_48px.png" />
+                        <Image url="@../imagenes/icons8_user_48px.png" />
                      </image>
                   </ImageView>
                </graphic>
