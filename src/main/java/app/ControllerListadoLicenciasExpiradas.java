@@ -8,12 +8,16 @@ import enumeration.EnumTipoDocumento;
 import gestor.GestorLicencia;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 import java.net.URL;
 
 import java.time.LocalDate;
@@ -68,47 +72,10 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         campoFechaInicial.getEditor().setDisable(true);
         campoFechaInicial.setValue(LocalDate.now());
 
-        campoDoc.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("^[0-9A-Za-z]*")) {
-                    String s = campoDoc.getText().substring(0,campoDoc.getText().length()-1);
-                    campoDoc.setText(s);
-                }
-            }
-        });
-        campoApe.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("[^0-9]*")) {
-                    String s = campoApe.getText().substring(0,campoApe.getText().length()-1);
-                    campoApe.setText(s);
-                }
-            }
-        });
-
-        campoNombre.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("[^0-9]*")) {
-                    String s = campoNombre.getText().substring(0,campoNombre.getText().length()-1);
-                    campoNombre.setText(s);
-                }
-            }
-        });
-        campoNroLicencia.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    String s = campoNroLicencia.getText().substring(0,campoNroLicencia.getText().length()-1);
-                    campoNroLicencia.setText(s);
-                }
-            }
-        });
+        campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
+        campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
+        campoNroLicencia.addEventFilter(KeyEvent.ANY, handlerNumbers);
+        campoDoc.addEventFilter(KeyEvent.ANY, handlerNumbers);
 
         CBClaseLicencia.setPromptText("Clase");
         CBClaseLicencia.getItems().setAll(EnumClaseLicencia.values());
@@ -142,4 +109,59 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
 
 
     }
+    //verificar campos solo letras, consume las entradas no validas
+    EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
+        private boolean willConsume =false;
+        @Override
+        public void handle(KeyEvent event){
+            Object temp0= event.getSource();
+            //una vez que se consume se debe volver a poner en falso, sino seguira consumiendo hasta que
+            //se ingrese un caracter no valido
+            if (willConsume){
+                event.consume();
+                willConsume = false;
+            }
+            String temp = event.getCode().toString();
+            if (!event.getCode().toString().matches("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]")&&(event.getCode()!= KeyCode.SPACE)
+                    && ( event.getCode() != KeyCode.SHIFT)) {
+                if (event.getEventType() == KeyEvent.KEY_PRESSED){
+                    willConsume = true;
+                }  else if (event.getEventType() == KeyEvent.KEY_RELEASED)  {
+                    willConsume = false;
+                }
+
+            }
+        }
+    };
+
+    //verificar campos solo numeros
+    EventHandler<KeyEvent> handlerNumbers = new EventHandler<KeyEvent>() {
+        private boolean willConsume = false;
+        private int maxLength = 10;
+
+        @Override
+        public void handle(KeyEvent event) {
+            TextField temp = (TextField) event.getSource();
+            if (willConsume) {
+                event.consume();
+
+            }
+            if (!event.getText().matches("[0-9]") && event.getCode() != KeyCode.BACK_SPACE) {
+                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+                    willConsume = true;
+                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+                    willConsume = false;
+                }
+            }
+            if (temp.getText().length() > maxLength - 1) {
+                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+                    willConsume = true;
+                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+                    willConsume = false;
+                }
+            }
+        }
+    };
+
+
 }

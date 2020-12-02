@@ -5,17 +5,15 @@ import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
 import dto.DTOBuscarTitular;
-import dto.DTOEmitirLicencia;
+import dto.DTOModificarTitular;
 import enumeration.*;
 import hibernate.DAO;
 import model.Licencia;
 import model.Titular;
-import org.hibernate.HibernateException;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class GestorTitular {

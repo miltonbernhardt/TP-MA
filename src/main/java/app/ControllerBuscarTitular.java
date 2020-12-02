@@ -19,6 +19,7 @@ public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
     private ControllerEmitirLicencia controllerEmitirLicencia = null;
     private ControllerImprimirLicencia controllerImprimirLicencia = null;
+    private ControllerModificarTitular controllerModificarTitular = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -148,6 +149,9 @@ public class ControllerBuscarTitular {
                 if(controllerImprimirLicencia != null){
                     controllerImprimirLicencia.seleccionarTitular(dtoTitular);
                 }
+                if(controllerModificarTitular != null){
+                    controllerModificarTitular.seleccionarTitular(dtoTitular);
+                }
                 volver();
             }
         }
@@ -167,4 +171,7 @@ public class ControllerBuscarTitular {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
     }
 
+    public void setControllerModificarTitular(ControllerModificarTitular controllerModificarTitular) {
+        this.controllerModificarTitular = controllerModificarTitular;
+    }
 }

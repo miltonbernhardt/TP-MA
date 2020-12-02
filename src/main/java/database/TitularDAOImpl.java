@@ -1,6 +1,7 @@
 package database;
 
 import dto.DTOBuscarTitular;
+import dto.DTOModificarTitular;
 import model.Titular;
 import org.hibernate.Session;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
@@ -19,7 +20,7 @@ public class TitularDAOImpl extends BaseDAOImpl<Titular,Integer> implements Titu
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        String consulta = "SELECT new dto.DTOBuscarTitular(t.id, t.fechaNacimiento, t.nombre, t.apellido,t.tipoDNI, t.DNI) FROM Titular t "
+        String consulta = "SELECT new dto.DTOBuscarTitular(t.id, t.fechaNacimiento, t.nombre, t.apellido,t.tipoDNI, t.DNI, t.calle, t.numeroCalle, t.donanteOrganos, t.sexo) FROM Titular t "
                 + argumentos + " ORDER BY t.nombre, t.apellido ASC ";
 
         try {
