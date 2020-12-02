@@ -1,7 +1,8 @@
 package app;
 
-import dto.DTOBuscarTitular;
+import dto.DTOGestionTitular;
 import enumeration.EnumTipoAlerta;
+import enumeration.EnumTipoCampo;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
 import javafx.fxml.FXML;
@@ -11,14 +12,14 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
-    private ControllerEmitirLicencia controllerEmitirLicencia = null;
-    private ControllerImprimirLicencia controllerImprimirLicencia = null;
+    private ControllerGestionLicencia controllerGestionLicencia = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -35,15 +36,15 @@ public class ControllerBuscarTitular {
     @FXML private DatePicker dateNacimientoInicial;
     @FXML private DatePicker dateNacimientoFinal;
 
-    @FXML private TableView<DTOBuscarTitular> tabla;
+    @FXML private TableView<DTOGestionTitular> tabla;
 
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaNombre;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaApellido;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaFechaNacimiento;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaTipoDocumento;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaDocumento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaNombre;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaApellido;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaFechaNacimiento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaTipoDocumento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaDocumento;
 
-    private DTOBuscarTitular titularSeleccionado = null;
+    private DTOGestionTitular titularSeleccionado = null;
 
     @FXML
     private void initialize(){
@@ -55,32 +56,33 @@ public class ControllerBuscarTitular {
     }
 
     private void listenerTextField(){
-        //ToDo validarKeyUp and unblur
+        textNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textNombre.setText(oldValue);
+        });
+
+        textApellido.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textApellido.setText(oldValue);
+        });
+
+        textDocumento.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textDocumento.setText(oldValue);
+        });
     }
 
-    private void iniciarDatePicker(DatePicker dateNacimientoInicial) {
-        dateNacimientoInicial.setConverter(new StringConverter<LocalDate>()
-        {
-            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            @Override
-            public String toString(LocalDate localDate)
-            {
-                if(localDate==null)
-                    return "";
-                return dateTimeFormatter.format(localDate);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString)
-            {
-                if(dateString==null || dateString.trim().isEmpty())
-                {
-                    return null;
-                }
-                return LocalDate.parse(dateString,dateTimeFormatter);
-            }
-        });
+    private void iniciarDatePicker(DatePicker dateNacimiento) {
+        LocalDate minDate = LocalDate.of(1940, 1, 1);
+        LocalDate maxDate = LocalDate.now();
+        dateNacimiento.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+                    }});
+        dateNacimiento.setConverter(new SecureLocalDateStringConverter());
+        dateNacimiento.setTooltip(new Tooltip("dd/mm/aaaa"));
     }
 
     private void iniciarCombo(){
@@ -91,6 +93,7 @@ public class ControllerBuscarTitular {
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay usuarios que mostrar."));
+        tabla.setTooltip(new Tooltip("Doble click para seleccionar un titular"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         columnaFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
@@ -98,7 +101,7 @@ public class ControllerBuscarTitular {
         columnaDocumento.setCellValueFactory(new PropertyValueFactory<>("documento"));
 
         tabla.setRowFactory( tv -> {
-            TableRow<DTOBuscarTitular> fila = new TableRow<>();
+            TableRow<DTOGestionTitular> fila = new TableRow<>();
             fila.setOnMouseClicked(event -> {
                 titularSeleccionado = tabla.getSelectionModel().getSelectedItem();
                 if (event.getClickCount() == 2 && (! fila.isEmpty()) && titularSeleccionado != null ) {
@@ -110,17 +113,16 @@ public class ControllerBuscarTitular {
         });
     }
 
-    private void cargarTabla(List<DTOBuscarTitular> lista) {
+    private void cargarTabla(List<DTOGestionTitular> lista) {
         tabla.getItems().clear();
-        for(DTOBuscarTitular dto:lista){
+        for(DTOGestionTitular dto:lista){
             tabla.getItems().add(dto);
         }
     }
 
     @FXML
     private void buscarTitular(){
-        //ToDo validar la correctitud de todo
-        DTOBuscarTitular argumentos = new DTOBuscarTitular();
+        DTOGestionTitular argumentos = new DTOGestionTitular();
         argumentos.setNombre(textNombre.getText());
         argumentos.setApellido(textApellido.getText());
         argumentos.setFechaNacimientoInicial(dateNacimientoInicial.getValue());
@@ -133,7 +135,7 @@ public class ControllerBuscarTitular {
         cargarTabla(GestorTitular.get().searchTitular(argumentos));
     }
 
-    private void selectionTitular(DTOBuscarTitular dtoTitular){
+    private void selectionTitular(DTOGestionTitular dtoTitular){
         if(dtoTitular != null) {
             Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar selección del titular",
@@ -142,12 +144,7 @@ public class ControllerBuscarTitular {
                     null);
 
             if (result.get() == ButtonType.OK) {
-                if(controllerEmitirLicencia != null){
-                    controllerEmitirLicencia.seleccionarTitular(dtoTitular);
-                }
-                if(controllerImprimirLicencia != null){
-                    controllerImprimirLicencia.seleccionarTitular(dtoTitular);
-                }
+                if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -159,12 +156,44 @@ public class ControllerBuscarTitular {
         instance = null;
     }
 
-    public void setControllerEmitirLicencia(ControllerEmitirLicencia controllerEmitirLicencia) {
-        this.controllerEmitirLicencia = controllerEmitirLicencia;
+    public void setControllerGestionLicencia(ControllerGestionLicencia controllerGestionLicencia) {
+        this.controllerGestionLicencia = controllerGestionLicencia;
+    }
+}
+
+class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
+    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+
+    private boolean hasParseError = false;
+
+    public boolean hasParseError(){
+        return hasParseError;
     }
 
-    public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
-        this.controllerImprimirLicencia = controllerImprimirLicencia;
+    @Override
+    public String toString(LocalDate localDate) {
+        if(localDate==null)
+            return "";
+        return DATE_FORMATTER.format(localDate);
     }
 
+    @Override
+    public LocalDate fromString(String formattedString) {
+        try {
+            //ToDo poner fechas limites
+            LocalDate min = LocalDate.of(1940,01,01);
+            LocalDate max = LocalDate.of(2012,1,1);
+            LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
+            if(date.isAfter(max) || date.isBefore(min)){
+                hasParseError=true;
+                return  null;
+            }
+            hasParseError=false;
+            return date;
+        } catch (DateTimeParseException parseExc){
+            hasParseError=true;
+            return null;
+        }
+    }
 }
