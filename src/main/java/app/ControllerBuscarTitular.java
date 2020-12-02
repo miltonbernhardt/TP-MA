@@ -5,14 +5,11 @@ import enumeration.EnumTipoAlerta;
 import enumeration.EnumTipoCampo;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
+import herramientas.DatePickerIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -51,8 +48,8 @@ public class ControllerBuscarTitular {
     private void initialize(){
         iniciarCombo();
         iniciarTabla();
-        iniciarDatePicker(dateNacimientoInicial);
-        iniciarDatePicker(dateNacimientoFinal);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal);
         listenerTextField();
     }
 
@@ -71,19 +68,6 @@ public class ControllerBuscarTitular {
             if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
                 textDocumento.setText(oldValue);
         });
-    }
-
-    private void iniciarDatePicker(DatePicker dateNacimiento) {
-        LocalDate minDate = LocalDate.of(1940, 1, 1);
-        LocalDate maxDate = LocalDate.now();
-        dateNacimiento.setDayCellFactory(d ->
-                new DateCell() {
-                    @Override public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
-                    }});
-        dateNacimiento.setConverter(new SecureLocalDateStringConverter());
-        dateNacimiento.setTooltip(new Tooltip("dd/mm/aaaa"));
     }
 
     private void iniciarCombo(){
@@ -144,7 +128,7 @@ public class ControllerBuscarTitular {
                     "¿Desea seleccionar a "+dtoTitular.getNombre()+" "+dtoTitular.getApellido()+"?",
                     null);
 
-            if (result.get() == ButtonType.OK) {
+            if (result.orElse(null) == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
                 else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
                 volver();
@@ -164,42 +148,5 @@ public class ControllerBuscarTitular {
 
     public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
-    }
-}
-
-class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
-    private static final String DATE_PATTERN = "dd/MM/yyyy";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
-
-    private boolean hasParseError = false;
-
-    public boolean hasParseError(){
-        return hasParseError;
-    }
-
-    @Override
-    public String toString(LocalDate localDate) {
-        if(localDate==null)
-            return "";
-        return DATE_FORMATTER.format(localDate);
-    }
-
-    @Override
-    public LocalDate fromString(String formattedString) {
-        try {
-            //ToDo poner fechas limites
-            LocalDate min = LocalDate.of(1940,1,1);
-            LocalDate max = LocalDate.of(2012,1,1);
-            LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
-            if(date.isAfter(max) || date.isBefore(min)){
-                hasParseError=true;
-                return  null;
-            }
-            hasParseError=false;
-            return date;
-        } catch (DateTimeParseException parseExc){
-            hasParseError=true;
-            return null;
-        }
     }
 }

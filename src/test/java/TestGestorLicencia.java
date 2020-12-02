@@ -59,8 +59,7 @@ public class TestGestorLicencia {
         dto.setObservaciones(null);
         dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
 
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().emitirLicencia(dto);
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
 

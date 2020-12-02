@@ -2,6 +2,7 @@ package app;
 
 import dto.DTOAltaTitular;
 import enumeration.*;
+import herramientas.DatePickerIniciador;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class ControllerAltaTitular{
 
     private static ControllerAltaTitular instance = null;
-    private DTOAltaTitular dto = new DTOAltaTitular();
+    private DTOAltaTitular dto;
 
     public static ControllerAltaTitular get() {
         if (instance == null){
@@ -39,6 +40,7 @@ public class ControllerAltaTitular{
     @FXML private Button Bregistro;
 
     public void initialize() {
+        DatePickerIniciador.iniciarDatePicker(campoFechaNac);
         campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
         campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
         campoCalle.addEventFilter(KeyEvent.ANY, handlerletters);
@@ -53,7 +55,7 @@ public class ControllerAltaTitular{
     }
 
     public void keyReleasedProperty(){
-        Boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
+        boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
                 || campoNumCall.getText().trim().isEmpty() || CBTipoDNI.getSelectionModel().isEmpty() || CBGsang.getSelectionModel().isEmpty() || CBRH.getSelectionModel().isEmpty()
                 || CBSexo.getSelectionModel().isEmpty() || campoFechaNac.getValue() == null);
         Bregistro.setDisable(isDisable);
@@ -81,7 +83,7 @@ public class ControllerAltaTitular{
                 willConsume = false;
             }
             String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]")&&(event.getCode()!= KeyCode.SPACE)
+            if (!event.getCode().toString().matches(EnumTipoCampo.SOLO_LETRAS_2.getValue())&&(event.getCode()!= KeyCode.SPACE)
                     && ( event.getCode() != KeyCode.SHIFT)) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED){
                     willConsume = true;
@@ -105,7 +107,7 @@ public class ControllerAltaTitular{
                 event.consume();
 
             }
-            if (!event.getText().matches("[0-9]") && event.getCode() != KeyCode.BACK_SPACE) {
+            if (!event.getText().matches(EnumTipoCampo.SOLO_NUMEROS.getValue()) && event.getCode() != KeyCode.BACK_SPACE) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED) {
                     willConsume = true;
                 } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
@@ -130,14 +132,14 @@ public class ControllerAltaTitular{
                 "¿Desea confirmar el registro del titular?",
                 null);
 
-        if (result.get() == ButtonType.OK) {
+        if (result.orElse(null) == ButtonType.OK) {
 
             //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
-
+            dto = new DTOAltaTitular();
             dto.setNombre(campoNombre.getText().toLowerCase());
-            System.out.println("nombre todo en mayus " + campoNombre.getText().toLowerCase());
-            dto.setApellido(campoApe.getText().toLowerCase());
-            dto.setCalle(campoCalle.getText().toLowerCase());
+            System.out.println("nombre todo en mayus " + campoNombre.getText());
+            dto.setApellido(campoApe.getText());
+            dto.setCalle(campoCalle.getText());
 
             dto.setDNI(campoDoc.getText());
             dto.setDonanteOrganos(RBdonante.isSelected());

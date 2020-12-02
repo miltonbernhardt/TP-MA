@@ -149,4 +149,9 @@ public class GestorTitular {
         }
 
     }
+
+    public LocalDate getFechaMinima(){
+        //ToDo implementar
+        return LocalDate.now();
+    }
 }

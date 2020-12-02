@@ -44,12 +44,12 @@
                     </graphic>
                 </Button>
                 <Separator prefWidth="45.0" visible="false" />
-                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Usuario" textAlignment="CENTER" wrapText="true">
+                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Usuario" textAlignment="CENTER" wrapText="true">
                     <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../imagenes/remove-user-128.png" />
-                            </image>
+                     <image>
+                        <Image url="@../imagenes/add-user-2-128.png" />
+                     </image>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -64,12 +64,12 @@
                     </graphic>
                 </Button>
                 <Separator prefWidth="45.0" visible="false" />
-                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Usuario" textAlignment="CENTER" wrapText="true">
+                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Usuario" textAlignment="CENTER" wrapText="true">
                     <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/add-user-2-128.png" />
-                     </image>
+                            <image>
+                                <Image url="@../imagenes/remove-user-128.png" />
+                            </image>
                         </ImageView>
                     </graphic>
                 </Button>

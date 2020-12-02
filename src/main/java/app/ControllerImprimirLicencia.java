@@ -3,7 +3,6 @@ package app;
 
 
 import com.itextpdf.text.*;
-import com.itextpdf.*;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.Barcode;
@@ -11,13 +10,10 @@ import com.itextpdf.text.pdf.BarcodeEAN;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
-import dto.DTOBuscarTitular;
-import dto.DTOEmitirLicencia;
+import dto.DTOGestionTitular;
 import dto.DTOImprimirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import enumeration.EnumTipoDocumento;
 import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.collections.FXCollections;
@@ -28,44 +24,31 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
-import model.Licencia;
 import model.Titular;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static javafx.scene.image.Image.*;
 
 public class ControllerImprimirLicencia {
 
-
     private static ControllerImprimirLicencia instance = null;
     private DTOImprimirLicencia dto;
-
-
 
     public static ControllerImprimirLicencia get() {
         if (instance == null){
@@ -119,15 +102,15 @@ public class ControllerImprimirLicencia {
         ControllerBuscarTitular.get().setControllerImprimirLicencia(this);
     }
 
-    public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){
-        System.out.println("numero id " + dtoBuscarTitular.getIdTitular());
+    public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
+        System.out.println("numero id " + dtoGestionTitular.getIdTitular());
         this.dto = new DTOImprimirLicencia();
-        dto.setIdTitular(dtoBuscarTitular.getIdTitular());
-        dto.setFechaNacimiento(dtoBuscarTitular.getFechaNacimiento());
-        dto.setNombre(dtoBuscarTitular.getNombre());
-        dto.setApellido(dtoBuscarTitular.getApellido());
-        dto.setTipoDocumento(dtoBuscarTitular.getTipoDocumento());
-        dto.setDocumento(dtoBuscarTitular.getDocumento());
+        dto.setIdTitular(dtoGestionTitular.getIdTitular());
+        dto.setFechaNacimiento(dtoGestionTitular.getFechaNacimiento());
+        dto.setNombre(dtoGestionTitular.getNombre());
+        dto.setApellido(dtoGestionTitular.getApellido());
+        dto.setTipoDocumento(dtoGestionTitular.getTipoDocumento());
+        dto.setDocumento(dtoGestionTitular.getDocumento());
         System.out.println("numero id " + dto.getIdTitular());
         System.out.println("nombre"  + dto.getTitular());
         campoTitular.setText(dto.getIdTitular().toString());

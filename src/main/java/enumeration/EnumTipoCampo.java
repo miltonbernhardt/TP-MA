@@ -2,6 +2,7 @@ package enumeration;
 
 public enum EnumTipoCampo {
     SOLO_LETRAS("^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*$"),
+    SOLO_LETRAS_2("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]"),
     SOLO_NUMEROS("^[0-9]*$"),
     FECHA("");
 

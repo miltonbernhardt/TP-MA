@@ -44,11 +44,11 @@
                         </graphic>
                     </Button>
                     <Separator prefWidth="45.0" visible="false" />
-                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Titular" textAlignment="CENTER" wrapText="true">
+                    <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Titular" textAlignment="CENTER" wrapText="true">
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../imagenes/icons8_remove_user_group_man_man_100px.png" />
+                                    <Image url="@../imagenes/business_add.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -64,11 +64,11 @@
                         </graphic>
                     </Button>
                     <Separator prefWidth="45.0" visible="false" />
-                    <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Titular" textAlignment="CENTER" wrapText="true">
+                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Titular" textAlignment="CENTER" wrapText="true">
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../imagenes/business_add.png" />
+                                    <Image url="@../imagenes/icons8_remove_user_group_man_man_100px.png" />
                                 </image>
                             </ImageView>
                         </graphic>
