@@ -1,6 +1,7 @@
 * {
     /*----- color fuentes ------*/
     -color-fuente-oscura: #000000;
+    -color-fuente-prompt: #454343;
     -color-fuente-clara: white;
 
     /*--- colores del tema -----*/
@@ -67,6 +68,7 @@
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 0;
     -fx-background-color: -color-primario;
+    -fx-prompt-text-fill: -color-fuente-prompt;
 }
 
 

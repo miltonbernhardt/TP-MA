@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import database.HibernateUtil;
 
@@ -21,8 +22,8 @@ public class ControllerApp extends Application {
     private static Stage stage;
     private static FXMLLoader fxmlLoader;
 
-    private static List<Parent> scenesAnteriores = new ArrayList<Parent>();
-    private static List<String> titulosAnteriores = new ArrayList<String>();
+    private static final List<Parent> scenesAnteriores = new ArrayList<>();
+    private static final List<String> titulosAnteriores = new ArrayList<>();
 
     public static void main(String[] args) {
         launch();
@@ -32,7 +33,7 @@ public class ControllerApp extends Application {
     public void start(Stage primaryStage)  {
         HibernateUtil.apagarLog(true);
         HibernateUtil.getSessionFactory();
-        scene = new Scene(loadFXML("menuI"));
+        scene = new Scene(Objects.requireNonNull(loadFXML("menuI")));
         primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
         primaryStage.setMinWidth(1000);
@@ -90,7 +91,7 @@ public class ControllerApp extends Application {
     }
 
     static void getViewAnterior() {
-        Integer index = scenesAnteriores.size()-1;
+        int index = scenesAnteriores.size()-1;
         Parent p = null;
         String t = null;
         try {

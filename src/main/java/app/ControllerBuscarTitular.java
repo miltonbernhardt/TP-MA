@@ -1,23 +1,22 @@
 package app;
 
-import dto.DTOBuscarTitular;
+import dto.DTOGestionTitular;
 import enumeration.EnumTipoAlerta;
+import enumeration.EnumTipoCampo;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
+import herramientas.DatePickerIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
-    private ControllerEmitirLicencia controllerEmitirLicencia = null;
+    private ControllerGestionLicencia controllerGestionLicencia = null;
     private ControllerImprimirLicencia controllerImprimirLicencia = null;
 
     public static ControllerBuscarTitular get() {
@@ -35,51 +34,39 @@ public class ControllerBuscarTitular {
     @FXML private DatePicker dateNacimientoInicial;
     @FXML private DatePicker dateNacimientoFinal;
 
-    @FXML private TableView<DTOBuscarTitular> tabla;
+    @FXML private TableView<DTOGestionTitular> tabla;
 
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaNombre;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaApellido;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaFechaNacimiento;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaTipoDocumento;
-    @FXML private TableColumn<DTOBuscarTitular, String> columnaDocumento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaNombre;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaApellido;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaFechaNacimiento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaTipoDocumento;
+    @FXML private TableColumn<DTOGestionTitular, String> columnaDocumento;
 
-    private DTOBuscarTitular titularSeleccionado = null;
+    private DTOGestionTitular titularSeleccionado = null;
 
     @FXML
     private void initialize(){
         iniciarCombo();
         iniciarTabla();
-        iniciarDatePicker(dateNacimientoInicial);
-        iniciarDatePicker(dateNacimientoFinal);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal);
         listenerTextField();
     }
 
     private void listenerTextField(){
-        //ToDo validarKeyUp and unblur
-    }
+        textNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textNombre.setText(oldValue);
+        });
 
-    private void iniciarDatePicker(DatePicker dateNacimientoInicial) {
-        dateNacimientoInicial.setConverter(new StringConverter<LocalDate>()
-        {
-            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        textApellido.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textApellido.setText(oldValue);
+        });
 
-            @Override
-            public String toString(LocalDate localDate)
-            {
-                if(localDate==null)
-                    return "";
-                return dateTimeFormatter.format(localDate);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString)
-            {
-                if(dateString==null || dateString.trim().isEmpty())
-                {
-                    return null;
-                }
-                return LocalDate.parse(dateString,dateTimeFormatter);
-            }
+        textDocumento.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
+                textDocumento.setText(oldValue);
         });
     }
 
@@ -91,6 +78,7 @@ public class ControllerBuscarTitular {
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay usuarios que mostrar."));
+        tabla.setTooltip(new Tooltip("Doble click para seleccionar un titular"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         columnaFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
@@ -98,7 +86,7 @@ public class ControllerBuscarTitular {
         columnaDocumento.setCellValueFactory(new PropertyValueFactory<>("documento"));
 
         tabla.setRowFactory( tv -> {
-            TableRow<DTOBuscarTitular> fila = new TableRow<>();
+            TableRow<DTOGestionTitular> fila = new TableRow<>();
             fila.setOnMouseClicked(event -> {
                 titularSeleccionado = tabla.getSelectionModel().getSelectedItem();
                 if (event.getClickCount() == 2 && (! fila.isEmpty()) && titularSeleccionado != null ) {
@@ -110,17 +98,16 @@ public class ControllerBuscarTitular {
         });
     }
 
-    private void cargarTabla(List<DTOBuscarTitular> lista) {
+    private void cargarTabla(List<DTOGestionTitular> lista) {
         tabla.getItems().clear();
-        for(DTOBuscarTitular dto:lista){
+        for(DTOGestionTitular dto:lista){
             tabla.getItems().add(dto);
         }
     }
 
     @FXML
     private void buscarTitular(){
-        //ToDo validar la correctitud de todo
-        DTOBuscarTitular argumentos = new DTOBuscarTitular();
+        DTOGestionTitular argumentos = new DTOGestionTitular();
         argumentos.setNombre(textNombre.getText());
         argumentos.setApellido(textApellido.getText());
         argumentos.setFechaNacimientoInicial(dateNacimientoInicial.getValue());
@@ -133,7 +120,7 @@ public class ControllerBuscarTitular {
         cargarTabla(GestorTitular.get().searchTitular(argumentos));
     }
 
-    private void selectionTitular(DTOBuscarTitular dtoTitular){
+    private void selectionTitular(DTOGestionTitular dtoTitular){
         if(dtoTitular != null) {
             Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar selección del titular",
@@ -141,13 +128,9 @@ public class ControllerBuscarTitular {
                     "¿Desea seleccionar a "+dtoTitular.getNombre()+" "+dtoTitular.getApellido()+"?",
                     null);
 
-            if (result.get() == ButtonType.OK) {
-                if(controllerEmitirLicencia != null){
-                    controllerEmitirLicencia.seleccionarTitular(dtoTitular);
-                }
-                if(controllerImprimirLicencia != null){
-                    controllerImprimirLicencia.seleccionarTitular(dtoTitular);
-                }
+            if (result.orElse(null) == ButtonType.OK) {
+                if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -159,12 +142,11 @@ public class ControllerBuscarTitular {
         instance = null;
     }
 
-    public void setControllerEmitirLicencia(ControllerEmitirLicencia controllerEmitirLicencia) {
-        this.controllerEmitirLicencia = controllerEmitirLicencia;
+    public void setControllerGestionLicencia(ControllerGestionLicencia controllerGestionLicencia) {
+        this.controllerGestionLicencia = controllerGestionLicencia;
     }
 
     public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
     }
-
 }

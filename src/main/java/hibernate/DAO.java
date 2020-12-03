@@ -10,6 +10,10 @@ import org.hibernate.Session;
 import app.PanelAlerta;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+/**
+ * @deprecated  Se crearon mejores DAOs para Licencia y Titular {@link database}
+ */
+@Deprecated
 public class DAO {
 
     private static DAO instanciaDAO = null;
@@ -28,6 +32,7 @@ public class DAO {
      * Retorna true si la operació fue exitosa, false en caso contrario.
      * @param objetoAGuardar objeto a guardar
      */
+    @Deprecated
     public Boolean save(Object objetoAGuardar) {
         boolean valido = true;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -53,6 +58,7 @@ public class DAO {
      * Retorna true si la operació fue exitosa, false en caso contrario.
      * @param objetoAActualizar objeto a actulizar
      */
+    @Deprecated
     public Boolean update(Object objetoAActualizar) {
         boolean valido = true;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -78,6 +84,7 @@ public class DAO {
      * @param claseObjeto sirve para obtener el objeto correcto, basta con pasar "nombre de la clase".class
      * @param idObjeto id del objeto en la base de datos
      */
+    @Deprecated
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object get(Class claseObjeto, Integer idObjeto) {
         Object tipo = null;
@@ -101,6 +108,7 @@ public class DAO {
      * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular" - usar los nombre de atributos de las clases JAVA
      * @param claseObjeto sirve para obtener el objeto correcto, basta con pasar "nombre de la clase".class
      */
+    @Deprecated
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object getSingleResult(String consultaSQL, Class claseObjeto) {
         Object objeto = null;
@@ -124,6 +132,7 @@ public class DAO {
      * @param consultaSQL Ej de consultaSQL "select l from Licencia l where l.titular=idTitular"  - usar los nombre de atributos de las clases JAVA
      * @param claseObjetos sirve para obtener los objetos correctos, basta con pasar "nombre de la clase".class
      */
+    @Deprecated
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<? extends Object> getResultList(String consultaSQL, Class claseObjetos) {
         List<? extends Object> lista = null;
@@ -148,6 +157,7 @@ public class DAO {
      * Ej de uso - select count(distinct id_licencia) from licencia WHERE id_titular = id_titular;
      * Usar los nombre de atributos de las clases SQL
      */
+    @Deprecated
     public Integer getCantidad(String consultaSQL) {
         Integer i = 0;
         Object o = null;

@@ -1,17 +1,19 @@
 package app;
 
+
+
 import com.itextpdf.text.*;
-import com.itextpdf.*;
-import com.itextpdf.text.Image;
+
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.Barcode;
+import com.itextpdf.text.pdf.BarcodeEAN;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import com.pdfjet.*;
-import dto.DTOBuscarTitular;
-import dto.DTOEmitirLicencia;
+import dto.DTOGestionTitular;
 import dto.DTOImprimirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import enumeration.EnumTipoDocumento;
 import gestor.GestorLicencia;
 import gestor.GestorTitular;
 import javafx.collections.FXCollections;
@@ -26,13 +28,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
-import model.Licencia;
 import model.Titular;
 
 import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileSystemView;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -42,12 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ControllerImprimirLicencia {
 
+public class ControllerImprimirLicencia {
 
     private static ControllerImprimirLicencia instance = null;
     private DTOImprimirLicencia dto;
-
 
     public static ControllerImprimirLicencia get() {
         if (instance == null){
@@ -73,15 +74,21 @@ public class ControllerImprimirLicencia {
     @FXML private Text textFN;
     @FXML private Text textC;
     @FXML private Text textNC;
+    @FXML private Text textS;
     @FXML private Text textClase;
     @FXML private Text textFV;
     @FXML private AnchorPane paneLicencia;
     @FXML private AnchorPane paneDorso;
     @FXML private AnchorPane paneFrente;
     private DTOImprimirLicencia licenciaSeleccionada = null;
-    @FXML private ImageView imagenLic;
+    @FXML private ImageView iPhoto;
     @FXML private Text dorso;
     @FXML private Text frente;
+    @FXML private Text textDescripC;
+    @FXML private Text textObser;
+    @FXML private Text textG;
+    @FXML private Text textF;
+    @FXML private Text textDondante;
 
     @FXML
 
@@ -95,15 +102,15 @@ public class ControllerImprimirLicencia {
         ControllerBuscarTitular.get().setControllerImprimirLicencia(this);
     }
 
-    public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){
-        System.out.println("numero id " + dtoBuscarTitular.getIdTitular());
+    public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
+        System.out.println("numero id " + dtoGestionTitular.getIdTitular());
         this.dto = new DTOImprimirLicencia();
-        dto.setIdTitular(dtoBuscarTitular.getIdTitular());
-        dto.setFechaNacimiento(dtoBuscarTitular.getFechaNacimiento());
-        dto.setNombre(dtoBuscarTitular.getNombre());
-        dto.setApellido(dtoBuscarTitular.getApellido());
-        dto.setTipoDocumento(dtoBuscarTitular.getTipoDocumento());
-        dto.setDocumento(dtoBuscarTitular.getDocumento());
+        dto.setIdTitular(dtoGestionTitular.getIdTitular());
+        dto.setFechaNacimiento(dtoGestionTitular.getFechaNacimiento());
+        dto.setNombre(dtoGestionTitular.getNombre());
+        dto.setApellido(dtoGestionTitular.getApellido());
+        dto.setTipoDocumento(dtoGestionTitular.getTipoDocumento());
+        dto.setDocumento(dtoGestionTitular.getDocumento());
         System.out.println("numero id " + dto.getIdTitular());
         System.out.println("nombre"  + dto.getTitular());
         campoTitular.setText(dto.getIdTitular().toString());
@@ -219,7 +226,7 @@ public class ControllerImprimirLicencia {
     private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){
         paneLicencia.setVisible(true);
         paneFrente.setVisible(true);
-        dorso.setVisible(true);
+        paneDorso.setVisible(true);
         Titular titular2 = new Titular();
         titular2 = GestorTitular.get().getTitular(licenciaSeleccionada.getIdTitular());
 
@@ -235,68 +242,103 @@ public class ControllerImprimirLicencia {
                 textClase.setText(licenciaSeleccionada.getClaseLicencia().getValue());
 
 
-                textA.setText(licenciaSeleccionada.getTitular().getApellido());
-                textN.setText(licenciaSeleccionada.getTitular().getNombre());
-                textC.setText(licenciaSeleccionada.getTitular().getCalle());
-                System.out.println("imprime " + licenciaSeleccionada.getTitular().getNumeroCalle().toString());
-                textNC.setText(licenciaSeleccionada.getTitular().getNumeroCalle().toString());
-                textFN.setText(licenciaSeleccionada.getTitular().getFechaNacimiento().toString());
+                textA.setText(titular2.getApellido());
+                textN.setText(titular2.getNombre());
+                textC.setText(titular2.getCalle());
+
+                textNC.setText(titular2.getNumeroCalle().toString());
+                textFN.setText(titular2.getFechaNacimiento().toString());
+                textFV.setText(licenciaSeleccionada.getFechaVencimiento().toString());
+                textS.setText(titular2.getSexo().toString());
+                textObser.setText(licenciaSeleccionada.getObservaciones());
+                textF.setText(titular2.getFactorRH().toString());
+                textG.setText(titular2.getGrupoSanguineo().toString());
+                textDondante.setText(titular2.getDonanteOrganos().toString());
 
             }
         }
     };
 
-    public void ondorsoButtonClicked(){
-        boolean isPresent = paneDorso.isVisible();
+    public void onsubirFotoButtonClicked(){
+/*
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*jpg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        File selectedFileInput = selectedFile;
 
-        paneDorso.setVisible(isPresent);
-        frente.setVisible(isPresent);
-        paneFrente.setVisible(!isPresent);
-        dorso.setVisible(!isPresent);
-    }
-    public void onfrenteButtonClicked(){
-        boolean isPresent = paneDorso.isVisible();
 
-        paneDorso.setVisible(!isPresent);
-        frente.setVisible(!isPresent);
-        paneFrente.setVisible(isPresent);
-        dorso.setVisible(isPresent);
+        // Image imageFromProjectFolder = new Image(file.toURI().toString());
+
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
+         //   URL imagePath = getClass().getResource(fos.toString());
+        Image imageFromProjectFolder = new Image(selectedFile.toURI().toString());
+          //  img.setUrl("file://" + imagePath);
+        System.out.println("direccion de imagen " + selectedFile.toURI().toString());
+      // ImageView imageView = new ImageView(file.toURI().toString());
+        //    paneLicencia.getChildren().add(imageView);
+      //  ImageIO.write(img, "png", baos);
+
+        //Image iTextImage = Image.getInstance(baos.toByteArray());
+        //url="@../Imagenes/add-user-2-128.png"
+   //     iPhoto.setImage(imageView);
+     //       iPhoto.setVisible(true);
+
+
+*/
+
     }
 
     public void imprimirLicencia() throws FileNotFoundException, DocumentException {
         FileChooser fc= new FileChooser();
         try{
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
-        fc.setTitle("Save to pdf");
-        fc.setInitialFileName("untitled.pdf");
+      fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+      fc.setTitle("Save to pdf");
+       fc.setInitialFileName("untitled.pdf");
+
         Alert alert=null;
             //alert = new Alert(Alert.AlertType.ERROR);
         File file = fc.showSaveDialog(null);
         String str = file.getAbsolutePath();
         FileOutputStream fos = new FileOutputStream(str);
         Document pdf = new Document();
-            PdfWriter.getInstance(pdf, fos);
-            pdf.open();
+        PdfWriter.getInstance(pdf, fos);
+        pdf.open();
+        final SnapshotParameters spa = new SnapshotParameters();
+        spa.setTransform(Transform.scale(1.1, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
+        File fileJ2 = new File("..TP-MA/temp/foto2.png");
+
+
+            WritableImage image2 = paneLicencia.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
+            BufferedImage buffImage2 = SwingFXUtils.fromFXImage(image2, null);
+            ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(buffImage2, "png", baos);
+
+            com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(baos.toByteArray());
+        pdf.add(iTextImage);
+
+
+         //   Image iTextImage2 = Image.getInstance(baos.toByteArray());
+
+           // pdf.add(iTextImage2);
+
         // Page page = new Page(pdf, Letter.LANDSCAPE);
-            File fileJ = new File("..TP-MA/temp/foto.png");
+          File fileJ = new File("..TP-MA/temp/foto.png");
+
+
             //exportFileChooser.showSaveDialog(alert.getOwner());
-            fileJ.getParentFile().mkdirs();//crete temp directory if not available
-            final SnapshotParameters spa = new SnapshotParameters();
-            spa.setTransform(javafx.scene.transform.Transform.scale(0.71, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
-            WritableImage image = paneLicencia.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
-            BufferedImage buffImage = SwingFXUtils.fromFXImage(image, null);
-            ImageIO.write(buffImage, "png", fileJ);//Writes the snapshot to file
+       //     fileJ.getParentFile().mkdirs();//crete temp directory if not available
+
+
 
 
          ///   BufferedImage bufferedImage = null;
 
         //    bufferedImage = ImageIO.read(new ByteArrayInputStream(Document pdf));
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(buffImage, "png", baos);
-            Image iTextImage = Image.getInstance(baos.toByteArray());
-
-           pdf.add(iTextImage);
 
 
             pdf.close();
@@ -335,25 +377,32 @@ public class ControllerImprimirLicencia {
             e.printStackTrace();
         }*/
     }
-    /*@FXML
-    private void ButtonAction(ActionEvent event)throws IOException, DocumentException {
-
-        try{
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/nombrebasededatos", "nombre de usuario", "clave de base de datos");
 
 
-            Statement estado = con.createStatement();
-            ResultSet resultado = estado.executeQuery("SELECT *  FROM  usuario ");
+    @FXML
+    private void ButtonComprobante()throws IOException, DocumentException {
 
-            OutputStream file = new FileOutputStream(new File("C://impresiones//usuario.pdf"));
+        FileChooser fc= new FileChooser();
+        try {
+            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+            fc.setTitle("Save to pdf");
+            fc.setInitialFileName("untitled.pdf");
+
+            Alert alert = null;
+            //alert = new Alert(Alert.AlertType.ERROR);
+            File file = fc.showSaveDialog(null);
+            String str = file.getAbsolutePath();
+            FileOutputStream fos = new FileOutputStream(str);
+
+
             Document document = new Document();
 
 
-            PdfWriter.getInstance(document, file);
+            PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
             document.open();
             PdfPTable tabla = new PdfPTable(6);
-            Paragraph p = new Paragraph("Lista de Usuarios del sistema\n\n", FontFactory.getFont("Arial",16,Font.ITALIC,BaseColor.BLUE));
+            Paragraph p = new Paragraph("Comprobante Licencia\n\n", FontFactory.getFont("Arial", 16, Font.ITALIC, BaseColor.BLUE));
 
             p.setAlignment(Element.ALIGN_CENTER);
             document.add(p);
@@ -361,51 +410,41 @@ public class ControllerImprimirLicencia {
             document.add(new Paragraph(""));
 
 
-
-            float[] mediaCeldas ={3.30f,3.50f,3.50f,3.70f,3.70f,3.50f};
+            float[] mediaCeldas = {3.30f, 3.50f, 3.50f, 3.70f, 3.70f, 3.50f};
 
             tabla.setWidths(mediaCeldas);
-            tabla.addCell(new Paragraph("Nombre de Usuario", FontFactory.getFont("Arial",12)));
-            tabla.addCell(new Paragraph("Apellido", FontFactory.getFont("Arial",12)));
-            tabla.addCell(new Paragraph("Cedula", FontFactory.getFont("Arial",12)));
-            tabla.addCell(new Paragraph("Correo", FontFactory.getFont("Arial",12)));
-            tabla.addCell(new Paragraph("Nombre de usuario o nick", FontFactory.getFont("Arial",12)));
-            tabla.addCell(new Paragraph("Clave", FontFactory.getFont("Arial",12)));
-
-
-
-            while (resultado.next()){
-                tabla.addCell(new Paragraph(resultado.getString("nombre"), FontFactory.getFont("Arial",10)));
-                tabla.addCell(new Paragraph(resultado.getString("apellido"), FontFactory.getFont("Arial",10)));
-                tabla.addCell(new Paragraph(resultado.getString("cedula"), FontFactory.getFont("Arial",10)));
-                tabla.addCell(new Paragraph(resultado.getString("email"), FontFactory.getFont("Arial",10)));
-                tabla.addCell(new Paragraph(resultado.getString("nick"), FontFactory.getFont("Arial",10)));
-                tabla.addCell(new Paragraph(resultado.getString("clave"), FontFactory.getFont("Arial",10)));
-
-
-
-            }
+            tabla.addCell(new Paragraph("Nombre de Titular", FontFactory.getFont("Arial", 12)));
+            tabla.addCell(new Paragraph("Apellido", FontFactory.getFont("Arial", 12)));
+            tabla.addCell(new Paragraph("Cedula", FontFactory.getFont("Arial", 12)));
+            tabla.addCell(new Paragraph("Fecha Nac", FontFactory.getFont("Arial", 12)));
+            tabla.addCell(new Paragraph("Domicilio", FontFactory.getFont("Arial", 12)));
+            tabla.addCell(new Paragraph("Nacionalidad", FontFactory.getFont("Arial", 12)));
+            com.itextpdf.text.Image img;
+            //Es el tipo de clase
+            BarcodeEAN codeEAN = new BarcodeEAN();
+            //Seteo el tipo de codigo
+            codeEAN.setCodeType(Barcode.EAN13);
+            //Setep el codigo
+            codeEAN.setCode("9781935182610");
+            //Paso el codigo a imagen
+            img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
 
             document.add(tabla);
             document.close();
-            file.close();
+            Desktop.getDesktop().open(file);
 
-
-        }
-
-        catch (SQLException e){
+        } catch (Exception e){
             e.printStackTrace();
         }
 
-
-        try{
+        /*try{
             File file = new File("C://impresiones//usuario.pdf");
             Desktop.getDesktop().open(file);
         }
         catch (Exception e){
             e.printStackTrace();
-        }
-    }*/
+        }*/
+    }
 
     @FXML
     private void volver(){

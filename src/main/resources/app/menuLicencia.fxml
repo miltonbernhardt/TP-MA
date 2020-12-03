@@ -5,33 +5,54 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerMenuLicencia">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerMenuLicencia">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <SubScene height="356.0" layoutX="32.0" layoutY="52.0" opacity="0.26" width="987.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="8.0">
-        <root>
-          <Region />
-        </root>
-      </SubScene>
-      <ScrollPane focusTraversable="false" layoutX="4.0" layoutY="52.0" prefHeight="356.0" prefWidth="986.0" style="-fx-border-color: transparent; -fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/styles.css">
-         <content>
-            <HBox alignment="CENTER" focusTraversable="true" prefHeight="327.0" prefWidth="1055.0">
+      <StackPane layoutX="35.0" layoutY="55.0">
+         <children>
+            <SubScene height="344.0" opacity="0.26" width="930.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
+            <HBox alignment="CENTER" focusTraversable="true" prefHeight="354.0" prefWidth="930.0">
                <children>
                   <Separator prefWidth="20.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25; -fx-focus-traversable: false;" text="Buscar Licencia" textAlignment="CENTER" wrapText="true">
+                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Emitir Licencia" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/icons8_add_property_64px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator prefWidth="45.0" visible="false" />
+                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="90.0" fitWidth="90.0" onKeyPressed="#renovarLicencia" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/icons8_renew_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator prefWidth="45.0" visible="false" />
+                  <Button contentDisplay="TOP" disable="true" graphicTextGap="30.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25; -fx-focus-traversable: false;" text="Buscar Licencia" textAlignment="CENTER" wrapText="true">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -41,7 +62,7 @@
                               <Rectangle2D />
                            </viewport>
                            <image>
-                              <Image url="@../Imagenes/icons8_search_property_64px.png" />
+                              <Image url="@../imagenes/icons8_search_property_64px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -51,47 +72,17 @@
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Imagenes/icons8_print_file_64px.png" />
+                              <Image url="@../imagenes/icons8_print_file_64px.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                   <Separator prefWidth="45.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Imagenes/icons8_renew_48px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefWidth="45.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" stylesheets="@../css/styles.css" text="Editar Licencia" textAlignment="CENTER" wrapText="true">
+                  <Button contentDisplay="TOP" disable="true" graphicTextGap="30.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Eliminar Licencia" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Imagenes/icons8_edit_property_64px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefWidth="45.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Emitir Licencia" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Imagenes/icons8_add_property_64px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefWidth="45.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Eliminar Licencia" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Imagenes/icons8_delete_document_64px.png" />
+                              <Image url="@../imagenes/icons8_delete_document_64px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -99,11 +90,11 @@
                   <Separator prefWidth="20.0" visible="false" />
                </children>
             </HBox>
-         </content>
-      </ScrollPane>
+         </children>
+      </StackPane>
       <ImageView fitHeight="133.0" fitWidth="89.0" layoutX="40.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/santafe.png" />
+            <Image url="@../imagenes/santafe.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Licencia" underline="true" wrappingWidth="335.53662109375">
@@ -111,10 +102,16 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </Text>
-      <ImageView fitHeight="62.0" fitWidth="70.0" layoutX="901.0" layoutY="453.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
+      <ImageView fx:id="imageButton" fitHeight="62.0" fitWidth="70.0" layoutX="901.0" layoutY="453.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
          <image>
-            <Image url="@../Imagenes/icons8_undo_52px.png" />
+            <Image url="@../imagenes/icons8_undo_52px.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
    </children>
 </AnchorPane>

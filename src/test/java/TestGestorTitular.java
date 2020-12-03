@@ -3,9 +3,6 @@ import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
 import enumeration.*;
 import gestor.GestorTitular;
-import hibernate.DAO;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import model.Licencia;
 import model.Titular;
 import org.junit.Assert;
@@ -29,7 +26,7 @@ public class TestGestorTitular {
                 true, EnumSexo.MASCULINO);
         Licencia l1 = new Licencia(t1,
                 EnumClaseLicencia.CLASE_G,
-                LocalDate.of(2020, Month.FEBRUARY, 01),
+                LocalDate.of(2020, Month.FEBRUARY, 1),
                 LocalDate.of(2024, Month.AUGUST, 12));
         //Agrego licencia al titular
         t1.getLicencias().add(l1);
