@@ -34,6 +34,7 @@
 
         <property name="observaciones"/>
 
+        <property name="costo"/>
 
         <!-- RELACION MANY TO ONE: LICENCIA CON TITULAR -->
 
