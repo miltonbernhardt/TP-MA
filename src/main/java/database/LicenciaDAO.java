@@ -10,6 +10,4 @@ public interface LicenciaDAO extends BaseDAO<Licencia,Integer> {
 
     List<DTOImprimirLicencia> createListDTOimprimirLic (String argumentos) throws Exception;
 
-
-    List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s);
 }
