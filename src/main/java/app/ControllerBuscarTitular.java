@@ -55,7 +55,7 @@ public class ControllerBuscarTitular {
     private void listenerTextField(){
         TextFielIniciador.letrasAcento(textNombre);
         TextFielIniciador.letrasAcento(textApellido);
-        TextFielIniciador.letrasAcento(textDocumento);
+        TextFielIniciador.letrasNumero(textDocumento);
     }
 
     private void iniciarCombo(){

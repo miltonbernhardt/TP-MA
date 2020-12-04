@@ -278,8 +278,8 @@ public class GestorLicencia {
         String argumentos = "";
 
         boolean first = true;
-        boolean sinTitular = true;
-        if(!argumentosBuscar.getId().equals(0)) {
+
+        if(argumentosBuscar.getId() != 0) {
 
             if(first) first = false;
             else argumentos += " AND ";
@@ -287,10 +287,12 @@ public class GestorLicencia {
             argumentos += " l.id= "+argumentosBuscar.getId()+" ";
         }
 
-        if(!argumentosBuscar.getIdTitular().equals(0)) {
-            sinTitular = false;
+        if(argumentosBuscar.getIdTitular() != 0) {
+
             System.out.println("titular " +argumentosBuscar.getIdTitular());
-            if(first){ first = false; argumentos+=" l.titular = t.id AND ";}
+            if(first){
+                first = false;
+            }
             else argumentos += " AND l.titular = t.id AND ";
             argumentos += " t.id= "+argumentosBuscar.getIdTitular()+" ";
 
@@ -315,10 +317,9 @@ public class GestorLicencia {
 
         System.out.println(argumentos);
         try {
-            if(sinTitular){ argumentos += " AND l.titular = t.id ";
+            if(!first){ argumentos += " AND l.titular = t.id ";
                 System.out.println(argumentos);
-            return daoLicencia.createListDTOimprimirLicsinTitular(" WHERE " + argumentos);}
-            if(!first && !sinTitular) return daoLicencia.createListDTOimprimirLic(" WHERE " + argumentos);
+            return daoLicencia.createListDTOimprimirLic(" WHERE " + argumentos);}
             else return daoLicencia.createListDTOimprimirLic("");
 
         }
