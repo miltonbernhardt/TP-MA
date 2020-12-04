@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -25,22 +24,22 @@
    <children>
       <ImageView fitHeight="900.0" fitWidth="1010.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Buscar Licencia a Imprimir" />
       <Separator layoutX="386.0" layoutY="30.0" prefHeight="4.0" prefWidth="493.0" style="-fx-background: white;" />
       <GridPane alignment="CENTER_RIGHT" layoutX="38.0" layoutY="55.0" prefHeight="111.0" prefWidth="737.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" maxWidth="163.0" minWidth="78.33333587646484" prefWidth="163.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" maxWidth="163.0" minWidth="78.33333587646484" prefWidth="163.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="119.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
-        </rowConstraints>
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
             <TextField fx:id="campoId" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="3" />
             <Label text="Id Licencia:" textAlignment="CENTER" GridPane.columnIndex="2">
@@ -68,20 +67,20 @@
       <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="172.0" prefHeight="246.0" prefWidth="972.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
          <content>
             <TableView fx:id="tabla" prefHeight="244.0" prefWidth="965.0">
-              <columns>
-                <TableColumn fx:id="columnaId" prefWidth="63.0" text="Id" />
-                <TableColumn fx:id="columnaTitular" prefWidth="152.3333282470703" text="Titular" />
+               <columns>
+                  <TableColumn fx:id="columnaId" prefWidth="63.0" text="Id" />
+                  <TableColumn fx:id="columnaTitular" prefWidth="152.3333282470703" text="Titular" />
                   <TableColumn fx:id="columnaClase" prefWidth="89.33334350585938" text="Clase" />
                   <TableColumn fx:id="columnaFecha" prefWidth="189.66665649414062" text="Fecha Emisión" />
                   <TableColumn fx:id="columnaVenc" prefWidth="218.99996948242188" text="Fecha Vencimiento" />
                   <TableColumn fx:id="columnaObser" prefWidth="248.0" text="Observaciones" />
-              </columns>
+               </columns>
             </TableView>
          </content>
       </ScrollPane>
       <ImageView fitHeight="56.0" fitWidth="83.0" layoutX="919.0" layoutY="485.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/icons8_undo_52px.png" />
+            <Image url="@../imagenes/icons8_undo_52px.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="paneLicencia" layoutX="142.0" layoutY="1.0" prefHeight="561.0" prefWidth="717.0" visible="false">
@@ -106,7 +105,7 @@
                                  <children>
                                     <ImageView fitHeight="285.0" fitWidth="420.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Imagenes/licenciaDorso.jpg" />
+                                          <Image url="@../imagenes/licenciaDorso.jpg" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="textDescripC" layoutX="57.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextDescripClase" wrappingWidth="330.0000033378601" />
@@ -122,15 +121,10 @@
                                  <children>
                                     <ImageView fx:id="imagenLic" fitHeight="278.0" fitWidth="420.0" layoutX="1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Imagenes/LicenciaFrente.jpg" />
+                                          <Image url="@../imagenes/LicenciaFrente.jpg" />
                                        </image>
                                     </ImageView>
                                     <Button layoutX="34.0" layoutY="125.0" maxHeight="20.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-font-size: 8;" text="Añadir Foto" />
-                                    <ImageView fx:id="iPhoto" fitHeight="87.0" fitWidth="67.0" layoutX="38.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                                       <image>
-                                          <Image url="@../Imagenes/add-user-2-128.png" />
-                                       </image>
-                                    </ImageView>
                                     <Text fx:id="textL" layoutX="164.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextL" wrappingWidth="67.6708984375" />
                                     <Text fx:id="textA" layoutX="165.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextA" wrappingWidth="66.56413269042969" />
                                     <Text fx:id="textN" layoutX="164.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextN" />

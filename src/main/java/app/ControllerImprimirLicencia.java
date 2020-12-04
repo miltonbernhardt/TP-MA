@@ -6,15 +6,13 @@ import com.itextpdf.text.*;
 import com.itextpdf.*;
 
 import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.Barcode;
-import com.itextpdf.text.pdf.BarcodeEAN;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.*;
 
 import dto.DTOGestionTitular;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import dto.DTOBuscarTitular;
+
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
 import enumeration.EnumClaseLicencia;
@@ -130,24 +128,11 @@ public class ControllerImprimirLicencia {
     }
 
     public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
-        System.out.println("numero id " + dtoGestionTitular.getIdTitular());
-        this.dto = new DTOImprimirLicencia();
-        dto.setIdTitular(dtoGestionTitular.getIdTitular());
-        dto.setFechaNacimiento(dtoGestionTitular.getFechaNacimiento());
-        dto.setNombre(dtoGestionTitular.getNombre());
-        dto.setApellido(dtoGestionTitular.getApellido());
-        dto.setTipoDocumento(dtoGestionTitular.getTipoDocumento());
-        dto.setDocumento(dtoGestionTitular.getDocumento());
-        System.out.println("numero id " + dto.getIdTitular());
-        System.out.println("nombre"  + dto.getTitular());
-        campoTitular.setText(dto.getIdTitular().toString());
-       ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dto.getIdTitular());
-    public void seleccionarTitular(DTOBuscarTitular dtoBuscarTitular){
 
-        String numCadena= String.valueOf(dtoBuscarTitular.getIdTitular());
-        System.out.println("numero id " + String.valueOf(dtoBuscarTitular.getIdTitular()));
-        campoTitular.setText(String.valueOf(dtoBuscarTitular.getIdTitular()));
-       ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dtoBuscarTitular.getIdTitular());
+        String numCadena= String.valueOf(dtoGestionTitular.getIdTitular());
+        System.out.println("numero id " + String.valueOf(dtoGestionTitular.getIdTitular()));
+        campoTitular.setText(String.valueOf(dtoGestionTitular.getIdTitular()));
+       ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dtoGestionTitular.getIdTitular());
 
         //Se resetea el estado del comboBox y se muestra las clases que tiene como licencia
       CBclase.getSelectionModel().clearSelection();
@@ -459,16 +444,6 @@ public class ControllerImprimirLicencia {
                 String textCodigoQR = "Nombre: " + textN.getText() + " Apellido: " + textA.getText() + "- Id: " + textIdTitular.getText() + " Domicilio: " + textC.getText() + textNC.getText();
 
                 BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 200, 200, null);
-
-
-                // Add header details
-                tablaTitular.addCell(getHeaderCell("Datos del Titular "));
-                table.addCell(getFirstRowFormatted("Nombre: " + textN.getText()));
-                table.addCell(getFirstRowFormatted("Apellido: " + textA.getText()));
-                table.addCell(getFirstRowFormatted("Fecha de Nacimiento: " + textFN.getText()));
-                table.addCell(getFirstRowFormatted("Domicilio: " + textC.getText() + textNC.getText()));
-                table.addCell(getSecondRowFormatted("Sexo :" + textS.getText()));
-                table.addCell(getSecondRowFormatted("Observaciones :" + textObser.getText()));
 
 
 
