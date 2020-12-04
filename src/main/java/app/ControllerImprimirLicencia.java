@@ -123,15 +123,21 @@ public class ControllerImprimirLicencia {
         iniciarDatePicker(campoFecha);
     }
     @FXML
+    /*
+    buscarTitular() llama a la interfaz BuscarTitular y devuelve un DTOGestionTitular
+     */
     public void buscarTitular(){
         ControllerBuscarTitular.get().setControllerImprimirLicencia(this);
     }
-
+/*
+    Se obtiene el Titular seleccionado en la tabla.
+ */
     public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
 
         String numCadena= String.valueOf(dtoGestionTitular.getIdTitular());
         System.out.println("numero id " + String.valueOf(dtoGestionTitular.getIdTitular()));
         campoTitular.setText(String.valueOf(dtoGestionTitular.getIdTitular()));
+        // Obtener las licencias correspondientes al titular:
        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dtoGestionTitular.getIdTitular());
 
         //Se resetea el estado del comboBox y se muestra las clases que tiene como licencia
@@ -142,8 +148,8 @@ public class ControllerImprimirLicencia {
         listaLicencias.forEach(listaLicencia -> CBclase.getItems().add(listaLicencia));
        // int cantidadClasesLicencia = listaLicencias.size();
 
-
     }
+
     private void iniciarDatePicker(DatePicker campoFecha) {
         campoFecha.setConverter(new StringConverter<LocalDate>()
         {
@@ -178,7 +184,6 @@ public class ControllerImprimirLicencia {
         columnaObser.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         columnaVenc.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
 
-
         tabla.setRowFactory( tv -> {
             TableRow<DTOImprimirLicencia> fila = new TableRow<>();
             fila.setOnMouseClicked(event -> {
@@ -186,7 +191,6 @@ public class ControllerImprimirLicencia {
                 if (event.getClickCount() == 2 && (! fila.isEmpty()) && licenciaSeleccionada != null ) {
                     licenciaSeleccionada = fila.getItem();
                     selectionLicencia(licenciaSeleccionada);
-
                 }
             });
             return fila ;
@@ -217,7 +221,6 @@ public class ControllerImprimirLicencia {
          argumentos.setId(Integer.parseInt(campoId.getText()));
      }
 
-
         System.out.println("argumento id " + argumentos.getId());
         if(campoTitular.getText().equals("")){
             System.out.println("entra al if vacio de titular ");
@@ -231,8 +234,6 @@ public class ControllerImprimirLicencia {
         argumentos.setFechaEmision(campoFecha.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
 
-
-
         cargarTabla(GestorLicencia.get().searchLic(argumentos));
     }
 
@@ -244,8 +245,9 @@ public class ControllerImprimirLicencia {
 
                 textL.setText(String.valueOf(licenciaSeleccionada.getId()));
 
-
+                String apellido = titular2.getApellido();
                 textA.setText(titular2.getApellido());
+                // (replaceFirst) apellido.
                 textN.setText(titular2.getNombre());
                 textC.setText(titular2.getCalle());
 
@@ -323,66 +325,15 @@ public class ControllerImprimirLicencia {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(buffImage2, "png", baos);
 
-           // com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(baos.toByteArray());
-        //pdf.add(iTextImage);
-
-
-         //   Image iTextImage2 = Image.getInstance(baos.toByteArray());
-
-           // pdf.add(iTextImage2);
-
-        //Page page = new Page(pdf, Letter.LANDSCAPE);
           File fileJ = new File(str);
-
-
-            //exportFileChooser.showSaveDialog(alert.getOwner());
-       //     fileJ.getParentFile().mkdirs();//crete temp directory if not available
-
-
-
-
-         ///   BufferedImage bufferedImage = null;
-
-        //    bufferedImage = ImageIO.read(new ByteArrayInputStream(Document pdf));
-
-
-
 
             fos.flush();
             Desktop.getDesktop().open(fileJ2);
 
-
-       /* PdfWriter.getInstance(document, file);
-
-        //document.open();
-          //  document.add(new Paragraph("Esto es el primer párrafo, normalito"));
-        //Alert alert=null;
-        //alert = new Alert(Alert.AlertType.ERROR);
-        //FileChooser exportFileChooser = new FileChooser(); //The folder selector to save the pdf
-       // exportFileChooser.setInitialDirectory(FileSystemView.getFileSystemView().getDefaultDirectory());
-        //exportFileChooser.setInitialFileName("HOLI");
-        File fileJ = new File("../desktop/HOLI.png");
-        //exportFileChooser.showSaveDialog(alert.getOwner());
-        fileJ.getParentFile().mkdirs();//crete temp directory if not available
-        final SnapshotParameters spa = new SnapshotParameters();
-        spa.setTransform(javafx.scene.transform.Transform.scale(0.71, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
-        WritableImage image = panel.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
-        BufferedImage buffImage = SwingFXUtils.fromFXImage(image, null);
-        ImageIO.write(buffImage, "png", fileJ);//Writes the snapshot to file
-        document.add((Element) fileJ);
-        document.close();
-        file.close();*/
         }catch (Exception e) {
         e.printStackTrace();
         }
 
-        /*try{
-         //   ImageIO.write(buffImage, "png", file);//Writes the snapshot to file
-            File file = new File("C:/impresiones/archiv.pdf");
-            Desktop.getDesktop().open(file);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void ButtonComprobante()throws IOException, DocumentException {
@@ -404,7 +355,6 @@ public class ControllerImprimirLicencia {
                 PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
                 document.open();
-
 
                 //Tables
                 PdfPTable table = new PdfPTable(2);
@@ -436,9 +386,6 @@ public class ControllerImprimirLicencia {
 
                 BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 200, 200, null);
 
-
-
-
                 com.itextpdf.text.Image img;
                 //Es el tipo de clase
                 BarcodeEAN codeEAN = new BarcodeEAN();
@@ -448,10 +395,8 @@ public class ControllerImprimirLicencia {
                 codeEAN.setCode(textL.getText() +"0" + textIdTitular.getText() + "0");
                 codeEAN.setBarHeight(codeEAN.getSize() * 4f);
 
-
                 //Paso el codigo a imagen
                 img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
-
 
                 // Add header details
                 tablaLicencia.addCell(getHeaderCell("Datos de la licencia "));
@@ -469,7 +414,6 @@ public class ControllerImprimirLicencia {
 
                 com.itextpdf.text.Image image =codigoBarrasQR.getImage();
                 image.setAlignment(Element.ALIGN_MIDDLE);
-
 
                 document.add(p); // ministerio...
                 document.add(Chunk.NEWLINE);
@@ -495,30 +439,16 @@ public class ControllerImprimirLicencia {
 
                 document.close();
 
-
             }catch (Exception e) {
                 e.printStackTrace();
             }
-
-        /*try{
-            File file = new File("C://impresiones//usuario.pdf");
-            Desktop.getDesktop().open(file);
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
-
-        }
-
-
-
 
     private PdfPCell getHeaderCell(String text) {
         PdfPCell headerCell = new PdfPHeaderCell();
 
         headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
         Paragraph p5 = new Paragraph(text);
-
 
         headerCell.setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.setVerticalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
@@ -546,7 +476,6 @@ public class ControllerImprimirLicencia {
         PdfPCell pdfpCell = new PdfPCell();
         pdfpCell.addElement(new Paragraph(text));
 
-
         return pdfpCell;
     }
 
@@ -558,9 +487,7 @@ public class ControllerImprimirLicencia {
 
     @FXML
     private void cerrar(){
-            // clear?
+            // TODO clear?
         paneLicencia.setVisible(false);
     }
         }
-
-

@@ -274,7 +274,6 @@ public class GestorLicencia {
     }
 
     public List<DTOImprimirLicencia> searchLic(DTOImprimirLicencia argumentosBuscar) {
-
         String argumentos = "";
 
         boolean first = true;
