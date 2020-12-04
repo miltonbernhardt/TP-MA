@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 
 public class TestGestorLicencia {
 
+    /*
+    1 - Se prueba el método GestorLicencia.calcularVigencia() con una persona de más de
+     17 años y menor de 21 años.
+     */
     @Test
     public void calcularVigencia_1anio() throws MenorDeEdadException {
         LocalDate nacimiento = LocalDate.parse("25-06-2002", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -130,10 +134,11 @@ public class TestGestorLicencia {
     }
 
     /*
-            Calcular costo licencia de clase B para una persona de 53 años.
+            Calcular costo licencia de clase G para una persona de 53 años.
             Resultado esperado = 48.0.
-
-    public void calcularCostoLicencia() throws MenorDeEdadException {
+*/
+    @Test
+    public void calcularCostoLicencia2() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(126);
         dto.setFechaNacimiento(LocalDate.of(1967, 4, 24));
@@ -141,13 +146,13 @@ public class TestGestorLicencia {
         dto.setApellido("Fassi");
         dto.setTipoDocumento(EnumTipoDocumento.DNI);
         dto.setDocumento("18312744");
-        dto.setCosto(47.0);
+        dto.setCosto(48.0);
         dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
+        dto.setClaseLicencia(EnumClaseLicencia.CLASE_G);
         GestorLicencia gestorLicencia = GestorLicencia.get();
         double resultado = GestorLicencia.get().calcularCostoLicencia(dto);
         Assert.assertEquals(resultado, 48.0, 0.0);
-    }*/
+    }
 
 
 }
