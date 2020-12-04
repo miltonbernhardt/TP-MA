@@ -99,13 +99,11 @@ public class ControllerImprimirLicencia {
     @FXML private Text textClase;
     @FXML private Text textFV;
     @FXML private AnchorPane paneLicencia;
-    @FXML private AnchorPane paneDorso;
-    @FXML private AnchorPane paneFrente;
+
     private DTOImprimirLicencia licenciaSeleccionada = null;
     @FXML private ImageView iPhoto;
     @FXML private ImageView codigoMatriz;
-    @FXML private Button imprimirComprobante;
-    @FXML private Button imprimirLic;
+
     @FXML private Text textCosto;
     @FXML private Text textDescripC;
     @FXML private Text textObser;
@@ -216,22 +214,22 @@ public class ControllerImprimirLicencia {
         DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
 
      if(campoId.getText().equals("")){
-            System.out.println("entra al if vacio ");
+
             argumentos.setId(0);
         } else {
-         System.out.println("entra para colocar valor" + Integer.parseInt(campoId.getText()));
+
          argumentos.setId(Integer.parseInt(campoId.getText()));
      }
 
-        System.out.println("argumento id " + argumentos.getId());
+
         if(campoTitular.getText().equals("")){
-            System.out.println("entra al if vacio de titular ");
+
             argumentos.setIdTitular(0);
         } else {
-            System.out.println("entra para colocar valor al titular "+ Integer.parseInt(campoTitular.getText()));
+
             argumentos.setIdTitular(Integer.parseInt(campoTitular.getText()));}
 
-       //System.out.println("campo id " + campoId.getText());
+
 
         argumentos.setFechaEmision(campoFecha.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
@@ -249,9 +247,8 @@ public class ControllerImprimirLicencia {
 
                 textL.setText(String.valueOf(licenciaSeleccionada.getId()));
 
-                String apellido = titular2.getApellido();
                 textA.setText(titular2.getApellido());
-                // (replaceFirst) apellido.
+
                 textN.setText(titular2.getNombre());
                 textC.setText(titular2.getCalle());
                 textCosto.setText(String.valueOf(licenciaSeleccionada.getCosto()));
@@ -311,8 +308,6 @@ public class ControllerImprimirLicencia {
       fc.setTitle("Save to jpg");
        fc.setInitialFileName("untitled.png");
 
-        Alert alert=null;
-            //alert = new Alert(Alert.AlertType.ERROR);
         File file = fc.showSaveDialog(null);
         String str = file.getAbsolutePath();
         FileOutputStream fos = new FileOutputStream(str);
@@ -328,8 +323,6 @@ public class ControllerImprimirLicencia {
             ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(buffImage2, "png", baos);
-
-          File fileJ = new File(str);
 
             fos.flush();
             Desktop.getDesktop().open(fileJ2);
@@ -347,9 +340,7 @@ public class ControllerImprimirLicencia {
             fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
             fc.setTitle("Save to pdf");
             fc.setInitialFileName("untitled.pdf");
-        Date fecha = new Date();
-            Alert alert = null;
-            //alert = new Alert(Alert.AlertType.ERROR);
+
             File file = fc.showSaveDialog(null);
             String str = file.getAbsolutePath();
             FileOutputStream fos = new FileOutputStream(str);
@@ -487,13 +478,6 @@ public class ControllerImprimirLicencia {
 
         return pdfpCell;
     }
-    private PdfPCell getLastRowFormatted(String text) {
-
-        PdfPCell pdfpCell = new PdfPCell();
-        pdfpCell.addElement(new Paragraph(text));
-
-        return pdfpCell;
-    }
 
     @FXML
     private void volver(){
@@ -503,7 +487,10 @@ public class ControllerImprimirLicencia {
 
     @FXML
     private void cerrar(){
-            // TODO clear?
+        campoId.clear();
+        campoTitular.clear();
+        tabla.getItems().clear();
+        campoFecha.getEditor().clear();
         paneLicencia.setVisible(false);
     }
-        }
+}
