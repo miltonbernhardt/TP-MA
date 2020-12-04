@@ -13,10 +13,6 @@ import java.time.format.DateTimeFormatter;
 
 public class TestGestorLicencia {
 
-    /*
-    1 - Se prueba el método GestorLicencia.calcularVigencia() con una persona de más de
-     17 años y menor de 21 años.
-     */
     @Test
     public void calcularVigencia_1anio() throws MenorDeEdadException {
         LocalDate nacimiento = LocalDate.parse("25-06-2002", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -53,7 +49,7 @@ public class TestGestorLicencia {
     Emitir licencia de clase B para una persona de 23 años:
      */
     @Test
-    public void generarLicencia() throws MenorDeEdadException {
+    public void emitirLicencia() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(122);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -74,7 +70,7 @@ public class TestGestorLicencia {
     	dto.setIdTitular no corresponde al idTitular de la persona en cuestión.
      */
     @Test
-    public void generarLicencia2() throws MenorDeEdadException {
+    public void emitirLicencia2() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -88,14 +84,15 @@ public class TestGestorLicencia {
 
         GestorLicencia gestorLicencia = GestorLicencia.get();
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
-        Assert.assertFalse(resultado);
+        Assert.assertTrue(resultado);
     }
+
     /*
     	Emitir licencia de clase B para una persona menor de edad.
     	En este caso, la prueba falla.
      */
-    @Test
-    public void generarLicencia3() throws MenorDeEdadException {
+   @Test
+    public void emitirLicencia3() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(2008, 3, 19));
@@ -110,48 +107,6 @@ public class TestGestorLicencia {
         GestorLicencia gestorLicencia = GestorLicencia.get();
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
-    }
-
-    /*
-    	Calcular costo licencia de clase B para una persona de 23 años.
-    	Resultado esperado = 48.0.
-     */
-    @Test
-    public void calcularCostoLicencia() throws MenorDeEdadException {
-        DTOEmitirLicencia dto = new DTOEmitirLicencia();
-        dto.setIdTitular(122);
-        dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
-        dto.setNombre("INDIANA");
-        dto.setApellido("LOZANO");
-        dto.setTipoDocumento(EnumTipoDocumento.DNI);
-        dto.setDocumento("40266367");
-        dto.setCosto(48.0);
-        dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        double resultado = GestorLicencia.get().calcularCostoLicencia(dto);
-        Assert.assertEquals(resultado, 48.0, 0.0);
-    }
-
-    /*
-            Calcular costo licencia de clase G para una persona de 53 años.
-            Resultado esperado = 48.0.
-*/
-    @Test
-    public void calcularCostoLicencia2() throws MenorDeEdadException {
-        DTOEmitirLicencia dto = new DTOEmitirLicencia();
-        dto.setIdTitular(126);
-        dto.setFechaNacimiento(LocalDate.of(1967, 4, 24));
-        dto.setNombre("adriana");
-        dto.setApellido("Fassi");
-        dto.setTipoDocumento(EnumTipoDocumento.DNI);
-        dto.setDocumento("18312744");
-        dto.setCosto(48.0);
-        dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_G);
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        double resultado = GestorLicencia.get().calcularCostoLicencia(dto);
-        Assert.assertEquals(resultado, 48.0, 0.0);
     }
 
 
