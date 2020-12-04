@@ -88,6 +88,7 @@ public class ControllerImprimirLicencia {
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaFecha;
     @FXML private TableColumn<DTOImprimirLicencia, String>  columnaObser;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaVenc;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaCosto;
     @FXML private Text textL;
     @FXML private Text textA;
     @FXML private Text textN;
@@ -105,7 +106,7 @@ public class ControllerImprimirLicencia {
     @FXML private ImageView codigoMatriz;
     @FXML private Button imprimirComprobante;
     @FXML private Button imprimirLic;
-    @FXML private Text frente;
+    @FXML private Text textCosto;
     @FXML private Text textDescripC;
     @FXML private Text textObser;
     @FXML private Text textG;
@@ -183,6 +184,7 @@ public class ControllerImprimirLicencia {
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechaEmision"));
         columnaObser.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         columnaVenc.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
+        columnaCosto.setCellValueFactory(new PropertyValueFactory<>("costo"));
 
         tabla.setRowFactory( tv -> {
             TableRow<DTOImprimirLicencia> fila = new TableRow<>();
@@ -241,6 +243,8 @@ public class ControllerImprimirLicencia {
 
         if(licenciaSeleccionada != null) {
             paneLicencia.setVisible(true);
+
+
             Titular titular2 = GestorTitular.get().getTitular(Integer.valueOf(licenciaSeleccionada.getIdTitular()));
 
                 textL.setText(String.valueOf(licenciaSeleccionada.getId()));
@@ -250,7 +254,7 @@ public class ControllerImprimirLicencia {
                 // (replaceFirst) apellido.
                 textN.setText(titular2.getNombre());
                 textC.setText(titular2.getCalle());
-
+                textCosto.setText(String.valueOf(licenciaSeleccionada.getCosto()));
                 textNC.setText(titular2.getNumeroCalle().toString());
                 textFN.setText(titular2.getFechaNacimiento().toString());
                 textFV.setText(licenciaSeleccionada.getFechaVencimiento().toString());
@@ -355,7 +359,6 @@ public class ControllerImprimirLicencia {
                 PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
                 document.open();
-
                 //Tables
                 PdfPTable table = new PdfPTable(2);
                 PdfPTable table2 = new PdfPTable(2);
@@ -386,6 +389,16 @@ public class ControllerImprimirLicencia {
 
                 BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 200, 200, null);
 
+
+                // Add header details
+                tablaTitular.addCell(getHeaderCell("Datos del Titular "));
+                table.addCell(getFirstRowFormatted("Nombre: " + textN.getText()));
+                table.addCell(getFirstRowFormatted("Apellido: " + textA.getText()));
+                table.addCell(getFirstRowFormatted("Fecha de Nacimiento: " + textFN.getText()));
+                table.addCell(getFirstRowFormatted("Domicilio: " + textC.getText() + textNC.getText()));
+                table.addCell(getSecondRowFormatted("Sexo: " + textS.getText()));
+                table.addCell(getSecondRowFormatted("Observaciones: " + textObser.getText()));
+
                 com.itextpdf.text.Image img;
                 //Es el tipo de clase
                 BarcodeEAN codeEAN = new BarcodeEAN();
@@ -395,8 +408,10 @@ public class ControllerImprimirLicencia {
                 codeEAN.setCode(textL.getText() +"0" + textIdTitular.getText() + "0");
                 codeEAN.setBarHeight(codeEAN.getSize() * 4f);
 
+
                 //Paso el codigo a imagen
                 img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
+
 
                 // Add header details
                 tablaLicencia.addCell(getHeaderCell("Datos de la licencia "));
@@ -405,8 +420,8 @@ public class ControllerImprimirLicencia {
                 table2.addCell(getFirstRowFormatted("Descripción: " + textDescripC.getText()));
                 table2.addCell(getFirstRowFormatted("Fecha Emision: " + textFE.getText()));
                 table2.addCell(getFirstRowFormatted("Fecha Vencimiento: " + textFV.getText()));
-                table2.addCell(getSecondRowFormatted("Importe: " + textC.getText() + textNC.getText()));
-                table2.addCell(getSecondRowFormatted("Total a Pagar: " + textC.getText() + textNC.getText()));
+                table2.addCell(getSecondRowFormatted("Importe: " + textCosto.getText()));
+                table2.addCell(getSecondRowFormatted("Organizacion Seguridad Vial"));
 
                 img.setAlignment(Element.ALIGN_LEFT);
                 cello.addCell("Cello de la Organización:  " );
@@ -414,6 +429,7 @@ public class ControllerImprimirLicencia {
 
                 com.itextpdf.text.Image image =codigoBarrasQR.getImage();
                 image.setAlignment(Element.ALIGN_MIDDLE);
+
 
                 document.add(p); // ministerio...
                 document.add(Chunk.NEWLINE);
@@ -449,7 +465,7 @@ public class ControllerImprimirLicencia {
 
         headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
         Paragraph p5 = new Paragraph(text);
-
+        p5.setAlignment(Element.ALIGN_CENTER);
         headerCell.setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.setVerticalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.addElement(p5);
