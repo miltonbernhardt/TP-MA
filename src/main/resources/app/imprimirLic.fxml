@@ -22,18 +22,18 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerImprimirLicencia">
    <children>
-      <ImageView fitHeight="900.0" fitWidth="1010.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="900.0" fitWidth="1010.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imagenes/principal.jpg" />
          </image>
       </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Buscar Licencia a Imprimir" />
       <Separator layoutX="386.0" layoutY="30.0" prefHeight="4.0" prefWidth="493.0" style="-fx-background: white;" />
-      <GridPane alignment="CENTER_RIGHT" layoutX="38.0" layoutY="54.0" prefHeight="112.0" prefWidth="706.0">
+      <GridPane alignment="CENTER_RIGHT" layoutX="38.0" layoutY="55.0" prefHeight="111.0" prefWidth="737.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" maxWidth="150.0" minWidth="78.33333587646484" prefWidth="132.33334350585938" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="224.33334350585938" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="117.33331298828125" />
+          <ColumnConstraints halignment="CENTER" maxWidth="163.0" minWidth="78.33333587646484" prefWidth="163.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="119.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
         </columnConstraints>
         <rowConstraints>
@@ -60,7 +60,7 @@
             </Label>
             <DatePicker fx:id="campoFecha" maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button maxWidth="120.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#buscarTitular" prefHeight="30.0" prefWidth="80.0" style="-fx-font-size: 14;" text="Buscar Titular" />
-            <TextField fx:id="campoTitular" disable="true" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
+            <TextField fx:id="campoTitular" disable="true" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular o ingrese Id" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscarLicencia" text="Buscar" />
@@ -83,13 +83,13 @@
             <Image url="@../Imagenes/icons8_undo_52px.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="paneLicencia" layoutX="153.0" layoutY="6.0" prefHeight="556.0" prefWidth="706.0" visible="false">
+      <AnchorPane fx:id="paneLicencia" layoutX="142.0" layoutY="1.0" prefHeight="561.0" prefWidth="717.0" visible="false">
          <children>
-            <Pane layoutX="5.0" layoutY="7.0" prefHeight="549.0" prefWidth="692.0" style="-fx-background-color: black;">
+            <Pane layoutX="-3.0" layoutY="7.0" prefHeight="561.0" prefWidth="695.0" style="-fx-background-color: black;">
                <children>
-                  <Pane layoutX="3.0" layoutY="4.0" prefHeight="542.0" prefWidth="685.0" style="-fx-background-color: #00427f;">
+                  <Pane layoutX="4.0" layoutY="4.0" prefHeight="554.0" prefWidth="684.0" style="-fx-background-color: #00427f;">
                      <children>
-                        <VBox alignment="CENTER" layoutX="428.0" layoutY="24.0" prefHeight="407.0" prefWidth="223.0">
+                        <VBox alignment="CENTER" layoutX="444.0" layoutY="27.0" prefHeight="407.0" prefWidth="223.0">
                            <children>
                               <Separator orientation="VERTICAL" prefHeight="50.0" visible="false" />
                               <Button fx:id="imprimirLic" mnemonicParsing="false" onAction="#imprimirLicencia" text="Imprimir Licencia" />
@@ -99,48 +99,48 @@
                               <Button mnemonicParsing="false" onAction="#cerrar" text="Cerrar" textAlignment="CENTER" />
                            </children>
                         </VBox>
-                        <AnchorPane fx:id="paneTar" layoutX="13.0" layoutY="9.0" prefHeight="529.0" prefWidth="407.0">
+                        <AnchorPane fx:id="paneTar" layoutX="14.0" layoutY="2.0" prefHeight="524.0" prefWidth="416.0">
                            <children>
-                              <AnchorPane fx:id="paneDorso" layoutX="-1.0" layoutY="251.0" prefHeight="265.0" prefWidth="407.0">
+                              <AnchorPane fx:id="paneDorso" layoutX="-12.0" layoutY="266.0" prefHeight="270.0" prefWidth="425.0">
                                  <children>
-                                    <ImageView fitHeight="285.0" fitWidth="407.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="285.0" fitWidth="420.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../Imagenes/licenciaDorso.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text fx:id="textDescripC" layoutX="38.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextDescripClase" wrappingWidth="330.0000033378601" />
-                                    <Text fx:id="textObser" layoutX="66.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textobser" />
+                                    <Text fx:id="textDescripC" layoutX="57.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextDescripClase" wrappingWidth="330.0000033378601" />
+                                    <Text fx:id="textObser" layoutX="75.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textobser" />
                                     <ImageView fx:id="codigoMatriz" fitHeight="67.0" fitWidth="70.0" layoutX="11.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="textDondante" layoutX="121.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextDon" wrappingWidth="46.9775390625" />
-                                    <Text fx:id="textF" layoutX="316.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textfact" />
-                                    <Text fx:id="textG" layoutX="275.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textg" wrappingWidth="25.3359375" />
-                                    <Text fx:id="textIdTitular" layoutX="121.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextIdTitular" />
+                                    <Text fx:id="textDondante" layoutX="146.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextDon" wrappingWidth="46.9775390625" />
+                                    <Text fx:id="textF" layoutX="342.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textfact" />
+                                    <Text fx:id="textG" layoutX="306.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textg" wrappingWidth="25.3359375" />
+                                    <Text fx:id="textIdTitular" layoutX="178.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextIdTitular" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="paneFrente" layoutX="14.0" prefHeight="254.0" prefWidth="391.0">
+                              <AnchorPane fx:id="paneFrente" layoutX="-8.0" prefHeight="270.0" prefWidth="428.0">
                                  <children>
-                                    <ImageView fx:id="imagenLic" fitHeight="278.0" fitWidth="407.0" layoutX="-16.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="imagenLic" fitHeight="278.0" fitWidth="420.0" layoutX="1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../Imagenes/LicenciaFrente.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Button layoutX="23.0" layoutY="71.0" maxHeight="20.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-font-size: 8;" text="Añadir Foto" />
+                                    <Button layoutX="34.0" layoutY="125.0" maxHeight="20.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-font-size: 8;" text="Añadir Foto" />
                                     <ImageView fx:id="iPhoto" fitHeight="87.0" fitWidth="67.0" layoutX="38.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                        <image>
                                           <Image url="@../Imagenes/add-user-2-128.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fx:id="textL" layoutX="128.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextL" wrappingWidth="67.6708984375" />
-                                    <Text fx:id="textA" layoutX="128.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextA" wrappingWidth="66.56413269042969" />
-                                    <Text fx:id="textN" layoutX="128.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextN" />
-                                    <Text fx:id="textFN" layoutX="128.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextFN" />
-                                    <Text fx:id="textFV" fill="RED" layoutX="295.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextFV" />
-                                    <Text fx:id="textClase" fill="RED" layoutX="319.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextClase" />
-                                    <Text fx:id="textFE" layoutX="130.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextFE" />
-                                    <Text layoutX="325.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Sexo / Sex" />
-                                    <Text fx:id="textS" layoutX="329.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextS" />
-                                    <Text fx:id="textC" layoutX="119.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                    <Text fx:id="textNC" layoutX="205.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                    <Text fx:id="textL" layoutX="164.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextL" wrappingWidth="67.6708984375" />
+                                    <Text fx:id="textA" layoutX="165.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextA" wrappingWidth="66.56413269042969" />
+                                    <Text fx:id="textN" layoutX="164.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextN" />
+                                    <Text fx:id="textFN" layoutX="160.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFN" />
+                                    <Text fx:id="textFV" fill="RED" layoutX="327.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFV" />
+                                    <Text fx:id="textClase" fill="RED" layoutX="354.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextClase" />
+                                    <Text fx:id="textFE" layoutX="162.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFE" />
+                                    <Text layoutX="358.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Sexo / Sex" />
+                                    <Text fx:id="textS" layoutX="336.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextS" />
+                                    <Text fx:id="textC" layoutX="166.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Text" />
+                                    <Text fx:id="textNC" layoutX="214.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Text" />
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>

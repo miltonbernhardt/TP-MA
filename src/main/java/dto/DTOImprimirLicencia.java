@@ -35,6 +35,7 @@ public class DTOImprimirLicencia {
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.observaciones = observaciones;
+
     }
 
 

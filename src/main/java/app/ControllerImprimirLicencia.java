@@ -112,6 +112,7 @@ public class ControllerImprimirLicencia {
     @FXML private Text textDondante;
     @FXML private Text textIdTitular;
     @FXML private Text textFE;
+    @FXML private AnchorPane paneTar;
 
     @FXML
 
@@ -324,7 +325,7 @@ public class ControllerImprimirLicencia {
         File fileJ2 = new File("..TP-MA/temp/foto2.png");
 
 
-            WritableImage image2 = paneLicencia.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
+            WritableImage image2 = paneTar.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
             BufferedImage buffImage2 = SwingFXUtils.fromFXImage(image2, null);
             ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -434,7 +435,7 @@ public class ControllerImprimirLicencia {
 
                 Paragraph p2 = new Paragraph("Boleta de pago ", FontFactory.getFont("Arial", 16, Font.BOLD, BaseColor.BLACK));
 
-                Paragraph p3 = new Paragraph( "N° de Licencia: " + textL.getText() + "              ------------------               " + "Fecha de pago: " + LocalDate.now(), FontFactory.getFont("Arial",14, Font.NORMAL, BaseColor.BLACK));
+                Paragraph p3 = new Paragraph( "N° de Licencia: " + textL.getText() + "                ------------------                 " + "Fecha de pago: " + LocalDate.now(), FontFactory.getFont("Arial",14, Font.NORMAL, BaseColor.BLACK));
                 p2.setAlignment(Element.ALIGN_CENTER);
                 p3.setAlignment(Element.ALIGN_LEFT);
 
@@ -535,9 +536,10 @@ public class ControllerImprimirLicencia {
 
         headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
         Paragraph p5 = new Paragraph(text);
-        p5.setAlignment(Element.ALIGN_MIDDLE);
-        headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
+
+        headerCell.setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
+        headerCell.setVerticalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.addElement(p5);
 
         return headerCell;
