@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class ControllerAltaTitular{
-
     private static ControllerAltaTitular instance = null;
     private DTOAltaTitular dto;
 
@@ -136,7 +135,10 @@ public class ControllerAltaTitular{
         TextFielIniciador.letrasNumero(campoDoc);
         TextFielIniciador.soloNumeros(campoNumCall);
     }
-
+    /*
+    onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
+    GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
+    */
     public void onRegisterTitular(){
 
         Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
@@ -149,13 +151,12 @@ public class ControllerAltaTitular{
 
             //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
             dto = new DTOAltaTitular();
-            dto.setNombre(campoNombre.getText().toLowerCase());
+            dto.setNombre(campoNombre.getText().substring(0, 1).toUpperCase() + campoNombre.getText().substring(1).toLowerCase());
             System.out.println("nombre todo en mayus " + campoNombre.getText());
-            dto.setApellido(campoApe.getText());
+            dto.setApellido(campoApe.getText().substring(0, 1).toUpperCase() + campoApe.getText().substring(1).toLowerCase());
             dto.setCalle(campoCalle.getText());
-
             dto.setDNI(campoDoc.getText());
-            dto.setDonanteOrganos(RBdonante.isSelected());
+            dto.setDonanteOrganos(RBdonante.isSelected()); // 1==sí , 0==no
             dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
             dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
             dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
@@ -177,12 +178,9 @@ public class ControllerAltaTitular{
                         "No se ha podido dar de alta Titular. El mismo ya esta registrado en la base de datos.",  //Todo agregar /n
                         null);
             }
-
             volver();
         }
-
     }
-
     @FXML
     private void volver(){
         ControllerApp.getViewAnterior();

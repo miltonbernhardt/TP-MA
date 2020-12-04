@@ -83,7 +83,7 @@ public class TestGestorLicencia {
         dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
 
         GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().emitirLicencia(dto);
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
 
@@ -91,7 +91,7 @@ public class TestGestorLicencia {
     	Emitir licencia de clase B para una persona menor de edad.
     	En este caso, la prueba falla.
      */
-    @Test
+   @Test
     public void emitirLicencia3() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
@@ -105,7 +105,7 @@ public class TestGestorLicencia {
         dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
 
         GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().emitirLicencia(dto);
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
 
