@@ -2,17 +2,16 @@ package app;
 
 import dto.DTOGestionTitular;
 import enumeration.EnumTipoAlerta;
-import enumeration.EnumTipoCampo;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
 import herramientas.DatePickerIniciador;
+import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
@@ -54,20 +53,9 @@ public class ControllerBuscarTitular {
     }
 
     private void listenerTextField(){
-        textNombre.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
-                textNombre.setText(oldValue);
-        });
-
-        textApellido.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
-                textApellido.setText(oldValue);
-        });
-
-        textDocumento.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!Pattern.compile(EnumTipoCampo.SOLO_LETRAS.getValue()).matcher(newValue).matches())
-                textDocumento.setText(oldValue);
-        });
+        TextFielIniciador.letrasAcento(textNombre);
+        TextFielIniciador.letrasAcento(textApellido);
+        TextFielIniciador.letrasAcento(textDocumento);
     }
 
     private void iniciarCombo(){

@@ -3,6 +3,7 @@ package app;
 import dto.DTOAltaTitular;
 import enumeration.*;
 import herramientas.DatePickerIniciador;
+import herramientas.TextFielIniciador;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import gestor.GestorTitular;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ControllerAltaTitular{
 
@@ -41,11 +43,13 @@ public class ControllerAltaTitular{
 
     public void initialize() {
         DatePickerIniciador.iniciarDatePicker(campoFechaNac);
-        campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
+        listenerTextField();
+        /*campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
         campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
         campoCalle.addEventFilter(KeyEvent.ANY, handlerletters);
         campoDoc.addEventFilter(KeyEvent.ANY, handlerNumbers);
-        campoNumCall.addEventFilter(KeyEvent.ANY, handlerNumbers);
+        campoNumCall.addEventFilter(KeyEvent.ANY, handlerNumbers);*/
+
         CBTipoDNI.setItems(FXCollections.observableArrayList(EnumTipoDocumento.values()));
         CBGsang.setItems(FXCollections.observableArrayList(EnumGrupoSanguineo.values()));
         CBRH.setItems(FXCollections.observableArrayList(EnumFactorRH.values()));
@@ -70,6 +74,7 @@ public class ControllerAltaTitular{
     };
      */
 
+    /*
     //verificar campos solo letras, consume las entradas no validas
     EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
         private boolean willConsume =false;
@@ -83,7 +88,7 @@ public class ControllerAltaTitular{
                 willConsume = false;
             }
             String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches(EnumTipoCampo.SOLO_LETRAS_2.getValue())&&(event.getCode()!= KeyCode.SPACE)
+            if (!event.getCode().toString().matches(EnumTipoCampo.LETRAS_ACENTOS_2.getValue())&&(event.getCode()!= KeyCode.SPACE)
                     && ( event.getCode() != KeyCode.SHIFT)) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED){
                     willConsume = true;
@@ -122,7 +127,15 @@ public class ControllerAltaTitular{
                 }
             }
         }
-    };
+    };*/
+
+    private void listenerTextField(){
+        TextFielIniciador.letrasAcento(campoNombre);
+        TextFielIniciador.letrasAcento(campoApe);
+        TextFielIniciador.letrasAcento(campoCalle);
+        TextFielIniciador.letrasNumero(campoDoc);
+        TextFielIniciador.soloNumeros(campoNumCall);
+    }
 
     public void onRegisterTitular(){
 
