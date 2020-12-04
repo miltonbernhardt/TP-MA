@@ -194,16 +194,10 @@ public class ControllerImprimirLicencia {
     }
 
     private void cargarTabla(List<DTOImprimirLicencia> lista) {
-
-
         tabla.getItems().clear();
 
         for(DTOImprimirLicencia dto:lista){
             tabla.getItems().add(dto);
-
-
-
-
 
         }
 
@@ -307,9 +301,9 @@ public class ControllerImprimirLicencia {
     public void imprimirLicencia() throws FileNotFoundException, DocumentException {
         FileChooser fc= new FileChooser();
         try{
-      fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
-      fc.setTitle("Save to pdf");
-       fc.setInitialFileName("untitled.pdf");
+      fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
+      fc.setTitle("Save to jpg");
+       fc.setInitialFileName("untitled.png");
 
         Alert alert=null;
             //alert = new Alert(Alert.AlertType.ERROR);
@@ -317,23 +311,20 @@ public class ControllerImprimirLicencia {
         String str = file.getAbsolutePath();
         FileOutputStream fos = new FileOutputStream(str);
             Rectangle pagesize = new Rectangle(105 ,148);
-            Document pdf = new Document(pagesize);
 
-            PdfWriter.getInstance(pdf, fos);
-        pdf.open();
         final SnapshotParameters spa = new SnapshotParameters();
         spa.setTransform(Transform.scale(1.1, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
-        File fileJ2 = new File("..TP-MA/temp/foto2.png");
+        File fileJ2 = new File(str);
 
-
+            fileJ2.getParentFile().mkdirs();//crete temp directory if not available
             WritableImage image2 = paneTar.snapshot(spa, null);//This part takes the snapshot, here node is the anchorpane you sent
             BufferedImage buffImage2 = SwingFXUtils.fromFXImage(image2, null);
             ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(buffImage2, "png", baos);
 
-            com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(baos.toByteArray());
-        pdf.add(iTextImage);
+           // com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(baos.toByteArray());
+        //pdf.add(iTextImage);
 
 
          //   Image iTextImage2 = Image.getInstance(baos.toByteArray());
@@ -341,7 +332,7 @@ public class ControllerImprimirLicencia {
            // pdf.add(iTextImage2);
 
         //Page page = new Page(pdf, Letter.LANDSCAPE);
-          File fileJ = new File("..TP-MA/temp/foto.png");
+          File fileJ = new File(str);
 
 
             //exportFileChooser.showSaveDialog(alert.getOwner());
@@ -356,7 +347,7 @@ public class ControllerImprimirLicencia {
 
 
 
-            pdf.close();
+
             fos.flush();
             Desktop.getDesktop().open(fileJ2);
 
@@ -567,7 +558,7 @@ public class ControllerImprimirLicencia {
 
     @FXML
     private void cerrar(){
-
+            // clear?
         paneLicencia.setVisible(false);
     }
         }
