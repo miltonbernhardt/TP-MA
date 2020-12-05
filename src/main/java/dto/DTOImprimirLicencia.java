@@ -28,13 +28,14 @@ public class DTOImprimirLicencia {
 
     public DTOImprimirLicencia(){}
 
-    public DTOImprimirLicencia(int id, int idTitular,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
+    public DTOImprimirLicencia(int id, int idTitular,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones, float costo) {
         this.idTitular = idTitular;
         this.id = id;
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.observaciones = observaciones;
+        this.costo = costo;
 
     }
 
@@ -112,6 +113,8 @@ public class DTOImprimirLicencia {
     public void setCosto(float costo) {
         this.costo = costo;
     }
+
+
     public String getNombre() {
         return nombre;
     }

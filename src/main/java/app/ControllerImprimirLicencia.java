@@ -88,6 +88,7 @@ public class ControllerImprimirLicencia {
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaFecha;
     @FXML private TableColumn<DTOImprimirLicencia, String>  columnaObser;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaVenc;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaCosto;
     @FXML private Text textL;
     @FXML private Text textA;
     @FXML private Text textN;
@@ -98,14 +99,12 @@ public class ControllerImprimirLicencia {
     @FXML private Text textClase;
     @FXML private Text textFV;
     @FXML private AnchorPane paneLicencia;
-    @FXML private AnchorPane paneDorso;
-    @FXML private AnchorPane paneFrente;
+
     private DTOImprimirLicencia licenciaSeleccionada = null;
     @FXML private ImageView iPhoto;
     @FXML private ImageView codigoMatriz;
-    @FXML private Button imprimirComprobante;
-    @FXML private Button imprimirLic;
-    @FXML private Text frente;
+
+    @FXML private Text textCosto;
     @FXML private Text textDescripC;
     @FXML private Text textObser;
     @FXML private Text textG;
@@ -183,6 +182,7 @@ public class ControllerImprimirLicencia {
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechaEmision"));
         columnaObser.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         columnaVenc.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
+        columnaCosto.setCellValueFactory(new PropertyValueFactory<>("costo"));
 
         tabla.setRowFactory( tv -> {
             TableRow<DTOImprimirLicencia> fila = new TableRow<>();
@@ -214,22 +214,22 @@ public class ControllerImprimirLicencia {
         DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
 
      if(campoId.getText().equals("")){
-            System.out.println("entra al if vacio ");
+
             argumentos.setId(0);
         } else {
-         System.out.println("entra para colocar valor" + Integer.parseInt(campoId.getText()));
+
          argumentos.setId(Integer.parseInt(campoId.getText()));
      }
 
-        System.out.println("argumento id " + argumentos.getId());
+
         if(campoTitular.getText().equals("")){
-            System.out.println("entra al if vacio de titular ");
+
             argumentos.setIdTitular(0);
         } else {
-            System.out.println("entra para colocar valor al titular "+ Integer.parseInt(campoTitular.getText()));
+
             argumentos.setIdTitular(Integer.parseInt(campoTitular.getText()));}
 
-       //System.out.println("campo id " + campoId.getText());
+
 
         argumentos.setFechaEmision(campoFecha.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
@@ -241,16 +241,17 @@ public class ControllerImprimirLicencia {
 
         if(licenciaSeleccionada != null) {
             paneLicencia.setVisible(true);
+
+
             Titular titular2 = GestorTitular.get().getTitular(Integer.valueOf(licenciaSeleccionada.getIdTitular()));
 
                 textL.setText(String.valueOf(licenciaSeleccionada.getId()));
 
-                String apellido = titular2.getApellido();
                 textA.setText(titular2.getApellido());
-                // (replaceFirst) apellido.
+
                 textN.setText(titular2.getNombre());
                 textC.setText(titular2.getCalle());
-
+                textCosto.setText(String.valueOf(licenciaSeleccionada.getCosto()));
                 textNC.setText(titular2.getNumeroCalle().toString());
                 textFN.setText(titular2.getFechaNacimiento().toString());
                 textFV.setText(licenciaSeleccionada.getFechaVencimiento().toString());
@@ -307,8 +308,6 @@ public class ControllerImprimirLicencia {
       fc.setTitle("Save to jpg");
        fc.setInitialFileName("untitled.png");
 
-        Alert alert=null;
-            //alert = new Alert(Alert.AlertType.ERROR);
         File file = fc.showSaveDialog(null);
         String str = file.getAbsolutePath();
         FileOutputStream fos = new FileOutputStream(str);
@@ -324,8 +323,6 @@ public class ControllerImprimirLicencia {
             ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(buffImage2, "png", baos);
-
-          File fileJ = new File(str);
 
             fos.flush();
             Desktop.getDesktop().open(fileJ2);
@@ -343,9 +340,7 @@ public class ControllerImprimirLicencia {
             fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
             fc.setTitle("Save to pdf");
             fc.setInitialFileName("untitled.pdf");
-        Date fecha = new Date();
-            Alert alert = null;
-            //alert = new Alert(Alert.AlertType.ERROR);
+
             File file = fc.showSaveDialog(null);
             String str = file.getAbsolutePath();
             FileOutputStream fos = new FileOutputStream(str);
@@ -355,7 +350,6 @@ public class ControllerImprimirLicencia {
                 PdfWriter pdfw = PdfWriter.getInstance(document, fos);
 
                 document.open();
-
                 //Tables
                 PdfPTable table = new PdfPTable(2);
                 PdfPTable table2 = new PdfPTable(2);
@@ -386,6 +380,16 @@ public class ControllerImprimirLicencia {
 
                 BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 200, 200, null);
 
+
+                // Add header details
+                tablaTitular.addCell(getHeaderCell("Datos del Titular "));
+                table.addCell(getFirstRowFormatted("Nombre: " + textN.getText()));
+                table.addCell(getFirstRowFormatted("Apellido: " + textA.getText()));
+                table.addCell(getFirstRowFormatted("Fecha de Nacimiento: " + textFN.getText()));
+                table.addCell(getFirstRowFormatted("Domicilio: " + textC.getText() + textNC.getText()));
+                table.addCell(getSecondRowFormatted("Sexo: " + textS.getText()));
+                table.addCell(getSecondRowFormatted("Observaciones: " + textObser.getText()));
+
                 com.itextpdf.text.Image img;
                 //Es el tipo de clase
                 BarcodeEAN codeEAN = new BarcodeEAN();
@@ -395,8 +399,10 @@ public class ControllerImprimirLicencia {
                 codeEAN.setCode(textL.getText() +"0" + textIdTitular.getText() + "0");
                 codeEAN.setBarHeight(codeEAN.getSize() * 4f);
 
+
                 //Paso el codigo a imagen
                 img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
+
 
                 // Add header details
                 tablaLicencia.addCell(getHeaderCell("Datos de la licencia "));
@@ -405,8 +411,8 @@ public class ControllerImprimirLicencia {
                 table2.addCell(getFirstRowFormatted("Descripción: " + textDescripC.getText()));
                 table2.addCell(getFirstRowFormatted("Fecha Emision: " + textFE.getText()));
                 table2.addCell(getFirstRowFormatted("Fecha Vencimiento: " + textFV.getText()));
-                table2.addCell(getSecondRowFormatted("Importe: " + textC.getText() + textNC.getText()));
-                table2.addCell(getSecondRowFormatted("Total a Pagar: " + textC.getText() + textNC.getText()));
+                table2.addCell(getSecondRowFormatted("Importe: " + textCosto.getText()));
+                table2.addCell(getSecondRowFormatted("Organizacion Seguridad Vial"));
 
                 img.setAlignment(Element.ALIGN_LEFT);
                 cello.addCell("Cello de la Organización:  " );
@@ -414,6 +420,7 @@ public class ControllerImprimirLicencia {
 
                 com.itextpdf.text.Image image =codigoBarrasQR.getImage();
                 image.setAlignment(Element.ALIGN_MIDDLE);
+
 
                 document.add(p); // ministerio...
                 document.add(Chunk.NEWLINE);
@@ -449,7 +456,7 @@ public class ControllerImprimirLicencia {
 
         headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
         Paragraph p5 = new Paragraph(text);
-
+        p5.setAlignment(Element.ALIGN_CENTER);
         headerCell.setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.setVerticalAlignment(PdfPCell.ALIGN_JUSTIFIED_ALL);
         headerCell.addElement(p5);
@@ -471,13 +478,6 @@ public class ControllerImprimirLicencia {
 
         return pdfpCell;
     }
-    private PdfPCell getLastRowFormatted(String text) {
-
-        PdfPCell pdfpCell = new PdfPCell();
-        pdfpCell.addElement(new Paragraph(text));
-
-        return pdfpCell;
-    }
 
     @FXML
     private void volver(){
@@ -487,7 +487,10 @@ public class ControllerImprimirLicencia {
 
     @FXML
     private void cerrar(){
-            // TODO clear?
+        campoId.clear();
+        campoTitular.clear();
+        tabla.getItems().clear();
+        campoFecha.getEditor().clear();
         paneLicencia.setVisible(false);
     }
-        }
+}

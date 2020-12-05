@@ -28,18 +28,15 @@ public class GestorTitular {
 
     /** Registra el titular en la base de datos según los datos obtenidos del formulario */
     public boolean registrarTitular(DTOAltaTitular dto){
-        if (titularExistente(dto.getDNI(), dto.getTipoDNI())) {
-            return false;
-        } else {
-            Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
-                    dto.getFechaNacimiento(),dto.getCalle() ,dto.getNumeroCalle(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
-            try {
-                daoTitular.save(titular);
-                return true;
-            } catch (Exception e) {
+      Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
+      dto.getFechaNacimiento(),dto.getCalle() ,dto.getNumeroCalle(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
+      try {
+          daoTitular.save(titular);
+          return true;
+      } catch (Exception e) {
                 return false;
-            }
-        }
+      }
+
     }
 
     /** Método para verificar que exista en la base de datos un titular con el mismo dni y tipo de dni */

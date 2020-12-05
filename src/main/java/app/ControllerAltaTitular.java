@@ -2,6 +2,7 @@ package app;
 
 import dto.DTOAltaTitular;
 import enumeration.*;
+import gestor.GestorLicencia;
 import herramientas.DatePickerIniciador;
 import herramientas.TextFielIniciador;
 import javafx.collections.FXCollections;
@@ -140,47 +141,68 @@ public class ControllerAltaTitular{
     GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
     */
     public void onRegisterTitular(){
+            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+                    "Confirmar alta de Titular",
+                    "",
+                    "¿Desea confirmar el registro del titular?",
+                    null);
 
-        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
-                "Confirmar alta de Titular",
-                "",
-                "¿Desea confirmar el registro del titular?",
-                null);
+            if (result.orElse(null) == ButtonType.OK) {
 
-        if (result.orElse(null) == ButtonType.OK) {
+                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17 || GestorTitular.get().getEdad(campoFechaNac.getValue()) > 65) {
+                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
+                            "",
+                            "Su titular debe poser al menos de 17 años y como máximo 65 años", null);
+                } else {
+                    if (campoDoc.getLength() != 8) {
+                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
+                                "",
+                                "El numero de Documento es inválido", null);
+                    } else {
+                        if (!GestorTitular.get().titularExistente(campoDoc.getText(), CBTipoDNI.getValue())) {
+                            dto = new DTOAltaTitular();
+                            dto.setNombre(campoNombre.getText().substring(0, 1).toUpperCase() + campoNombre.getText().substring(1).toLowerCase());
+                            dto.setApellido(campoApe.getText().substring(0, 1).toUpperCase() + campoApe.getText().substring(1).toLowerCase());
+                            dto.setCalle(campoCalle.getText());
+                            dto.setDNI(campoDoc.getText());
+                            dto.setDonanteOrganos(RBdonante.isSelected()); // 1==sí , 0==no
+                            dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
+                            dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
+                            dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
+                            dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
+                            dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
+                            dto.setFechaNacimiento(campoFechaNac.getValue());
 
-            //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
-            dto = new DTOAltaTitular();
-            dto.setNombre(campoNombre.getText().substring(0, 1).toUpperCase() + campoNombre.getText().substring(1).toLowerCase());
-            System.out.println("nombre todo en mayus " + campoNombre.getText());
-            dto.setApellido(campoApe.getText().substring(0, 1).toUpperCase() + campoApe.getText().substring(1).toLowerCase());
-            dto.setCalle(campoCalle.getText());
-            dto.setDNI(campoDoc.getText());
-            dto.setDonanteOrganos(RBdonante.isSelected()); // 1==sí , 0==no
-            dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
-            dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
-            dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
-            dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
-            dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
-            dto.setFechaNacimiento(campoFechaNac.getValue());
+                            if (GestorTitular.get().registrarTitular(dto)) {
+                                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
+                                        "Confirmación",
+                                        "",
+                                        "Se ha dado de alta al titular de forma correcta.",
+                                        null);
+                            } else {
+                                PanelAlerta.get(EnumTipoAlerta.ERROR,
+                                        "Error",
+                                        "",
+                                        "No se ha podido dar de alta Titular",
+                                        null);
+                            }
+                            volver();
+                        } else {
+                            PanelAlerta.get(EnumTipoAlerta.ERROR,
+                                    "Error",
+                                    "",
+                                    "El titular ya se encuentra registrado",
+                                    null);
+                        }
+                    }
 
-            if (GestorTitular.get().registrarTitular(dto)){
-                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
-                        "Confirmación",
-                        "",
-                        "Se ha dado de alta al titular de forma correcta.",
-                        null);
+                }
             }
-            else {
-                PanelAlerta.get(EnumTipoAlerta.ERROR,
-                        "Error",
-                        "",
-                        "No se ha podido dar de alta Titular. El mismo ya esta registrado en la base de datos.",  //Todo agregar /n
-                        null);
-            }
-            volver();
-        }
+
+
     }
+
+
     @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
