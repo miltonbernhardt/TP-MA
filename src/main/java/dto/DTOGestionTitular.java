@@ -4,7 +4,7 @@ import enumeration.*;
 
 import java.time.LocalDate;
 
-public class DTOBuscarTitular {
+public class DTOGestionTitular {
     private int idTitular;
     private LocalDate fechaNacimiento;
     private String nombre;
@@ -19,8 +19,9 @@ public class DTOBuscarTitular {
     private LocalDate fechaNacimientoInicial;
     private LocalDate fechaNacimientoFinal;
 
-    public DTOBuscarTitular(){}
+    public DTOGestionTitular(){}
 
+    public DTOGestionTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
     public DTOBuscarTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento, String calle, int nroCalle, Boolean donante, EnumSexo sexo) {
         this.idTitular = idTitular;
         this.fechaNacimiento = fechaNacimiento;

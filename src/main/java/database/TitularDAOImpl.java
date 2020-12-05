@@ -1,7 +1,6 @@
 package database;
 
-import dto.DTOBuscarTitular;
-import dto.DTOModificarTitular;
+import dto.DTOGestionTitular;
 import model.Titular;
 import org.hibernate.Session;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
@@ -16,17 +15,17 @@ public class TitularDAOImpl extends BaseDAOImpl<Titular,Integer> implements Titu
     }
 
     @Override
-    public List<DTOBuscarTitular> createListDTOBuscarTitular(String argumentos) {
+    public List<DTOGestionTitular> createListDTOBuscarTitular(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        String consulta = "SELECT new dto.DTOBuscarTitular(t.id, t.fechaNacimiento, t.nombre, t.apellido,t.tipoDNI, t.DNI, t.calle, t.numeroCalle, t.donanteOrganos, t.sexo) FROM Titular t "
+        String consulta = "SELECT new dto.DTOGestionTitular(t.id, t.fechaNacimiento, t.nombre, t.apellido,t.tipoDNI, t.DNI) FROM Titular t "
                 + argumentos + " ORDER BY t.nombre, t.apellido ASC ";
 
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
-            return session.createQuery(consulta, DTOBuscarTitular.class).getResultList();
+            return session.createQuery(consulta, DTOGestionTitular.class).getResultList();
         } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;

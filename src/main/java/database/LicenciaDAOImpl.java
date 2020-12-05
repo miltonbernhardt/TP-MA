@@ -18,12 +18,13 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
+
     @Override
     public List<DTOImprimirLicencia> createListDTOimprimirLic(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , t.id ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones) FROM Licencia l, Titular t "
+        String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , t.id ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones, l.costo) FROM Licencia l, Titular t "
                 + argumentos+ " ORDER BY l.id ASC ";
 
         System.out.println("ultima consulta es"  + consulta);
@@ -36,12 +37,12 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
             throw exception;
         }
     }
-
+   /* @Override
         public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
 
             session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-            String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones) FROM Licencia l , Titular t"
+            String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones , ) FROM Licencia l , Titular t"
                     + argumentos+ " ORDER BY l.id ASC ";
 
             System.out.println("ultima consulta es"  + consulta);
@@ -54,7 +55,7 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
                 throw exception;
             }
         }
-
+*/
     public static List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -73,4 +74,5 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
     }
 
 
+        }
 }

@@ -14,7 +14,7 @@ public class DTOImprimirLicencia {
 
     private Titular titular;
     private LocalDate fechaNacimiento;
-    private int id_titular;
+    private int idTitular;
     private int id;
     private EnumClaseLicencia claseLicencia;
     private LocalDate fechaEmision;
@@ -28,23 +28,18 @@ public class DTOImprimirLicencia {
 
     public DTOImprimirLicencia(){}
 
-    public DTOImprimirLicencia(int id, int id_titular,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
-        this.id_titular = id_titular;
+    public DTOImprimirLicencia(int id, int idTitular,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones, float costo) {
+        this.idTitular = idTitular;
         this.id = id;
         this.claseLicencia = claseLicencia;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.observaciones = observaciones;
+        this.costo = costo;
+
     }
 
-    public DTOImprimirLicencia(int id, Titular titular ,EnumClaseLicencia claseLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento, String observaciones) {
-        this.titular = titular;
-        this.id = id;
-        this.claseLicencia = claseLicencia;
-        this.fechaEmision = fechaEmision;
-        this.fechaVencimiento = fechaVencimiento;
-        this.observaciones = observaciones;
-    }
+
 
 
     public Titular getTitular() {
@@ -63,19 +58,19 @@ public class DTOImprimirLicencia {
         this.nombre = nombre;
     }
 
-    public Integer getIdTitular() {
-        return id_titular;
+    public int getIdTitular() {
+        return idTitular;
     }
 
-    public void setIdTitular(Integer idTitular) {
-        this.id_titular = idTitular;
+    public void setIdTitular(int idTitular) {
+        this.idTitular = idTitular;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -118,6 +113,8 @@ public class DTOImprimirLicencia {
     public void setCosto(float costo) {
         this.costo = costo;
     }
+
+
     public String getNombre() {
         return nombre;
     }
