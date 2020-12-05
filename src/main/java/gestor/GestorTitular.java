@@ -5,6 +5,7 @@ import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
 import dto.DTOGestionTitular;
+import dto.DTOModificarTitular;
 import enumeration.*;
 import model.Titular;
 import java.time.LocalDate;
@@ -65,10 +66,13 @@ public class GestorTitular {
             return null;
         }
     }
-
-    /** Actualiza el titular en la base de datos */
     public void updateTitular(Titular titular) throws Exception {
         daoTitular.update(titular);
+    }
+
+    /** Actualiza el titular en la base de datos */
+    public static void ModificarTitular(DTOModificarTitular titular) throws Exception {
+        daoTitular.ModificarTitular(titular);
     }
 
     /** Buscar los titulares que coincidan con los argumentos pasados como párametros y crea una lista de
@@ -151,4 +155,5 @@ public class GestorTitular {
         //ToDo implementar
         return LocalDate.now();
     }
+
 }

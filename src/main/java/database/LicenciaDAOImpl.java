@@ -37,25 +37,31 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
             throw exception;
         }
     }
-   /* @Override
-        public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
 
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
+    @Override
+    public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s) {
+        return null;
+    }
 
-            String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones , ) FROM Licencia l , Titular t"
-                    + argumentos+ " ORDER BY l.id ASC ";
+    /* @Override
+         public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
 
-            System.out.println("ultima consulta es"  + consulta);
-            try {
-                if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
-                    session.beginTransaction();
-                return session.createQuery(consulta, DTOImprimirLicencia.class).getResultList();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                throw exception;
-            }
-        }
-*/
+             session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+             String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones , ) FROM Licencia l , Titular t"
+                     + argumentos+ " ORDER BY l.id ASC ";
+
+             System.out.println("ultima consulta es"  + consulta);
+             try {
+                 if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                     session.beginTransaction();
+                 return session.createQuery(consulta, DTOImprimirLicencia.class).getResultList();
+             } catch (Exception exception) {
+                 exception.printStackTrace();
+                 throw exception;
+             }
+         }
+ */
     public static List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -75,4 +81,3 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
 
 
         }
-}

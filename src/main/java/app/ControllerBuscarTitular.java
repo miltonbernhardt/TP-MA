@@ -124,6 +124,7 @@ public class ControllerBuscarTitular {
             if (result.orElse(null) == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
                 else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerModificarTitular != null) controllerModificarTitular.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -141,5 +142,9 @@ public class ControllerBuscarTitular {
 
     public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
+    }
+
+    public void setControllerModificarTitular(ControllerModificarTitular controllerModificarTitular) {
+        this.controllerModificarTitular = controllerModificarTitular;
     }
 }
