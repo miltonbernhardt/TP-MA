@@ -79,7 +79,9 @@ public class ControllerImprimirLicencia {
     }
     @FXML private TextField campoTitular;
     @FXML private TextField campoId;
-    @FXML private DatePicker campoFecha;
+    //TODO id de los campos fechas
+    @FXML private DatePicker fechaDesde;
+    @FXML private DatePicker fechaHasta;
     @FXML private ComboBox<EnumClaseLicencia> CBclase;
     @FXML private TableView<DTOImprimirLicencia> tabla;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaTitular;
@@ -119,7 +121,8 @@ public class ControllerImprimirLicencia {
     private void initialize(){
         CBclase.setItems(FXCollections.observableArrayList(EnumClaseLicencia.values()));
         iniciarTabla();
-        iniciarDatePicker(campoFecha);
+        iniciarDatePicker(fechaDesde);
+        iniciarDatePicker(fechaHasta);
     }
     @FXML
     /*
@@ -132,10 +135,7 @@ public class ControllerImprimirLicencia {
     Se obtiene el Titular seleccionado en la tabla.
  */
     public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
-
-        String numCadena= String.valueOf(dtoGestionTitular.getIdTitular());
-        System.out.println("numero id " + String.valueOf(dtoGestionTitular.getIdTitular()));
-        campoTitular.setText(String.valueOf(dtoGestionTitular.getIdTitular()));
+      campoTitular.setText(String.valueOf(dtoGestionTitular.getIdTitular()));
         // Obtener las licencias correspondientes al titular:
        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dtoGestionTitular.getIdTitular());
 
@@ -230,8 +230,9 @@ public class ControllerImprimirLicencia {
             argumentos.setIdTitular(Integer.parseInt(campoTitular.getText()));}
 
 
-
-        argumentos.setFechaEmision(campoFecha.getValue());
+//TODO ya se guardan los argumentos para la consulta, van al gestor licencia
+        argumentos.setFechaEmision(fechaDesde.getValue());
+        argumentos.setFechaEmision(fechaHasta.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
 
         cargarTabla(GestorLicencia.get().searchLic(argumentos));
@@ -490,7 +491,8 @@ public class ControllerImprimirLicencia {
         campoId.clear();
         campoTitular.clear();
         tabla.getItems().clear();
-        campoFecha.getEditor().clear();
+        fechaHasta.getEditor().clear();
+        fechaDesde.getEditor().clear();
         paneLicencia.setVisible(false);
     }
 }

@@ -29,42 +29,45 @@
       </ImageView>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Buscar Licencia a Imprimir" />
       <Separator layoutX="386.0" layoutY="30.0" prefHeight="4.0" prefWidth="493.0" style="-fx-background: white;" />
-      <GridPane alignment="CENTER_RIGHT" layoutX="38.0" layoutY="55.0" prefHeight="111.0" prefWidth="737.0">
+      <GridPane alignment="CENTER_RIGHT" layoutX="35.0" layoutY="60.0" prefHeight="156.0" prefWidth="818.0">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" maxWidth="163.0" minWidth="78.33333587646484" prefWidth="163.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="119.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <TextField fx:id="campoTitular" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular o ingrese Id" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
             <TextField fx:id="campoId" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="3" />
+            <Label text="Fecha Desde:" textAlignment="CENTER" GridPane.rowIndex="1">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <DatePicker fx:id="fechaHasta" prefHeight="31.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="fechaDesde" maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Clase Licencia:" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
             <Label text="Id Licencia:" textAlignment="CENTER" GridPane.columnIndex="2">
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
             </Label>
-            <Label text="Clase Licencia:" textAlignment="CENTER" GridPane.rowIndex="1">
-               <padding>
-                  <Insets left="5.0" right="5.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="CBclase" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Seleccione Licencia" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Fecha Emisión:" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <padding>
-                  <Insets left="5.0" right="5.0" />
-               </padding>
-            </Label>
-            <DatePicker fx:id="campoFecha" maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ComboBox fx:id="CBclase" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Seleccione Licencia" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button maxWidth="120.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#buscarTitular" prefHeight="30.0" prefWidth="80.0" style="-fx-font-size: 14;" text="Buscar Titular" />
-            <TextField fx:id="campoTitular" disable="true" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular o ingrese Id" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Hasta:" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#buscarLicencia" text="Buscar" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscarLicencia" text="Buscar" />
-      <ScrollPane layoutX="19.0" layoutY="172.0" prefHeight="246.0" prefWidth="972.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
+      <ScrollPane layoutX="19.0" layoutY="232.0" prefHeight="246.0" prefWidth="972.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
          <content>
             <TableView fx:id="tabla" prefHeight="244.0" prefWidth="965.0">
                <columns>
