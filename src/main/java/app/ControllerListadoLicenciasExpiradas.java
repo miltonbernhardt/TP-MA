@@ -1,7 +1,6 @@
 package app;
 
 
-import dto.DTOBuscarTitular;
 import dto.DTOLicenciaExpirada;
 
 import enumeration.EnumClaseLicencia;
@@ -108,7 +107,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         }
     }
 
-    public void buscarLicencias(){
+    public void buscarLicenciasExpiradas(){
 
         DTOLicenciaExpirada DTOLE = new DTOLicenciaExpirada();
         DTOLE.setRangofechas(filtrarPorRangoFecha.isSelected());

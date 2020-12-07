@@ -50,7 +50,7 @@
       <Label layoutX="287.0" layoutY="207.0" text="N° Documento" />
       <Label layoutX="568.0" layoutY="210.0" text="Clase Licencia" />
       <CheckBox fx:id="ordenarDesc" layoutX="926.0" layoutY="228.0" mnemonicParsing="false" text="Z-A" />
-      <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#buscarLicencias" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
+      <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#buscarLicenciasExpiradas" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
        <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="505.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
            <image>
                <Image url="@../Imagenes/icons8_undo_52px_4.png" />
