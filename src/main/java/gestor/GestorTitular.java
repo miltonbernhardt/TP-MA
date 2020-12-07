@@ -72,7 +72,7 @@ public class GestorTitular {
 
     /** Actualiza el titular en la base de datos */
     public static void ModificarTitular(DTOModificarTitular titular) throws Exception {
-        daoTitular.ModificarTitular(titular);
+        daoTitular.actualizarTitular(titular);
     }
 
     /** Buscar los titulares que coincidan con los argumentos pasados como párametros y crea una lista de

@@ -14,5 +14,6 @@ public interface TitularDAO extends BaseDAO<Titular, Integer> {
      * @param argumentos son los argumentos para la consulta.
      */
     List<DTOGestionTitular> createListDTOBuscarTitular (String argumentos) throws Exception;
-    void ModificarTitular(DTOModificarTitular dtoTitular);
+
+    void actualizarTitular(DTOModificarTitular dtoTitular) throws Exception;
 }

@@ -34,41 +34,16 @@ public class TitularDAOImpl extends BaseDAOImpl<Titular,Integer> implements Titu
         }
     }
 
-    public void ModificarTitular(DTOModificarTitular dtoTitular) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // start a transaction
-            transaction = session.beginTransaction();
-            Titular titular = new Titular();
-
-            titular.setNombre(dtoTitular.getNombre());
-            titular.setApellido(dtoTitular.getApellido());
-            titular.setCalle(dtoTitular.getCalle());
-            titular.setNumeroCalle(dtoTitular.getNumeroCalle());
-            titular.setSexo(dtoTitular.getSexo());
-            titular.setDonanteOrganos(dtoTitular.getDonante());
-            titular.setId(dtoTitular.getId());
-
-            // save the student object
-            String hql = "UPDATE Titular set nombre = :FirstName, apellido = :LastName, calle = :Calle, numeroCalle = :NroCalle, sexo = :Sexo, donanteOrganos = :Donante " + "WHERE id = :TitularId";
-            Query query = session.createQuery(hql);
-            query.setParameter("FirstName", titular.getNombre());
-            query.setParameter("LastName", titular.getApellido());
-            query.setParameter("Calle", titular.getCalle());
-            query.setParameter("NroCalle", titular.getNumeroCalle());
-            query.setParameter("Sexo", titular.getSexo());
-            query.setParameter("Donante", titular.getDonanteOrganos());
-            query.setParameter("TitularId", titular.getId());
-            int result = query.executeUpdate();
-            System.out.println("Rows affected: " + result);
-            // commit transaction
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    public void actualizarTitular(DTOModificarTitular dtoTitular) throws Exception {
+        TitularDAOImpl daoTitular = new TitularDAOImpl();
+        Titular titular = daoTitular.findById(dtoTitular.getId());
+        titular.setNombre(dtoTitular.getNombre());
+        titular.setApellido(dtoTitular.getApellido());
+        titular.setCalle(dtoTitular.getCalle());
+        titular.setNumeroCalle(dtoTitular.getNumeroCalle());
+        titular.setSexo(dtoTitular.getSexo());
+        titular.setDonanteOrganos(dtoTitular.getDonante());
+        daoTitular.update(titular);
     }
 
 
