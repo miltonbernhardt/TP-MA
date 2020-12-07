@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public class DTOLicenciaExpirada {
 
+
     private int id; // nroLicencia
     private String apellido;
     private String nombre;
@@ -35,17 +36,26 @@ public class DTOLicenciaExpirada {
         this.ordenamientoDescendente = false;
     }
 
-    public DTOLicenciaExpirada(int idLicencia, String apellido, String nombre, EnumTipoDocumento tipoDNI, String dni, EnumClaseLicencia claseLicencia, LocalDate fechaVencimiento){
+    public DTOLicenciaExpirada(int idLicencia, String apellido, String nombre, EnumTipoDocumento tipoDNI, String DNI, EnumClaseLicencia claseLicencia, LocalDate fechaVencimiento){
 
         this.id = idLicencia;
         this.apellido = apellido;
         this.nombre = nombre;
         this.tipoDNI = tipoDNI ;
-        this.DNI = dni;
+        this.DNI = DNI;
         this.fechaVencimiento = fechaVencimiento;
         this.claseLicencia = claseLicencia;
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }

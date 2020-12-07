@@ -54,7 +54,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     @FXML private TableColumn<DTOLicenciaExpirada, String> columnaNombre;
     @FXML private TableColumn<DTOLicenciaExpirada, String> columnaApellido;
     @FXML private TableColumn<DTOLicenciaExpirada, LocalDate> columnaFechaVencimiento;
-    @FXML private TableColumn<DTOLicenciaExpirada, Integer> columnaTipoDocumento;
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaTipoDocumento;
     @FXML private TableColumn<DTOLicenciaExpirada, String> columnaDocumento;
     @FXML private TableColumn<DTOLicenciaExpirada, String> columnaNroLicencia;
     @FXML private TableColumn<DTOLicenciaExpirada, String> columnaClaseLicencia;
@@ -101,7 +101,6 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     private void cargarTabla(List<DTOLicenciaExpirada> lista) {
         tabla.getItems().clear();
         for(DTOLicenciaExpirada dto:lista){
-            String nroLicencia = String.valueOf(dto.getNroLicencia());
             tabla.getItems().add(dto);
 
         }
@@ -187,12 +186,13 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay licencias que mostrar."));
+
+        columnaNroLicencia.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         columnaFechaVencimiento.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
         columnaTipoDocumento.setCellValueFactory(new PropertyValueFactory<>("tipoDNI"));
         columnaDocumento.setCellValueFactory(new PropertyValueFactory<>("DNI"));
-        columnaNroLicencia.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnaClaseLicencia.setCellValueFactory(new PropertyValueFactory<>("claseLicencia"));
 
     }

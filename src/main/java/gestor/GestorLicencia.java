@@ -36,13 +36,10 @@ public class GestorLicencia {
 
     /** Calcular vigencia recibe como parámetro la fecha de nacimiento del Titular y su id, retorna
         un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento. */
-    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular)  {
         Vigencia vigencia = new Vigencia();
         int years = GestorTitular.getEdad(nacimiento);
-        if(years<17){
-            throw new MenorDeEdadException();
 
-        }else{
             if(years < 21){
                 String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
 
@@ -72,7 +69,7 @@ public class GestorLicencia {
                 vigencia.setVigencia(1);
                 vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
             }
-        }
+
 
         return vigencia;
     }
@@ -370,31 +367,36 @@ public class GestorLicencia {
 
 
         if(filtro.isRangofechas()){
-            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+            // consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
         } else if(filtro.getFechaInicial() != null){
-            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) >= '"+ filtro.getFechaInicial() +"'";
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
         } else{
-            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
-            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
         }
 
         if(filtro.getNroLicencia() != 0 ){
             consulta += " AND l.id = " + filtro.getNroLicencia();
         }
         if (filtro.getClaseLicencia() != null ){
-            consulta += " AND l.claseLicencia = '" + filtro.getClaseLicencia() + "'";
+
+            String clase = filtro.getClaseLicencia().getValue().replaceAll(" ", "_");
+            consulta += " AND l.claseLicencia = '" + clase + "'";
         }
         if (!filtro.getApellido().equals("")){
-            consulta += " AND t.apellido LIKE '% " + filtro.getApellido() + " %'";
+            consulta += " AND t.apellido LIKE '%" + filtro.getApellido() + "%'";
         }
         if (!filtro.getNombre().equals("")){
-            consulta += " AND t.nombre LIKE '% " + filtro.getNombre() + " %'";
+            consulta += " AND t.nombre LIKE '%" + filtro.getNombre() + "%'";
         }
         if (filtro.getTipoDNI() !=null){
-            consulta += " AND t.tipoDNI = '" + filtro.getTipoDNI() + "'";
+            String tipoDNI = filtro.getTipoDNI().getValue().replaceAll(" ", "_");
+            consulta += " AND t.tipoDNI = '" + tipoDNI + "'";
         }
         if (!filtro.getDNI().equals("")){
-            consulta += " AND t.DNI = '" + filtro.getDNI() + "'";
+            consulta += " AND t.DNI LIKE '%" + filtro.getDNI() + "%'";
         }
 
         //if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
