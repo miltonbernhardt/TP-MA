@@ -1,6 +1,6 @@
 package database;
 
-import dto.DTOBuscarTitular;
+import dto.DTOGestionTitular;
 import dto.DTOImprimirLicencia;
 import dto.DTOLicenciaExpirada;
 import model.Licencia;

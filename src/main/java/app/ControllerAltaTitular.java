@@ -2,6 +2,9 @@ package app;
 
 import dto.DTOAltaTitular;
 import enumeration.*;
+import gestor.GestorLicencia;
+import herramientas.DatePickerIniciador;
+import herramientas.TextFielIniciador;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,11 +14,11 @@ import javafx.scene.input.KeyEvent;
 import gestor.GestorTitular;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ControllerAltaTitular{
-
     private static ControllerAltaTitular instance = null;
-    private DTOAltaTitular dto = new DTOAltaTitular();
+    private DTOAltaTitular dto;
 
     public static ControllerAltaTitular get() {
         if (instance == null){
@@ -39,11 +42,14 @@ public class ControllerAltaTitular{
     @FXML private Button Bregistro;
 
     public void initialize() {
-        campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
+        DatePickerIniciador.iniciarDatePicker(campoFechaNac);
+        listenerTextField();
+        /*campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
         campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
         campoCalle.addEventFilter(KeyEvent.ANY, handlerletters);
         campoDoc.addEventFilter(KeyEvent.ANY, handlerNumbers);
-        campoNumCall.addEventFilter(KeyEvent.ANY, handlerNumbers);
+        campoNumCall.addEventFilter(KeyEvent.ANY, handlerNumbers);*/
+
         CBTipoDNI.setItems(FXCollections.observableArrayList(EnumTipoDocumento.values()));
         CBGsang.setItems(FXCollections.observableArrayList(EnumGrupoSanguineo.values()));
         CBRH.setItems(FXCollections.observableArrayList(EnumFactorRH.values()));
@@ -53,7 +59,7 @@ public class ControllerAltaTitular{
     }
 
     public void keyReleasedProperty(){
-        Boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
+        boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
                 || campoNumCall.getText().trim().isEmpty() || CBTipoDNI.getSelectionModel().isEmpty() || CBGsang.getSelectionModel().isEmpty() || CBRH.getSelectionModel().isEmpty()
                 || CBSexo.getSelectionModel().isEmpty() || campoFechaNac.getValue() == null);
         Bregistro.setDisable(isDisable);
@@ -68,6 +74,7 @@ public class ControllerAltaTitular{
     };
      */
 
+    /*
     //verificar campos solo letras, consume las entradas no validas
     EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
         private boolean willConsume =false;
@@ -81,7 +88,7 @@ public class ControllerAltaTitular{
                 willConsume = false;
             }
             String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]")&&(event.getCode()!= KeyCode.SPACE)
+            if (!event.getCode().toString().matches(EnumTipoCampo.LETRAS_ACENTOS_2.getValue())&&(event.getCode()!= KeyCode.SPACE)
                     && ( event.getCode() != KeyCode.SHIFT)) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED){
                     willConsume = true;
@@ -105,7 +112,7 @@ public class ControllerAltaTitular{
                 event.consume();
 
             }
-            if (!event.getText().matches("[0-9]") && event.getCode() != KeyCode.BACK_SPACE) {
+            if (!event.getText().matches(EnumTipoCampo.SOLO_NUMEROS.getValue()) && event.getCode() != KeyCode.BACK_SPACE) {
                 if (event.getEventType() == KeyEvent.KEY_PRESSED) {
                     willConsume = true;
                 } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
@@ -120,53 +127,81 @@ public class ControllerAltaTitular{
                 }
             }
         }
-    };
+    };*/
 
+    private void listenerTextField(){
+        TextFielIniciador.letrasAcento(campoNombre);
+        TextFielIniciador.letrasAcento(campoApe);
+        TextFielIniciador.letrasAcento(campoCalle);
+        TextFielIniciador.letrasNumero(campoDoc);
+        TextFielIniciador.soloNumeros(campoNumCall);
+    }
+    /*
+    onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
+    GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
+    */
     public void onRegisterTitular(){
+            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+                    "Confirmar alta de Titular",
+                    "",
+                    "¿Desea confirmar el registro del titular?",
+                    null);
 
-        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
-                "Confirmar alta de Titular",
-                "",
-                "¿Desea confirmar el registro del titular?",
-                null);
+            if (result.orElse(null) == ButtonType.OK) {
 
-        if (result.get() == ButtonType.OK) {
+                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17 || GestorTitular.get().getEdad(campoFechaNac.getValue()) > 65) {
+                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
+                            "",
+                            "Su titular debe poser al menos de 17 años y como máximo 65 años", null);
+                } else {
+                    if (campoDoc.getLength() != 8) {
+                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
+                                "",
+                                "El numero de Documento es inválido", null);
+                    } else {
+                        if (!GestorTitular.get().titularExistente(campoDoc.getText(), CBTipoDNI.getValue())) {
+                            dto = new DTOAltaTitular();
+                            dto.setNombre(campoNombre.getText().substring(0, 1).toUpperCase() + campoNombre.getText().substring(1).toLowerCase());
+                            dto.setApellido(campoApe.getText().substring(0, 1).toUpperCase() + campoApe.getText().substring(1).toLowerCase());
+                            dto.setCalle(campoCalle.getText());
+                            dto.setDNI(campoDoc.getText());
+                            dto.setDonanteOrganos(RBdonante.isSelected()); // 1==sí , 0==no
+                            dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
+                            dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
+                            dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
+                            dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
+                            dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
+                            dto.setFechaNacimiento(campoFechaNac.getValue());
 
-            //TODO validar que los datos esten correctos (que los numeros esten de la longitud deseada, lo mismo con lo otro)
+                            if (GestorTitular.get().registrarTitular(dto)) {
+                                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
+                                        "Confirmación",
+                                        "",
+                                        "Se ha dado de alta al titular de forma correcta.",
+                                        null);
+                            } else {
+                                PanelAlerta.get(EnumTipoAlerta.ERROR,
+                                        "Error",
+                                        "",
+                                        "No se ha podido dar de alta Titular",
+                                        null);
+                            }
+                            volver();
+                        } else {
+                            PanelAlerta.get(EnumTipoAlerta.ERROR,
+                                    "Error",
+                                    "",
+                                    "El titular ya se encuentra registrado",
+                                    null);
+                        }
+                    }
 
-            dto.setNombre(campoNombre.getText().toUpperCase());
-            System.out.println("nombre todo en mayus " + campoNombre.getText().toLowerCase());
-            dto.setApellido(campoApe.getText().toUpperCase());
-            dto.setCalle(campoCalle.getText().toUpperCase());
-
-            dto.setDNI(campoDoc.getText());
-            dto.setDonanteOrganos(RBdonante.isSelected());
-            dto.setFactorRH(CBRH.getSelectionModel().getSelectedItem());
-            dto.setTipoDNI(CBTipoDNI.getSelectionModel().getSelectedItem());
-            dto.setSexo(CBSexo.getSelectionModel().getSelectedItem());
-            dto.setGrupoSanguineo(CBGsang.getSelectionModel().getSelectedItem());
-            dto.setNumeroCalle(Integer.parseInt(campoNumCall.getText()));
-            dto.setFechaNacimiento(campoFechaNac.getValue());
-
-            if (GestorTitular.get().registrarTitular(dto)){
-                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
-                        "Confirmación",
-                        "",
-                        "Se ha dado de alta al titular de forma correcta.",
-                        null);
+                }
             }
-            else {
-                PanelAlerta.get(EnumTipoAlerta.ERROR,
-                        "Error",
-                        "",
-                        "No se ha podido dar de alta Titular. El mismo ya esta registrado en la base de datos.",  //Todo agregar /n
-                        null);
-            }
 
-            volver();
-        }
 
     }
+
 
     @FXML
     private void volver(){

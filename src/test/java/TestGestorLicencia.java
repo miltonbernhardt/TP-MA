@@ -45,7 +45,9 @@ public class TestGestorLicencia {
         System.out.println(vigencia.getFechaVencimiento());
         Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
     }
-
+    /*
+    Emitir licencia de clase B para una persona de 23 años:
+     */
     @Test
     public void emitirLicencia() throws MenorDeEdadException {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
@@ -59,9 +61,53 @@ public class TestGestorLicencia {
         dto.setObservaciones(null);
         dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
 
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().emitirLicencia(dto);
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
+    /*
+    	Emitir licencia de clase B para una persona de 23 años.
+    	En este caso, la prueba falla dado que el idTitular pasado a
+    	dto.setIdTitular no corresponde al idTitular de la persona en cuestión.
+     */
+    @Test
+    public void emitirLicencia2() throws MenorDeEdadException {
+        DTOEmitirLicencia dto = new DTOEmitirLicencia();
+        dto.setIdTitular(150);
+        dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
+        dto.setNombre("INDIANA");
+        dto.setApellido("LOZANO");
+        dto.setTipoDocumento(EnumTipoDocumento.DNI);
+        dto.setDocumento("40266367");
+        dto.setCosto(48.0);
+        dto.setObservaciones(null);
+        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
+
+        GestorLicencia gestorLicencia = GestorLicencia.get();
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
+        Assert.assertTrue(resultado);
+    }
+
+    /*
+    	Emitir licencia de clase B para una persona menor de edad.
+    	En este caso, la prueba falla.
+     */
+   @Test
+    public void emitirLicencia3() throws MenorDeEdadException {
+        DTOEmitirLicencia dto = new DTOEmitirLicencia();
+        dto.setIdTitular(150);
+        dto.setFechaNacimiento(LocalDate.of(2008, 3, 19));
+        dto.setNombre("INDIANA");
+        dto.setApellido("PÉREZ");
+        dto.setTipoDocumento(EnumTipoDocumento.DNI);
+        dto.setDocumento("48755984");
+        dto.setCosto(48.0);
+        dto.setObservaciones(null);
+        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
+
+        GestorLicencia gestorLicencia = GestorLicencia.get();
+        boolean resultado = GestorLicencia.get().generarLicencia(dto);
+        Assert.assertTrue(resultado);
+    }
+
 
 }

@@ -4,13 +4,10 @@ import app.PanelAlerta;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
-import dto.DTOBuscarTitular;
+import dto.DTOGestionTitular;
 import dto.DTOModificarTitular;
 import enumeration.*;
-import hibernate.DAO;
-import model.Licencia;
 import model.Titular;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -30,36 +27,37 @@ public class GestorTitular {
         return instanciaGestor;
     }
 
+    /** Registra el titular en la base de datos según los datos obtenidos del formulario */
     public boolean registrarTitular(DTOAltaTitular dto){
-
-        if (titularExistente(dto.getDNI(), dto.getTipoDNI())) {
-            return false;
-        } else {
-            Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
-                    dto.getFechaNacimiento(), dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
-            return DAO.get().save(titular);}
+      Titular titular = new Titular(dto.getTipoDNI(), dto.getDNI(), dto.getApellido(), dto.getNombre(),
+      dto.getFechaNacimiento(),dto.getCalle() ,dto.getNumeroCalle(),dto.getGrupoSanguineo(), dto.getFactorRH(), dto.getDonanteOrganos(), dto.getSexo());
+      try {
+          daoTitular.save(titular);
+          return true;
+      } catch (Exception e) {
+                return false;
+      }
 
     }
 
-    //Metodo para verificar que exista en la base de datos un titular con el mismo dni y tipo de dni
+    /** Método para verificar que exista en la base de datos un titular con el mismo dni y tipo de dni */
     public boolean titularExistente(String dni, EnumTipoDocumento tipo){
-
         String consulta= "select count(distinct id_titular) from titular t WHERE t.DNI = " + dni  + " AND t.tipo_dni = " + "'" +tipo+"'";
-        Integer existenciaTitular= DAO.get().getCantidad(consulta);
+        Integer existenciaTitular = 0;
+        try {
+            existenciaTitular = daoTitular.getCantidad(consulta);
+        } catch (Exception ignored) { }
 
         return existenciaTitular != 0;
     }
 
-    @SuppressWarnings("unchecked")
-    public static ArrayList<Licencia> getHistorialLicencias(Integer idTitular){
-        return (ArrayList<Licencia>) DAO.get().getResultList("select l from Licencia l where l.titular="+idTitular, Licencia.class);
-    }
-
+    /** Obtiene la cantidad de años, según la fecha de nacimiento */
     public static Integer getEdad(LocalDate fechaNacimiento){
         LocalDate today = LocalDate.now();
         return Period.between(fechaNacimiento, today).getYears();
     }
 
+    /** Obtiene el titular a partir del id de la base de datos */
     public Titular getTitular(Integer idTitular)  {
         try {
             return daoTitular.findById(idTitular);
@@ -68,10 +66,18 @@ public class GestorTitular {
             return null;
         }
     }
+    public void updateTitular(Titular titular) throws Exception {
+        daoTitular.update(titular);
+    }
 
+    /** Actualiza el titular en la base de datos */
+    public static void ModificarTitular(DTOModificarTitular titular) throws Exception {
+        daoTitular.actualizarTitular(titular);
+    }
 
-
-    public List<DTOBuscarTitular> searchTitular(DTOBuscarTitular argumentosBuscar) {
+    /** Buscar los titulares que coincidan con los argumentos pasados como párametros y crea una lista de
+        DTOs en base a ellos. */
+    public List<DTOGestionTitular> searchTitular(DTOGestionTitular argumentosBuscar) {
         String argumentos = "";
 
         boolean first = true;
@@ -137,7 +143,6 @@ public class GestorTitular {
         try {
             if(!first) return daoTitular.createListDTOBuscarTitular(" WHERE " + argumentos);
             else return daoTitular.createListDTOBuscarTitular("");
-
         }
         catch (Exception e){
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
@@ -145,4 +150,10 @@ public class GestorTitular {
         }
 
     }
+
+    public LocalDate getFechaMinima(){
+        //ToDo implementar
+        return LocalDate.now();
+    }
+
 }

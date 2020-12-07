@@ -15,124 +15,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerImprimirLicencia">
    <children>
-      <ImageView fitHeight="900.0" fitWidth="1010.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="700.0" fitWidth="1010.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="600.0" layoutY="348.0" mnemonicParsing="false" onAction="#imprimirLicencia" text="Imprimir Licencia" />
-      <AnchorPane fx:id="paneLicencia" layoutX="27.0" layoutY="332.0" prefHeight="190.0" prefWidth="453.0" visible="false">
-         <children>
-            <AnchorPane fx:id="paneFrente" prefHeight="223.0" prefWidth="424.0">
-               <children>
-                  <ImageView fx:id="imagenLic" fitHeight="300.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Imagenes/licencia_frente.jpg" />
-                     </image>
-                  </ImageView>
-                  <VBox layoutX="124.0" layoutY="46.0" prefHeight="138.0" prefWidth="156.0">
-                     <children>
-                        <HBox prefHeight="13.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Licencia n°" wrappingWidth="54.93359375" />
-                              <Text fx:id="textL" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextL" wrappingWidth="67.6708984375" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="13.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Apellido" wrappingWidth="53.238922119140625" />
-                              <Text fx:id="textA" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextA" wrappingWidth="66.56413269042969" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Sexo" wrappingWidth="30.324554443359375" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextS" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="13.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Nombre" wrappingWidth="53.20475769042969" />
-                              <Text fx:id="textN" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextN" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="16.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Fecha Nac." wrappingWidth="55.5732421875" />
-                              <Text fx:id="textFN" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextFN" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="19.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Domicilio" wrappingWidth="56.983734130859375" />
-                              <Text fx:id="textC" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextC" wrappingWidth="49.97200012207031" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextNC" wrappingWidth="48.785797119140625" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="16.0" prefWidth="123.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Nacionalidad" wrappingWidth="65.25814819335938" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="ARGENTINA" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="22.0" prefWidth="156.0">
-                           <children>
-                              <Text fill="#e80404" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Clase" wrappingWidth="39.840484619140625" />
-                              <Text fx:id="textClase" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextClase" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="VTO." wrappingWidth="56.49055480957031" />
-                              <Text fx:id="textFV" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextFV" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <Button layoutX="32.0" layoutY="71.0" maxHeight="20.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-font-size: 8;" text="Añadir Foto" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="paneDorso" layoutX="14.0" layoutY="12.0" prefHeight="200.0" prefWidth="302.0" visible="false">
-               <children>
-                  <ImageView fitHeight="300.0" fitWidth="350.0" layoutX="-14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Imagenes/licencia_dorso.jpg" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="11.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Observaciones" />
-                  <HBox layoutX="90.0" layoutY="77.0" prefHeight="56.0" prefWidth="232.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Donante" wrappingWidth="45.8955078125" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextDon" wrappingWidth="53.9775390625" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Grupo Y Factor" wrappingWidth="75.0546875" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textg" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textfact" />
-                     </children>
-                  </HBox>
-                  <Text layoutX="11.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textobser" />
-                  <Text layoutX="96.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextDescripClase" />
-               </children>
-            </AnchorPane>
-            <Text fx:id="dorso" disable="true" fill="WHITE" layoutX="363.0" layoutY="37.0" onMouseClicked="#ondorsoButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Dorso" underline="true" visible="false" />
-            <Text fx:id="frente" disable="true" fill="WHITE" layoutX="363.0" layoutY="64.0" onMouseClicked="#onfrenteButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Frente" underline="true" visible="false" />
-         </children>
-      </AnchorPane>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Buscar Licencia a Imprimir" />
       <Separator layoutX="386.0" layoutY="30.0" prefHeight="4.0" prefWidth="493.0" style="-fx-background: white;" />
-      <GridPane alignment="CENTER_RIGHT" layoutX="48.0" layoutY="54.0" prefHeight="87.0" prefWidth="696.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" maxWidth="150.0" minWidth="78.33333587646484" prefWidth="132.33334350585938" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="224.33334350585938" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="117.33331298828125" />
+      <GridPane alignment="CENTER_RIGHT" layoutX="38.0" layoutY="55.0" prefHeight="111.0" prefWidth="737.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" maxWidth="163.0" minWidth="78.33333587646484" prefWidth="163.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.66666412353516" minWidth="10.0" prefWidth="223.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="119.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="223.66668701171875" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
-        </rowConstraints>
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="30.99999237060547" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="127.00000762939453" minHeight="10.0" prefHeight="37.33332824707031" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
             <TextField fx:id="campoId" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id correspondiente" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="3" />
             <Label text="Id Licencia:" textAlignment="CENTER" GridPane.columnIndex="2">
@@ -153,28 +60,85 @@
             </Label>
             <DatePicker fx:id="campoFecha" maxWidth="200.0" minHeight="25.0" minWidth="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button maxWidth="120.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#buscarTitular" prefHeight="30.0" prefWidth="80.0" style="-fx-font-size: 14;" text="Buscar Titular" />
-            <TextField fx:id="campoTitular" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Escriba Id o busque Titular" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
+            <TextField fx:id="campoTitular" disable="true" maxWidth="200.0" minHeight="25.0" minWidth="20.0" promptText="Busque Titular o ingrese Id" style="-fx-background-color: e7e7e7;" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Button layoutX="784.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscarLicencia" text="Buscar" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="143.0" prefHeight="156.0" prefWidth="972.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
+      <ScrollPane layoutX="19.0" layoutY="172.0" prefHeight="246.0" prefWidth="972.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
          <content>
-            <TableView fx:id="tabla" prefHeight="190.0" prefWidth="965.0">
-              <columns>
-                <TableColumn fx:id="columnaId" prefWidth="63.0" text="Id" />
-                <TableColumn fx:id="columnaTitular" prefWidth="152.3333282470703" text="Titular" />
-                  <TableColumn fx:id="columnaClase" prefWidth="89.33334350585938" text="Clase" />
-                  <TableColumn fx:id="columnaFecha" prefWidth="189.66665649414062" text="Fecha Emisión" />
-                  <TableColumn fx:id="columnaVenc" prefWidth="218.99996948242188" text="Fecha Vencimiento" />
-                  <TableColumn fx:id="columnaObser" prefWidth="248.0" text="Observaciones" />
-              </columns>
+            <TableView fx:id="tabla" prefHeight="244.0" prefWidth="965.0">
+               <columns>
+                  <TableColumn fx:id="columnaId" prefWidth="63.0" text="Id" />
+                  <TableColumn fx:id="columnaTitular" prefWidth="86.0" text="Titular" />
+                  <TableColumn fx:id="columnaClase" prefWidth="113.0" text="Clase" />
+                  <TableColumn fx:id="columnaFecha" prefWidth="175.0" text="Fecha Emisión" />
+                  <TableColumn fx:id="columnaVenc" prefWidth="193.0" text="Fecha Vencimiento" />
+                  <TableColumn fx:id="columnaObser" prefWidth="271.0" text="Observaciones" />
+                  <TableColumn fx:id="columnaCosto" prefWidth="62.0" text="Costo" />
+               </columns>
             </TableView>
          </content>
       </ScrollPane>
       <ImageView fitHeight="56.0" fitWidth="83.0" layoutX="919.0" layoutY="485.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/icons8_undo_52px.png" />
+            <Image url="@../imagenes/icons8_undo_52px.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="paneLicencia" layoutX="142.0" layoutY="12.0" prefHeight="557.0" prefWidth="700.0" visible="false">
+         <children>
+            <Pane layoutX="-3.0" layoutY="-7.0" prefHeight="561.0" prefWidth="695.0" style="-fx-background-color: black;">
+               <children>
+                  <Pane layoutX="6.0" layoutY="3.0" prefHeight="554.0" prefWidth="684.0" style="-fx-background-color: #00427f;">
+                     <children>
+                        <VBox alignment="CENTER" layoutX="441.0" layoutY="28.0" prefHeight="190.0" prefWidth="230.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="20.0" visible="false" />
+                              <Button fx:id="imprimirLic" mnemonicParsing="false" onAction="#imprimirLicencia" text="Imprimir Licencia" />
+                              <Separator orientation="VERTICAL" prefHeight="50.0" visible="false" />
+                              <Button fx:id="imprimirComprobante" mnemonicParsing="false" onAction="#ButtonComprobante" text="Imprimir Comprobante" />
+                              <Separator orientation="VERTICAL" prefHeight="50.0" visible="false" />
+                              <Button mnemonicParsing="false" onAction="#cerrar" text="Cerrar" textAlignment="CENTER" />
+                           </children>
+                        </VBox>
+                        <AnchorPane fx:id="paneTar" layoutX="9.0" layoutY="6.0" prefHeight="540.0" prefWidth="415.0">
+                           <children>
+                              <ImageView fx:id="imagenLic" fitHeight="612.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/licencia.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="textDescripC" layoutX="36.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextDescripClase" wrappingWidth="330.0000033378601" />
+                              <Text fx:id="textDondante" layoutX="141.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="TextDon" wrappingWidth="45.498047061264515" />
+                              <Text fx:id="textF" layoutX="330.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textfact" wrappingWidth="49.94531139358878" />
+                              <Text fx:id="textG" layoutX="304.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textg" wrappingWidth="25.3359375" />
+                              <Text fx:id="textIdTitular" layoutX="155.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextIdTitular" />
+                              <Text fx:id="textObser" layoutX="67.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Textobser" wrappingWidth="107.00000196695328" />
+                              <Button layoutX="32.0" layoutY="126.0" maxHeight="20.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-font-size: 8;" text="Añadir Foto" />
+                              <Text fx:id="textL" layoutX="155.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextL" wrappingWidth="67.6708984375" />
+                              <Text fx:id="textA" layoutX="155.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextA" wrappingWidth="66.56413269042969" />
+                              <Text fx:id="textN" layoutX="156.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextN" />
+                              <Text fx:id="textFN" layoutX="165.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFN" />
+                              <Text fx:id="textFV" fill="RED" layoutX="312.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFV" />
+                              <Text fx:id="textClase" fill="RED" layoutX="350.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextClase" />
+                              <Text fx:id="textFE" layoutX="155.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="TextFE" />
+                              <Text layoutX="353.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="Sexo / Sex" />
+                              <Text fx:id="textS" layoutX="351.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TextS" />
+                              <Text fx:id="textC" layoutX="161.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Text" />
+                              <Text fx:id="textNC" layoutX="199.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Text" />
+                           </children>
+                        </AnchorPane>
+                        <ImageView fitHeight="144.0" fitWidth="158.0" layoutX="493.0" layoutY="258.0" opacity="0.73" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/santafe.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="500.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20;" text="Importe Total:" />
+                        <Text fx:id="textCosto" fill="WHITE" layoutX="515.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="TextCosto" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

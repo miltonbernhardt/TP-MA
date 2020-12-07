@@ -1,6 +1,6 @@
 package app;
 
-import dto.DTOBuscarTitular;
+import dto.DTOGestionTitular;
 import dto.DTOModificarTitular;
 import enumeration.*;
 import gestor.GestorTitular;
@@ -8,14 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControllerModificarTitular{
@@ -58,7 +56,7 @@ public class ControllerModificarTitular{
         instance = null;
     }
 
-    public void seleccionarTitular(DTOBuscarTitular dtoTitular) {
+    public void seleccionarTitular(DTOGestionTitular dtoTitular) {
         this.dto = new DTOModificarTitular();
         dto.setId(dtoTitular.getIdTitular());
         dto.setNombre(dtoTitular.getNombre());
@@ -81,11 +79,10 @@ public class ControllerModificarTitular{
         radioButtonDonante.setSelected(dto.getDonante());
     }
 
-    public void modificarTitular(){
+    public void modificarTitular() throws Exception {
         if(dto != null){
             if(campoNombre.getText().isEmpty() || campoApellido.getText().isEmpty() || campoDireccion.getText().isEmpty() || campoDireccionNumero.getText().isEmpty()){
-                System.out.println("No puede haber campos vacios");
-                //todo mostrar una ventana diciendo que no pueden existir campos vacios
+                PanelAlerta.get(EnumTipoAlerta.ERROR,"Faltan Campos","","No pueden existir campos vacios del titular, vuelva a completar los campos faltantes.",null);
             } else{
                 dto.setNombre(campoNombre.getText());
                 dto.setApellido(campoApellido.getText());
@@ -95,10 +92,23 @@ public class ControllerModificarTitular{
                 dto.setDonante(radioButtonDonante.isSelected());
                 //todo crear metodo para realizar un update en la base de datos con el dto, mostrar una ventana consultando si esta seguro de la modificacion
                 // y si acepta que, muestre otra ventana diciendo si se realizo correctamente o no y que vuelva para atras.
+                Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+                        "Confirmar selección del titular",
+                        "",
+                        "¿Está seguro de actualizar esta información?",
+                        null);
+                if (result.orElse(null) == ButtonType.OK) {
+                    try {
+                        GestorTitular.ModificarTitular(dto);
+                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Modificación", "", "Se pudo realizar la modificacion correctamente", null);
+                        volver();
+                    } catch (Exception e){
+                        PanelAlerta.get(EnumTipoAlerta.EXCEPCION, "Error", "", "No see pudo realizar la modificacion correctamente", e);
+                    }
+                }
             }
         }else {
-            //todo mostrar una ventana diciendo que se necesita seleccionar un titular primero
-            System.out.println("estoy vacio");
+            PanelAlerta.get(EnumTipoAlerta.ERROR,"Seleccione un titular","","Debe seleccionar un titular para modificar, en caso de querer dar de alta un nuevo titular, vuelva a la pantalla anterior.",null);
         }
     }
     //verificar campos solo letras, consume las entradas no validas

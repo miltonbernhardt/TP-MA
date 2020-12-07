@@ -18,12 +18,13 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
+
     @Override
     public List<DTOImprimirLicencia> createListDTOimprimirLic(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , t.id ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones) FROM Licencia l, Titular t "
+        String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , t.id ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones, l.costo) FROM Licencia l, Titular t "
                 + argumentos+ " ORDER BY l.id ASC ";
 
         System.out.println("ultima consulta es"  + consulta);
@@ -37,24 +38,30 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
         }
     }
 
-        public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
+    @Override
+    public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s) {
+        return null;
+    }
 
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
+    /* @Override
+         public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String argumentos) {
 
-            String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones) FROM Licencia l , Titular t"
-                    + argumentos+ " ORDER BY l.id ASC ";
+             session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-            System.out.println("ultima consulta es"  + consulta);
-            try {
-                if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
-                    session.beginTransaction();
-                return session.createQuery(consulta, DTOImprimirLicencia.class).getResultList();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                throw exception;
-            }
-        }
+             String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , l.titular ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones , ) FROM Licencia l , Titular t"
+                     + argumentos+ " ORDER BY l.id ASC ";
 
+             System.out.println("ultima consulta es"  + consulta);
+             try {
+                 if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
+                     session.beginTransaction();
+                 return session.createQuery(consulta, DTOImprimirLicencia.class).getResultList();
+             } catch (Exception exception) {
+                 exception.printStackTrace();
+                 throw exception;
+             }
+         }
+ */
     public static List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String argumentos) {
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -73,4 +80,4 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
     }
 
 
-}
+        }

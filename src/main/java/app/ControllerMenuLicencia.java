@@ -1,6 +1,5 @@
 package app;
 
-import dto.DTOAltaTitular;
 import javafx.fxml.FXML;
 
 public class ControllerMenuLicencia {
@@ -15,9 +14,15 @@ public class ControllerMenuLicencia {
         }
         return instance;
     }
+
     @FXML
     private void emitirLicencia() {
-        ControllerEmitirLicencia.get();
+        ControllerGestionLicencia.get(true);
+    }
+
+    @FXML
+    private void renovarLicencia() {
+        ControllerGestionLicencia.get(false);
     }
 
     @FXML

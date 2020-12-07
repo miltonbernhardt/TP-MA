@@ -49,6 +49,22 @@ public class Titular {
         this.sexo = sexo;
     }
 
+    public Titular(EnumTipoDocumento tipoDNI, String dni, String apellido, String nombre, LocalDate fechaNacimiento, String calle, Integer numeroCalle, EnumGrupoSanguineo grupoSanguineo, EnumFactorRH factorRH, Boolean donanteOrganos, EnumSexo sexo) {
+        this.licencias = new ArrayList<>();
+        this.tipoDNI = tipoDNI;
+        this.DNI = dni;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.grupoSanguineo = grupoSanguineo;
+        this.factorRH = factorRH;
+        this.donanteOrganos = donanteOrganos;
+        this.sexo = sexo;
+        this.calle=calle;
+        this.numeroCalle =numeroCalle;
+
+    }
+
     public List<Licencia> getLicencias() {
         return licencias;
     }
