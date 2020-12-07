@@ -7,22 +7,22 @@ import java.time.LocalDate;
 
 public class DTOLicenciaExpirada {
 
-    private String id; // nroLicencia
+    private int id; // nroLicencia
     private String apellido;
     private String nombre;
-    private String tipoDNI;
+    private EnumTipoDocumento tipoDNI;
     private String DNI;
-    private String claseLicencia;
-    private String fechaVencimiento;
+    private EnumClaseLicencia claseLicencia;
+    private LocalDate fechaVencimiento;
     private boolean rangofechas;
-    private String fechaInicial;
-    private String fechaFinal;
+    private LocalDate fechaInicial;
+    private LocalDate fechaFinal;
     private boolean ordenamientoDescendente;
 
 
     public DTOLicenciaExpirada() {
 //l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento
-        this.id = null;
+        this.id = 0;
         this.apellido = null;
         this.nombre = null;
         this.tipoDNI = null ;
@@ -35,7 +35,7 @@ public class DTOLicenciaExpirada {
         this.ordenamientoDescendente = false;
     }
 
-    public DTOLicenciaExpirada(String idLicencia, String apellido, String nombre, String tipoDNI, String dni, String claseLicencia, String fechaVencimiento){
+    public DTOLicenciaExpirada(int idLicencia, String apellido, String nombre, EnumTipoDocumento tipoDNI, String dni, EnumClaseLicencia claseLicencia, LocalDate fechaVencimiento){
 
         this.id = idLicencia;
         this.apellido = apellido;
@@ -46,11 +46,11 @@ public class DTOLicenciaExpirada {
         this.claseLicencia = claseLicencia;
 
     }
-    public String getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(String fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
     public boolean isRangofechas() {
@@ -61,11 +61,11 @@ public class DTOLicenciaExpirada {
         this.rangofechas = rangofechas;
     }
 
-    public String getTipoDNI() {
+    public EnumTipoDocumento getTipoDNI() {
         return tipoDNI;
     }
 
-    public void setTipoDNI(String tipoDNI) {
+    public void setTipoDNI(EnumTipoDocumento tipoDNI) {
         this.tipoDNI = tipoDNI;
     }
 
@@ -93,35 +93,35 @@ public class DTOLicenciaExpirada {
         this.nombre = nombre;
     }
 
-    public String getNroLicencia() {
+    public int getNroLicencia() {
         return id;
     }
 
-    public void setNroLicencia(String nroLicencia) {
+    public void setNroLicencia(int nroLicencia) {
         this.id = nroLicencia;
     }
 
-    public String getClaseLicencia() {
+    public EnumClaseLicencia getClaseLicencia() {
         return claseLicencia;
     }
 
-    public void setClaseLicencia(String claseLicencia) {
+    public void setClaseLicencia(EnumClaseLicencia claseLicencia) {
         this.claseLicencia = claseLicencia;
     }
 
-    public String getFechaInicial() {
+    public LocalDate getFechaInicial() {
         return fechaInicial;
     }
 
-    public void setFechaInicial(String fechaInicial) {
+    public void setFechaInicial(LocalDate fechaInicial) {
         this.fechaInicial = fechaInicial;
     }
 
-    public String getFechaFinal() {
+    public LocalDate getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(String fechaFinal) {
+    public void setFechaFinal(LocalDate fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 

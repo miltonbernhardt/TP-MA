@@ -1,6 +1,7 @@
 package app;
 
 
+import dto.DTOBuscarTitular;
 import dto.DTOLicenciaExpirada;
 
 import enumeration.EnumClaseLicencia;
@@ -11,13 +12,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.awt.*;
 import java.net.URL;
 
 import java.time.LocalDate;
@@ -47,6 +49,16 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     @FXML private TextField campoNroLicencia;
     @FXML private CheckBox filtrarPorRangoFecha;
     @FXML private CheckBox ordenarDesc;
+
+    @FXML private TableView<DTOLicenciaExpirada> tabla;
+
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaNombre;
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaApellido;
+    @FXML private TableColumn<DTOLicenciaExpirada, LocalDate> columnaFechaVencimiento;
+    @FXML private TableColumn<DTOLicenciaExpirada, Integer> columnaTipoDocumento;
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaDocumento;
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaNroLicencia;
+    @FXML private TableColumn<DTOLicenciaExpirada, String> columnaClaseLicencia;
 
     @FXML
     private void volver(){
@@ -83,7 +95,17 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         CBTipoDNI.setPromptText("Tipo Doc.");
         CBTipoDNI.getItems().setAll(EnumTipoDocumento.values());
 
+        iniciarTabla();
 
+    }
+
+    private void cargarTabla(List<DTOLicenciaExpirada> lista) {
+        tabla.getItems().clear();
+        for(DTOLicenciaExpirada dto:lista){
+            String nroLicencia = String.valueOf(dto.getNroLicencia());
+            tabla.getItems().add(dto);
+
+        }
     }
 
     public void buscarLicencias(){
@@ -93,20 +115,21 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
 
         DTOLE.setApellido(campoApe.getText());
         DTOLE.setNombre(campoNombre.getText());
-        if(CBClaseLicencia.getValue() != null) DTOLE.setClaseLicencia(CBClaseLicencia.getValue().getValue());
-        else DTOLE.setClaseLicencia("");
-        if (CBTipoDNI.getValue() != null) DTOLE.setTipoDNI(CBTipoDNI.getValue().getValue());
-        else DTOLE.setTipoDNI("");
+        if(CBClaseLicencia.getSelectionModel().getSelectedItem() != null) DTOLE.setClaseLicencia(CBClaseLicencia.getValue());
+        else DTOLE.setClaseLicencia(null);
+        if (CBTipoDNI.getSelectionModel().getSelectedItem() != null) DTOLE.setTipoDNI(CBTipoDNI.getValue());
+        else DTOLE.setTipoDNI(null);
 
         DTOLE.setDNI(campoDoc.getText());
-        DTOLE.setNroLicencia(campoNroLicencia.getText());
-        DTOLE.setFechaInicial(campoFechaInicial.getValue().toString());
-        DTOLE.setFechaFinal(campoFechaFinal.getValue().toString());
-        //DTOLE.setOrdenamientoDescendente(ordenarDesc.isSelected());
+        if (campoNroLicencia.getText().equals("")) DTOLE.setNroLicencia(0);
+        else DTOLE.setNroLicencia(Integer.valueOf(campoNroLicencia.getText()));
+        DTOLE.setFechaInicial(campoFechaInicial.getValue());
+        DTOLE.setFechaFinal(campoFechaFinal.getValue());
+        DTOLE.setOrdenamientoDescendente(ordenarDesc.isSelected());
 
         List<DTOLicenciaExpirada> resultado = GestorLicencia.obtenerListadoLicenciasExpiradas(DTOLE);
 
-
+        this.cargarTabla(resultado);
 
     }
     //verificar campos solo letras, consume las entradas no validas
@@ -163,5 +186,16 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         }
     };
 
+    private void iniciarTabla() {
+        tabla.setPlaceholder(new Label("No hay licencias que mostrar."));
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        columnaFechaVencimiento.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
+        columnaTipoDocumento.setCellValueFactory(new PropertyValueFactory<>("tipoDNI"));
+        columnaDocumento.setCellValueFactory(new PropertyValueFactory<>("DNI"));
+        columnaNroLicencia.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnaClaseLicencia.setCellValueFactory(new PropertyValueFactory<>("claseLicencia"));
+
+    }
 
 }

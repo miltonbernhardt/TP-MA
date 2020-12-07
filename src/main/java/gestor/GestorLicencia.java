@@ -14,6 +14,7 @@ import model.Licencia;
 import model.Titular;
 import model.Vigencia;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -357,7 +358,6 @@ public class GestorLicencia {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
-
     }
 
     private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
@@ -367,17 +367,18 @@ public class GestorLicencia {
 
 
         if(filtro.isRangofechas()){
-            consulta = consulta + " WHERE DATE(fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
-        } else if(!filtro.getFechaInicial().isEmpty()){
-            consulta = consulta + " WHERE DATE(fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
+            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+        } else if(filtro.getFechaInicial() != null){
+            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
         } else{
-            consulta = consulta + " WHERE DATE(fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
         }
 
-        if(!filtro.getNroLicencia().equals("")){
+        if(filtro.getNroLicencia() != 0 ){
             consulta += " AND l.id = " + filtro.getNroLicencia();
         }
-        if (!filtro.getClaseLicencia().equals("") ){
+        if (filtro.getClaseLicencia() != null ){
             consulta += " AND l.claseLicencia = '" + filtro.getClaseLicencia() + "'";
         }
         if (!filtro.getApellido().equals("")){
@@ -386,7 +387,7 @@ public class GestorLicencia {
         if (!filtro.getNombre().equals("")){
             consulta += " AND t.nombre LIKE '% " + filtro.getNombre() + " %'";
         }
-        if (!filtro.getTipoDNI().equals("")){
+        if (filtro.getTipoDNI() !=null){
             consulta += " AND t.tipoDNI = '" + filtro.getTipoDNI() + "'";
         }
         if (!filtro.getDNI().equals("")){

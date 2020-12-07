@@ -59,7 +59,7 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        String consulta = "SELECT new dto.DTOLicenciaExpirada(l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento) FROM Licencia l JOIN  Titular t ON (l.id = t.id)"
+        String consulta = "SELECT new dto.DTOLicenciaExpirada(l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento) FROM Licencia as l, Titular as t "
                 + argumentos;
         System.out.println("ultima consulta es"  + consulta);
         try {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,6 +14,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="495.0" prefWidth="875.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerListadoLicenciasExpiradas">
    <children>
@@ -20,17 +23,24 @@
             <Image url="@../Imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <TableView layoutX="23.0" layoutY="256.0" prefHeight="239.0" prefWidth="956.0">
-        <columns>
-          <TableColumn prefWidth="105.0" text="N° Licencia" />
-          <TableColumn minWidth="0.0" prefWidth="180.0" text="Apellido" />
-            <TableColumn prefWidth="188.0" text="Nombre" />
-            <TableColumn prefWidth="83.0" text="Tipo Doc" />
-            <TableColumn prefWidth="144.0" text="N° Documento" />
-            <TableColumn prefWidth="109.0" text="Clase Licencia" />
-            <TableColumn prefWidth="146.0" text="Fecha vencimiento" />
-        </columns>
-      </TableView>
+       <ScrollPane layoutX="24.0" layoutY="266.0" prefHeight="239.0" prefWidth="956.0" VBox.vgrow="SOMETIMES">
+           <VBox.margin>
+               <Insets left="15.0" right="15.0" />
+           </VBox.margin>
+         <content>
+          <TableView fx:id="tabla" prefHeight="239.0" prefWidth="956.0">
+            <columns>
+                <TableColumn fx:id="columnaNroLicencia" prefWidth="105.0" text="N° Licencia" />
+                <TableColumn fx:id="columnaApellido" minWidth="0.0" prefWidth="160.0" text="Apellido" />
+                <TableColumn fx:id="columnaNombre" prefWidth="172.0" text="Nombre" />
+                <TableColumn fx:id="columnaTipoDocumento" prefWidth="106.0" text="Tipo Doc" />
+                <TableColumn fx:id="columnaDocumento" prefWidth="135.0" text="N° Documento" />
+                <TableColumn fx:id="columnaClaseLicencia" prefWidth="90.0" text="Clase " />
+                <TableColumn fx:id="columnaFechaVencimiento" prefWidth="187.0" text="Fecha vencimiento" />
+            </columns>
+          </TableView>
+         </content>
+       </ScrollPane>
       <Label layoutX="287.0" layoutY="96.0" prefHeight="21.0" prefWidth="90.0" text="Fecha inicial" />
       <Label layoutX="567.0" layoutY="95.0" prefHeight="21.0" prefWidth="77.0" text="Fecha final" />
       <Label layoutX="568.0" layoutY="155.0" text="N° Licencia" />
@@ -40,7 +50,7 @@
       <Label layoutX="287.0" layoutY="207.0" text="N° Documento" />
       <Label layoutX="568.0" layoutY="210.0" text="Clase Licencia" />
       <CheckBox fx:id="ordenarDesc" layoutX="926.0" layoutY="228.0" mnemonicParsing="false" text="Z-A" />
-      <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Buscar" onMouseClicked="#buscarLicencias"/>
+      <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#buscarLicencias" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
        <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="505.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
            <image>
                <Image url="@../Imagenes/icons8_undo_52px_4.png" />
