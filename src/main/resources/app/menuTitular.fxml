@@ -5,93 +5,131 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerMenuTitular">
-        <children>
-            <ImageView fitHeight="700.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+<StackPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerMenuTitular">
+   <children>
+            <ImageView fitHeight="562.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../imagenes/principal.jpg" />
                 </image>
             </ImageView>
-      <SubScene height="359.0" layoutX="73.0" layoutY="56.0" opacity="0.3" width="853.0">
-        <root>
-          <Region />
-        </root>
-      </SubScene>
-            <HBox layoutX="1.0" layoutY="81.0" prefHeight="327.0" prefWidth="996.0">
-                <children>
-                    <Separator prefWidth="110.0" visible="false" />
-                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#buscarTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Buscar Titular" textAlignment="CENTER" wrapText="true">
-                        <HBox.margin>
-                            <Insets />
-                        </HBox.margin>
-                        <graphic>
-                            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                <viewport>
-                                    <Rectangle2D />
-                                </viewport>
-                     <image>
-                        <Image url="@../imagenes/zoom-128.png" />
-                     </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Separator prefWidth="45.0" visible="false" />
-                    <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Titular" textAlignment="CENTER" wrapText="true">
-                        <graphic>
-                            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/business_add.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Separator prefWidth="45.0" visible="false" />
-                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" stylesheets="@../css/styles.css" text="Editar Titular" textAlignment="CENTER" wrapText="true">
-                        <graphic>
-                            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/icons8_registration_60px.png" />
-                     </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Separator prefWidth="45.0" visible="false" />
-                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Titular" textAlignment="CENTER" wrapText="true">
-                        <graphic>
-                            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/icons8_remove_user_group_man_man_100px.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Separator prefWidth="110.0" visible="false" />
-                </children>
+      <VBox alignment="CENTER" StackPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                        <ImageView fitHeight="133.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../imagenes/santafe.png" />
+                            </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Titular" underline="true" wrappingWidth="335.53662109375">
+                            <cursor>
+                                <Cursor fx:constant="TEXT" />
+                            </cursor>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                        </Text>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
-            <ImageView fitHeight="133.0" fitWidth="89.0" layoutX="40.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../imagenes/santafe.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="imageButton" fitHeight="60.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
-                <image>
-                    <Image url="@../imagenes/icons8_undo_52px.png" />
-                </image>
-            </ImageView>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="146.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35;" text="Gestión de Titular" underline="true" wrappingWidth="335.53662109375">
-                <cursor>
-                    <Cursor fx:constant="TEXT" />
-                </cursor>
-            </Text>
-        </children>
-
-
-</AnchorPane>
+            <Pane VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Pane>
+            <StackPane>
+               <children>
+                  <SubScene height="340.0" opacity="0.3" width="960.0">
+                    <root>
+                      <Region />
+                    </root>
+                  </SubScene>
+                        <HBox alignment="CENTER" focusTraversable="true" spacing="70.0">
+                            <children>
+                                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#buscarTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Buscar Titular" textAlignment="CENTER" wrapText="true">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                    <graphic>
+                                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                            <viewport>
+                                                <Rectangle2D />
+                                            </viewport>
+                                 <image>
+                                    <Image url="@../imagenes/zoom-128.png" />
+                                 </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" onAction="#darAltaTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Alta Titular" textAlignment="CENTER" wrapText="true">
+                                    <graphic>
+                                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../imagenes/business_add.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" stylesheets="@../css/styles.css" text="Editar Titular" textAlignment="CENTER" wrapText="true">
+                                    <graphic>
+                                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/icons8_registration_60px.png" />
+                                 </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" disable="true" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" text="Baja Titular" textAlignment="CENTER" wrapText="true">
+                                    <graphic>
+                                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../imagenes/icons8_remove_user_group_man_man_100px.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+               </children>
+            </StackPane>
+            <Pane VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Pane>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                        <ImageView fx:id="imageButton" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../imagenes/icons8_undo_52px.png" />
+                            </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                        </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+         <StackPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </StackPane.margin>
+      </VBox>
+   </children>
+</StackPane>

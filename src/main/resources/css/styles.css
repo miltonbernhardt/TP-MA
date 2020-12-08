@@ -50,7 +50,7 @@
 }
 
 .button:hover{
-    -fx-opacity: 0.50;
+    -fx-opacity: 0.80;
 }
 
 .button:focused{

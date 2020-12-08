@@ -6,7 +6,6 @@ public class ControllerMenuUsuario {
 
     private static ControllerMenuUsuario instance = null;
 
-
     public static ControllerMenuUsuario get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
@@ -20,5 +19,4 @@ public class ControllerMenuUsuario {
         ControllerApp.getViewAnterior();
         instance = null;
     }
-
 }

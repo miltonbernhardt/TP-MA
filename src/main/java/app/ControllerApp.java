@@ -36,9 +36,9 @@ public class ControllerApp extends Application {
         scene = new Scene(Objects.requireNonNull(loadFXML("menuI")));
         primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
-        primaryStage.setMinWidth(1000);
+        primaryStage.setMinWidth(1016);
         primaryStage.setMinHeight(600);
-        primaryStage.setMaxWidth(1000);
+        primaryStage.setMaxWidth(1016);
         primaryStage.setMaxHeight(600);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
@@ -46,10 +46,8 @@ public class ControllerApp extends Application {
         stage = primaryStage;
     }
 
-    /**
-     * Carga el archivo 'fxml' (la vista) en el parent principal.
-     * Se le pasa solo el nombre, sin el '.fxml'.
-     */
+    /** Carga el archivo 'fxml' (la vista) en el parent principal.
+        Se le pasa solo el nombre, sin el '.fxml'. */
     private static Parent loadFXML(String fxml)  {
         fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml + ".fxml"));
         try {
@@ -82,14 +80,13 @@ public class ControllerApp extends Application {
         return fxmlLoader.getController();
     }
 
-
-    //-------------------------- PARA LA NAVEGACIÓN A FUTURO -------------------------------
-
+    /** Guarda la pantalla anterior y su título de ventana */
     static void setViewAnterior() {
         scenesAnteriores.add(stage.getScene().getRoot());
         titulosAnteriores.add(stage.getTitle());
     }
 
+    /** Obtiene la pantalla anterior y su titulo de ventana */
     static void getViewAnterior() {
         int index = scenesAnteriores.size()-1;
         Parent p = null;
@@ -101,35 +98,10 @@ public class ControllerApp extends Application {
             scene.getRoot().requestFocus();
             stage.setTitle(t);
         }catch(Exception e) {
-            scene.setRoot(loadFXML("menu"));
-            scene.getRoot().requestFocus();
-            stage.setTitle("AlChi: Menú");
+            salir();
         }
         scenesAnteriores.remove(p);
         titulosAnteriores.remove(t);
-    }
-
-    static Object getControllerActual() {
-        return fxmlLoader.getController();
-    }
-
-
-    /**
-     * Setea a un nodo con el style de error.
-     * @param nodo elemento de la interfaz a setearle el style de error
-     */
-    public static void setError(Control nodo) {
-        nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("css/error.css");
-    }
-
-    /**
-     * Vuelve un nodo a el style que le corresponde.
-     * @param nodo elemento de la interfaz a setearle el style
-     */
-    static void setValido(Control nodo) {
-        nodo.getStylesheets().clear();
-        nodo.getStylesheets().add("css/styles.css");
     }
 
     public static void setStyle(@SuppressWarnings("exports") DialogPane dialogPane) {

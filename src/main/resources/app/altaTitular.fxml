@@ -18,7 +18,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerAltaTitular">
    <children>
       <ImageView fitHeight="562.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
@@ -219,9 +218,9 @@
                <children>
                   <Button fx:id="Bregistro" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
                   <Pane HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageButton" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagenes/icons8_undo_52px_4.png" />
+                        <Image url="@../imagenes/icons8_undo_52px.png" />
                      </image>
                      <effect>
                         <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />

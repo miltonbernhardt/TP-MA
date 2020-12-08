@@ -6,7 +6,6 @@ public class ControllerMenuTitular {
 
     private static ControllerMenuTitular instance = null;
 
-
     public static ControllerMenuTitular get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
@@ -30,5 +29,4 @@ public class ControllerMenuTitular {
         ControllerApp.getViewAnterior();
         instance = null;
     }
-
 }

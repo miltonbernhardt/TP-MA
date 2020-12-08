@@ -6,7 +6,6 @@ public class ControllerMenuLicencia {
 
     private static ControllerMenuLicencia instance = null;
 
-
     public static ControllerMenuLicencia get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
