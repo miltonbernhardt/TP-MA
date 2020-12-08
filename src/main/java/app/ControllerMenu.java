@@ -20,9 +20,7 @@ public class ControllerMenu {
 
     @FXML private ImageView santaFe;
 
-    /**
-     * Setea como vista principal la información de vigencia
-     */
+    /** Setea como vista principal la información de vigencia */
     public void onRecuerdaButtonClicked(){
         boolean isPresent = panRecuerda.isVisible();
         onlyInfoVisible();
@@ -31,9 +29,7 @@ public class ControllerMenu {
         arrowRecuerda.setVisible(!isPresent);
     }
 
-    /**
-     * Setea como vista principal la información de vigencia
-     */
+    /** Setea como vista principal la información de vigencia */
     public void onVigenciaButtonClicked(){
         boolean isPresent = panVigencia.isVisible();
         onlyInfoVisible();
@@ -42,9 +38,7 @@ public class ControllerMenu {
         arrowVigencia.setVisible(!isPresent);
     }
 
-    /**
-     * Setea como vista principal la información de valores
-     */
+    /** Setea como vista principal la información de valores */
     public void onValorButtonClicked(){
         boolean isPresent = panValor.isVisible();
         onlyInfoVisible();
@@ -53,9 +47,7 @@ public class ControllerMenu {
         arrowValor.setVisible(!isPresent);
     }
 
-    /**
-     * Setea como vista principal la información de requerimientos
-     */
+    /** Setea como vista principal la información de requerimientos */
     public void onRequerimientoButtonClicked(){
         boolean isPresent = panRequerimientos.isVisible();
         onlyInfoVisible();
@@ -64,9 +56,7 @@ public class ControllerMenu {
         arrowRequerimiento.setVisible(!isPresent);
     }
 
-    /**
-     * Setea como vista principal la información de usuario
-     */
+    /** Setea como vista principal la información de usuario */
     public void onUsuarioButtonClicked(){
         boolean isPresent = panUsuarios.isVisible();
         onlyInfoVisible();
@@ -75,9 +65,7 @@ public class ControllerMenu {
         arrowUsuario.setVisible(!isPresent);
     }
 
-    /**
-     * Setea las vistas de información a la vista por default
-     */
+    /** Setea las vistas de información a la vista por default */
     private void onlyInfoVisible(){
         santaFe.setVisible(true);
 

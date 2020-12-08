@@ -44,17 +44,11 @@ public class ControllerAltaTitular{
     public void initialize() {
         DatePickerIniciador.iniciarDatePicker(campoFechaNac);
         listenerTextField();
-        /*campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
-        campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
-        campoCalle.addEventFilter(KeyEvent.ANY, handlerletters);
-        campoDoc.addEventFilter(KeyEvent.ANY, handlerNumbers);
-        campoNumCall.addEventFilter(KeyEvent.ANY, handlerNumbers);*/
 
         CBTipoDNI.setItems(FXCollections.observableArrayList(EnumTipoDocumento.values()));
         CBGsang.setItems(FXCollections.observableArrayList(EnumGrupoSanguineo.values()));
         CBRH.setItems(FXCollections.observableArrayList(EnumFactorRH.values()));
         CBSexo.setItems(FXCollections.observableArrayList(EnumSexo.values()));
-        //campoFechaNac.addEventHandler(KeyEvent.ANY,handdate);
         Bregistro.setDisable(true);
     }
 
@@ -65,70 +59,6 @@ public class ControllerAltaTitular{
         Bregistro.setDisable(isDisable);
     }
 
-    /*
-    EventHandler<KeyEvent> handdate = new EventHandler<KeyEvent>() {
-        public void handle(KeyEvent t) {
-            LocalDate date = campoFechaNac.getValue();
-            System.err.println("Selected date: " + date);
-        }
-    };
-     */
-
-    /*
-    //verificar campos solo letras, consume las entradas no validas
-    EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
-        private boolean willConsume =false;
-        @Override
-        public void handle(KeyEvent event){
-            Object temp0= event.getSource();
-            //una vez que se consume se debe volver a poner en falso, sino seguira consumiendo hasta que
-            //se ingrese un caracter no valido
-            if (willConsume){
-                event.consume();
-                willConsume = false;
-            }
-            String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches(EnumTipoCampo.LETRAS_ACENTOS_2.getValue())&&(event.getCode()!= KeyCode.SPACE)
-                    && ( event.getCode() != KeyCode.SHIFT)) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED){
-                    willConsume = true;
-                }  else if (event.getEventType() == KeyEvent.KEY_RELEASED)  {
-                    willConsume = false;
-                }
-
-            }
-        }
-    };
-
-    //verificar campos solo numeros
-    EventHandler<KeyEvent> handlerNumbers = new EventHandler<KeyEvent>() {
-        private boolean willConsume = false;
-        private int maxLength = 10;
-
-        @Override
-        public void handle(KeyEvent event) {
-            TextField temp = (TextField) event.getSource();
-            if (willConsume) {
-                event.consume();
-
-            }
-            if (!event.getText().matches(EnumTipoCampo.SOLO_NUMEROS.getValue()) && event.getCode() != KeyCode.BACK_SPACE) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-                    willConsume = true;
-                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-                    willConsume = false;
-                }
-            }
-            if (temp.getText().length() > maxLength - 1) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-                    willConsume = true;
-                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-                    willConsume = false;
-                }
-            }
-        }
-    };*/
-
     private void listenerTextField(){
         TextFielIniciador.letrasAcento(campoNombre);
         TextFielIniciador.letrasAcento(campoApe);
@@ -136,7 +66,8 @@ public class ControllerAltaTitular{
         TextFielIniciador.letrasNumero(campoDoc);
         TextFielIniciador.soloNumeros(campoNumCall);
     }
-    /*
+
+    /**
     onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
     GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
     */
