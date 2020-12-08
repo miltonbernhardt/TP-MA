@@ -72,7 +72,7 @@ public class ControllerGestionLicencia {
     }
 
     @FXML
-    public void buscarTitular(){
+    private void buscarTitular(){
         ControllerBuscarTitular.get().setControllerGestionLicencia(this);
     }
 
@@ -131,7 +131,7 @@ public class ControllerGestionLicencia {
 
     @FXML
     private void generarLicencia() {
-        String tituloVentana = "", contenidoMensaje = "", mensajeExito = "", mensajeNoExito = "";
+        String tituloVentana, contenidoMensaje, mensajeExito, mensajeNoExito;
 
         if(emitirLicencia){
             tituloVentana = "Confirmar emisión";
@@ -147,7 +147,7 @@ public class ControllerGestionLicencia {
         }
 
         Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
-        if (result.get() == ButtonType.OK){
+        if (result.orElse(null) == ButtonType.OK) {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 

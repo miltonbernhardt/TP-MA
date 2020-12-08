@@ -150,7 +150,7 @@ public class GestorTitular {
     }
 
     public LocalDate getFechaMinima(){
-        return LocalDate.now().minusYears(15);
+        return LocalDate.now().minusYears(16);
     }
 
 }
