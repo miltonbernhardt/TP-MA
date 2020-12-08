@@ -97,7 +97,7 @@
                               <Insets right="5.0" />
                            </padding>
                         </Label>
-                        <DatePicker fx:id="dateNacimientoInicial" maxWidth="135.0" minHeight="20.0" minWidth="25.0" promptText="dd/mm/aaaa" />
+                        <DatePicker fx:id="dateNacimientoInicial" maxWidth="140.0" minHeight="20.0" minWidth="25.0" promptText="dd/mm/aaaa" />
                      </children>
                   </HBox>
                   <Label text="Fecha nacimiento:" GridPane.rowIndex="3">
@@ -110,7 +110,7 @@
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <DatePicker fx:id="dateNacimientoFinal" maxWidth="135.0" minHeight="20.0" minWidth="25.0" promptText="dd/mm/aaaa" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="dateNacimientoFinal" maxWidth="140.0" minHeight="20.0" minWidth="25.0" promptText="dd/mm/aaaa" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                </children>
                <padding>
                   <Insets left="15.0" right="15.0" />
