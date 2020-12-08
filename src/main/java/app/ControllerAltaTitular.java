@@ -149,15 +149,18 @@ public class ControllerAltaTitular{
 
             if (result.orElse(null) == ButtonType.OK) {
 
-                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17 || GestorTitular.get().getEdad(campoFechaNac.getValue()) > 65) {
+                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17)  {
                     PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
                             "",
-                            "Su titular debe poser al menos de 17 años y como máximo 65 años", null);
+                            "Su titular debe poser al menos de 17 años", null);
                 } else {
-                    if (campoDoc.getLength() != 8) {
-                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
-                                "",
-                                "El numero de Documento es inválido", null);
+                    if (campoDoc.getText() == "DNI") {
+                        if(campoDoc.getLength() != 8) {
+
+                            PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
+                                    "",
+                                    "El numero de Documento es inválido", null);
+                        }
                     } else {
                         if (!GestorTitular.get().titularExistente(campoDoc.getText(), CBTipoDNI.getValue())) {
                             dto = new DTOAltaTitular();

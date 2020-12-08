@@ -103,7 +103,7 @@
                   <Pane HBox.hgrow="SOMETIMES" />
                   <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagenes/icons8_undo_52px_4.png" />
+                        <Image url="@../imagenes/icons8_undo_52px.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

@@ -20,15 +20,15 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Imagenes/principal.jpg" />
+            <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
-       <ScrollPane layoutX="24.0" layoutY="266.0" prefHeight="239.0" prefWidth="956.0" VBox.vgrow="SOMETIMES">
+       <ScrollPane layoutX="24.0" layoutY="266.0" prefHeight="232.0" prefWidth="956.0" VBox.vgrow="SOMETIMES">
            <VBox.margin>
                <Insets left="15.0" right="15.0" />
            </VBox.margin>
          <content>
-          <TableView fx:id="tabla" prefHeight="239.0" prefWidth="956.0">
+          <TableView fx:id="tabla" prefHeight="224.0" prefWidth="956.0">
             <columns>
                 <TableColumn fx:id="columnaNroLicencia" prefWidth="105.0" text="N° Licencia" />
                 <TableColumn fx:id="columnaApellido" minWidth="0.0" prefWidth="160.0" text="Apellido" />
@@ -53,7 +53,7 @@
       <Button layoutX="849.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#buscarLicenciasExpiradas" prefHeight="33.0" prefWidth="125.0" text="Buscar" />
        <ImageView fx:id="imageButton" fitHeight="43.0" fitWidth="47.0" layoutX="931.0" layoutY="505.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
            <image>
-               <Image url="@../Imagenes/icons8_undo_52px_4.png" />
+               <Image url="@../imagenes/icons8_undo_52px.png" />
            </image>
            <effect>
                <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />
