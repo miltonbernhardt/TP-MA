@@ -11,7 +11,7 @@ public interface BaseDAO<T, E extends Serializable> {
      * En caso de fallo lanza una Exception.
      * @param instance entidad a persistir.
      */
-    void save(T instance) throws Exception;
+    Integer save(T instance) throws Exception;
 
     /**
      * "update" actualiza la instancia si está en la base de datos.

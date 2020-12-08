@@ -130,7 +130,7 @@ public class ControllerGestionLicencia {
     }
 
     @FXML
-    private void generarLicencia() {
+    private void generarLicencia() throws MenorDeEdadException {
         String tituloVentana, contenidoMensaje, mensajeExito, mensajeNoExito;
 
         if(emitirLicencia){
@@ -151,17 +151,13 @@ public class ControllerGestionLicencia {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
-            try {
-                //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
-                if(emitirLicencia){
-                    if (GestorLicencia.get().generarLicencia(dto))
-                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
-                    else
-                        PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
-                }
+            //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
+            if(emitirLicencia){
+                if (GestorLicencia.get().generarLicencia(dto))
+                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
+                else
+                    PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
             }
-            catch (MenorDeEdadException e){e.printStackTrace();}
-
             volver();
         }
     }

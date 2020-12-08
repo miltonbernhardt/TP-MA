@@ -19,12 +19,13 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
     }
 
     @Override
-    public void save(T instance) throws HibernateException {
+    public Integer save(T instance) throws HibernateException {
+        Integer id;
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
-            session.save(instance);
+            id = (Integer) session.save(instance);
             session.getTransaction().commit();
         }
         catch (HibernateException exception) {
@@ -32,6 +33,8 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             exception.printStackTrace();
             throw exception;
         }
+
+        return id;
     }
 
     @Override
