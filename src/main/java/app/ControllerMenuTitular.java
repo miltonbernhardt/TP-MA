@@ -10,7 +10,7 @@ public class ControllerMenuTitular {
     public static ControllerMenuTitular get() {
         if (instance == null){
             ControllerApp.setViewAnterior();
-            instance = (ControllerMenuTitular) ControllerApp.setRoot("menuTitular", "Menu Titular");
+            instance = (ControllerMenuTitular) ControllerApp.setRoot("menuTitular", "Menú Titular");
         }
         return instance;
     }

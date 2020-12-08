@@ -60,7 +60,7 @@ public class ControllerBuscarTitular {
 
     private void iniciarCombo(){
         comboTipoDocumento.getItems().clear();
-        comboTipoDocumento.setPromptText("Elegir tipo documento");
+        comboTipoDocumento.setPromptText("Tipo documento");
         comboTipoDocumento.getItems().addAll(EnumTipoDocumento.values());
     }
 

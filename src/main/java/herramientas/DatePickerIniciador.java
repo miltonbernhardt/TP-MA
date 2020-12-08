@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/** Clase que setea el formato de los objetos DatePicker y les establece un rango de fechas válidas */
 public class DatePickerIniciador extends StringConverter<LocalDate> {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
@@ -28,8 +29,6 @@ public class DatePickerIniciador extends StringConverter<LocalDate> {
                             setStyle("-fx-background-color: #ffc0cb;");
                         }
                     }});
-        //datePicker.setEditable(false);
-        //datePicker.setFocusTraversable(false);
         datePicker.setConverter(new DatePickerIniciador());
         datePicker.setTooltip(new Tooltip("dd/mm/aaaa"));
     }

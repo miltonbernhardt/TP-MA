@@ -24,7 +24,7 @@
       </ImageView>
       <StackPane layoutX="35.0" layoutY="55.0">
          <children>
-            <SubScene height="344.0" opacity="0.26" width="930.0">
+            <SubScene height="359.0" opacity="0.26" width="930.0">
               <root>
                 <Region />
               </root>
@@ -42,7 +42,7 @@
                      </graphic>
                   </Button>
                   <Separator prefWidth="45.0" visible="false" />
-                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#emitirLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
+                  <Button contentDisplay="TOP" graphicTextGap="30.0" mnemonicParsing="false" onAction="#renovarLicencia" prefHeight="300.0" prefWidth="140.0" style="-fx-font-size: 25;" text="Renovar Licencia" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="90.0" fitWidth="90.0" onKeyPressed="#renovarLicencia" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -102,7 +102,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </Text>
-      <ImageView fx:id="imageButton" fitHeight="62.0" fitWidth="70.0" layoutX="901.0" layoutY="453.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
+      <ImageView fx:id="imageButton" fitHeight="60.0" fitWidth="70.0" layoutX="884.0" layoutY="456.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="460.0">
          <image>
             <Image url="@../imagenes/icons8_undo_52px.png" />
          </image>
