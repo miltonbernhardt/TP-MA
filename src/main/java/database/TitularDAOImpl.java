@@ -33,18 +33,4 @@ public class TitularDAOImpl extends BaseDAOImpl<Titular,Integer> implements Titu
             throw exception;
         }
     }
-
-    public void actualizarTitular(DTOModificarTitular dtoTitular) throws Exception {
-        TitularDAOImpl daoTitular = new TitularDAOImpl();
-        Titular titular = daoTitular.findById(dtoTitular.getId());
-        titular.setNombre(dtoTitular.getNombre());
-        titular.setApellido(dtoTitular.getApellido());
-        titular.setCalle(dtoTitular.getCalle());
-        titular.setNumeroCalle(dtoTitular.getNumeroCalle());
-        titular.setSexo(dtoTitular.getSexo());
-        titular.setDonanteOrganos(dtoTitular.getDonante());
-        daoTitular.update(titular);
-    }
-
-
 }

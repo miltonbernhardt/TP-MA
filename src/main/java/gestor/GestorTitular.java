@@ -66,13 +66,20 @@ public class GestorTitular {
             return null;
         }
     }
+
     public void updateTitular(Titular titular) throws Exception {
         daoTitular.update(titular);
     }
 
-    /** Actualiza el titular en la base de datos */
-    public static void ModificarTitular(DTOModificarTitular titular) throws Exception {
-        daoTitular.actualizarTitular(titular);
+    public void modificarTitular(DTOModificarTitular dtoTitular) throws Exception {
+        Titular titular = daoTitular.findById(dtoTitular.getId());
+        titular.setNombre(dtoTitular.getNombre());
+        titular.setApellido(dtoTitular.getApellido());
+        titular.setCalle(dtoTitular.getCalle());
+        titular.setNumeroCalle(dtoTitular.getNumeroCalle());
+        titular.setSexo(dtoTitular.getSexo());
+        titular.setDonanteOrganos(dtoTitular.getDonante());
+        daoTitular.update(titular);
     }
 
     /** Buscar los titulares que coincidan con los argumentos pasados como párametros y crea una lista de
@@ -150,7 +157,6 @@ public class GestorTitular {
     }
 
     public LocalDate getFechaMinima(){
-        return LocalDate.now().minusYears(16);
+        return LocalDate.now().minusYears(17);
     }
-
 }

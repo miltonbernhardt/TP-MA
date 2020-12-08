@@ -182,7 +182,7 @@ public class GestorLicencia {
     }
 
     /** Calcula el costo de la licencia */
-    public double calcularCostoLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+    public double calcularCostoLicencia(DTOEmitirLicencia dto) {
         LocalDate fechaV = dto.getFechaNacimiento();
         int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
         String clase = dto.getClaseLicencia().getValue();
@@ -241,7 +241,7 @@ public class GestorLicencia {
         return costoTotal;
     }
 
-    public Boolean generarLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+    public Boolean generarLicencia(DTOEmitirLicencia dto){
         Licencia licencia = new Licencia();
         licencia.setClaseLicencia(dto.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());

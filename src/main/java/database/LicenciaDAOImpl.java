@@ -1,6 +1,5 @@
 package database;
 
-
 import dto.DTOImprimirLicencia;
 import dto.DTOLicenciaExpirada;
 import model.Licencia;
@@ -17,7 +16,6 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
     public LicenciaDAOImpl() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
-
 
     @Override
     public List<DTOImprimirLicencia> createListDTOimprimirLic(String argumentos) {
@@ -37,7 +35,7 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
             throw exception;
         }
     }
-
+    //ToDO borrar o no?
     @Override
     public List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s) {
         return null;
@@ -80,5 +78,4 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
         }
     }
 
-
-        }
+}
