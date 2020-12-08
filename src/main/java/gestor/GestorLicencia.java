@@ -304,7 +304,9 @@ public class GestorLicencia {
             else argumentos += " AND ";
             argumentos += " l.claseLicencia='"+campo+"' ";
         }
-     LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
+
+        //TODO aca solo estaba para una fecha de emision especifica, hacer el beetwen y guardarlos en parametros
+        LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
 
         if(fechaEmision !=null) {
             if(first) first = false;

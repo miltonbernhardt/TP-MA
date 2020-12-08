@@ -94,7 +94,6 @@ public class GestorTitular {
             argumentos += " t.apellido LIKE '%"+argumentosBuscar.getApellido()+"%' ";
         }
 
-        //ToDo hacer un between dates
         LocalDate fechaMenor = argumentosBuscar.getFechaNacimientoInicial();
         LocalDate fechaMayor = argumentosBuscar.getFechaNacimientoFinal();
         if(fechaMenor != null && fechaMayor != null) {
@@ -148,12 +147,10 @@ public class GestorTitular {
             PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
-
     }
 
     public LocalDate getFechaMinima(){
-        //ToDo implementar
-        return LocalDate.now();
+        return LocalDate.now().minusYears(15);
     }
 
 }

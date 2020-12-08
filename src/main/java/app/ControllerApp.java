@@ -118,7 +118,7 @@ public class ControllerApp extends Application {
      * Setea a un nodo con el style de error.
      * @param nodo elemento de la interfaz a setearle el style de error
      */
-    static void setError(Control nodo) {
+    public static void setError(Control nodo) {
         nodo.getStylesheets().clear();
         nodo.getStylesheets().add("css/error.css");
     }
