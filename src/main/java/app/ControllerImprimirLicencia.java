@@ -259,7 +259,12 @@ public class ControllerImprimirLicencia {
                 textObser.setText(licenciaSeleccionada.getObservaciones());
                 textF.setText(titular2.getFactorRH().toString());
                 textG.setText(titular2.getGrupoSanguineo().toString());
-                textDondante.setText(titular2.getDonanteOrganos().toString());
+                if(titular2.getDonanteOrganos()){
+                    textDondante.setText("Si");
+                }else {
+                    textDondante.setText("No");
+                }
+
                 textDescripC.setText(licenciaSeleccionada.getClaseLicencia().getDescripcion());
                 textFE.setText(licenciaSeleccionada.getFechaEmision().toString());
                 textIdTitular.setText(titular2.getId().toString());
