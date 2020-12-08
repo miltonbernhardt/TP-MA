@@ -109,15 +109,14 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
     public void buscarLicenciasExpiradas(){
 
         DTOLicenciaExpirada DTOLE = new DTOLicenciaExpirada();
-        DTOLE.setRangofechas(filtrarPorRangoFecha.isSelected());
 
+        DTOLE.setRangofechas(filtrarPorRangoFecha.isSelected());
         DTOLE.setApellido(campoApe.getText());
         DTOLE.setNombre(campoNombre.getText());
         if(CBClaseLicencia.getSelectionModel().getSelectedItem() != null) DTOLE.setClaseLicencia(CBClaseLicencia.getValue());
         else DTOLE.setClaseLicencia(null);
         if (CBTipoDNI.getSelectionModel().getSelectedItem() != null) DTOLE.setTipoDNI(CBTipoDNI.getValue());
         else DTOLE.setTipoDNI(null);
-
         DTOLE.setDNI(campoDoc.getText());
         if (campoNroLicencia.getText().equals("")) DTOLE.setNroLicencia(0);
         else DTOLE.setNroLicencia(Integer.valueOf(campoNroLicencia.getText()));
@@ -130,6 +129,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         this.cargarTabla(resultado);
 
     }
+
     //verificar campos solo letras, consume las entradas no validas
     EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
         private boolean willConsume =false;
