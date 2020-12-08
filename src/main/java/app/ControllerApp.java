@@ -49,7 +49,7 @@ public class ControllerApp extends Application {
     /** Carga el archivo 'fxml' (la vista) en el parent principal.
         Se le pasa solo el nombre, sin el '.fxml'. */
     private static Parent loadFXML(String fxml)  {
-        fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml + ".fxml"));
+        fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml +".fxml"));
         try {
             return fxmlLoader.load();
         } catch (IOException | RuntimeException  e) {

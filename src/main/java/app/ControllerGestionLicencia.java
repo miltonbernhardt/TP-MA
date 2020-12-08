@@ -97,26 +97,29 @@ public class ControllerGestionLicencia {
         textTipoDocumento.setText("");
         textDocumento.setText("");
 
-        //ToDo implementar backend de las licencias de renovarLicencia
-        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
-        int cantidadClasesLicencia = listaLicencias.size();
-        if(cantidadClasesLicencia > 0){
-            //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
-            textNombre.setText(dto.getNombre());
-            textApellido.setText(dto.getApellido());
+        if(emitirLicencia) {
+            ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
+            int cantidadClasesLicencia = listaLicencias.size();
+            if (cantidadClasesLicencia > 0) {
+                //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
+                textNombre.setText(dto.getNombre());
+                textApellido.setText(dto.getApellido());
 
-            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            textFechaNacimiento.setText(dto.getFechaNacimiento().format(formatoFecha));
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                textFechaNacimiento.setText(dto.getFechaNacimiento().format(formatoFecha));
 
-            textTipoDocumento.setText(dto.getTipoDocumento().getValue());
-            textDocumento.setText(dto.getDocumento());
+                textTipoDocumento.setText(dto.getTipoDocumento().getValue());
+                textDocumento.setText(dto.getDocumento());
 
-            comboLicencias.setDisable(false);
-            textObservaciones.setDisable(false);
-            listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
+                comboLicencias.setDisable(false);
+                textObservaciones.setDisable(false);
+                listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
+            } else {
+                PanelAlerta.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
+            }
         }
         else{
-            PanelAlerta.get(EnumTipoAlerta.ERROR,"Operación no válida","","No se le puede dar de alta una licencia '"+dto.getNombre()+" "+dto.getApellido()+"'",null);
+            //ToDo implementar backend de las licencias de renovarLicencia
         }
     }
 
