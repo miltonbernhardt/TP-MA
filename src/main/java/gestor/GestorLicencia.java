@@ -5,6 +5,7 @@ import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
+import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
 import exceptions.MenorDeEdadException;
@@ -12,6 +13,7 @@ import model.Licencia;
 import model.Titular;
 import model.Vigencia;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -34,13 +36,10 @@ public class GestorLicencia {
 
     /** Calcular vigencia recibe como parámetro la fecha de nacimiento del Titular y su id, retorna
         un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento. */
-    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular)  {
         Vigencia vigencia = new Vigencia();
         int years = GestorTitular.getEdad(nacimiento);
-        if(years<17){
-            throw new MenorDeEdadException();
 
-        }else{
             if(years < 21){
                 String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
 
@@ -70,7 +69,7 @@ public class GestorLicencia {
                 vigencia.setVigencia(1);
                 vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
             }
-        }
+
 
         return vigencia;
     }
@@ -347,6 +346,66 @@ public class GestorLicencia {
             Claseslicencias.add(licencia.getClaseLicencia());
         }
         return Claseslicencias;
+    }
+
+    public static List<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
+
+        String consulta = armarConsultaLicenciasExpiradas(filtros);
+        try {
+               // return daoLicencia.createListDTOLicenciaExpirada(consulta);
+            List<DTOLicenciaExpirada> listDTOLicenciaExpirada = LicenciaDAOImpl.createListDTOLicenciaExpirada(consulta);
+            return listDTOLicenciaExpirada;
+        }
+        catch (Exception e){
+            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
+    }
+
+    private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
+    {
+        //l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento
+        String consulta = "";
+
+
+        if(filtro.isRangofechas()){
+            // consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+        } else if(filtro.getFechaInicial() != null){
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) >= '"+ filtro.getFechaInicial() +"'";
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
+        } else{
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+        }
+
+        if(filtro.getNroLicencia() != 0 ){
+            consulta += " AND l.id = " + filtro.getNroLicencia();
+        }
+        if (filtro.getClaseLicencia() != null ){
+
+            String clase = filtro.getClaseLicencia().getValue().replaceAll(" ", "_");
+            consulta += " AND l.claseLicencia = '" + clase + "'";
+        }
+        if (!filtro.getApellido().equals("")){
+            consulta += " AND t.apellido LIKE '%" + filtro.getApellido() + "%'";
+        }
+        if (!filtro.getNombre().equals("")){
+            consulta += " AND t.nombre LIKE '%" + filtro.getNombre() + "%'";
+        }
+        if (filtro.getTipoDNI() !=null){
+            String tipoDNI = filtro.getTipoDNI().getValue().replaceAll(" ", "_");
+            consulta += " AND t.tipoDNI = '" + tipoDNI + "'";
+        }
+        if (!filtro.getDNI().equals("")){
+            consulta += " AND t.DNI LIKE '%" + filtro.getDNI() + "%'";
+        }
+
+        //if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
+        //  consulta = consulta + " apellido = " + auxap ;
+        //}
+
+        return consulta;
     }
 
 

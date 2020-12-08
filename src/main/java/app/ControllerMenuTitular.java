@@ -26,6 +26,11 @@ public class ControllerMenuTitular {
     }
 
     @FXML
+    private void modificarTitular() {
+        ControllerModificarTitular.get();
+    }
+
+    @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
         instance = null;

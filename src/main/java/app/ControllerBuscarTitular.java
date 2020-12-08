@@ -9,7 +9,11 @@ import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,7 @@ public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
     private ControllerGestionLicencia controllerGestionLicencia = null;
     private ControllerImprimirLicencia controllerImprimirLicencia = null;
+    private ControllerModificarTitular controllerModificarTitular = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -119,6 +124,7 @@ public class ControllerBuscarTitular {
             if (result.orElse(null) == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
                 else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerModificarTitular != null) controllerModificarTitular.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -136,5 +142,9 @@ public class ControllerBuscarTitular {
 
     public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
+    }
+
+    public void setControllerModificarTitular(ControllerModificarTitular controllerModificarTitular) {
+        this.controllerModificarTitular = controllerModificarTitular;
     }
 }

@@ -54,7 +54,7 @@
                         </graphic>
                     </Button>
                     <Separator prefWidth="45.0" visible="false" />
-                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" stylesheets="@../css/styles.css" text="Editar Titular" textAlignment="CENTER" wrapText="true">
+                    <Button contentDisplay="TOP" graphicTextGap="35.0" mnemonicParsing="false" onAction="#modificarTitular" prefHeight="300.0" prefWidth="160.0" style="-fx-font-size: 30;" stylesheets="@../css/styles.css" text="Editar Titular" textAlignment="CENTER" wrapText="true">
                         <graphic>
                             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>

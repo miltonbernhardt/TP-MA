@@ -1,6 +1,7 @@
 package database;
 
 import dto.DTOGestionTitular;
+import dto.DTOModificarTitular;
 import model.Titular;
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface TitularDAO extends BaseDAO<Titular, Integer> {
      * @param argumentos son los argumentos para la consulta.
      */
     List<DTOGestionTitular> createListDTOBuscarTitular (String argumentos) throws Exception;
+
+    void actualizarTitular(DTOModificarTitular dtoTitular) throws Exception;
 }
