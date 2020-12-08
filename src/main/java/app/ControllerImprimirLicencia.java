@@ -231,8 +231,9 @@ public class ControllerImprimirLicencia {
 
 
 //TODO ya se guardan los argumentos para la consulta, van al gestor licencia
+
         argumentos.setFechaEmision(fechaDesde.getValue());
-        argumentos.setFechaEmision(fechaHasta.getValue());
+        argumentos.setFechaEmision2(fechaHasta.getValue());
         argumentos.setClaseLicencia(CBclase.getValue());
 
         cargarTabla(GestorLicencia.get().searchLic(argumentos));
@@ -242,8 +243,6 @@ public class ControllerImprimirLicencia {
 
         if(licenciaSeleccionada != null) {
             paneLicencia.setVisible(true);
-
-
             Titular titular2 = GestorTitular.get().getTitular(Integer.valueOf(licenciaSeleccionada.getIdTitular()));
 
                 textL.setText(String.valueOf(licenciaSeleccionada.getId()));

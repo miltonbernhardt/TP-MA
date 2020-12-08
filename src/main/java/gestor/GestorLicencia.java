@@ -306,15 +306,21 @@ public class GestorLicencia {
             argumentos += " l.claseLicencia='"+campo+"' ";
         }
 
-        //TODO aca solo estaba para una fecha de emision especifica, hacer el beetwen y guardarlos en parametros
-        LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
 
-        if(fechaEmision !=null) {
+        LocalDate fechaEmision = argumentosBuscar.getFechaEmision();
+        LocalDate fechaEmision2 = argumentosBuscar.getFechaEmision2();
+
+        if(fechaEmision == null ){
+            fechaEmision= LocalDate.of(1800, 1, 1);
+        }
+        if(fechaEmision2 == null){
+            fechaEmision2=LocalDate.of(2022, 1, 8);
+        }
+
             if(first) first = false;
             else argumentos += " AND ";
+            argumentos += " (l.fechaEmision BETWEEN '" + fechaEmision+ "' AND  '"+ fechaEmision2+"')" ;
 
-            argumentos += " l.fechaEmision='" + fechaEmision+ "'";
-        }
 
         System.out.println(argumentos);
         try {

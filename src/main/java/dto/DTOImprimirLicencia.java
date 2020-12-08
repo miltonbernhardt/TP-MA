@@ -18,6 +18,7 @@ public class DTOImprimirLicencia {
     private int id;
     private EnumClaseLicencia claseLicencia;
     private LocalDate fechaEmision;
+    private LocalDate fechaEmision2;
     private LocalDate fechaVencimiento;
     private String observaciones;
     private float costo;
@@ -89,6 +90,14 @@ public class DTOImprimirLicencia {
     public void setFechaEmision(LocalDate fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
+    public LocalDate getFechaEmision2() {
+        return fechaEmision2;
+    }
+
+    public void setFechaEmision2(LocalDate fechaEmision2) {
+        this.fechaEmision2 = fechaEmision2;
+    }
+
 
     public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
