@@ -50,7 +50,7 @@ public class ControllerAltaTitular {
     private Button Bregistro;
 
     public void initialize() {
-        DatePickerIniciador.iniciarDatePicker(campoFechaNac);
+        DatePickerIniciador.iniciarDatePicker(campoFechaNac, true);
         listenerTextField();
 
         CBTipoDNI.setItems(FXCollections.observableArrayList(EnumTipoDocumento.values()));

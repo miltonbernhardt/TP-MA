@@ -49,8 +49,8 @@ public class ControllerBuscarTitular {
     private void initialize(){
         iniciarCombo();
         iniciarTabla();
-        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial);
-        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial, false);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal, true);
         listenerTextField();
     }
 
