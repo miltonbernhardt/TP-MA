@@ -4,8 +4,10 @@ import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
+import dto.DTOModificarTitular;
 import enumeration.*;
 import gestor.GestorLicencia;
+import gestor.GestorTitular;
 import model.Licencia;
 import model.Titular;
 import model.Vigencia;
@@ -199,7 +201,6 @@ public class TestGestorLicencia<licencias> {
         DTOImprimirLicencia dto = new DTOImprimirLicencia(l1.getId(), t1.getId(), l1.getClaseLicencia(),
                 l1.getFechaEmision(), l1.getFechaVencimiento(), l1.getObservaciones(), l1.getCosto());
     }
-
 
 
 }
