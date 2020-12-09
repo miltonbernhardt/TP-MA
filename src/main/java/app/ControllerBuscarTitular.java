@@ -123,7 +123,7 @@ public class ControllerBuscarTitular {
 
             if (result.orElse(null) == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
-                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.titularBuscado(dtoTitular);
                 else if(controllerModificarTitular != null) controllerModificarTitular.seleccionarTitular(dtoTitular);
                 volver();
             }

@@ -63,8 +63,6 @@ import java.util.Optional;
 import static javafx.scene.image.Image.*;
 
 public class ControllerImprimirLicencia {
-
-
     private static ControllerImprimirLicencia instance = null;
     private DTOImprimirLicencia dto;
 
@@ -77,7 +75,6 @@ public class ControllerImprimirLicencia {
     }
     @FXML private TextField campoTitular;
     @FXML private TextField campoId;
-
     @FXML private DatePicker fechaDesde;
     @FXML private DatePicker fechaHasta;
     @FXML private ComboBox<EnumClaseLicencia> CBclase;
@@ -86,7 +83,7 @@ public class ControllerImprimirLicencia {
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaId;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaClase;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaFecha;
-    @FXML private TableColumn<DTOImprimirLicencia, String>  columnaObser;
+    @FXML private TableColumn<DTOImprimirLicencia, String> columnaObser;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaVenc;
     @FXML private TableColumn<DTOImprimirLicencia, String> columnaCosto;
     @FXML private Text textL;
@@ -99,11 +96,7 @@ public class ControllerImprimirLicencia {
     @FXML private Text textClase;
     @FXML private Text textFV;
     @FXML private AnchorPane paneLicencia;
-
     private DTOImprimirLicencia licenciaSeleccionada = null;
-    @FXML private ImageView iPhoto;
-
-
     @FXML private Text textCosto;
     @FXML private Text textDescripC;
     @FXML private Text textObser;
@@ -115,7 +108,6 @@ public class ControllerImprimirLicencia {
     @FXML private AnchorPane paneTar;
 
     @FXML
-
     private void initialize(){
         CBclase.setItems(FXCollections.observableArrayList(EnumClaseLicencia.values()));
         iniciarTabla();
@@ -123,29 +115,21 @@ public class ControllerImprimirLicencia {
         iniciarDatePicker(fechaHasta);
     }
     @FXML
-    /*
-    buscarTitular() llama a la interfaz BuscarTitular y devuelve un DTOGestionTitular
-     */
+    /* buscarTitular() llama a la interfaz BuscarTitular y devuelve un DTOGestionTitular */
     public void buscarTitular(){
         ControllerBuscarTitular.get().setControllerImprimirLicencia(this);
     }
-/*
-    Se obtiene el Titular seleccionado en la tabla.
- */
-    public void seleccionarTitular(DTOGestionTitular dtoGestionTitular){
+    /* Se obtiene el Titular seleccionado en la tabla.  */
+    public void titularBuscado(DTOGestionTitular dtoGestionTitular){
       campoTitular.setText(String.valueOf(dtoGestionTitular.getIdTitular()));
         // Obtener las licencias correspondientes al titular:
        ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().obtenerLicencias(dtoGestionTitular.getIdTitular());
-
-        //Se resetea el estado del comboBox y se muestra las clases que tiene como licencia
+       //Se resetea el estado del comboBox y se muestra las clases que tiene como licencia
       CBclase.getSelectionModel().clearSelection();
       CBclase.getItems().clear();
       CBclase.setPromptText("Seleccionar clase de licencia");
-
-        listaLicencias.forEach(listaLicencia -> CBclase.getItems().add(listaLicencia));
-       // int cantidadClasesLicencia = listaLicencias.size();
-
-    }
+      listaLicencias.forEach(listaLicencia -> CBclase.getItems().add(listaLicencia));
+   }
 
     private void iniciarDatePicker(DatePicker campoFecha) {
         campoFecha.setConverter(new StringConverter<LocalDate>()
@@ -206,33 +190,34 @@ public class ControllerImprimirLicencia {
     }
 
     @FXML
+
     private void buscarLicencia(){
         tabla.getItems().clear();
-
         DTOImprimirLicencia argumentos = new DTOImprimirLicencia();
-
-     if(campoId.getText().equals("")){
+        //dto argumentos con los datos obtenidos en los campos de busqueda
+        if(campoId.getText().equals("")){
             argumentos.setId(0);
         } else {
              argumentos.setId(Integer.parseInt(campoId.getText()));
-     }
-     if(campoTitular.getText().equals("")){
+        }
+        if(campoTitular.getText().equals("")){
             argumentos.setIdTitular(0);
         } else {
             argumentos.setIdTitular(Integer.parseInt(campoTitular.getText()));}
 
-     argumentos.setFechaEmision(fechaDesde.getValue());
-     argumentos.setFechaEmision(fechaHasta.getValue());
-     argumentos.setClaseLicencia(CBclase.getValue());
-
-     cargarTabla(GestorLicencia.get().searchLic(argumentos));
+        argumentos.setFechaEmision(fechaDesde.getValue());
+        argumentos.setFechaEmision(fechaHasta.getValue());
+        argumentos.setClaseLicencia(CBclase.getValue());
+        //se procede a buscar las licencias solicitadas
+        cargarTabla(GestorLicencia.get().searchLic(argumentos));
     }
 
     private void selectionLicencia(DTOImprimirLicencia licenciaSeleccionada){
 
         if(licenciaSeleccionada != null) {
-            paneLicencia.setVisible(true);
-            Titular titular2 = GestorTitular.get().getTitular(Integer.valueOf(licenciaSeleccionada.getIdTitular()));
+            paneLicencia.setVisible(true);  //AnchorPane , "Vista previa" de la licencia
+            //creo un titular con todos los datos del mismo
+            Titular titular2 = GestorTitular.get().getTitular(licenciaSeleccionada.getIdTitular());
             textL.setText(String.valueOf(licenciaSeleccionada.getId()));
             textA.setText(titular2.getApellido());
             textN.setText(titular2.getNombre());
@@ -250,9 +235,8 @@ public class ControllerImprimirLicencia {
             textFE.setText(licenciaSeleccionada.getFechaEmision().toString());
             textIdTitular.setText(titular2.getId().toString());
             textClase.setText(licenciaSeleccionada.getClaseLicencia().toString());
-
             }
-        }
+    }
 
 
 /*    public void onsubirFotoButtonClicked(){
@@ -287,26 +271,26 @@ public class ControllerImprimirLicencia {
 
     }*/
 
-    public void imprimirLicencia() throws FileNotFoundException, DocumentException {
+    public void imprimirLicencia() {
         // to invoke file save dialogs
         FileChooser fc= new FileChooser();
         try{
             fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
             fc.setTitle("Save to jpg");
-            fc.setInitialFileName("untitled.png");
+            fc.setInitialFileName("licencia.png");
             File file = fc.showSaveDialog(null);
             String str = file.getAbsolutePath();
             FileOutputStream fos = new FileOutputStream(str);
             final SnapshotParameters spa = new SnapshotParameters();
-            spa.setTransform(Transform.scale(1.1, 1.1));//Scaling only if required i.e., the screenshot is unable to fit in the page
+            spa.setTransform(Transform.scale(1.1, 1.1));//Scaling
             File fileJ2 = new File(str);
 
-            WritableImage image2 = paneTar.snapshot(spa, null);//This part takes the snapshot, here paneTar is the anchorpane you sent
+            WritableImage image2 = paneTar.snapshot(spa, null);//toma el snapshot del AnchorPane
             BufferedImage buffImage2 = SwingFXUtils.fromFXImage(image2, null);
-            ImageIO.write(buffImage2, "png", fileJ2);//Writes the snapshot to file
+            ImageIO.write(buffImage2, "png", fileJ2);//escribe el snapshot en el archivo
 
             fos.flush();
-            Desktop.getDesktop().open(fileJ2);
+            Desktop.getDesktop().open(fileJ2); //abre el archivo JPG creado
 
         }catch (Exception e) {
         e.printStackTrace();
@@ -358,20 +342,17 @@ public class ControllerImprimirLicencia {
 
                 // Codigo QR y barra
                 String textCodigoQR = "Nombre: " + textN.getText() + " Apellido: " + textA.getText() + "- Id: " + textIdTitular.getText() + " Domicilio: " + textC.getText() + textNC.getText();
-
                 BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 200, 200, null);
-
                 com.itextpdf.text.Image img;
-                //Es el tipo de clase
-                BarcodeEAN codeEAN = new BarcodeEAN();
+                 BarcodeEAN codeEAN = new BarcodeEAN();
                 //Seteo el tipo de codigo
                 codeEAN.setCodeType(Barcode.EAN8);
                 //Setep el codigo
                 codeEAN.setCode(textL.getText() +"0" + textIdTitular.getText() + "0");
                 codeEAN.setBarHeight(codeEAN.getSize() * 4f);
+                //Paso el codigo a imagen
+                img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
 
-
-                // Add header details
                 tablaTitular.addCell(getHeaderCell("Datos del Titular "));
                 table.addCell(getFirstRowFormatted("Nombre: " + textN.getText()));
                 table.addCell(getFirstRowFormatted("Apellido: " + textA.getText()));
@@ -380,15 +361,7 @@ public class ControllerImprimirLicencia {
                 table.addCell(getFirstRowFormatted("Sexo: " + textS.getText()));
                 table.addCell(getFirstRowFormatted("Observaciones: " + textObser.getText()));
 
-
-
-                //Paso el codigo a imagen
-                img = codeEAN.createImageWithBarcode( pdfw.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
-
-
-                // Add header details
                 tablaLicencia.addCell(getHeaderCell("Datos de la licencia "));
-
                 table2.addCell(getFirstRowFormatted("Clase: " + textClase.getText()));
                 table2.addCell(getFirstRowFormatted("Descripción: " + textDescripC.getText()));
                 table2.addCell(getFirstRowFormatted("Fecha Emision: " + textFE.getText()));
@@ -403,7 +376,7 @@ public class ControllerImprimirLicencia {
                 com.itextpdf.text.Image image =codigoBarrasQR.getImage();
                 image.setAlignment(Element.ALIGN_MIDDLE);
 
-
+                //se agregan los elementos a documento en orden, agregando tambien satos de linea
                 document.add(p); // ministerio...
                 document.add(Chunk.NEWLINE);
                 document.add(p2); // bolet
@@ -416,7 +389,6 @@ public class ControllerImprimirLicencia {
                 document.add(tablaTitular);
                 document.add(table);
                 document.add(Chunk.NEWLINE);
-
                 document.add(tablaLicencia);
                 document.add(table2);
                 document.add(Chunk.NEWLINE);
