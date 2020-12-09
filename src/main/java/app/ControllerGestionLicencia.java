@@ -9,6 +9,7 @@ import gestor.GestorLicencia;
 import herramientas.AlertPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import model.Licencia;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public class ControllerGestionLicencia {
 
     private static ControllerGestionLicencia instanciaGestionLicencia = null;
     private DTOEmitirLicencia dto = null;
-
     private List<DTOLicenciasVigentes> listaLicenciasVigentes;
 
     public static ControllerGestionLicencia get() {
@@ -73,6 +73,7 @@ public class ControllerGestionLicencia {
         dto.setApellido(dtoGestionTitular.getApellido());
         dto.setTipoDocumento(dtoGestionTitular.getTipoDocumento());
         dto.setDocumento(dtoGestionTitular.getDocumento());
+        listaLicenciasVigentes = GestorLicencia.get().getLicenciasVigentes(dtoGestionTitular.getIdTitular());
 
         //Se resetea el estado del comboBox, la descripción de la clases de licencia, el estado del boton emitir licencia y la selección de la clase de licencia
         comboLicencias.getSelectionModel().clearSelection();
@@ -88,28 +89,19 @@ public class ControllerGestionLicencia {
 
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
         int cantidadClasesLicencia = listaLicencias.size();
-      //  if(emitirLicencia) {
             if (cantidadClasesLicencia > 0) {
-                //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
                 textNombre.setText(dto.getNombre());
                 textApellido.setText(dto.getApellido());
-
                 DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 textFechaNacimiento.setText(dto.getFechaNacimiento().format(formatoFecha));
-
                 textTipoDocumento.setText(dto.getTipoDocumento().getValue());
                 textDocumento.setText(dto.getDocumento());
-
                 comboLicencias.setDisable(false);
                 textObservaciones.setDisable(false);
                 listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
             } else {
                 AlertPanel.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
             }
-        //}
-        //else{
-            //ToDo implementar backend de las licencias de renovarLicencia
-        //}
     }
 
     @FXML
@@ -119,7 +111,21 @@ public class ControllerGestionLicencia {
             btnGenerarLicencia.setDisable(false);
             labelDescripcionLicencia.setText("- "+comboLicencias.getItems().get(indexSeleccionad).getDescripcion());
             //ToDo fijarse estado renovar/emitir
-            labelEstadoLicencia.setText("");
+            Boolean vigente = false;
+
+            EnumClaseLicencia selected = comboLicencias.getItems().get(indexSeleccionad);
+            switch (selected) {
+                case CLASE_A:
+                    for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
+                        if (selected.equals(licencia.getClaseLicencia())) {
+                            labelEstadoLicencia.setText("Posee una licencia vigente " + selected + " - Puede cambiar las observaciones.");
+                            textObservaciones.setText(licencia.getObservaciones());
+                            vigente = true;
+                            break;
+                        }
+
+                    }
+            }
         }
     }
 

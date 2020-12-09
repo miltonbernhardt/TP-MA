@@ -1,5 +1,6 @@
 package gestor;
 
+import dto.DTOLicenciasVigentes;
 import herramientas.AlertPanel;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
@@ -102,64 +103,25 @@ public class GestorLicencia {
         for(int i = 0; i < 7; i++) flagsClases.add(true);
         //Variable que guarda la fecha de emisión de la licencia B, si el titular tuvo/tiene
         LocalDate licenciaB = LocalDate.now();
-        //Banderas licencias del tipo profesional, clase C, D, E
-        boolean claseC = false, claseD = false, claseE = false;
 
         for (Licencia historialLicencia : historialLicencias) {
             licencia = historialLicencia;
-            switch (licencia.getClaseLicencia()) {
-                case CLASE_A:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(0, false);
-                    break;
-                case CLASE_B:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(1, false);
-                    if (licencia.getFechaEmision().isBefore(licenciaB))
-                        licenciaB = licencia.getFechaEmision();
-                    break;
-                case CLASE_C:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1, false);
-                        flagsClases.set(2, false);
-                    }
-                    claseC = true;
-                    break;
-                case CLASE_D:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1, false);
-                        flagsClases.set(2, false);
-                        flagsClases.set(3, false);
-                    }
-                    claseD = true;
-                    break;
-                case CLASE_E:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(4, false);
-                    claseE = true;
-                    break;
-                case CLASE_F:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(5, false);
-                    break;
-                case CLASE_G:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(6, false);
-                    break;
+            if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C))
+                flagsClases.set(1, false);
+            else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D) ||
+                    licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_E)) {
+                flagsClases.set(1, false);
+                flagsClases.set(2, false);
             }
         }
-
         //Conductores profesionales, licencias C, D, E
         int edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
         Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
 
         if(edadTitular >= 21 && vigenciaB > 0){
-            if(flagsClases.get(2))
-                if(!claseC && edadTitular > 65) flagsClases.set(2,false);
-            if(flagsClases.get(3))
-                if(!claseD && edadTitular > 65) flagsClases.set(3,false);
-            if(flagsClases.get(4))
-                if(!claseE && edadTitular > 65) flagsClases.set(4,false);
+            if(flagsClases.get(2) && edadTitular > 65) flagsClases.set(2,false);
+            if(flagsClases.get(3) && edadTitular > 65) flagsClases.set(3,false);
+            if(flagsClases.get(4) && edadTitular > 65) flagsClases.set(4,false);
         }
         else{
             flagsClases.set(2,false);
@@ -428,6 +390,14 @@ public class GestorLicencia {
         //}
 
         return consulta;
+    }
+
+    public List<DTOLicenciasVigentes> getLicenciasVigentes(int idTitular) {
+        try {
+            return daoLicencia.createListDTOLicenciasVigentes(idTitular);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 }
 
