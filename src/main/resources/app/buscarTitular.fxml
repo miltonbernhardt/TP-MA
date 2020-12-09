@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -107,25 +106,21 @@
          </Label>
          <DatePicker fx:id="dateNacimientoFinal" maxWidth="140.0" minHeight="20.0" minWidth="25.0" promptText="dd/mm/aaaa" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       </GridPane>
-      <ScrollPane fitToHeight="true" fitToWidth="true" minWidth="-Infinity" prefHeight="275.0" prefWidth="970.0" VBox.vgrow="ALWAYS">
-         <content>
-            <TableView fx:id="tabla" focusTraversable="false">
-               <columns>
-                  <TableColumn fx:id="columnaNombre" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Nombre" />
-                  <TableColumn fx:id="columnaApellido" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Apellido" />
-                  <TableColumn fx:id="columnaFechaNacimiento" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Fecha nac." />
-                  <TableColumn fx:id="columnaTipoDocumento" editable="false" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Tipo documento" />
-                  <TableColumn fx:id="columnaDocumento" editable="false" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Documento" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </content>
+      <TableView fx:id="tabla" focusTraversable="false" prefHeight="287.0" prefWidth="970.0" tableMenuButtonVisible="true">
+         <columns>
+            <TableColumn fx:id="columnaNombre" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Nombre" />
+            <TableColumn fx:id="columnaApellido" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Apellido" />
+            <TableColumn fx:id="columnaFechaNacimiento" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Fecha nac." />
+            <TableColumn fx:id="columnaTipoDocumento" editable="false" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Tipo documento" />
+            <TableColumn fx:id="columnaDocumento" editable="false" maxWidth="250.0" minWidth="100.0" prefWidth="-1.0" text="Documento" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
          <VBox.margin>
             <Insets />
          </VBox.margin>
-      </ScrollPane>
+      </TableView>
       <HBox alignment="CENTER_LEFT">
          <children>
             <Pane HBox.hgrow="SOMETIMES" />
