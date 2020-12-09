@@ -1,11 +1,8 @@
 import database.TitularDAO;
 import database.TitularDAOImpl;
-import dto.DTOAltaTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.*;
-import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
-import gestor.GestorTitular;
 import model.Licencia;
 import model.Titular;
 import model.Vigencia;
@@ -20,6 +17,8 @@ public class TestGestorLicencia {
 
     @Test
     public void calcularVigencia_3anios() {
+        TitularDAO dao = new TitularDAOImpl();
+
         Titular t1 = new Titular(EnumTipoDocumento.DNI,
                 "42000001",
                 "PruebaTipoB",
@@ -36,7 +35,7 @@ public class TestGestorLicencia {
         t1.getLicencias().add(l1);
         //t1.getLicencias().add(l2);
         //Persisto en Base de Datos
-        long id = -1;
+        int id = -1;
         try {
             id = dao.save(t1);
         } catch (Exception e) {
@@ -75,7 +74,7 @@ public class TestGestorLicencia {
     Emitir licencia de clase B para una persona de 23 años:
      */
     @Test
-    public void emitirLicencia() throws MenorDeEdadException {
+    public void emitirLicencia() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(122);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -95,7 +94,7 @@ public class TestGestorLicencia {
     	dto.setIdTitular no corresponde al idTitular de la persona en cuestión.
      */
     @Test
-    public void emitirLicencia2() throws MenorDeEdadException {
+    public void emitirLicencia2() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -117,7 +116,7 @@ public class TestGestorLicencia {
     	En este caso, la prueba falla.
      */
    @Test
-    public void emitirLicencia3() throws MenorDeEdadException {
+    public void emitirLicencia3() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(2008, 3, 19));
@@ -133,6 +132,4 @@ public class TestGestorLicencia {
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
-
-
 }
