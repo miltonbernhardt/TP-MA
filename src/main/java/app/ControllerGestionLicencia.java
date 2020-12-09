@@ -2,6 +2,7 @@ package app;
 
 import dto.DTOGestionTitular;
 import dto.DTOEmitirLicencia;
+import dto.DTOLicenciasVigentes;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
 import gestor.GestorLicencia;
@@ -11,31 +12,22 @@ import javafx.scene.control.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ControllerGestionLicencia {
 
-    private static ControllerGestionLicencia instanceEmitir = null;
-    private static ControllerGestionLicencia instanceRenovar = null;
+    private static ControllerGestionLicencia instanciaGestionLicencia = null;
     private DTOEmitirLicencia dto = null;
-    private static boolean emitirLicencia;
 
-    public static ControllerGestionLicencia get(boolean emitir) {
-        emitirLicencia = emitir;
-        if(emitir){
-            if (instanceEmitir == null){
-                ControllerApp.setViewAnterior();
-                instanceEmitir = (ControllerGestionLicencia) ControllerApp.setRoot("gestionarLicencia", "Emitir licencia");
-            }
-            return instanceEmitir;
+    private List<DTOLicenciasVigentes> listaLicenciasVigentes;
+
+    public static ControllerGestionLicencia get() {
+        if (instanciaGestionLicencia == null){
+            ControllerApp.setViewAnterior();
+            instanciaGestionLicencia = (ControllerGestionLicencia) ControllerApp.setRoot("gestionarLicencia", "Gestionar licencia");
         }
-        else{
-            if (instanceRenovar == null){
-                ControllerApp.setViewAnterior();
-                instanceRenovar = (ControllerGestionLicencia) ControllerApp.setRoot("gestionarLicencia", "Renovar licencia");
-            }
-            return instanceRenovar;
-        }
+        return instanciaGestionLicencia;
     }
 
     /* TextFields */
@@ -65,11 +57,8 @@ public class ControllerGestionLicencia {
     /* Label */
     @FXML
     private Label labelDescripcionLicencia;
-
     @FXML
-    private void initialize(){
-        if(!emitirLicencia) btnGenerarLicencia.setText("Renovar licencia");
-    }
+    private Label labelEstadoLicencia;
 
     @FXML
     private void buscarTitular(){
@@ -129,6 +118,8 @@ public class ControllerGestionLicencia {
         if(indexSeleccionad > -1){
             btnGenerarLicencia.setDisable(false);
             labelDescripcionLicencia.setText("- "+comboLicencias.getItems().get(indexSeleccionad).getDescripcion());
+            //ToDo fijarse estado renovar/emitir
+            labelEstadoLicencia.setText("");
         }
     }
 
@@ -136,31 +127,20 @@ public class ControllerGestionLicencia {
     private void generarLicencia() {
         String tituloVentana, contenidoMensaje, mensajeExito, mensajeNoExito;
 
-        if(emitirLicencia){
-            tituloVentana = "Confirmar emisión";
-            contenidoMensaje = "¿Desea confirmar la emisión de la licencia?";
-            mensajeExito = "Se emitió la licencia de forma correcta.";
-            mensajeNoExito = "No se ha podido emitir la licencia.";
-        }
-        else{
-            tituloVentana = "Confirmar renovación";
-            contenidoMensaje = "¿Desea confirmar la renovación de la licencia?";
-            mensajeExito = "Se renovó la licencia de forma correcta.";
-            mensajeNoExito = "No se ha podido renovar la licencia.";
-        }
+        tituloVentana = "Confirmar emisión";
+        contenidoMensaje = "¿Desea confirmar la emisión de la licencia?";
+        mensajeExito = "Se emitió la licencia de forma correcta.";
+        mensajeNoExito = "No se ha podido emitir la licencia.";
 
         Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
         if (result.orElse(null) == ButtonType.OK) {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
-            //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
-            if(emitirLicencia){
-                if (GestorLicencia.get().generarLicencia(dto))
-                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
-                else
-                    AlertPanel.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
-            }
+            if (GestorLicencia.get().generarLicencia(dto))
+                AlertPanel.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
+            else
+                AlertPanel.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
             volver();
         }
     }
@@ -168,7 +148,6 @@ public class ControllerGestionLicencia {
     @FXML
     private void volver(){
         ControllerApp.getViewAnterior();
-        if(emitirLicencia) instanceEmitir = null;
-        else instanceRenovar = null;
+        instanciaGestionLicencia = null;
     }
 }

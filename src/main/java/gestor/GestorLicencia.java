@@ -86,7 +86,7 @@ public class GestorLicencia {
         menos 17 años, sino no se hubiese registrado como titular en el sistema
         @param idTitular id del titular en la base de datos */
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
-
+        //ToDo Coli que muestre las que puede renovar
         //instancia de titular actual
         Titular titular = GestorTitular.get().getTitular(idTitular);
         //historial de licencias del titular
@@ -242,7 +242,6 @@ public class GestorLicencia {
         return costoTotal + 8;
     }
 
-
     /** Genera una entidad licencia en la base de datos.
         Retorna true si la inserción resulta exitosa, sino retorna false.
         @param dtoEmitirLicencia dto que posee los datos de la licencia a generar. */
@@ -256,6 +255,20 @@ public class GestorLicencia {
 
         licencia.setCosto((float) calcularCostoLicencia(dtoEmitirLicencia));
 
+        /*
+        TodO veriricar estado
+        LicenciaDAO dao = new LicenciaDAOImpl();
+        List<DTOLicenciasVigentes> list = dao.createListDTOLicenciasVigentes(136);
+        for(DTOLicenciasVigentes dto:list){
+            System.out.println(dto.getId_licencia() + " id_titular: "+dto.getId_titular());
+        }
+
+        DTOLicenciasVigentes dto = list.get(0);
+        Licencia l = dao.findById(dto.getId_licencia());
+        l.setObservaciones(dto.getObservaciones());
+
+        dao.update(l);
+         */
 
         Titular titular = GestorTitular.get().getTitular(dtoEmitirLicencia.getIdTitular());
         licencia.setTitular(titular);
