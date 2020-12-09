@@ -58,7 +58,9 @@ public class ControllerGestionLicencia {
     @FXML
     private Label labelDescripcionLicencia;
     @FXML
-    private Label labelEstadoLicencia;
+    private Label labelEstadoLicencia1;
+    @FXML
+    private Label labelEstadoLicencia2;
 
     @FXML
     private void buscarTitular(){
@@ -118,7 +120,8 @@ public class ControllerGestionLicencia {
                 case CLASE_A:
                     for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
                         if (selected.equals(licencia.getClaseLicencia())) {
-                            labelEstadoLicencia.setText("Posee una licencia vigente " + selected + " - Puede cambiar las observaciones.");
+                            labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
+                            labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
                             textObservaciones.setText(licencia.getObservaciones());
                             vigente = true;
                             break;
