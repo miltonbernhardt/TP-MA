@@ -12,30 +12,42 @@ import gestor.GestorTitular;
 
 import java.util.Optional;
 
-public class ControllerAltaTitular{
+public class ControllerAltaTitular {
     private static ControllerAltaTitular instance = null;
     private DTOAltaTitular dto;
 
     public static ControllerAltaTitular get() {
-        if (instance == null){
+        if (instance == null) {
             ControllerApp.setViewAnterior();
             instance = (ControllerAltaTitular) ControllerApp.setRoot("altaTitular", "Registro titular");
         }
         return instance;
     }
 
-    @FXML private ComboBox<EnumTipoDocumento> CBTipoDNI;
-    @FXML private TextField campoNombre;
-    @FXML private TextField campoApe;
-    @FXML private TextField campoDoc;
-    @FXML private TextField campoCalle;
-    @FXML private TextField campoNumCall;
-    @FXML private ComboBox<EnumGrupoSanguineo> CBGsang;
-    @FXML private ComboBox<EnumFactorRH> CBRH;
-    @FXML private ComboBox<EnumSexo> CBSexo;
-    @FXML private DatePicker campoFechaNac;
-    @FXML private RadioButton RBdonante;
-    @FXML private Button Bregistro;
+    @FXML
+    private ComboBox<EnumTipoDocumento> CBTipoDNI;
+    @FXML
+    private TextField campoNombre;
+    @FXML
+    private TextField campoApe;
+    @FXML
+    private TextField campoDoc;
+    @FXML
+    private TextField campoCalle;
+    @FXML
+    private TextField campoNumCall;
+    @FXML
+    private ComboBox<EnumGrupoSanguineo> CBGsang;
+    @FXML
+    private ComboBox<EnumFactorRH> CBRH;
+    @FXML
+    private ComboBox<EnumSexo> CBSexo;
+    @FXML
+    private DatePicker campoFechaNac;
+    @FXML
+    private RadioButton RBdonante;
+    @FXML
+    private Button Bregistro;
 
     public void initialize() {
         DatePickerIniciador.iniciarDatePicker(campoFechaNac);
@@ -48,14 +60,14 @@ public class ControllerAltaTitular{
         Bregistro.setDisable(true);
     }
 
-    public void keyReleasedProperty(){
+    public void keyReleasedProperty() {
         boolean isDisable = (campoNombre.getText().trim().isEmpty() || campoApe.getText().trim().isEmpty() || campoDoc.getText().isEmpty() || campoCalle.getText().trim().isEmpty()
                 || campoNumCall.getText().trim().isEmpty() || CBTipoDNI.getSelectionModel().isEmpty() || CBGsang.getSelectionModel().isEmpty() || CBRH.getSelectionModel().isEmpty()
                 || CBSexo.getSelectionModel().isEmpty() || campoFechaNac.getValue() == null);
         Bregistro.setDisable(isDisable);
     }
 
-    private void listenerTextField(){
+    private void listenerTextField() {
         TextFielIniciador.letrasAcento(campoNombre);
         TextFielIniciador.letrasAcento(campoApe);
         TextFielIniciador.letrasAcento(campoCalle);
@@ -64,32 +76,30 @@ public class ControllerAltaTitular{
     }
 
     /**
-    onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
-    GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
-    */
-    public void onRegisterTitular(){
-            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
-                    "Confirmar alta de Titular",
-                    "",
-                    "¿Desea confirmar el registro del titular?",
-                    null);
+     * onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
+     * GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
+     */
+    public void onRegisterTitular() {
+        Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
+                "Confirmar alta de Titular",
+                "",
+                "¿Desea confirmar el registro del titular?",
+                null);
 
-            if (result.orElse(null) == ButtonType.OK) {
+        if (result.orElse(null) == ButtonType.OK) {
 
-                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17)  {
-                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
-                if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17 || GestorTitular.get().getEdad(campoFechaNac.getValue()) > 65) {
-                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
-                            "",
-                            "Su titular debe poser al menos de 17 años", null);
-                } else {
-                    if (campoDoc.getText() == "DNI") {
-                        if(campoDoc.getLength() != 8) {
+            if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17) {
+                AlertPanel.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
+                        "",
+                        "Su titular debe poser al menos de 17 años", null);
+            } else {
+                if (campoDoc.getText() == "DNI") {
+                    if (campoDoc.getLength() != 8) {
 
-                            PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
-                                    "",
-                                    "El numero de Documento es inválido", null);
-                        }
+                        AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
+                                "",
+                                "El numero de Documento es inválido", null);
+                    }
                     if (campoDoc.getLength() != 8) {
                         AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
                                 "",
@@ -110,7 +120,7 @@ public class ControllerAltaTitular{
                             dto.setFechaNacimiento(campoFechaNac.getValue());
 
                             if (GestorTitular.get().registrarTitular(dto)) {
-                                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
+                                AlertPanel.get(EnumTipoAlerta.INFORMACION,
                                         "Confirmación",
                                         "",
                                         "Se ha dado de alta al titular de forma correcta.",
@@ -136,12 +146,12 @@ public class ControllerAltaTitular{
             }
 
 
+        }
     }
 
-
-    @FXML
-    private void volver(){
-        ControllerApp.getViewAnterior();
-        instance = null;
+        @FXML
+        private void volver() {
+            ControllerApp.getViewAnterior();
+            instance = null;
+        }
     }
-}
