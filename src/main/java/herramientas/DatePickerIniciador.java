@@ -1,7 +1,6 @@
 package herramientas;
 
 import gestor.GestorTitular;
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tooltip;
@@ -15,7 +14,8 @@ public class DatePickerIniciador extends StringConverter<LocalDate> {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
-    static public void iniciarDatePicker(DatePicker datePicker) {
+    /** Setea el formato de los objetos DatePicker y les establece un rango de fechas válidas */
+    static public void iniciarDatePicker(DatePicker datePicker, boolean maximo) {
         LocalDate minDate = LocalDate.of(1930, 1, 1);
         LocalDate maxDate = GestorTitular.get().getFechaMinima();
         datePicker.setPromptText( "dia/mes/año" );
@@ -28,10 +28,10 @@ public class DatePickerIniciador extends StringConverter<LocalDate> {
                             setStyle("-fx-background-color: #ffc0cb;");
                         }
                     }});
-        //datePicker.setEditable(false);
-        //datePicker.setFocusTraversable(false);
         datePicker.setConverter(new DatePickerIniciador());
         datePicker.setTooltip(new Tooltip("dd/mm/aaaa"));
+        if(maximo) datePicker.setValue(maxDate);
+        else datePicker.setValue(minDate);
     }
 
     @Override

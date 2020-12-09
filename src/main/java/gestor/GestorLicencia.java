@@ -1,17 +1,17 @@
 package gestor;
 
-import app.PanelAlerta;
+import herramientas.AlertPanel;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
+import database.TitularDAOImpl;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
+import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import exceptions.MenorDeEdadException;
 import model.Licencia;
 import model.Titular;
 import model.Vigencia;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -34,13 +34,10 @@ public class GestorLicencia {
 
     /** Calcular vigencia recibe como parámetro la fecha de nacimiento del Titular y su id, retorna
         un objeto Vigencia con la cantidad de años de la vigencia y la fecha de vencimiento. */
-    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular) throws MenorDeEdadException {
+    public static Vigencia calcularVigencia(LocalDate nacimiento, int id_titular)  {
         Vigencia vigencia = new Vigencia();
         int years = GestorTitular.getEdad(nacimiento);
-        if(years<17){
-            throw new MenorDeEdadException();
 
-        }else{
             if(years < 21){
                 String sql = "select count(distinct id_licencia) from licencia WHERE id_titular = " + id_titular;
 
@@ -70,10 +67,10 @@ public class GestorLicencia {
                 vigencia.setVigencia(1);
                 vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
             }
-        }
 
         return vigencia;
     }
+
 
     /** Calcula el tiempo de vigencia de la licencia desde que se hizo la emisión hasta la fecha actual */
     public static Integer getTiempoEnVigencia(LocalDate fechaEmision,LocalDate fechaVencimiento){
@@ -82,9 +79,10 @@ public class GestorLicencia {
         else return Period.between(fechaEmision,LocalDate.now()).getYears();
     }
 
-    /**- Trae desde la Base de Datos, las clases de licencias que tiene
+
+    /** Trae desde la Base de Datos, las clases de licencias que tiene
         permitido solicitar el titular actual en pantalla.
-        - Se asume que todos los titulares registrados tienen por lo
+        Se asume que todos los titulares registrados tienen por lo
         menos 17 años, sino no se hubiese registrado como titular en el sistema
         @param idTitular id del titular en la base de datos */
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
@@ -182,96 +180,103 @@ public class GestorLicencia {
         return ClasesLicencias;
     }
 
-    /** Calcula el costo de la licencia */
-    public double calcularCostoLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
-        LocalDate fechaV = dto.getFechaNacimiento();
-        int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
-        String clase = dto.getClaseLicencia().getValue();
+
+    /** Calcula el costo de la licencia. */
+    public double calcularCostoLicencia(DTOEmitirLicencia dtoEmitirLicencia) {
+        LocalDate fechaV = dtoEmitirLicencia.getFechaNacimiento();
+        int vig = calcularVigencia(fechaV, dtoEmitirLicencia.getIdTitular()).vigencia;
+        String clase = dtoEmitirLicencia.getClaseLicencia().getValue();
 
         double costoTotal = 0;
         if (clase.equals("Clase A") || clase.equals("Clase B") || clase.equals("Clase G")){
-
-               if (vig==5 ){
-                costoTotal= costoTotal+ 40;
-                }
-                if (vig==4){
-                costoTotal=costoTotal +30;
-                }
-                if (vig==3){
-                costoTotal= costoTotal+25;
-                }
-                if (vig==1){
-                costoTotal= costoTotal+20;
-                }
-        }else {
+            switch (vig){
+                case 1:
+                    costoTotal = costoTotal+20;
+                    break;
+                case 3:
+                    costoTotal = costoTotal+25;
+                    break;
+                case 4:
+                    costoTotal = costoTotal +30;
+                    break;
+                case 5:
+                    costoTotal = costoTotal+ 40;
+                    break;
+            }
+        }
+        else {
             if (clase.equals("Clase F") || clase.equals("Clase D") || clase.equals("Clase E")) {
-                System.out.println("entra a if" + vig);
-                if (vig == 5) {
-                    costoTotal =costoTotal+ 59;
-                }
-                if (vig == 4) {
-                    costoTotal =costoTotal+ 29;
-                }
-                if (vig == 3) {
-                    costoTotal = costoTotal + 39;
-                }
-                if (vig == 1) {
-                    costoTotal =costoTotal+ 29;
+                switch (vig){
+                    case 1:
+                    case 4:
+                        costoTotal = costoTotal + 29;
+                        break;
+                    case 3:
+                        costoTotal = costoTotal + 39;
+                        break;
+                    case 5:
+                        costoTotal = costoTotal + 59;
+                        break;
                 }
             }
             else {
                 if(clase.equals("Clase C")) {
-                    if (vig == 5) {
-                        costoTotal =costoTotal+ 47;
-                    }
-                    if (vig == 4) {
-                        costoTotal =costoTotal+ 35;
-                    }
-                    if (vig == 3) {
-                        costoTotal = costoTotal+ 30;
-                    }
-                    if (vig == 1) {
-                        costoTotal = costoTotal+ 23;
+                    switch (vig){
+                        case 1:
+                            costoTotal = costoTotal + 23;
+                            break;
+                        case 3:
+                            costoTotal = costoTotal + 30;
+                            break;
+                        case 4:
+                            costoTotal = costoTotal + 35;
+                            break;
+                        case 5:
+                            costoTotal = costoTotal + 47;
+                            break;
                     }
                 }
             }
         }
 
-        costoTotal+=8;
-        System.out.println("costotal" + costoTotal);
-        return costoTotal;
+        return costoTotal + 8;
     }
 
-    public Boolean generarLicencia(DTOEmitirLicencia dto) throws MenorDeEdadException {
+
+    /** Genera una entidad licencia en la base de datos.
+        Retorna true si la inserción resulta exitosa, sino retorna false.
+        @param dtoEmitirLicencia dto que posee los datos de la licencia a generar. */
+    public Boolean generarLicencia(DTOEmitirLicencia dtoEmitirLicencia){
         Licencia licencia = new Licencia();
-        licencia.setClaseLicencia(dto.getClaseLicencia());
+        licencia.setClaseLicencia(dtoEmitirLicencia.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());
-        LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
+        LocalDate vencimiento = calcularVigencia(dtoEmitirLicencia.getFechaNacimiento(), dtoEmitirLicencia.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
-        licencia.setObservaciones(dto.getObservaciones());
+        licencia.setObservaciones(dtoEmitirLicencia.getObservaciones());
 
-        licencia.setCosto((float) calcularCostoLicencia(dto));
+        licencia.setCosto((float) calcularCostoLicencia(dtoEmitirLicencia));
 
 
-        Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
+        Titular titular = GestorTitular.get().getTitular(dtoEmitirLicencia.getIdTitular());
         licencia.setTitular(titular);
 
-        /*
-        TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
-         */
         titular.getLicencias().add(licencia);
 
         try {
-            GestorTitular.get().updateTitular(titular);
+            new TitularDAOImpl().update(titular);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
+
+    /** Obtiene las licencias que están asociadas a un titular.
+        @param idTitular id del titular al que se le quiere consultar sus licencias. */
     public static List<Licencia> getHistorialLicencias(Integer idTitular) throws Exception {
         return daoLicencia.findAllByQuery("select l from Licencia l where l.titular="+idTitular);
     }
+
 
     public List<DTOImprimirLicencia> searchLic(DTOImprimirLicencia argumentosBuscar) {
         String argumentos = "";
@@ -331,11 +336,12 @@ public class GestorLicencia {
 
         }
         catch (Exception e){
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
 
     }
+
 
     public ArrayList<EnumClaseLicencia> obtenerLicencias(int id_titular){
         ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<>();
@@ -356,6 +362,66 @@ public class GestorLicencia {
     }
 
 
+    public static List<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
+
+        String consulta = armarConsultaLicenciasExpiradas(filtros);
+        try {
+               // return daoLicencia.createListDTOLicenciaExpirada(consulta);
+            List<DTOLicenciaExpirada> listDTOLicenciaExpirada = LicenciaDAOImpl.createListDTOLicenciaExpirada(consulta);
+            return listDTOLicenciaExpirada;
+        }
+        catch (Exception e){
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            return new ArrayList<>();
+        }
+    }
+
+
+    private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
+    {
+        //l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento
+        String consulta = "";
+
+
+        if(filtro.isRangofechas()){
+            // consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";
+        } else if(filtro.getFechaInicial() != null){
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) >= '"+ filtro.getFechaInicial() +"'";
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ filtro.getFechaInicial() +"'";
+        } else{
+            //consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+            consulta = consulta + " WHERE DATE(l.fechaVencimiento) = '"+ LocalDate.now().toString()+"'";
+        }
+
+        if(filtro.getNroLicencia() != 0 ){
+            consulta += " AND l.id = " + filtro.getNroLicencia();
+        }
+        if (filtro.getClaseLicencia() != null ){
+
+            String clase = filtro.getClaseLicencia().getValue().replaceAll(" ", "_");
+            consulta += " AND l.claseLicencia = '" + clase + "'";
+        }
+        if (!filtro.getApellido().equals("")){
+            consulta += " AND t.apellido LIKE '%" + filtro.getApellido() + "%'";
+        }
+        if (!filtro.getNombre().equals("")){
+            consulta += " AND t.nombre LIKE '%" + filtro.getNombre() + "%'";
+        }
+        if (filtro.getTipoDNI() !=null){
+            String tipoDNI = filtro.getTipoDNI().getValue().replaceAll(" ", "_");
+            consulta += " AND t.tipoDNI = '" + tipoDNI + "'";
+        }
+        if (!filtro.getDNI().equals("")){
+            consulta += " AND t.DNI LIKE '%" + filtro.getDNI() + "%'";
+        }
+
+        //if(!filtro.getApellido().isEmpty() && consulta.equalsIgnoreCase("select * from licencia ")) {
+        //  consulta = consulta + " apellido = " + auxap ;
+        //}
+
+        return consulta;
+    }
 }
 
 

@@ -3,11 +3,11 @@ package hibernate;
 import java.math.BigInteger;
 import java.util.List;
 
-import database.HibernateUtil;
+import herramientas.HibernateUtil;
 import enumeration.EnumTipoAlerta;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import app.PanelAlerta;
+import herramientas.AlertPanel;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 /**
@@ -45,7 +45,7 @@ public class DAO {
         }
         catch (HibernateException exception) {
             valido = false;
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo guardar en la base de datos.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo guardar en la base de datos.", exception);
             exception.printStackTrace();
             session.getTransaction().rollback();
         }
@@ -71,7 +71,7 @@ public class DAO {
         }
         catch (HibernateException exception) {
             valido = false;
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo actualizar en la base de datos.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo actualizar en la base de datos.", exception);
             session.getTransaction().rollback();
         }
 
@@ -96,7 +96,7 @@ public class DAO {
             tipo = session.get(claseObjeto, idObjeto);
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
         }
 
         return tipo;
@@ -120,7 +120,7 @@ public class DAO {
             objeto = session.createQuery(consultaSQL, claseObjeto).getSingleResult();
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", exception);
         }
 
         return objeto;
@@ -144,7 +144,7 @@ public class DAO {
             lista = session.createQuery(consultaSQL, claseObjetos).getResultList();
         }
         catch (HibernateException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener la lista de objetos desde la base de datos.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener la lista de objetos desde la base de datos.", exception);
         }
 
         return lista;
@@ -168,7 +168,7 @@ public class DAO {
                 session.beginTransaction();
             o = session.createSQLQuery(consultaSQL).getSingleResult();
         }catch (javax.persistence.NoResultException exception) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", exception);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", exception);
             o = null;
         }
 
@@ -180,5 +180,7 @@ public class DAO {
 
         return i;
     }
+
+
 
 }

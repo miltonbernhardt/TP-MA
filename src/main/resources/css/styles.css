@@ -50,19 +50,18 @@
 }
 
 .button:hover{
-    -fx-opacity: 0.50;
+    -fx-opacity: 0.80;
 }
 
 .button:focused{
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1 );
 }
+
 .radio-button:selected {
 
 }
 
 /*------------ TEXT FIELDS ---------------*/
-
-
 
 .text-field{
     -fx-background-insets: 0, 0 0 1 0 ;
@@ -70,7 +69,6 @@
     -fx-background-color: -color-primario;
     -fx-prompt-text-fill: -color-fuente-prompt;
 }
-
 
 .text-field:disabled{
     -fx-opacity: 1.0;
@@ -82,8 +80,6 @@
     -fx-background-color: -color-primario-claro;
     -fx-effect: dropshadow( three-pass-box , -color-sombra , 10, 0.2 , 3 , 3 );
 }
-
-
 
 .scroll-pane{
     /* -fx-padding: 15 15 15 15; */
@@ -153,7 +149,31 @@
     -fx-font-size: 15px;
 }
 
+
+/*--------------SCROLL BAR---------------*/
+
+.scroll-bar:vertical {
+    -fx-pref-width: 16.5;
+    -fx-padding: 3;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 16.5;
+    -fx-padding: 3;
+}
+
+.scroll-bar, .scroll-bar:pressed, .scroll-bar:focused {
+    -fx-font-size: 15;
+}
+
 /*--------------TABLAS DE DATOS---------------*/
+
+.table-view .column-header .context-menu,
+.tree-table-view .column-header .context-menu,
+.table-view > .column-header-background > .show-hide-columns-button .context-menu,
+.tree-table-view > .column-header-background > .show-hide-columns-button .context-menu {
+    -fx-background-color: -color-fondo-oscuro;
+}
 
 .table-view{
     -fx-background-color: transparent;
@@ -179,7 +199,7 @@
 }
 
 .table-row-cell{
-    -fx-background-color: -fx-table-cell-border-color, -color-fondo-oscuro;
+    -fx-background-color: -fx-table-cell-border-color, -color-celdas;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
     /*-fx-border-color: red;*/
@@ -187,7 +207,7 @@
 }
 
 .table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, -color-celdas;
+    -fx-background-color: -fx-table-cell-border-color, -color-fondo-oscuro;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
 }

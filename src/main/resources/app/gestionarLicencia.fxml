@@ -19,7 +19,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerGestionLicencia">
    <children>
-      <ImageView fitHeight="562.0" fitWidth="1000.0" pickOnBounds="true" smooth="false">
+      <ImageView fitHeight="562.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" smooth="false">
          <image>
             <Image url="@../imagenes/principal.jpg" />
          </image>
@@ -101,9 +101,9 @@
                <children>
                   <Button fx:id="btnGenerarLicencia" disable="true" mnemonicParsing="false" onAction="#generarLicencia" text="Emitir licencia" />
                   <Pane HBox.hgrow="SOMETIMES" />
-                  <ImageView fx:id="imageButton" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageButton" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagenes/icons8_undo_52px_4.png" />
+                        <Image url="@../imagenes/icons8_undo_52px.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -116,7 +116,7 @@
             </HBox>
          </children>
          <StackPane.margin>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            <Insets bottom="17.0" left="15.0" right="15.0" top="15.0" />
          </StackPane.margin>
       </VBox>
    </children>

@@ -31,8 +31,9 @@ public class DTOEmitirLicencia {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public LocalDate setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+        return fechaNacimiento;
     }
 
     public String getNombre() {

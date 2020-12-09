@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -7,161 +8,233 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerAltaTitular">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerAltaTitular">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="1000.0" layoutX="-1.0" layoutY="-1.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="562.0" fitWidth="1000.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/principal.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="38.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
-         <font>
-            <Font name="System Bold" size="29.0" />
-         </font>
-      </Text>
-      <Separator layoutX="295.0" layoutY="82.0" prefHeight="9.0" prefWidth="571.0">
-         <effect>
-            <Lighting diffuseConstant="0.19" light="$null" specularConstant="2.0" specularExponent="0.0">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-            </Lighting>
-         </effect></Separator>
-      <Text fill="WHITE" layoutX="54.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOMICILIO">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Separator layoutX="164.0" layoutY="384.0" prefHeight="24.0" prefWidth="731.0">
-         <effect>
-            <Lighting light="$null" specularConstant="2.0" specularExponent="4.19">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-            </Lighting>
-         </effect></Separator>
-      <Text fill="WHITE" layoutX="54.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS DEL SOLICITANTE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="Bregistro" layoutX="43.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
-      <ImageView fx:id="imageButton" fitHeight="60.0" fitWidth="70.0" layoutX="925.0" layoutY="488.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="470.0">
-         <image>
-            <Image url="@../imagenes/icons8_undo_52px.png" />
-         </image>
-         <effect>
-            <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />
-         </effect>
-      </ImageView>
-      <VBox layoutX="64.0" layoutY="113.0" prefHeight="401.0" prefWidth="748.0">
+      <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0" StackPane.alignment="CENTER">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="10.0" visible="false" />
-            <HBox prefHeight="39.0" prefWidth="703.0">
+            <HBox>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *" wrappingWidth="95.99999129772186">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO TITULAR">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="29.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="campoNombre" onKeyReleased="#keyReleasedProperty" />
-                  <Separator prefHeight="1.0" prefWidth="60.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *" wrappingWidth="107.0625">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="campoApe" onKeyReleased="#keyReleasedProperty" />
                </children>
             </HBox>
-            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
-            <HBox prefHeight="31.0" prefWidth="703.0">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *" wrappingWidth="138.775390625">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS DEL SOLICITANTE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Separator HBox.hgrow="ALWAYS">
+                     <effect>
+                        <InnerShadow color="WHITE" />
+                     </effect>
+                  </Separator>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE: *">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="campoDoc" onKeyReleased="#keyReleasedProperty" />
+                  <TextField fx:id="campoNombre" onKeyReleased="#keyReleasedProperty">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Separator prefHeight="1.0" prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDO: *">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoApe" onKeyReleased="#keyReleasedProperty">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DOCUMENTO: *">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoDoc" onKeyReleased="#keyReleasedProperty">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
                   <Separator prefHeight="0.0" prefWidth="21.0" visible="false" />
-                  <ComboBox fx:id="CBTipoDNI" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Tipo..." />
+                  <ComboBox fx:id="CBTipoDNI" onAction="#keyReleasedProperty" prefWidth="200.0" promptText="Tipo..." />
                </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
             </HBox>
-            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
-            <HBox prefHeight="39.0" prefWidth="681.0">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *" wrappingWidth="192.232421875">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA NACIMIENTO: *">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="campoFechaNac" onAction="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
+                  <DatePicker fx:id="campoFechaNac" onAction="#keyReleasedProperty" prefWidth="163.0">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </DatePicker>
                </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
             </HBox>
-            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
-            <HBox prefHeight="37.0" prefWidth="617.0">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUINEO: *" wrappingWidth="193.685546875">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GRUPO SANGUÍNEO: *">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="CBGsang" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+                  <ComboBox fx:id="CBGsang" onAction="#keyReleasedProperty" prefWidth="200.0" promptText="Seleccione...">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </ComboBox>
                   <Separator prefHeight="1.0" prefWidth="60.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *" wrappingWidth="56.884765625">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="RH: *">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="CBRH" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+                  <ComboBox fx:id="CBRH" onAction="#keyReleasedProperty" prefWidth="200.0" promptText="Seleccione...">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
             </HBox>
-            <Separator orientation="VERTICAL" prefHeight="30.0" visible="false" />
-            <HBox prefHeight="42.0" prefWidth="748.0">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <RadioButton fx:id="RBdonante" mnemonicParsing="false" text="DONANTE DE ORGANOS" textFill="WHITE" textOverrun="CLIP">
+                  <RadioButton fx:id="RBdonante" mnemonicParsing="false" text="DONANTE DE ÓRGANOS" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </RadioButton>
                   <Separator prefWidth="60.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *" wrappingWidth="73.1943359375">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO: *">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="CBSexo" onAction="#keyReleasedProperty" prefWidth="150.0" promptText="Seleccione..." />
+                  <ComboBox fx:id="CBSexo" onAction="#keyReleasedProperty" prefWidth="200.0" promptText="Seleccione...">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
             </HBox>
-            <Separator orientation="VERTICAL" prefHeight="70.0" visible="false" />
-            <HBox prefHeight="99.0" prefWidth="748.0">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *" wrappingWidth="84.14453125">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DOMICILIO">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="campoCalle" onKeyReleased="#keyReleasedProperty" />
-                  <Separator prefWidth="60.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO: *" wrappingWidth="104.775390625">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="campoNumCall" onKeyReleased="#keyReleasedProperty" />
+                  <Separator maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                     <effect>
+                        <InnerShadow color="WHITE" />
+                     </effect>
+                  </Separator>
                </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CALLE: *">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoCalle" onKeyReleased="#keyReleasedProperty">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Separator prefWidth="60.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NÚMERO: *">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="campoNumCall" onKeyReleased="#keyReleasedProperty">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+            <Pane VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Button fx:id="Bregistro" mnemonicParsing="false" onMouseClicked="#onRegisterTitular" prefHeight="24.0" prefWidth="112.0" text="Registrar" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <ImageView fx:id="imageButton" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/icons8_undo_52px.png" />
+                     </image>
+                     <effect>
+                        <DropShadow color="#f5f2f2" height="14.83" radius="3.2075" width="0.0" />
+                     </effect>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </HBox>
          </children>
+         <StackPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </StackPane.margin>
       </VBox>
    </children>
-</AnchorPane>
+</StackPane>

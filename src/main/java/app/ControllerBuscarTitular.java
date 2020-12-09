@@ -5,6 +5,7 @@ import enumeration.EnumTipoAlerta;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
 import herramientas.DatePickerIniciador;
+import herramientas.AlertPanel;
 import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,6 +18,7 @@ public class ControllerBuscarTitular {
     private static ControllerBuscarTitular instance = null;
     private ControllerGestionLicencia controllerGestionLicencia = null;
     private ControllerImprimirLicencia controllerImprimirLicencia = null;
+    private ControllerModificarTitular controllerModificarTitular = null;
 
     public static ControllerBuscarTitular get() {
         if (instance == null){
@@ -47,8 +49,8 @@ public class ControllerBuscarTitular {
     private void initialize(){
         iniciarCombo();
         iniciarTabla();
-        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial);
-        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoInicial, false);
+        DatePickerIniciador.iniciarDatePicker(dateNacimientoFinal, true);
         listenerTextField();
     }
 
@@ -60,7 +62,7 @@ public class ControllerBuscarTitular {
 
     private void iniciarCombo(){
         comboTipoDocumento.getItems().clear();
-        comboTipoDocumento.setPromptText("Elegir tipo documento");
+        comboTipoDocumento.setPromptText("Tipo documento");
         comboTipoDocumento.getItems().addAll(EnumTipoDocumento.values());
     }
 
@@ -104,13 +106,12 @@ public class ControllerBuscarTitular {
         else argumentos.setTipoDocumento(null);
         argumentos.setDocumento(textDocumento.getText());
 
-        //ToDo ver de hacer asincronico
         cargarTabla(GestorTitular.get().searchTitular(argumentos));
     }
 
     private void selectionTitular(DTOGestionTitular dtoTitular){
         if(dtoTitular != null) {
-            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+            Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar selección del titular",
                     "",
                     "¿Desea seleccionar a "+dtoTitular.getNombre()+" "+dtoTitular.getApellido()+"?",
@@ -118,7 +119,8 @@ public class ControllerBuscarTitular {
 
             if (result.orElse(null) == ButtonType.OK) {
                 if(controllerGestionLicencia != null) controllerGestionLicencia.seleccionarTitular(dtoTitular);
-                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.seleccionarTitular(dtoTitular);
+                else if(controllerImprimirLicencia != null) controllerImprimirLicencia.titularBuscado(dtoTitular);
+                else if(controllerModificarTitular != null) controllerModificarTitular.seleccionarTitular(dtoTitular);
                 volver();
             }
         }
@@ -136,5 +138,9 @@ public class ControllerBuscarTitular {
 
     public void setControllerImprimirLicencia(ControllerImprimirLicencia controllerImprimirLicencia) {
         this.controllerImprimirLicencia = controllerImprimirLicencia;
+    }
+
+    public void setControllerModificarTitular(ControllerModificarTitular controllerModificarTitular) {
+        this.controllerModificarTitular = controllerModificarTitular;
     }
 }

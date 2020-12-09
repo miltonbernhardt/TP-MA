@@ -1,5 +1,6 @@
 package database;
 
+import herramientas.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -19,12 +20,13 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
     }
 
     @Override
-    public void save(T instance) throws HibernateException {
+    public Integer save(T instance) throws HibernateException {
+        Integer id;
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
-            session.save(instance);
+            id = (Integer) session.save(instance);
             session.getTransaction().commit();
         }
         catch (HibernateException exception) {
@@ -32,6 +34,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             exception.printStackTrace();
             throw exception;
         }
+        return id;
     }
 
     @Override
@@ -49,7 +52,6 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
             throw exception;
         }
     }
-
 
     @Override
     public void delete(T persistentInstance) throws HibernateException {
@@ -131,7 +133,7 @@ public class BaseDAOImpl <T, E extends Serializable> implements BaseDAO<T, E>{
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             int i = 0;
-            Object o = null;
+            Object o;
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
             o = session.createSQLQuery(consultaSql).getSingleResult();
