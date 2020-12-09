@@ -99,7 +99,7 @@ public class ControllerGestionLicencia {
 
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
         int cantidadClasesLicencia = listaLicencias.size();
-        if(emitirLicencia) {
+      //  if(emitirLicencia) {
             if (cantidadClasesLicencia > 0) {
                 //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
                 textNombre.setText(dto.getNombre());
@@ -117,10 +117,10 @@ public class ControllerGestionLicencia {
             } else {
                 PanelAlerta.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
             }
-        }
-        else{
+        //}
+        //else{
             //ToDo implementar backend de las licencias de renovarLicencia
-        }
+        //}
     }
 
     @FXML
