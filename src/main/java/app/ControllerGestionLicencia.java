@@ -4,8 +4,8 @@ import dto.DTOGestionTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
+import herramientas.AlertPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -97,26 +97,29 @@ public class ControllerGestionLicencia {
         textTipoDocumento.setText("");
         textDocumento.setText("");
 
-        //ToDo implementar backend de las licencias de renovarLicencia
         ArrayList<EnumClaseLicencia> listaLicencias = GestorLicencia.get().getClasesLicencias(dto.getIdTitular());
         int cantidadClasesLicencia = listaLicencias.size();
-        if(cantidadClasesLicencia > 0){
-            //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
-            textNombre.setText(dto.getNombre());
-            textApellido.setText(dto.getApellido());
+        if(emitirLicencia) {
+            if (cantidadClasesLicencia > 0) {
+                //En caso de que al titular se le puede emitir una licencia, se procede a setear los campos con sus respectivos datos
+                textNombre.setText(dto.getNombre());
+                textApellido.setText(dto.getApellido());
 
-            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            textFechaNacimiento.setText(dto.getFechaNacimiento().format(formatoFecha));
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                textFechaNacimiento.setText(dto.getFechaNacimiento().format(formatoFecha));
 
-            textTipoDocumento.setText(dto.getTipoDocumento().getValue());
-            textDocumento.setText(dto.getDocumento());
+                textTipoDocumento.setText(dto.getTipoDocumento().getValue());
+                textDocumento.setText(dto.getDocumento());
 
-            comboLicencias.setDisable(false);
-            textObservaciones.setDisable(false);
-            listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
+                comboLicencias.setDisable(false);
+                textObservaciones.setDisable(false);
+                listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
+            } else {
+                AlertPanel.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
+            }
         }
         else{
-            PanelAlerta.get(EnumTipoAlerta.ERROR,"Operación no válida","","No se le puede dar de alta una licencia '"+dto.getNombre()+" "+dto.getApellido()+"'",null);
+            //ToDo implementar backend de las licencias de renovarLicencia
         }
     }
 
@@ -146,22 +149,18 @@ public class ControllerGestionLicencia {
             mensajeNoExito = "No se ha podido renovar la licencia.";
         }
 
-        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
+        Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
         if (result.orElse(null) == ButtonType.OK) {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
 
-            try {
-                //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
-                if(emitirLicencia){
-                    if (GestorLicencia.get().generarLicencia(dto))
-                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
-                    else
-                        PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
-                }
+            //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
+            if(emitirLicencia){
+                if (GestorLicencia.get().generarLicencia(dto))
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
+                else
+                    AlertPanel.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
             }
-            catch (MenorDeEdadException e){e.printStackTrace();}
-
             volver();
         }
     }

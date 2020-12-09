@@ -1,13 +1,12 @@
 package app;
 
 import enumeration.*;
+import herramientas.AlertPanel;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import database.HibernateUtil;
+import herramientas.HibernateUtil;
 
 public class ControllerApp extends Application {
     private static Scene scene;
@@ -49,11 +48,11 @@ public class ControllerApp extends Application {
     /** Carga el archivo 'fxml' (la vista) en el parent principal.
         Se le pasa solo el nombre, sin el '.fxml'. */
     private static Parent loadFXML(String fxml)  {
-        fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml + ".fxml"));
+        fxmlLoader = new FXMLLoader(ControllerApp.class.getResource(fxml +".fxml"));
         try {
             return fxmlLoader.load();
         } catch (IOException | RuntimeException  e) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,
                             null,
                             null,
                             "Ocurrió un error al cargar la view \""+fxml+"\".",e);
@@ -62,6 +61,7 @@ public class ControllerApp extends Application {
         }
     }
 
+    /** Sale de la aplicación cerrando la base de datos por completo. */
     static void salir() {
         Platform.exit();
         System.exit(0);
@@ -102,11 +102,6 @@ public class ControllerApp extends Application {
         }
         scenesAnteriores.remove(p);
         titulosAnteriores.remove(t);
-    }
-
-    public static void setStyle(@SuppressWarnings("exports") DialogPane dialogPane) {
-        dialogPane.getStylesheets().clear();
-        dialogPane.getStylesheets().add("css/styles.css");
     }
 }
 

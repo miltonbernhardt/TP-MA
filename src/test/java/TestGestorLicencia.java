@@ -1,42 +1,69 @@
+import database.LicenciaDAOImpl;
+import database.TitularDAO;
+import database.TitularDAOImpl;
 import dto.DTOEmitirLicencia;
-import enumeration.EnumClaseLicencia;
-import enumeration.EnumTipoDocumento;
-import exceptions.MenorDeEdadException;
+import enumeration.*;
 import gestor.GestorLicencia;
-import gestor.GestorTitular;
+import model.Licencia;
+import model.Titular;
 import model.Vigencia;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TestGestorLicencia {
-
-    @Test
-    public void calcularVigencia_1anio() throws MenorDeEdadException {
-        LocalDate nacimiento = LocalDate.parse("25-06-2002", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate vencimiento = LocalDate.parse("25-06-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 0);
-        System.out.println(vigencia.getVigencia());
-        Assert.assertEquals(vigencia.getVigencia(), 1);
-        System.out.println(vigencia.getFechaVencimiento());
-        Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
-    }
+public class TestGestorLicencia<licencias> {
 
     @Test
-    public void calcularVigencia_3anios() throws MenorDeEdadException {
-        LocalDate nacimiento = LocalDate.parse("21-03-2000", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate vencimiento = LocalDate.parse("21-03-2023", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 100);
+    public void calcularVigencia_3anios() {
+        TitularDAO dao = new TitularDAOImpl();
+
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "42000001",
+                "PruebaTipoB",
+                "caseB1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2018, Month.MARCH, 21),
+                LocalDate.of(2019, Month.MARCH, 21));
+        //Agrego licencia al titular
+        t1.getLicencias().add(l1);
+        //Persisto en Base de Datos
+        int id = -1;
+        try {
+            id = dao.save(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Vigencia vigencia = GestorLicencia.calcularVigencia(t1.getFechaNacimiento(), id);
+        LocalDate vencimiento = LocalDate.parse("21-03-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         System.out.println(vigencia.getVigencia());
         Assert.assertEquals(vigencia.getVigencia(), 3);
         System.out.println(vigencia.getFechaVencimiento());
         Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
     }
 
+    /*@Test
+    public void calcularVigencia2_3anios(){
+        LocalDate nacimiento = LocalDate.parse("08-08-2001", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate vencimiento = LocalDate.parse("08-08-2023", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 141);
+        System.out.println(vigencia.getVigencia());
+        Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
+        Assert.assertEquals(vigencia.getVigencia(), 3);
+        System.out.println(vigencia.getFechaVencimiento());
+    }
+*/
     @Test
-    public void calcularVigencia_5anios() throws MenorDeEdadException {
+    public void calcularVigencia_5anios(){
         LocalDate nacimiento = LocalDate.parse("08-07-1996", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate vencimiento = LocalDate.parse("08-07-2025", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 111);
@@ -46,68 +73,110 @@ public class TestGestorLicencia {
         Assert.assertEquals(vigencia.getFechaVencimiento(), vencimiento);
     }
     /*
-    Emitir licencia de clase B para una persona de 23 años:
+    Emitir licencia de clase B para una persona de 20 años:
      */
     @Test
-    public void emitirLicencia() throws MenorDeEdadException {
+    public void emitirLicencia() throws Exception {
+        TitularDAO dao = new TitularDAOImpl();
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "42000001",
+                "PruebaTipoB",
+                "caseB1",
+                LocalDate.of(2000, Month.MARCH, 21),
+                EnumGrupoSanguineo.GRUPO_0,
+                EnumFactorRH.FACTOR_POSITIVO,
+                true, EnumSexo.MASCULINO);
+        Licencia l1 = new Licencia(t1,
+                EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2018, Month.MARCH, 21),
+                LocalDate.of(2019, Month.MARCH, 21));
+        int id = -1;
+        try {
+            id = dao.save(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
-        dto.setIdTitular(122);
-        dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
-        dto.setNombre("INDIANA");
-        dto.setApellido("LOZANO");
-        dto.setTipoDocumento(EnumTipoDocumento.DNI);
-        dto.setDocumento("40266367");
+        dto.setIdTitular(id);
+        dto.setFechaNacimiento(t1.getFechaNacimiento());
+        dto.setNombre(t1.getNombre());
+        dto.setApellido(t1.getApellido());
+        dto.setTipoDocumento(t1.getTipoDNI());
+        dto.setDocumento(t1.getDNI());
         dto.setCosto(48.0);
         dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
-
+        dto.setClaseLicencia(l1.getClaseLicencia());
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
+        t1 = dao.findById(id);
+        dao.delete(t1);
         Assert.assertTrue(resultado);
     }
-    /*
-    	Emitir licencia de clase B para una persona de 23 años.
-    	En este caso, la prueba falla dado que el idTitular pasado a
-    	dto.setIdTitular no corresponde al idTitular de la persona en cuestión.
-     */
+
     @Test
-    public void emitirLicencia2() throws MenorDeEdadException {
+    //28A1 = $28 para licencia clase A por 1 año
+    public void testCalcularCostoLicencia28A1(){
+        TitularDAO dao = new TitularDAOImpl();
+        DTOEmitirLicencia dtoEmitirLicencia = null;
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40266367", "PruebaCosto20A1","case20A1",
+                LocalDate.of(1007, Month.MARCH, 19), EnumGrupoSanguineo.GRUPO_B,
+                EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
+        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_A,
+                LocalDate.of(2018, Month.MARCH, 21),
+                LocalDate.of(2019, Month.MARCH, 21));
+        int id = -1;
+        try {
+            id = dao.save(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
-        dto.setIdTitular(150);
-        dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
-        dto.setNombre("INDIANA");
-        dto.setApellido("LOZANO");
-        dto.setTipoDocumento(EnumTipoDocumento.DNI);
-        dto.setDocumento("40266367");
-        dto.setCosto(48.0);
+        dto.setIdTitular(id);
+        dto.setFechaNacimiento(t1.getFechaNacimiento());
+        dto.setNombre(t1.getNombre());
+        dto.setApellido(t1.getApellido());
+        dto.setTipoDocumento(t1.getTipoDNI());
+        dto.setDocumento(t1.getDNI());
+        dto.setCosto(20.0);
         dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
-
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().generarLicencia(dto);
-        Assert.assertTrue(resultado);
+        dto.setClaseLicencia(l1.getClaseLicencia());
+        double costoTotal = GestorLicencia.get().calcularCostoLicencia(dto);
+        Assert.assertEquals(costoTotal, 28.0, 0);
     }
-
-    /*
-    	Emitir licencia de clase B para una persona menor de edad.
-    	En este caso, la prueba falla.
-     */
-   @Test
-    public void emitirLicencia3() throws MenorDeEdadException {
+/*
+    @Test
+    //67F5 = $67 para licencia clase F por 5 años
+    public void testCalcularCostoLicencia33B2(){
+        TitularDAO dao = new TitularDAOImpl();
+        DTOEmitirLicencia dtoEmitirLicencia = null;
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40266367", "Lozano","Indiana",
+                LocalDate.of(2000, Month.MARCH, 19), EnumGrupoSanguineo.GRUPO_B,
+                EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
+        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_B,
+                LocalDate.of(2018, Month.MARCH, 21),
+                LocalDate.of(2021, Month.MARCH, 21));
+        int id = -1;
+        try {
+            id = dao.save(t1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
-        dto.setIdTitular(150);
-        dto.setFechaNacimiento(LocalDate.of(2008, 3, 19));
-        dto.setNombre("INDIANA");
-        dto.setApellido("PÉREZ");
-        dto.setTipoDocumento(EnumTipoDocumento.DNI);
-        dto.setDocumento("48755984");
-        dto.setCosto(48.0);
+        dto.setIdTitular(id);
+        dto.setFechaNacimiento(t1.getFechaNacimiento());
+        dto.setNombre(t1.getNombre());
+        dto.setApellido(t1.getApellido());
+        dto.setTipoDocumento(t1.getTipoDNI());
+        dto.setDocumento(t1.getDNI());
+        dto.setCosto(25.0);
         dto.setObservaciones(null);
-        dto.setClaseLicencia(EnumClaseLicencia.CLASE_B);
-
-        GestorLicencia gestorLicencia = GestorLicencia.get();
-        boolean resultado = GestorLicencia.get().generarLicencia(dto);
-        Assert.assertTrue(resultado);
+        dto.setClaseLicencia(l1.getClaseLicencia());
+        double costoTotal = GestorLicencia.get().calcularCostoLicencia(dto);
+        Assert.assertEquals(costoTotal, 33.0, 0);
     }
+*/
+
 
 
 }
