@@ -1,9 +1,13 @@
+import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOEmitirLicencia;
+import dto.DTOImprimirLicencia;
+import dto.DTOModificarTitular;
 import enumeration.*;
 import gestor.GestorLicencia;
+import gestor.GestorTitular;
 import model.Licencia;
 import model.Titular;
 import model.Vigencia;
@@ -107,8 +111,8 @@ public class TestGestorLicencia<licencias> {
         dto.setObservaciones(null);
         dto.setClaseLicencia(l1.getClaseLicencia());
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
-        t1 = dao.findById(id);
-        dao.delete(t1);
+        /* t1 = dao.findById(id);
+            dao.delete(t1); */
         Assert.assertTrue(resultado);
     }
 
@@ -143,19 +147,19 @@ public class TestGestorLicencia<licencias> {
         double costoTotal = GestorLicencia.get().calcularCostoLicencia(dto);
         Assert.assertEquals(costoTotal, 28.0, 0);
     }
-/*
+
     @Test
     //67F5 = $67 para licencia clase F por 5 años
-    public void testCalcularCostoLicencia33B2(){
+    public void testCalcularCostoLicencia67F5(){
         TitularDAO dao = new TitularDAOImpl();
         DTOEmitirLicencia dtoEmitirLicencia = null;
         Titular t1 = new Titular(EnumTipoDocumento.DNI,
                 "40266367", "Lozano","Indiana",
-                LocalDate.of(2000, Month.MARCH, 19), EnumGrupoSanguineo.GRUPO_B,
+                LocalDate.of(1997, Month.MARCH, 19), EnumGrupoSanguineo.GRUPO_B,
                 EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
-        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_B,
-                LocalDate.of(2018, Month.MARCH, 21),
-                LocalDate.of(2021, Month.MARCH, 21));
+        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_F,
+                LocalDate.of(2020, Month.MARCH, 19),
+                LocalDate.of(2025, Month.MARCH, 19));
         int id = -1;
         try {
             id = dao.save(t1);
@@ -169,14 +173,34 @@ public class TestGestorLicencia<licencias> {
         dto.setApellido(t1.getApellido());
         dto.setTipoDocumento(t1.getTipoDNI());
         dto.setDocumento(t1.getDNI());
-        dto.setCosto(25.0);
+        dto.setCosto(59.0);
         dto.setObservaciones(null);
         dto.setClaseLicencia(l1.getClaseLicencia());
         double costoTotal = GestorLicencia.get().calcularCostoLicencia(dto);
-        Assert.assertEquals(costoTotal, 33.0, 0);
+        Assert.assertEquals(costoTotal, 67.0, 0);
     }
-*/
 
+    @Test
+    public void testImprimirLicencia() throws Exception {
+        TitularDAO dao = new TitularDAOImpl();
+        LicenciaDAO licdao = new LicenciaDAOImpl();
+        DTOEmitirLicencia dtoEmitirLicencia = null;
+        Titular t1 = new Titular(EnumTipoDocumento.DNI,
+                "40266367", "Lozano", "Indiana",
+                LocalDate.of(1067, Month.MARCH, 19), EnumGrupoSanguineo.GRUPO_A,
+                EnumFactorRH.FACTOR_POSITIVO, true, EnumSexo.FEMENINO);
+        Licencia l1 = new Licencia(t1, EnumClaseLicencia.CLASE_G,
+                LocalDate.of(2020, Month.MARCH, 19),
+                LocalDate.of(2025, Month.MARCH, 19));
+        int id = -1;
+        id = licdao.save(l1);
+
+        int idTitular = -1;
+        idTitular = dao.save(t1);
+
+        DTOImprimirLicencia dto = new DTOImprimirLicencia(l1.getId(), t1.getId(), l1.getClaseLicencia(),
+                l1.getFechaEmision(), l1.getFechaVencimiento(), l1.getObservaciones(), l1.getCosto());
+    }
 
 
 }
