@@ -4,6 +4,7 @@ import dto.DTOGestionTitular;
 import dto.DTOModificarTitular;
 import enumeration.*;
 import gestor.GestorTitular;
+import herramientas.AlertPanel;
 import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -72,7 +73,7 @@ public class ControllerModificarTitular{
     public void modificarTitular() {
         if(dto != null){
             if(campoNombre.getText().isEmpty() || campoApellido.getText().isEmpty() || campoDireccion.getText().isEmpty() || campoDireccionNumero.getText().isEmpty()){
-                PanelAlerta.get(EnumTipoAlerta.ERROR,"Faltan Campos","","No pueden existir campos vacios del titular, vuelva a completar los campos faltantes.",null);
+                AlertPanel.get(EnumTipoAlerta.ERROR,"Faltan Campos","","No pueden existir campos vacios del titular, vuelva a completar los campos faltantes.",null);
             } else{
                 dto.setNombre(campoNombre.getText());
                 dto.setApellido(campoApellido.getText());
@@ -82,7 +83,7 @@ public class ControllerModificarTitular{
                 dto.setDonante(radioButtonDonante.isSelected());
                 //todo crear metodo para realizar un update en la base de datos con el dto, mostrar una ventana consultando si esta seguro de la modificacion
                 // y si acepta que, muestre otra ventana diciendo si se realizo correctamente o no y que vuelva para atras.
-                Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+                Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
                         "Confirmar selección del titular",
                         "",
                         "¿Está seguro de actualizar esta información?",
@@ -90,15 +91,15 @@ public class ControllerModificarTitular{
                 if (result.orElse(null) == ButtonType.OK) {
                     try {
                         GestorTitular.get().modificarTitular(dto);
-                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Modificación", "", "Se pudo realizar la modificacion correctamente", null);
+                        AlertPanel.get(EnumTipoAlerta.INFORMACION, "Modificación", "", "Se pudo realizar la modificacion correctamente", null);
                         volver();
                     } catch (Exception e){
-                        PanelAlerta.get(EnumTipoAlerta.EXCEPCION, "Error", "", "No see pudo realizar la modificacion correctamente", e);
+                        AlertPanel.get(EnumTipoAlerta.EXCEPCION, "Error", "", "No se pudo realizar la modificacion correctamente", e);
                     }
                 }
             }
         }else {
-            PanelAlerta.get(EnumTipoAlerta.ERROR,"Seleccione un titular","","Debe seleccionar un titular para modificar, en caso de querer dar de alta un nuevo titular, vuelva a la pantalla anterior.",null);
+            AlertPanel.get(EnumTipoAlerta.ERROR,"Seleccione un titular","","Debe seleccionar un titular para modificar, en caso de querer dar de alta un nuevo titular, vuelva a la pantalla anterior.",null);
         }
     }
 }

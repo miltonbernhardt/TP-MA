@@ -1,7 +1,6 @@
 package herramientas;
 
 import gestor.GestorTitular;
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tooltip;
@@ -11,11 +10,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/** Clase que setea el formato de los objetos DatePicker y les establece un rango de fechas válidas */
 public class DatePickerIniciador extends StringConverter<LocalDate> {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
+    /** Setea el formato de los objetos DatePicker y les establece un rango de fechas válidas */
     static public void iniciarDatePicker(DatePicker datePicker) {
         LocalDate minDate = LocalDate.of(1930, 1, 1);
         LocalDate maxDate = GestorTitular.get().getFechaMinima();

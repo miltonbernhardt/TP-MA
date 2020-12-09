@@ -1,6 +1,7 @@
 package database;
 
 import dto.DTOGestionTitular;
+import herramientas.HibernateUtil;
 import model.Titular;
 import org.hibernate.Session;
 import org.hibernate.resource.transaction.spi.TransactionStatus;

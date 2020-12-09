@@ -2,6 +2,7 @@ package database;
 
 import dto.DTOImprimirLicencia;
 import dto.DTOLicenciaExpirada;
+import herramientas.HibernateUtil;
 import model.Licencia;
 
 import org.hibernate.Session;
@@ -25,7 +26,6 @@ public class LicenciaDAOImpl extends BaseDAOImpl<Licencia,Integer> implements Li
         String consulta = "SELECT new dto.DTOImprimirLicencia(l.id , t.id ,l.claseLicencia, l.fechaEmision,l.fechaVencimiento, l.observaciones, l.costo) FROM Licencia l, Titular t "
                 + argumentos+ " ORDER BY l.id ASC ";
 
-        System.out.println("ultima consulta es"  + consulta);
         try {
             if(session.getTransaction().getStatus().equals(TransactionStatus.NOT_ACTIVE))
                 session.beginTransaction();
