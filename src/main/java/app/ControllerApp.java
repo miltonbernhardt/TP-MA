@@ -62,6 +62,7 @@ public class ControllerApp extends Application {
         }
     }
 
+    /** Sale de la aplicación cerrando la base de datos por completo. */
     static void salir() {
         Platform.exit();
         System.exit(0);
@@ -104,6 +105,7 @@ public class ControllerApp extends Application {
         titulosAnteriores.remove(t);
     }
 
+    /** Setea el estilo establecido en el .css para el objeto. */
     public static void setStyle(@SuppressWarnings("exports") DialogPane dialogPane) {
         dialogPane.getStylesheets().clear();
         dialogPane.getStylesheets().add("css/styles.css");

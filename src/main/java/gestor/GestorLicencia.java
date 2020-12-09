@@ -3,17 +3,15 @@ package gestor;
 import app.PanelAlerta;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
+import database.TitularDAOImpl;
 import dto.DTOEmitirLicencia;
 import dto.DTOImprimirLicencia;
 import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import exceptions.MenorDeEdadException;
 import model.Licencia;
 import model.Titular;
 import model.Vigencia;
-
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -70,9 +68,9 @@ public class GestorLicencia {
                 vigencia.setFechaVencimiento(nacimiento.plusYears(years+1));
             }
 
-
         return vigencia;
     }
+
 
     /** Calcula el tiempo de vigencia de la licencia desde que se hizo la emisión hasta la fecha actual */
     public static Integer getTiempoEnVigencia(LocalDate fechaEmision,LocalDate fechaVencimiento){
@@ -81,9 +79,10 @@ public class GestorLicencia {
         else return Period.between(fechaEmision,LocalDate.now()).getYears();
     }
 
-    /**- Trae desde la Base de Datos, las clases de licencias que tiene
+
+    /** Trae desde la Base de Datos, las clases de licencias que tiene
         permitido solicitar el titular actual en pantalla.
-        - Se asume que todos los titulares registrados tienen por lo
+        Se asume que todos los titulares registrados tienen por lo
         menos 17 años, sino no se hubiese registrado como titular en el sistema
         @param idTitular id del titular en la base de datos */
     public ArrayList<EnumClaseLicencia> getClasesLicencias(Integer idTitular){
@@ -181,96 +180,103 @@ public class GestorLicencia {
         return ClasesLicencias;
     }
 
-    /** Calcula el costo de la licencia */
-    public double calcularCostoLicencia(DTOEmitirLicencia dto) {
-        LocalDate fechaV = dto.getFechaNacimiento();
-        int vig = calcularVigencia(fechaV, dto.getIdTitular()).vigencia;
-        String clase = dto.getClaseLicencia().getValue();
+
+    /** Calcula el costo de la licencia. */
+    public double calcularCostoLicencia(DTOEmitirLicencia dtoEmitirLicencia) {
+        LocalDate fechaV = dtoEmitirLicencia.getFechaNacimiento();
+        int vig = calcularVigencia(fechaV, dtoEmitirLicencia.getIdTitular()).vigencia;
+        String clase = dtoEmitirLicencia.getClaseLicencia().getValue();
 
         double costoTotal = 0;
         if (clase.equals("Clase A") || clase.equals("Clase B") || clase.equals("Clase G")){
-
-               if (vig==5 ){
-                costoTotal= costoTotal+ 40;
-                }
-                if (vig==4){
-                costoTotal=costoTotal +30;
-                }
-                if (vig==3){
-                costoTotal= costoTotal+25;
-                }
-                if (vig==1){
-                costoTotal= costoTotal+20;
-                }
-        }else {
+            switch (vig){
+                case 1:
+                    costoTotal = costoTotal+20;
+                    break;
+                case 3:
+                    costoTotal = costoTotal+25;
+                    break;
+                case 4:
+                    costoTotal = costoTotal +30;
+                    break;
+                case 5:
+                    costoTotal = costoTotal+ 40;
+                    break;
+            }
+        }
+        else {
             if (clase.equals("Clase F") || clase.equals("Clase D") || clase.equals("Clase E")) {
-                System.out.println("entra a if" + vig);
-                if (vig == 5) {
-                    costoTotal =costoTotal+ 59;
-                }
-                if (vig == 4) {
-                    costoTotal =costoTotal+ 29;
-                }
-                if (vig == 3) {
-                    costoTotal = costoTotal + 39;
-                }
-                if (vig == 1) {
-                    costoTotal =costoTotal+ 29;
+                switch (vig){
+                    case 1:
+                    case 4:
+                        costoTotal = costoTotal + 29;
+                        break;
+                    case 3:
+                        costoTotal = costoTotal + 39;
+                        break;
+                    case 5:
+                        costoTotal = costoTotal + 59;
+                        break;
                 }
             }
             else {
                 if(clase.equals("Clase C")) {
-                    if (vig == 5) {
-                        costoTotal =costoTotal+ 47;
-                    }
-                    if (vig == 4) {
-                        costoTotal =costoTotal+ 35;
-                    }
-                    if (vig == 3) {
-                        costoTotal = costoTotal+ 30;
-                    }
-                    if (vig == 1) {
-                        costoTotal = costoTotal+ 23;
+                    switch (vig){
+                        case 1:
+                            costoTotal = costoTotal + 23;
+                            break;
+                        case 3:
+                            costoTotal = costoTotal + 30;
+                            break;
+                        case 4:
+                            costoTotal = costoTotal + 35;
+                            break;
+                        case 5:
+                            costoTotal = costoTotal + 47;
+                            break;
                     }
                 }
             }
         }
 
-        costoTotal+=8;
-        System.out.println("costotal" + costoTotal);
-        return costoTotal;
+        return costoTotal + 8;
     }
 
-    public Boolean generarLicencia(DTOEmitirLicencia dto){
+
+    /** Genera una entidad licencia en la base de datos.
+        Retorna true si la inserción resulta exitosa, sino retorna false.
+        @param dtoEmitirLicencia dto que posee los datos de la licencia a generar. */
+    public Boolean generarLicencia(DTOEmitirLicencia dtoEmitirLicencia){
         Licencia licencia = new Licencia();
-        licencia.setClaseLicencia(dto.getClaseLicencia());
+        licencia.setClaseLicencia(dtoEmitirLicencia.getClaseLicencia());
         licencia.setFechaEmision(LocalDate.now());
-        LocalDate vencimiento = calcularVigencia(dto.getFechaNacimiento(), dto.getIdTitular()).getFechaVencimiento();
+        LocalDate vencimiento = calcularVigencia(dtoEmitirLicencia.getFechaNacimiento(), dtoEmitirLicencia.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
-        licencia.setObservaciones(dto.getObservaciones());
+        licencia.setObservaciones(dtoEmitirLicencia.getObservaciones());
 
-        licencia.setCosto((float) calcularCostoLicencia(dto));
+        licencia.setCosto((float) calcularCostoLicencia(dtoEmitirLicencia));
 
 
-        Titular titular = GestorTitular.get().getTitular(dto.getIdTitular());
+        Titular titular = GestorTitular.get().getTitular(dtoEmitirLicencia.getIdTitular());
         licencia.setTitular(titular);
 
-        /*
-        TODO si se encuentra una forma de inicializar lazy relations, cambiar esto y la propiedad en hibernate.cfg.xml (enable_lazy_load_no_trans)
-         */
         titular.getLicencias().add(licencia);
 
         try {
-            GestorTitular.get().updateTitular(titular);
+            new TitularDAOImpl().update(titular);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
+
+    /** Obtiene las licencias que están asociadas a un titular.
+        @param idTitular id del titular al que se le quiere consultar sus licencias. */
     public static List<Licencia> getHistorialLicencias(Integer idTitular) throws Exception {
         return daoLicencia.findAllByQuery("select l from Licencia l where l.titular="+idTitular);
     }
+
 
     public List<DTOImprimirLicencia> searchLic(DTOImprimirLicencia argumentosBuscar) {
         String argumentos = "";
@@ -330,6 +336,7 @@ public class GestorLicencia {
 
     }
 
+
     public ArrayList<EnumClaseLicencia> obtenerLicencias(int id_titular){
         ArrayList<EnumClaseLicencia> Claseslicencias = new ArrayList<>();
         //instancia de titular actual
@@ -348,6 +355,7 @@ public class GestorLicencia {
         return Claseslicencias;
     }
 
+
     public static List<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
 
         String consulta = armarConsultaLicenciasExpiradas(filtros);
@@ -361,6 +369,7 @@ public class GestorLicencia {
             return new ArrayList<>();
         }
     }
+
 
     private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
     {
@@ -407,8 +416,6 @@ public class GestorLicencia {
 
         return consulta;
     }
-
-
 }
 
 

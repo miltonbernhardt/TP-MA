@@ -109,7 +109,6 @@ public class ControllerBuscarTitular {
         else argumentos.setTipoDocumento(null);
         argumentos.setDocumento(textDocumento.getText());
 
-        //ToDo ver de hacer asincronico
         cargarTabla(GestorTitular.get().searchTitular(argumentos));
     }
 

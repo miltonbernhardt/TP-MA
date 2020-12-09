@@ -21,15 +21,6 @@ public class DTOGestionTitular {
 
     public DTOGestionTitular(){}
 
-    public DTOGestionTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento) {
-        this.idTitular = idTitular;
-        this.fechaNacimiento = fechaNacimiento;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.tipoDocumento = tipoDocumento;
-        this.documento = documento;
-    }
-
     public DTOGestionTitular(int idTitular, LocalDate fechaNacimiento, String nombre, String apellido, EnumTipoDocumento tipoDocumento, String documento, String calle, int nroCalle, Boolean donante, EnumSexo sexo) {
         this.idTitular = idTitular;
         this.fechaNacimiento = fechaNacimiento;

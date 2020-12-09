@@ -4,7 +4,6 @@ import dto.DTOGestionTitular;
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
-import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -133,7 +132,7 @@ public class ControllerGestionLicencia {
     }
 
     @FXML
-    private void generarLicencia() throws MenorDeEdadException {
+    private void generarLicencia() {
         String tituloVentana, contenidoMensaje, mensajeExito, mensajeNoExito;
 
         if(emitirLicencia){

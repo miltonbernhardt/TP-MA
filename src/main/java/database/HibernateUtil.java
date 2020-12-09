@@ -8,7 +8,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//ToDo ver que hacer en caso de excepcion, porque cierra las query
 public class HibernateUtil {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
@@ -27,17 +26,14 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
+    /** Cierra la base de datos por completo. */
     public static void closeBaseDatos() {
         registry.close();
         sessionFactory.close();
     }
 
-
-    /**
-     * true si se quiere mostrar la consola de Hibernate
-     * false si no se quiere mostrar la consola de Hibernate
-     * @param apagamos
-     */
+    /** "true" si se quiere mostrar la consola de Hibernate.
+        "false" si no se quiere mostrar la consola de Hibernate. */
     public static void apagarLog(Boolean apagamos) {
         if(apagamos) {
             Logger log = Logger.getLogger("org.hibernate");

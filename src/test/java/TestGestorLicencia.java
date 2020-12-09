@@ -1,9 +1,7 @@
 import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoDocumento;
-import exceptions.MenorDeEdadException;
 import gestor.GestorLicencia;
-import gestor.GestorTitular;
 import model.Vigencia;
 import org.junit.Test;
 import org.junit.Assert;
@@ -14,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class TestGestorLicencia {
 
     @Test
-    public void calcularVigencia_1anio() throws MenorDeEdadException {
+    public void calcularVigencia_1anio() {
         LocalDate nacimiento = LocalDate.parse("25-06-2002", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate vencimiento = LocalDate.parse("25-06-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 0);
@@ -25,7 +23,7 @@ public class TestGestorLicencia {
     }
 
     @Test
-    public void calcularVigencia_3anios() throws MenorDeEdadException {
+    public void calcularVigencia_3anios() {
         LocalDate nacimiento = LocalDate.parse("21-03-2000", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate vencimiento = LocalDate.parse("21-03-2023", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 100);
@@ -36,7 +34,7 @@ public class TestGestorLicencia {
     }
 
     @Test
-    public void calcularVigencia_5anios() throws MenorDeEdadException {
+    public void calcularVigencia_5anios() {
         LocalDate nacimiento = LocalDate.parse("08-07-1996", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate vencimiento = LocalDate.parse("08-07-2025", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Vigencia vigencia = GestorLicencia.calcularVigencia(nacimiento, 111);
@@ -49,7 +47,7 @@ public class TestGestorLicencia {
     Emitir licencia de clase B para una persona de 23 años:
      */
     @Test
-    public void emitirLicencia() throws MenorDeEdadException {
+    public void emitirLicencia() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(122);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -70,7 +68,7 @@ public class TestGestorLicencia {
     	dto.setIdTitular no corresponde al idTitular de la persona en cuestión.
      */
     @Test
-    public void emitirLicencia2() throws MenorDeEdadException {
+    public void emitirLicencia2() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(1997, 3, 19));
@@ -92,7 +90,7 @@ public class TestGestorLicencia {
     	En este caso, la prueba falla.
      */
    @Test
-    public void emitirLicencia3() throws MenorDeEdadException {
+    public void emitirLicencia3() {
         DTOEmitirLicencia dto = new DTOEmitirLicencia();
         dto.setIdTitular(150);
         dto.setFechaNacimiento(LocalDate.of(2008, 3, 19));
@@ -108,6 +106,4 @@ public class TestGestorLicencia {
         boolean resultado = GestorLicencia.get().generarLicencia(dto);
         Assert.assertTrue(resultado);
     }
-
-
 }
