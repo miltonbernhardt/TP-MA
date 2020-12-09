@@ -1,5 +1,6 @@
 package database;
 
+import herramientas.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

@@ -5,15 +5,12 @@ import enumeration.EnumTipoAlerta;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorTitular;
 import herramientas.DatePickerIniciador;
+import herramientas.AlertPanel;
 import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,7 +111,7 @@ public class ControllerBuscarTitular {
 
     private void selectionTitular(DTOGestionTitular dtoTitular){
         if(dtoTitular != null) {
-            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+            Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar selección del titular",
                     "",
                     "¿Desea seleccionar a "+dtoTitular.getNombre()+" "+dtoTitular.getApellido()+"?",

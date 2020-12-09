@@ -2,6 +2,7 @@ package database;
 
 import dto.DTOImprimirLicencia;
 import dto.DTOLicenciaExpirada;
+import herramientas.HibernateUtil;
 import model.Licencia;
 
 import org.hibernate.Session;

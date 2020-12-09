@@ -1,4 +1,4 @@
-package app;
+package herramientas;
 
 import java.util.Optional;
 
@@ -15,17 +15,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
-public class PanelAlerta {
+public class AlertPanel {
 
-    /**
-     * Muestra un panel que muestra error/información/confirmación/excepción de acuerdo a tipoAlerta.
-     * @param tipoAlerta EnumTipoAlerat para indicar que se está informando. Tematiza la ventana.
-     * @param tituloVentana titulo de la ventana del panel.
-     * @param contenidoTitulo titulo dentro del panel. Suele ser "Error!", "Confirmación.", etc.
-     * @param contenidoMensaje descripción de la información que brinda el panel.
-     * @param excepcion este campo se completa con la excepción obtenida de un "catch", si no es null.
-     * @return retorna Optional<ButtonType> que en caso de que se necesite una acción ante una confirmación, se podrá usar result.get() == ButtonType.OK.
-     */
+    /** Muestra un panel que muestra error/información/confirmación/excepción de acuerdo a tipoAlerta.
+        @param tipoAlerta EnumTipoAlerat para indicar que se está informando. Tematiza la ventana.
+        @param tituloVentana titulo de la ventana del panel.
+        @param contenidoTitulo titulo dentro del panel. Suele ser "Error!", "Confirmación.", etc.
+        @param contenidoMensaje descripción de la información que brinda el panel.
+        @param excepcion este campo se completa con la excepción obtenida de un "catch", si no es null.
+        @return retorna Optional<ButtonType> que en caso de que se necesite una acción ante una confirmación, se podrá usar result.orElse(null) == ButtonType.OK. */
     public static Optional<ButtonType> get(EnumTipoAlerta tipoAlerta, String tituloVentana, String contenidoTitulo, String contenidoMensaje, Exception excepcion){
         Alert alert = null;
         switch (tipoAlerta){
@@ -51,8 +49,8 @@ public class PanelAlerta {
         alert.setTitle(tituloVentana);
         alert.setHeaderText(contenidoTitulo);
         alert.setContentText(contenidoMensaje);
-
-        ControllerApp.setStyle(alert.getDialogPane());
+        alert.getDialogPane().getStylesheets().clear();
+        alert.getDialogPane().getStylesheets().add("css/styles.css");
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {

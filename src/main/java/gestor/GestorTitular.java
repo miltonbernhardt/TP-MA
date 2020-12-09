@@ -1,6 +1,6 @@
 package gestor;
 
-import app.PanelAlerta;
+import herramientas.AlertPanel;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import dto.DTOAltaTitular;
@@ -67,7 +67,7 @@ public class GestorTitular {
         try {
             return daoTitular.findById(idTitular);
         } catch (Exception e) {
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el titular.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el titular.", e);
             return null;
         }
     }
@@ -155,7 +155,7 @@ public class GestorTitular {
             else return daoTitular.createListDTOBuscarTitular("");
         }
         catch (Exception e){
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
     }

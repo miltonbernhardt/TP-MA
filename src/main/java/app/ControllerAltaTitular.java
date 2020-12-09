@@ -2,19 +2,15 @@ package app;
 
 import dto.DTOAltaTitular;
 import enumeration.*;
-import gestor.GestorLicencia;
 import herramientas.DatePickerIniciador;
+import herramientas.AlertPanel;
 import herramientas.TextFielIniciador;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import gestor.GestorTitular;
 
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class ControllerAltaTitular{
     private static ControllerAltaTitular instance = null;
@@ -72,7 +68,7 @@ public class ControllerAltaTitular{
     GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
     */
     public void onRegisterTitular(){
-            Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,
+            Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
                     "Confirmar alta de Titular",
                     "",
                     "¿Desea confirmar el registro del titular?",
@@ -81,12 +77,12 @@ public class ControllerAltaTitular{
             if (result.orElse(null) == ButtonType.OK) {
 
                 if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17 || GestorTitular.get().getEdad(campoFechaNac.getValue()) > 65) {
-                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
                             "",
                             "Su titular debe poser al menos de 17 años y como máximo 65 años", null);
                 } else {
                     if (campoDoc.getLength() != 8) {
-                        PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Documento",
+                        AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
                                 "",
                                 "El numero de Documento es inválido", null);
                     } else {
@@ -105,13 +101,13 @@ public class ControllerAltaTitular{
                             dto.setFechaNacimiento(campoFechaNac.getValue());
 
                             if (GestorTitular.get().registrarTitular(dto)) {
-                                PanelAlerta.get(EnumTipoAlerta.INFORMACION,
+                                AlertPanel.get(EnumTipoAlerta.INFORMACION,
                                         "Confirmación",
                                         "",
                                         "Se ha dado de alta al titular de forma correcta.",
                                         null);
                             } else {
-                                PanelAlerta.get(EnumTipoAlerta.ERROR,
+                                AlertPanel.get(EnumTipoAlerta.ERROR,
                                         "Error",
                                         "",
                                         "No se ha podido dar de alta Titular",
@@ -119,7 +115,7 @@ public class ControllerAltaTitular{
                             }
                             volver();
                         } else {
-                            PanelAlerta.get(EnumTipoAlerta.ERROR,
+                            AlertPanel.get(EnumTipoAlerta.ERROR,
                                     "Error",
                                     "",
                                     "El titular ya se encuentra registrado",

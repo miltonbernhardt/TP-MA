@@ -1,6 +1,6 @@
 package gestor;
 
-import app.PanelAlerta;
+import herramientas.AlertPanel;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
 import database.TitularDAOImpl;
@@ -330,7 +330,7 @@ public class GestorLicencia {
 
         }
         catch (Exception e){
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
 
@@ -365,7 +365,7 @@ public class GestorLicencia {
             return listDTOLicenciaExpirada;
         }
         catch (Exception e){
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
     }

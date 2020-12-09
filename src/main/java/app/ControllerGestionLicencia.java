@@ -5,6 +5,7 @@ import dto.DTOEmitirLicencia;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoAlerta;
 import gestor.GestorLicencia;
+import herramientas.AlertPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -114,7 +115,7 @@ public class ControllerGestionLicencia {
                 textObservaciones.setDisable(false);
                 listaLicencias.forEach(listaLicencia -> comboLicencias.getItems().add(listaLicencia));
             } else {
-                PanelAlerta.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
+                AlertPanel.get(EnumTipoAlerta.ERROR, "Operación no válida", "", "No se le puede dar de alta una licencia '" + dto.getNombre() + " " + dto.getApellido() + "'", null);
             }
         }
         else{
@@ -148,7 +149,7 @@ public class ControllerGestionLicencia {
             mensajeNoExito = "No se ha podido renovar la licencia.";
         }
 
-        Optional<ButtonType> result = PanelAlerta.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
+        Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
         if (result.orElse(null) == ButtonType.OK) {
             dto.setObservaciones(textObservaciones.getText());
             dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
@@ -156,9 +157,9 @@ public class ControllerGestionLicencia {
             //ToDo cuando se haga la logica de renovar licencia, fijarse si usar funciones distintas para la generacion de la licencia.
             if(emitirLicencia){
                 if (GestorLicencia.get().generarLicencia(dto))
-                    PanelAlerta.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
                 else
-                    PanelAlerta.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
+                    AlertPanel.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
             }
             volver();
         }

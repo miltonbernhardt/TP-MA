@@ -1,9 +1,8 @@
-import app.PanelAlerta;
+import herramientas.AlertPanel;
 import database.TitularDAO;
 import database.TitularDAOImpl;
 import enumeration.*;
 import model.Titular;
-import org.hibernate.HibernateError;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class TestDAOTitular {
             dao.save(t1);
         }
         catch (Exception e){
-            PanelAlerta.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo obtener el objeto desde la base de datos.", e);
         }
 
         t1.setApellido("TestDAO updatee");
