@@ -106,10 +106,16 @@ public class GestorLicencia {
 
         for (Licencia historialLicencia : historialLicencias) {
             licencia = historialLicencia;
-            if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C))
+            if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
+                if (licencia.getFechaEmision().isBefore(licenciaB))
+                    licenciaB = licencia.getFechaEmision();
+            }
+            else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C) &&
+               licencia.getFechaVencimiento().isAfter(LocalDate.now()))
                 flagsClases.set(1, false);
-            else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D) ||
-                    licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_E)) {
+            else if((licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D) ||
+                     licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_E)) &&
+                     licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
                 flagsClases.set(1, false);
                 flagsClases.set(2, false);
             }

@@ -106,6 +106,10 @@ public class ControllerGestionLicencia {
             }
     }
 
+    /**
+     * Segun lo seleccionado puede existir la opcion de crear una nueva licencia del tipo, renovarla cambiando las
+     * observaciones de la licencia, o renovar desde una licencia con menos privilegios a una mayor.
+     */
     @FXML
     private void listenerCombo(){
         int indexSeleccionad = comboLicencias.getSelectionModel().getSelectedIndex();
@@ -116,18 +120,66 @@ public class ControllerGestionLicencia {
             Boolean vigente = false;
 
             EnumClaseLicencia selected = comboLicencias.getItems().get(indexSeleccionad);
-            switch (selected) {
-                case CLASE_A:
-                    for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
-                        if (selected.equals(licencia.getClaseLicencia())) {
-                            labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
-                            labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
-                            textObservaciones.setText(licencia.getObservaciones());
-                            vigente = true;
-                            break;
-                        }
-
+            if(selected.equals(EnumClaseLicencia.CLASE_A) || selected.equals(EnumClaseLicencia.CLASE_B) ||
+               selected.equals(EnumClaseLicencia.CLASE_F) || selected.equals(EnumClaseLicencia.CLASE_G)) {
+                for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
+                    if (selected.equals(licencia.getClaseLicencia())) {
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
+                        labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
+                        textObservaciones.setText(licencia.getObservaciones());
+                        vigente = true;
+                        break;
                     }
+                }
+            }
+            else if(selected.equals(EnumClaseLicencia.CLASE_C)){
+                for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
+                    if (selected.equals(licencia.getClaseLicencia())) {
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
+                        labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
+                        textObservaciones.setText(licencia.getObservaciones());
+                        vigente = true;
+                        break;
+                    }
+                    else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
+                        //PUEDE CREAR UN TIPO C, REVOCANDO LA B
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_B);
+                        labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
+                        vigente = true;
+                        break;
+                    }
+                }
+            }
+            else if(selected.equals(EnumClaseLicencia.CLASE_D) || selected.equals(EnumClaseLicencia.CLASE_E)){
+                for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
+                    if (selected.equals(licencia.getClaseLicencia())) {
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
+                        labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
+                        textObservaciones.setText(licencia.getObservaciones());
+                        vigente = true;
+                        break;
+                    }
+                    else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
+                        //PUEDE CREAR UN TIPO C, REVOCANDO LA B
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_B);
+                        labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
+                        vigente = true;
+                        break;
+                    }
+                    else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C)){
+                        //PUEDE CREAR UN TIPO C, REVOCANDO LA B
+                        labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_C);
+                        labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
+                        vigente = true;
+                        break;
+                    }
+                }
+            }
+            //si no tiene licencias vigentes en relacion a la seleccionada puede crear una nueva
+            if(!vigente){
+                labelEstadoLicencia1.setText("No posee licencia vigente " + selected);
+                labelEstadoLicencia2.setText("Puede emitir una nueva licencia " + selected);
+                textObservaciones.setText("");
             }
         }
     }
