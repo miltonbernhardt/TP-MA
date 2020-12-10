@@ -1,5 +1,6 @@
 package gestor;
 
+import dto.DTOLicenciasVigentes;
 import herramientas.AlertPanel;
 import database.LicenciaDAO;
 import database.LicenciaDAOImpl;
@@ -102,64 +103,31 @@ public class GestorLicencia {
         for(int i = 0; i < 7; i++) flagsClases.add(true);
         //Variable que guarda la fecha de emisión de la licencia B, si el titular tuvo/tiene
         LocalDate licenciaB = LocalDate.now();
-        //Banderas licencias del tipo profesional, clase C, D, E
-        boolean claseC = false, claseD = false, claseE = false;
 
         for (Licencia historialLicencia : historialLicencias) {
             licencia = historialLicencia;
-            switch (licencia.getClaseLicencia()) {
-                case CLASE_A:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(0, false);
-                    break;
-                case CLASE_B:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(1, false);
-                    if (licencia.getFechaEmision().isBefore(licenciaB))
-                        licenciaB = licencia.getFechaEmision();
-                    break;
-                case CLASE_C:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1, false);
-                        flagsClases.set(2, false);
-                    }
-                    claseC = true;
-                    break;
-                case CLASE_D:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
-                        flagsClases.set(1, false);
-                        flagsClases.set(2, false);
-                        flagsClases.set(3, false);
-                    }
-                    claseD = true;
-                    break;
-                case CLASE_E:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(4, false);
-                    claseE = true;
-                    break;
-                case CLASE_F:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(5, false);
-                    break;
-                case CLASE_G:
-                    if (licencia.getFechaVencimiento().isAfter(LocalDate.now()))
-                        flagsClases.set(6, false);
-                    break;
+            if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
+                if (licencia.getFechaEmision().isBefore(licenciaB))
+                    licenciaB = licencia.getFechaEmision();
+            }
+            else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C) &&
+               licencia.getFechaVencimiento().isAfter(LocalDate.now()))
+                flagsClases.set(1, false);
+            else if((licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_D) ||
+                     licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_E)) &&
+                     licencia.getFechaVencimiento().isAfter(LocalDate.now())) {
+                flagsClases.set(1, false);
+                flagsClases.set(2, false);
             }
         }
-
         //Conductores profesionales, licencias C, D, E
         int edadTitular = GestorTitular.getEdad(titular.getFechaNacimiento());
         Integer vigenciaB = getTiempoEnVigencia(licenciaB,LocalDate.now());
 
         if(edadTitular >= 21 && vigenciaB > 0){
-            if(flagsClases.get(2))
-                if(!claseC && edadTitular > 65) flagsClases.set(2,false);
-            if(flagsClases.get(3))
-                if(!claseD && edadTitular > 65) flagsClases.set(3,false);
-            if(flagsClases.get(4))
-                if(!claseE && edadTitular > 65) flagsClases.set(4,false);
+            if(flagsClases.get(2) && edadTitular > 65) flagsClases.set(2,false);
+            if(flagsClases.get(3) && edadTitular > 65) flagsClases.set(3,false);
+            if(flagsClases.get(4) && edadTitular > 65) flagsClases.set(4,false);
         }
         else{
             flagsClases.set(2,false);
@@ -252,27 +220,9 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dtoEmitirLicencia.getFechaNacimiento(), dtoEmitirLicencia.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dtoEmitirLicencia.getObservaciones());
-
         licencia.setCosto((float) calcularCostoLicencia(dtoEmitirLicencia));
-
-        /*
-        TodO veriricar estado
-        LicenciaDAO dao = new LicenciaDAOImpl();
-        List<DTOLicenciasVigentes> list = dao.createListDTOLicenciasVigentes(136);
-        for(DTOLicenciasVigentes dto:list){
-            System.out.println(dto.getId_licencia() + " id_titular: "+dto.getId_titular());
-        }
-
-        DTOLicenciasVigentes dto = list.get(0);
-        Licencia l = dao.findById(dto.getId_licencia());
-        l.setObservaciones(dto.getObservaciones());
-
-        dao.update(l);
-         */
-
         Titular titular = GestorTitular.get().getTitular(dtoEmitirLicencia.getIdTitular());
         licencia.setTitular(titular);
-
         titular.getLicencias().add(licencia);
 
         try {
@@ -283,6 +233,58 @@ public class GestorLicencia {
         }
     }
 
+    /**
+     * Actualiza las observaciones de una licencia vigente
+     * @param dtoLicenciaRenovar
+     * @return
+     */
+    public Boolean renovarObservaciones(DTOLicenciasVigentes dtoLicenciaRenovar){
+        LicenciaDAO dao = new LicenciaDAOImpl();
+        Licencia licencia = null;
+        try {
+            licencia = dao.findById(dtoLicenciaRenovar.getId_licencia());
+        } catch (Exception e) {
+            return false;
+        }
+        licencia.setObservaciones(dtoLicenciaRenovar.getObservaciones());
+        try {
+            dao.update(licencia);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Dependiendo de la nueva licencia, revocar las vigentes correspondientes,
+     * Nueva C --> expira a B
+     * Nueva D --> expira a B o C, depende cual tenga vigente
+     * Nueva E --> expira a B o C, depende cual tenga vigente
+     * @param dtoLicenciaRenovar
+     * @return
+     */
+    public Boolean renovarTipoLicencia(DTOEmitirLicencia dtoEmitirLicencia, List<DTOLicenciasVigentes> dtoLicenciaRenovar){
+        //TodO renovarTipoLicencia
+        LicenciaDAO dao = new LicenciaDAOImpl();
+        Licencia licenciaExpirar = null;
+        for (DTOLicenciasVigentes licencia : dtoLicenciaRenovar) {
+            if (licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B) ||
+                licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C)) {
+                try {
+                    licenciaExpirar = dao.findById(licencia.getId_licencia());
+                } catch (Exception e) {
+                    return false;
+                }
+                licenciaExpirar.setFechaVencimiento(LocalDate.now());
+                try {
+                    dao.update(licenciaExpirar);
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        }
+        return generarLicencia(dtoEmitirLicencia);
+    }
 
     /** Obtiene las licencias que están asociadas a un titular.
         @param idTitular id del titular al que se le quiere consultar sus licencias. */
@@ -424,6 +426,14 @@ public class GestorLicencia {
         //}
 
         return consulta;
+    }
+
+    public List<DTOLicenciasVigentes> getLicenciasVigentes(int idTitular) {
+        try {
+            return daoLicencia.createListDTOLicenciasVigentes(idTitular);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 }
 
