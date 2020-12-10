@@ -24,30 +24,18 @@ public class ControllerAltaTitular {
         return instance;
     }
 
-    @FXML
-    private ComboBox<EnumTipoDocumento> CBTipoDNI;
-    @FXML
-    private TextField campoNombre;
-    @FXML
-    private TextField campoApe;
-    @FXML
-    private TextField campoDoc;
-    @FXML
-    private TextField campoCalle;
-    @FXML
-    private TextField campoNumCall;
-    @FXML
-    private ComboBox<EnumGrupoSanguineo> CBGsang;
-    @FXML
-    private ComboBox<EnumFactorRH> CBRH;
-    @FXML
-    private ComboBox<EnumSexo> CBSexo;
-    @FXML
-    private DatePicker campoFechaNac;
-    @FXML
-    private RadioButton RBdonante;
-    @FXML
-    private Button Bregistro;
+    @FXML private ComboBox<EnumTipoDocumento> CBTipoDNI;
+    @FXML private TextField campoNombre;
+    @FXML private TextField campoApe;
+    @FXML private TextField campoDoc;
+    @FXML private TextField campoCalle;
+    @FXML private TextField campoNumCall;
+    @FXML private ComboBox<EnumGrupoSanguineo> CBGsang;
+    @FXML private ComboBox<EnumFactorRH> CBRH;
+    @FXML private ComboBox<EnumSexo> CBSexo;
+    @FXML private DatePicker campoFechaNac;
+    @FXML private RadioButton RBdonante;
+    @FXML private Button Bregistro;
 
     public void initialize() {
         DatePickerIniciador.iniciarDatePicker(campoFechaNac, true);
@@ -75,10 +63,8 @@ public class ControllerAltaTitular {
         TextFielIniciador.soloNumeros(campoNumCall);
     }
 
-    /**
-     * onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
-     * GestorTitular.get().registrarTitular(dto) para registrarlo en la DB.
-     */
+    /** onRegisterTitular() obtiene los datos ingresados por pantalla y llama a
+     * GestorTitular.get().registrarTitular(dto) para registrarlo en la DB. */
     public void onRegisterTitular() {
         Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,
                 "Confirmar alta de Titular",
@@ -88,23 +74,16 @@ public class ControllerAltaTitular {
 
         if (result.orElse(null) == ButtonType.OK) {
 
-            if (GestorTitular.get().getEdad(campoFechaNac.getValue()) < 17) {
+            if (GestorTitular.getEdad(campoFechaNac.getValue()) < 17) {
                 AlertPanel.get(EnumTipoAlerta.INFORMACION, "Rango de edad",
                         "",
                         "Su titular debe poser al menos de 17 años", null);
             } else {
-                if (campoDoc.getText() == "DNI") {
-                    if (campoDoc.getLength() != 8) {
-
-                        AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
+                if (campoDoc.getText().equals("DNI") && (campoDoc.getLength() != 8)) {
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
                                 "",
                                 "El numero de Documento es inválido", null);
-                    }
-                    if (campoDoc.getLength() != 8) {
-                        AlertPanel.get(EnumTipoAlerta.INFORMACION, "Documento",
-                                "",
-                                "El numero de Documento es inválido", null);
-                    } else {
+                } else {
                         if (!GestorTitular.get().titularExistente(campoDoc.getText(), CBTipoDNI.getValue())) {
                             dto = new DTOAltaTitular();
                             dto.setNombre(campoNombre.getText().substring(0, 1).toUpperCase() + campoNombre.getText().substring(1).toLowerCase());
@@ -139,15 +118,11 @@ public class ControllerAltaTitular {
                                     "",
                                     "El titular ya se encuentra registrado",
                                     null);
+                            }
                         }
                     }
-
                 }
-            }
-
-
         }
-    }
 
         @FXML
         private void volver() {

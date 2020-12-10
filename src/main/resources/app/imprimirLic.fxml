@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerImprimirLicencia">
+<AnchorPane prefHeight="562.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ControllerImprimirLicencia">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1010.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -87,7 +87,7 @@
             <Image url="@../imagenes/icons8_undo_52px.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="paneLicencia" layoutX="142.0" layoutY="11.0" prefHeight="557.0" prefWidth="700.0" visible="false">
+      <AnchorPane fx:id="paneLicencia" layoutX="142.0" layoutY="11.0" prefHeight="538.0" prefWidth="700.0">
          <children>
             <Pane layoutX="-3.0" layoutY="-7.0" prefHeight="561.0" prefWidth="695.0" style="-fx-background-color: black;">
                <children>

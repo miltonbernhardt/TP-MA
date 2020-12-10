@@ -42,9 +42,9 @@ public class ControllerApp extends Application {
         primaryStage.getIcons().add(new Image("imagenes/icon-license-1.png"));
         primaryStage.setTitle("Menú");
         primaryStage.setMinWidth(1016);
-        primaryStage.setMinHeight(600);
+        primaryStage.setMinHeight(610);
         primaryStage.setMaxWidth(1016);
-        primaryStage.setMaxHeight(600);
+        primaryStage.setMaxHeight(610);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
