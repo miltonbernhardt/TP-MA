@@ -130,7 +130,7 @@ public class ControllerGestionLicencia {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
                         renovarObservaciones = true;
-                        observaciones = licencia.getObservaciones().toString();
+                        observaciones = licencia.getObservaciones();
                         textObservaciones.setText(observaciones);
                         break;
                     }
@@ -142,7 +142,7 @@ public class ControllerGestionLicencia {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
                         renovarObservaciones = true;
-                        observaciones = licencia.getObservaciones().toString();
+                        observaciones = licencia.getObservaciones();
                         textObservaciones.setText(observaciones);
                         break;
                     }
@@ -161,7 +161,7 @@ public class ControllerGestionLicencia {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
                         renovarObservaciones = true;
-                        observaciones = licencia.getObservaciones().toString();
+                        observaciones = licencia.getObservaciones();
                         textObservaciones.setText(observaciones);
                         break;
                     }
@@ -223,11 +223,11 @@ public class ControllerGestionLicencia {
                 volver();
             }
             else if (renovarObservaciones) {
-                if (textObservaciones.toString().equals(observaciones)) {
+                if (textObservaciones.getText().equals(observaciones)) {
                     AlertPanel.get(EnumTipoAlerta.ERROR,
                             "Error",
                             "",
-                            "No se a realizado modificaciones en las observaciones.",
+                            "Debe ingresar cambios en las observaciones.",
                             null);
                 }
                 else {

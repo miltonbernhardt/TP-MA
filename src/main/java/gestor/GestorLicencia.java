@@ -240,7 +240,20 @@ public class GestorLicencia {
      */
     public Boolean renovarObservaciones(DTOLicenciasVigentes dtoLicenciaRenovar){
         //TodO renovarObservaciones
-        return false;
+        LicenciaDAO dao = new LicenciaDAOImpl();
+        Licencia licencia = null;
+        try {
+            licencia = dao.findById(dtoLicenciaRenovar.getId_licencia());
+        } catch (Exception e) {
+            return false;
+        }
+        licencia.setObservaciones(dtoLicenciaRenovar.getObservaciones());
+        try {
+            dao.update(licencia);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
