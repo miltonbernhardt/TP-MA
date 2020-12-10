@@ -21,6 +21,9 @@ public class ControllerGestionLicencia {
     private static ControllerGestionLicencia instanciaGestionLicencia = null;
     private DTOEmitirLicencia dto = null;
     private List<DTOLicenciasVigentes> listaLicenciasVigentes;
+    private Boolean renovarObservaciones;
+    private Boolean renovarTipoLicencia;
+    private String observaciones;
 
     public static ControllerGestionLicencia get() {
         if (instanciaGestionLicencia == null){
@@ -116,8 +119,8 @@ public class ControllerGestionLicencia {
         if(indexSeleccionad > -1){
             btnGenerarLicencia.setDisable(false);
             labelDescripcionLicencia.setText("- "+comboLicencias.getItems().get(indexSeleccionad).getDescripcion());
-            //ToDo fijarse estado renovar/emitir
-            Boolean vigente = false;
+            renovarObservaciones = false;
+            renovarTipoLicencia = false;
 
             EnumClaseLicencia selected = comboLicencias.getItems().get(indexSeleccionad);
             if(selected.equals(EnumClaseLicencia.CLASE_A) || selected.equals(EnumClaseLicencia.CLASE_B) ||
@@ -126,8 +129,9 @@ public class ControllerGestionLicencia {
                     if (selected.equals(licencia.getClaseLicencia())) {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
-                        textObservaciones.setText(licencia.getObservaciones());
-                        vigente = true;
+                        renovarObservaciones = true;
+                        observaciones = licencia.getObservaciones().toString();
+                        textObservaciones.setText(observaciones);
                         break;
                     }
                 }
@@ -137,15 +141,16 @@ public class ControllerGestionLicencia {
                     if (selected.equals(licencia.getClaseLicencia())) {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
-                        textObservaciones.setText(licencia.getObservaciones());
-                        vigente = true;
+                        renovarObservaciones = true;
+                        observaciones = licencia.getObservaciones().toString();
+                        textObservaciones.setText(observaciones);
                         break;
                     }
                     else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
                         //PUEDE CREAR UN TIPO C, REVOCANDO LA B
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_B);
                         labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
-                        vigente = true;
+                        renovarTipoLicencia = true;
                         break;
                     }
                 }
@@ -155,54 +160,120 @@ public class ControllerGestionLicencia {
                     if (selected.equals(licencia.getClaseLicencia())) {
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + selected);
                         labelEstadoLicencia2.setText("Puede cambiar las observaciones.");
-                        textObservaciones.setText(licencia.getObservaciones());
-                        vigente = true;
+                        renovarObservaciones = true;
+                        observaciones = licencia.getObservaciones().toString();
+                        textObservaciones.setText(observaciones);
                         break;
                     }
                     else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B)){
                         //PUEDE CREAR UN TIPO C, REVOCANDO LA B
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_B);
                         labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
-                        vigente = true;
+                        renovarTipoLicencia = true;
                         break;
                     }
                     else if(licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C)){
                         //PUEDE CREAR UN TIPO C, REVOCANDO LA B
                         labelEstadoLicencia1.setText("Posee una licencia vigente " + EnumClaseLicencia.CLASE_C);
                         labelEstadoLicencia2.setText("Puede renovarla como una licencia " + selected);
-                        vigente = true;
+                        renovarTipoLicencia = true;
                         break;
                     }
                 }
             }
             //si no tiene licencias vigentes en relacion a la seleccionada puede crear una nueva
-            if(!vigente){
+            if(!renovarObservaciones && !renovarTipoLicencia){
                 labelEstadoLicencia1.setText("No posee licencia vigente " + selected);
                 labelEstadoLicencia2.setText("Puede emitir una nueva licencia " + selected);
                 textObservaciones.setText("");
+                observaciones = "";
             }
         }
     }
 
     @FXML
-    private void generarLicencia() {
+    private void gestionarLicencia() {
+
         String tituloVentana, contenidoMensaje, mensajeExito, mensajeNoExito;
-
         tituloVentana = "Confirmar emisión";
-        contenidoMensaje = "¿Desea confirmar la emisión de la licencia?";
-        mensajeExito = "Se emitió la licencia de forma correcta.";
-        mensajeNoExito = "No se ha podido emitir la licencia.";
-
-        Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,"",contenidoMensaje,null);
+        contenidoMensaje = "¿Desea confirmar la acción?";
+        mensajeExito = "Se realizó la operación de forma correcta.";
+        mensajeNoExito = "No se ha podido realizar la operación.";
+        Optional<ButtonType> result = AlertPanel.get(EnumTipoAlerta.CONFIRMACION,tituloVentana,
+                "",contenidoMensaje,
+                null);
         if (result.orElse(null) == ButtonType.OK) {
-            dto.setObservaciones(textObservaciones.getText());
-            dto.setClaseLicencia(comboLicencias.getItems().get(comboLicencias.getSelectionModel().getSelectedIndex()));
+            //crea una nueva sin renovar
+            if (!renovarTipoLicencia && !renovarObservaciones) {
 
-            if (GestorLicencia.get().generarLicencia(dto))
-                AlertPanel.get(EnumTipoAlerta.INFORMACION, "Confirmación", "", mensajeExito, null);
-            else
-                AlertPanel.get(EnumTipoAlerta.ERROR, "Error", "", mensajeNoExito, null);
-            volver();
+                dto.setObservaciones(textObservaciones.getText());
+                dto.setClaseLicencia(comboLicencias.getItems()
+                        .get(comboLicencias.getSelectionModel()
+                                .getSelectedIndex()));
+                if (GestorLicencia.get().generarLicencia(dto))
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION,
+                            "Confirmación",
+                            "", mensajeExito,
+                            null);
+                else
+                    AlertPanel.get(EnumTipoAlerta.ERROR,
+                            "Error",
+                            "", mensajeNoExito,
+                            null);
+                volver();
+            }
+            else if (renovarObservaciones) {
+                if (textObservaciones.toString().equals(observaciones)) {
+                    AlertPanel.get(EnumTipoAlerta.ERROR,
+                            "Error",
+                            "",
+                            "No se a realizado modificaciones en las observaciones.",
+                            null);
+                }
+                else {
+                    //Llamar al metodo renovarObservacionesLicencia
+                    EnumClaseLicencia selected = comboLicencias.getItems()
+                                                               .get(comboLicencias
+                                                               .getSelectionModel()
+                                                               .getSelectedIndex());
+                    //Recorro para buscar la licencia a actualizar observaciones
+                    for (DTOLicenciasVigentes licencia : listaLicenciasVigentes) {
+                        if (selected.equals(licencia.getClaseLicencia())) {
+                            licencia.setObservaciones(textObservaciones.getText());
+                            if (GestorLicencia.get().renovarObservaciones(licencia))
+                                AlertPanel.get(EnumTipoAlerta.INFORMACION,
+                                        "Confirmación",
+                                        "", mensajeExito,
+                                        null);
+                            else
+                                AlertPanel.get(EnumTipoAlerta.ERROR,
+                                        "Error",
+                                        "", mensajeNoExito,
+                                        null);
+                            break;
+                        }
+                    }
+                    volver();
+                }
+            }
+            else if (renovarTipoLicencia) {
+                //llamar al metodo renovarTipoLicencia
+                dto.setObservaciones(textObservaciones.getText());
+                dto.setClaseLicencia(comboLicencias.getItems()
+                        .get(comboLicencias.getSelectionModel()
+                                .getSelectedIndex()));
+                if (GestorLicencia.get().renovarTipoLicencia(dto,listaLicenciasVigentes))
+                    AlertPanel.get(EnumTipoAlerta.INFORMACION,
+                            "Confirmación",
+                            "", mensajeExito,
+                            null);
+                else
+                    AlertPanel.get(EnumTipoAlerta.ERROR,
+                            "Error",
+                            "", mensajeNoExito,
+                            null);
+                volver();
+            }
         }
     }
 

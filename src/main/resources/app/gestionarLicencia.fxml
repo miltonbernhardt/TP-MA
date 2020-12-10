@@ -122,7 +122,7 @@
             <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="110.0" prefWidth="915.0" VBox.vgrow="SOMETIMES" />
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Button fx:id="btnGenerarLicencia" disable="true" mnemonicParsing="false" onAction="#generarLicencia" text="Emitir licencia" />
+                  <Button fx:id="btnGenerarLicencia" disable="true" mnemonicParsing="false" onAction="#gestionarLicencia" text="Emitir licencia" />
                   <Pane HBox.hgrow="SOMETIMES" />
                   <ImageView fx:id="imageButton" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#volver" pickOnBounds="true" preserveRatio="true">
                      <image>

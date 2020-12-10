@@ -220,27 +220,9 @@ public class GestorLicencia {
         LocalDate vencimiento = calcularVigencia(dtoEmitirLicencia.getFechaNacimiento(), dtoEmitirLicencia.getIdTitular()).getFechaVencimiento();
         licencia.setFechaVencimiento(vencimiento);
         licencia.setObservaciones(dtoEmitirLicencia.getObservaciones());
-
         licencia.setCosto((float) calcularCostoLicencia(dtoEmitirLicencia));
-
-        /*
-        TodO veriricar estado
-        LicenciaDAO dao = new LicenciaDAOImpl();
-        List<DTOLicenciasVigentes> list = dao.createListDTOLicenciasVigentes(136);
-        for(DTOLicenciasVigentes dto:list){
-            System.out.println(dto.getId_licencia() + " id_titular: "+dto.getId_titular());
-        }
-
-        DTOLicenciasVigentes dto = list.get(0);
-        Licencia l = dao.findById(dto.getId_licencia());
-        l.setObservaciones(dto.getObservaciones());
-
-        dao.update(l);
-         */
-
         Titular titular = GestorTitular.get().getTitular(dtoEmitirLicencia.getIdTitular());
         licencia.setTitular(titular);
-
         titular.getLicencias().add(licencia);
 
         try {
@@ -251,6 +233,29 @@ public class GestorLicencia {
         }
     }
 
+    /**
+     * Actualiza las observaciones de una licencia vigente
+     * @param dtoLicenciaRenovar
+     * @return
+     */
+    public Boolean renovarObservaciones(DTOLicenciasVigentes dtoLicenciaRenovar){
+        //TodO renovarObservaciones
+        return false;
+    }
+
+    /**
+     *
+     * @param dtoLicenciaRenovar
+     * @return
+     */
+    public Boolean renovarTipoLicencia(DTOEmitirLicencia dtoEmitirLicencia, List<DTOLicenciasVigentes> dtoLicenciaRenovar){
+        //TodO renovarTipoLicencia
+        //Dependiendo de la nueva licencia, revocar las vigentes correspondientes,
+        //Nueva C --> expira a B
+        //Nueva D --> expira a B o C, depende cual tenga vigente
+        //Nueva E --> expira a B o C, depende cual tenga vigente
+        return false;
+    }
 
     /** Obtiene las licencias que están asociadas a un titular.
         @param idTitular id del titular al que se le quiere consultar sus licencias. */
