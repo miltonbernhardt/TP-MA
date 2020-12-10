@@ -32,7 +32,8 @@ public class HibernateUtil {
         sessionFactory.close();
     }
 
-    /** "true" si se quiere mostrar la consola de Hibernate.
+    /** Permite ocultar el log que se muestra generalmente cuando se utiliza Hibernate.
+        "true" si se quiere mostrar la consola de Hibernate.
         "false" si no se quiere mostrar la consola de Hibernate. */
     public static void apagarLog(Boolean apagamos) {
         if(apagamos) {
