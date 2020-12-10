@@ -49,7 +49,7 @@
             <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
-         <Button mnemonicParsing="false" onAction="#buscarTitular" text="Buscar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <Button mnemonicParsing="false" onAction="#buscarTitular" prefHeight="33.0" prefWidth="125.0" text="Buscar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <GridPane.margin>
                <Insets top="5.0" />
             </GridPane.margin>

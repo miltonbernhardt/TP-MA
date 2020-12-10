@@ -20,5 +20,9 @@ public interface LicenciaDAO extends BaseDAO<Licencia,Integer> {
 
     List<DTOImprimirLicencia> createListDTOimprimirLicsinTitular(String s);
 
+    /** "createListDTOLicenciaExpirada" crea instancias del DTOLicenciaExpirada de acuerdo a las entidades Licencia que sean resultado de la consulta.
+        Se utiliza para el funcionamiento de ControllerListadoLicenciasExpiradas.
+        En caso de fallo lanza una Exception.
+        @param consulta consulta para obtener las licencias expiradas. */
     List<DTOLicenciaExpirada> createListDTOLicenciaExpirada(String consulta);
 }

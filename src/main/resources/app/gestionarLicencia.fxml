@@ -114,7 +114,7 @@
                   <Insets bottom="-10.0" />
                </padding>
             </Label>
-            <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="193.0" prefWidth="915.0" VBox.vgrow="SOMETIMES" />
+            <TextArea fx:id="textObservaciones" disable="true" minHeight="20.0" minWidth="25.0" prefHeight="168.0" prefWidth="915.0" VBox.vgrow="SOMETIMES" />
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Button fx:id="btnGenerarLicencia" disable="true" mnemonicParsing="false" onAction="#generarLicencia" text="Emitir licencia" />
