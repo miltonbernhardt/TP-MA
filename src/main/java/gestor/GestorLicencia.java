@@ -278,7 +278,6 @@ public class GestorLicencia {
                 licenciaExpirar.setFechaVencimiento(LocalDate.now());
                 try {
                     dao.update(licenciaExpirar);
-                    return true;
                 } catch (Exception e) {
                     return false;
                 }
