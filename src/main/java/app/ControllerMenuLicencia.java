@@ -15,13 +15,8 @@ public class ControllerMenuLicencia {
     }
 
     @FXML
-    private void emitirLicencia() {
-        ControllerGestionLicencia.get(true);
-    }
-
-    @FXML
-    private void renovarLicencia() {
-        ControllerGestionLicencia.get(false);
+    private void gestionarLicencia() {
+        ControllerGestionLicencia.get();
     }
 
     @FXML

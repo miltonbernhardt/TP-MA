@@ -13,11 +13,14 @@ import java.time.format.DateTimeParseException;
 public class DatePickerIniciador extends StringConverter<LocalDate> {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+    public static LocalDate minDate = LocalDate.of(1930, 1, 1);
+    public static LocalDate maxDate = GestorTitular.get().getFechaMinima();
 
-    /** Setea el formato de los objetos DatePicker y les establece un rango de fechas válidas */
+    /** Setea el formato de los objetos DatePicker y les establece un rango de fechas válidas.
+        Si el valor de maximo es true se setea como valor por default el valor de fecha máximo permitido
+        por el sistema para registrarse (18 años hacia atrás el dia actual).
+        Si no se setea el valor minimo permitido, que se tomo la fecha de 1/1/1930. */
     static public void iniciarDatePicker(DatePicker datePicker, boolean maximo) {
-        LocalDate minDate = LocalDate.of(1930, 1, 1);
-        LocalDate maxDate = GestorTitular.get().getFechaMinima();
         datePicker.setPromptText( "dia/mes/año" );
         datePicker.setDayCellFactory(d ->
                 new DateCell() {
@@ -35,6 +38,7 @@ public class DatePickerIniciador extends StringConverter<LocalDate> {
     }
 
     @Override
+    /** Convierte un LocalDate a un String con el formato indicado. */
     public String toString(LocalDate localDate) {
         if (localDate == null)
             return "";
@@ -42,12 +46,12 @@ public class DatePickerIniciador extends StringConverter<LocalDate> {
     }
 
     @Override
+    /** Convierte un String a un dato tipo LocalDate si posee el formato indicado.
+        Si está en el formato adecuado verifica que esté dentro del rango de fechas válido. */
     public LocalDate fromString(String formattedString) {
         try {
-            LocalDate min = LocalDate.of(1930, 1, 1);
-            LocalDate max = GestorTitular.get().getFechaMinima();
             LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
-            if (date.isAfter(max) || date.isBefore(min)) {
+            if (date.isAfter(maxDate) || date.isBefore(minDate)) {
                 return null;
             }
             return date;
