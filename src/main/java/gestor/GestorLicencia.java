@@ -370,11 +370,9 @@ public class GestorLicencia {
 
 
     public static List<DTOLicenciaExpirada> obtenerListadoLicenciasExpiradas(DTOLicenciaExpirada filtros){
-
         String consulta = armarConsultaLicenciasExpiradas(filtros);
         try {
-               // return daoLicencia.createListDTOLicenciaExpirada(consulta);
-            List<DTOLicenciaExpirada> listDTOLicenciaExpirada = LicenciaDAOImpl.createListDTOLicenciaExpirada(consulta);
+            List<DTOLicenciaExpirada> listDTOLicenciaExpirada = daoLicencia.createListDTOLicenciaExpirada(consulta);
             return listDTOLicenciaExpirada;
         }
         catch (Exception e){
@@ -386,9 +384,7 @@ public class GestorLicencia {
 
     private static String armarConsultaLicenciasExpiradas(DTOLicenciaExpirada filtro)
     {
-        //l.id, t.apellido, t.nombre, t.tipoDNI, t.DNI, l.claseLicencia, l.fechaVencimiento
         String consulta = "";
-
 
         if(filtro.isRangofechas()){
             // consulta = consulta + " WHERE l.id = t.id AND DATE(l.fechaVencimiento) BETWEEN  '"+ filtro.getFechaInicial() + "' AND '" + filtro.getFechaFinal() + "'";

@@ -6,29 +6,22 @@ import dto.DTOLicenciaExpirada;
 import enumeration.EnumClaseLicencia;
 import enumeration.EnumTipoDocumento;
 import gestor.GestorLicencia;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
+import herramientas.TextFielIniciador;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-import java.awt.*;
 import java.net.URL;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerListadoLicenciasExpiradas implements Initializable {
     private static ControllerListadoLicenciasExpiradas instance = null;
-    //private DTOAltaTitular dto = new DTOAltaTitular();
 
     public static ControllerListadoLicenciasExpiradas get() {
         if (instance == null){
@@ -64,6 +57,7 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         ControllerApp.getViewAnterior();
         instance = null;
     }
+
     @FXML
     public void onCheckRangoClick(){
         if (filtrarPorRangoFecha.isSelected()){
@@ -83,11 +77,6 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         campoFechaInicial.getEditor().setDisable(true);
         campoFechaInicial.setValue(LocalDate.now());
 
-        campoNombre.addEventFilter(KeyEvent.ANY, handlerletters);
-        campoApe.addEventFilter(KeyEvent.ANY, handlerletters);
-        campoNroLicencia.addEventFilter(KeyEvent.ANY, handlerNumbers);
-        campoDoc.addEventFilter(KeyEvent.ANY, handlerNumbers);
-
         CBClaseLicencia.setPromptText("Clase");
         CBClaseLicencia.getItems().setAll(EnumClaseLicencia.values());
 
@@ -95,15 +84,23 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         CBTipoDNI.getItems().setAll(EnumTipoDocumento.values());
 
         iniciarTabla();
-
+        iniciarCampos();
     }
 
     private void cargarTabla(List<DTOLicenciaExpirada> lista) {
         tabla.getItems().clear();
         for(DTOLicenciaExpirada dto:lista){
             tabla.getItems().add(dto);
-
         }
+    }
+
+    /** Añade los listener correpondientes a los campos mediante la clase TextFielIniciador, el cuál indica que valores
+     del campo pueden aceptarse en dichos campos. */
+    private void iniciarCampos(){
+        TextFielIniciador.letrasAcento(campoNombre);
+        TextFielIniciador.letrasAcento(campoNombre);
+        TextFielIniciador.letrasNumero(campoDoc);
+        TextFielIniciador.soloNumeros(campoNroLicencia);
     }
 
     public void buscarLicenciasExpiradas(){
@@ -129,60 +126,6 @@ public class ControllerListadoLicenciasExpiradas implements Initializable {
         this.cargarTabla(resultado);
 
     }
-
-    //verificar campos solo letras, consume las entradas no validas
-    EventHandler<KeyEvent> handlerletters = new EventHandler<KeyEvent>() {
-        private boolean willConsume =false;
-        @Override
-        public void handle(KeyEvent event){
-            Object temp0= event.getSource();
-            //una vez que se consume se debe volver a poner en falso, sino seguira consumiendo hasta que
-            //se ingrese un caracter no valido
-            if (willConsume){
-                event.consume();
-                willConsume = false;
-            }
-            String temp = event.getCode().toString();
-            if (!event.getCode().toString().matches("[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]")&&(event.getCode()!= KeyCode.SPACE)
-                    && ( event.getCode() != KeyCode.SHIFT)) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED){
-                    willConsume = true;
-                }  else if (event.getEventType() == KeyEvent.KEY_RELEASED)  {
-                    willConsume = false;
-                }
-
-            }
-        }
-    };
-
-    //verificar campos solo numeros
-    EventHandler<KeyEvent> handlerNumbers = new EventHandler<KeyEvent>() {
-        private boolean willConsume = false;
-        private int maxLength = 10;
-
-        @Override
-        public void handle(KeyEvent event) {
-            TextField temp = (TextField) event.getSource();
-            if (willConsume) {
-                event.consume();
-
-            }
-            if (!event.getText().matches("[0-9]") && event.getCode() != KeyCode.BACK_SPACE) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-                    willConsume = true;
-                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-                    willConsume = false;
-                }
-            }
-            if (temp.getText().length() > maxLength - 1) {
-                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-                    willConsume = true;
-                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-                    willConsume = false;
-                }
-            }
-        }
-    };
 
     private void iniciarTabla() {
         tabla.setPlaceholder(new Label("No hay licencias que mostrar."));
