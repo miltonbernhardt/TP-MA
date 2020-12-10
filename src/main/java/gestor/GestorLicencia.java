@@ -239,7 +239,6 @@ public class GestorLicencia {
      * @return
      */
     public Boolean renovarObservaciones(DTOLicenciasVigentes dtoLicenciaRenovar){
-        //TodO renovarObservaciones
         LicenciaDAO dao = new LicenciaDAOImpl();
         Licencia licencia = null;
         try {
@@ -257,17 +256,35 @@ public class GestorLicencia {
     }
 
     /**
-     *
+     * Dependiendo de la nueva licencia, revocar las vigentes correspondientes,
+     * Nueva C --> expira a B
+     * Nueva D --> expira a B o C, depende cual tenga vigente
+     * Nueva E --> expira a B o C, depende cual tenga vigente
      * @param dtoLicenciaRenovar
      * @return
      */
     public Boolean renovarTipoLicencia(DTOEmitirLicencia dtoEmitirLicencia, List<DTOLicenciasVigentes> dtoLicenciaRenovar){
         //TodO renovarTipoLicencia
-        //Dependiendo de la nueva licencia, revocar las vigentes correspondientes,
-        //Nueva C --> expira a B
-        //Nueva D --> expira a B o C, depende cual tenga vigente
-        //Nueva E --> expira a B o C, depende cual tenga vigente
-        return false;
+        LicenciaDAO dao = new LicenciaDAOImpl();
+        Licencia licenciaExpirar = null;
+        for (DTOLicenciasVigentes licencia : dtoLicenciaRenovar) {
+            if (licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_B) ||
+                licencia.getClaseLicencia().equals(EnumClaseLicencia.CLASE_C)) {
+                try {
+                    licenciaExpirar = dao.findById(licencia.getId_licencia());
+                } catch (Exception e) {
+                    return false;
+                }
+                licenciaExpirar.setFechaVencimiento(LocalDate.now());
+                try {
+                    dao.update(licenciaExpirar);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        }
+        return generarLicencia(dtoEmitirLicencia);
     }
 
     /** Obtiene las licencias que están asociadas a un titular.
