@@ -18,7 +18,8 @@ public class TextFielIniciador {
         });
     }
 
-    /** Permite que un TextField acepte espacios en blanco y números */
+
+    /** Permite que un TextField números */
     static public void soloNumeros(TextField campo){
         campo.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!Pattern.compile(SOLO_NUMEROS).matcher(newValue).matches())

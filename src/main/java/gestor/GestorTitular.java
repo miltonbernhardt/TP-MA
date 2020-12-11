@@ -87,7 +87,10 @@ public class GestorTitular {
 
 
     /** Buscar los titulares que coincidan con los argumentos pasados como párametros y crea una lista de
-        DTOs en base a ellos. */
+        DTOs en base a ellos.
+        Para ello crea una consulta en base a los parámetros que posea el DTOGestionTitular argumentosBusca y se
+        lo pasa al método createListDTOBuscarTitular del TitularDAO.
+        En caso de fallo lanza un panel de alerta indicando el error. */
     public List<DTOGestionTitular> searchTitular(DTOGestionTitular argumentosBuscar) {
         String argumentos = "";
 
@@ -155,7 +158,8 @@ public class GestorTitular {
             else return daoTitular.createListDTOBuscarTitular("");
         }
         catch (Exception e){
-            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,"No se pudo realizar la consulta deseada.", e);
+            AlertPanel.get(EnumTipoAlerta.EXCEPCION,null,null,
+                    "No se pudo realizar la consulta deseada.", e);
             return new ArrayList<>();
         }
     }
